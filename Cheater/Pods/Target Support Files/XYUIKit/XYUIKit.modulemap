@@ -1,0 +1,6 @@
+framework module XYUIKit {
+  umbrella header "XYUIKit-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -3,29 +3,39 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7DA33F46A5B4A4C28F7E5C69 /* Pods_Cheater.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0BB7D9FF695167719B58D0 /* Pods_Cheater.framework */; };
+		B475F2BB2A3698AA006C7351 /* XYHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B475F2BA2A3698AA006C7351 /* XYHomeViewController.m */; };
 		B4FFBE262A36161C001F09AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE252A36161C001F09AD /* AppDelegate.swift */; };
 		B4FFBE282A36161C001F09AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE272A36161C001F09AD /* SceneDelegate.swift */; };
-		B4FFBE2A2A36161C001F09AD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE292A36161C001F09AD /* ViewController.swift */; };
+		B4FFBE2A2A36161C001F09AD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE292A36161C001F09AD /* HomeViewController.swift */; };
 		B4FFBE2D2A36161C001F09AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4FFBE2B2A36161C001F09AD /* Main.storyboard */; };
 		B4FFBE2F2A36161D001F09AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FFBE2E2A36161D001F09AD /* Assets.xcassets */; };
 		B4FFBE322A36161D001F09AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4FFBE302A36161D001F09AD /* LaunchScreen.storyboard */; };
-		B4FFBE3A2A3619C2001F09AD /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE392A3619C2001F09AD /* File.swift */; };
+		B4FFBE3A2A3619C2001F09AD /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE392A3619C2001F09AD /* MineViewController.swift */; };
+		B4FFBE3D2A362C18001F09AD /* XYChatInputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE3C2A362C18001F09AD /* XYChatInputBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E0BB7D9FF695167719B58D0 /* Pods_Cheater.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cheater.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		26A6EDACAA988EFA8AA90764 /* Pods-Cheater.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cheater.release.xcconfig"; path = "Target Support Files/Pods-Cheater/Pods-Cheater.release.xcconfig"; sourceTree = "<group>"; };
+		6E7EDBFBF8ACD50437237B58 /* Pods-Cheater.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cheater.debug.xcconfig"; path = "Target Support Files/Pods-Cheater/Pods-Cheater.debug.xcconfig"; sourceTree = "<group>"; };
+		B475F2B82A3698A9006C7351 /* Cheater-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Cheater-Bridging-Header.h"; sourceTree = "<group>"; };
+		B475F2B92A3698AA006C7351 /* XYHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYHomeViewController.h; sourceTree = "<group>"; };
+		B475F2BA2A3698AA006C7351 /* XYHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYHomeViewController.m; sourceTree = "<group>"; };
 		B4FFBE222A36161C001F09AD /* Cheater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cheater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4FFBE252A36161C001F09AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4FFBE272A36161C001F09AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B4FFBE292A36161C001F09AD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B4FFBE292A36161C001F09AD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B4FFBE2C2A36161C001F09AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B4FFBE2E2A36161D001F09AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B4FFBE312A36161D001F09AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B4FFBE332A36161D001F09AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B4FFBE392A3619C2001F09AD /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		B4FFBE392A3619C2001F09AD /* MineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
+		B4FFBE3C2A362C18001F09AD /* XYChatInputBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYChatInputBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +43,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DA33F46A5B4A4C28F7E5C69 /* Pods_Cheater.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		386228FE40E928E7AC8CF48A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6E7EDBFBF8ACD50437237B58 /* Pods-Cheater.debug.xcconfig */,
+				26A6EDACAA988EFA8AA90764 /* Pods-Cheater.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		3E1D68BD4F13F4CFA08ACCBB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0E0BB7D9FF695167719B58D0 /* Pods_Cheater.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B4FFBE192A36161C001F09AD = {
 			isa = PBXGroup;
 			children = (
 				B4FFBE242A36161C001F09AD /* Cheater */,
 				B4FFBE232A36161C001F09AD /* Products */,
+				386228FE40E928E7AC8CF48A /* Pods */,
+				3E1D68BD4F13F4CFA08ACCBB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,16 +88,28 @@
 		B4FFBE242A36161C001F09AD /* Cheater */ = {
 			isa = PBXGroup;
 			children = (
+				B4FFBE3B2A362BE4001F09AD /* ChatInputBar */,
 				B4FFBE252A36161C001F09AD /* AppDelegate.swift */,
 				B4FFBE272A36161C001F09AD /* SceneDelegate.swift */,
-				B4FFBE292A36161C001F09AD /* ViewController.swift */,
+				B4FFBE292A36161C001F09AD /* HomeViewController.swift */,
+				B4FFBE392A3619C2001F09AD /* MineViewController.swift */,
 				B4FFBE2B2A36161C001F09AD /* Main.storyboard */,
 				B4FFBE2E2A36161D001F09AD /* Assets.xcassets */,
 				B4FFBE302A36161D001F09AD /* LaunchScreen.storyboard */,
 				B4FFBE332A36161D001F09AD /* Info.plist */,
-				B4FFBE392A3619C2001F09AD /* File.swift */,
+				B475F2B92A3698AA006C7351 /* XYHomeViewController.h */,
+				B475F2BA2A3698AA006C7351 /* XYHomeViewController.m */,
+				B475F2B82A3698A9006C7351 /* Cheater-Bridging-Header.h */,
 			);
 			path = Cheater;
+			sourceTree = "<group>";
+		};
+		B4FFBE3B2A362BE4001F09AD /* ChatInputBar */ = {
+			isa = PBXGroup;
+			children = (
+				B4FFBE3C2A362C18001F09AD /* XYChatInputBar.swift */,
+			);
+			path = ChatInputBar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,9 +119,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B4FFBE362A36161D001F09AD /* Build configuration list for PBXNativeTarget "Cheater" */;
 			buildPhases = (
+				FC7181F42626EE04FA09822C /* [CP] Check Pods Manifest.lock */,
 				B4FFBE1E2A36161C001F09AD /* Sources */,
 				B4FFBE1F2A36161C001F09AD /* Frameworks */,
 				B4FFBE202A36161C001F09AD /* Resources */,
+				0541206179092C71529C605B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -97,16 +141,19 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				CLASSPREFIX = XY;
 				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1420;
+				ORGANIZATIONNAME = xiaoyou;
 				TargetAttributes = {
 					B4FFBE212A36161C001F09AD = {
 						CreatedOnToolsVersion = 14.2;
+						LastSwiftMigration = 1420;
 					};
 				};
 			};
 			buildConfigurationList = B4FFBE1D2A36161C001F09AD /* Build configuration list for PBXProject "Cheater" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -136,13 +183,57 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0541206179092C71529C605B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Cheater/Pods-Cheater-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Cheater/Pods-Cheater-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Cheater/Pods-Cheater-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FC7181F42626EE04FA09822C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Cheater-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B4FFBE1E2A36161C001F09AD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B4FFBE2A2A36161C001F09AD /* ViewController.swift in Sources */,
-				B4FFBE3A2A3619C2001F09AD /* File.swift in Sources */,
+				B475F2BB2A3698AA006C7351 /* XYHomeViewController.m in Sources */,
+				B4FFBE3D2A362C18001F09AD /* XYChatInputBar.swift in Sources */,
+				B4FFBE2A2A36161C001F09AD /* HomeViewController.swift in Sources */,
+				B4FFBE3A2A3619C2001F09AD /* MineViewController.swift in Sources */,
 				B4FFBE262A36161C001F09AD /* AppDelegate.swift in Sources */,
 				B4FFBE282A36161C001F09AD /* SceneDelegate.swift in Sources */,
 			);
@@ -286,9 +377,11 @@
 		};
 		B4FFBE372A36161D001F09AD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6E7EDBFBF8ACD50437237B58 /* Pods-Cheater.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = J9CJUEB6H8;
@@ -312,6 +405,8 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Cheater/Cheater-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -319,9 +414,11 @@
 		};
 		B4FFBE382A36161D001F09AD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 26A6EDACAA988EFA8AA90764 /* Pods-Cheater.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = J9CJUEB6H8;
@@ -345,6 +442,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Cheater/Cheater-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
