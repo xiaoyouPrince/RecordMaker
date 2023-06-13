@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		7DA33F46A5B4A4C28F7E5C69 /* Pods_Cheater.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0BB7D9FF695167719B58D0 /* Pods_Cheater.framework */; };
 		B475F2BB2A3698AA006C7351 /* XYHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B475F2BA2A3698AA006C7351 /* XYHomeViewController.m */; };
+		B4F869A42A38A011003749B8 /* WechatHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */; };
+		B4F869A72A38A346003749B8 /* WXConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A62A38A346003749B8 /* WXConfig.swift */; };
+		B4F869AA2A38A74A003749B8 /* WechatTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A92A38A74A003749B8 /* WechatTabbar.swift */; };
+		B4F869AC2A38C41D003749B8 /* Resources.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4F869AB2A38C41D003749B8 /* Resources.xcassets */; };
 		B4FFBE262A36161C001F09AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE252A36161C001F09AD /* AppDelegate.swift */; };
 		B4FFBE282A36161C001F09AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE272A36161C001F09AD /* SceneDelegate.swift */; };
 		B4FFBE2A2A36161C001F09AD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE292A36161C001F09AD /* HomeViewController.swift */; };
@@ -26,6 +30,10 @@
 		B475F2B82A3698A9006C7351 /* Cheater-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Cheater-Bridging-Header.h"; sourceTree = "<group>"; };
 		B475F2B92A3698AA006C7351 /* XYHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYHomeViewController.h; sourceTree = "<group>"; };
 		B475F2BA2A3698AA006C7351 /* XYHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYHomeViewController.m; sourceTree = "<group>"; };
+		B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatHomeViewController.swift; sourceTree = "<group>"; };
+		B4F869A62A38A346003749B8 /* WXConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXConfig.swift; sourceTree = "<group>"; };
+		B4F869A92A38A74A003749B8 /* WechatTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatTabbar.swift; sourceTree = "<group>"; };
+		B4F869AB2A38C41D003749B8 /* Resources.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Resources.xcassets; sourceTree = "<group>"; };
 		B4FFBE222A36161C001F09AD /* Cheater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cheater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4FFBE252A36161C001F09AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4FFBE272A36161C001F09AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +75,67 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B4F8699E2A387C41003749B8 /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				B4F869A22A387D38003749B8 /* FirstPages */,
+				B4F869A12A387C8D003749B8 /* Features */,
+				B4F869A02A387C84003749B8 /* Alipay */,
+				B4F8699F2A387C77003749B8 /* Wechat */,
+				B4FFBE3B2A362BE4001F09AD /* ChatInputBar */,
+			);
+			path = Project;
+			sourceTree = "<group>";
+		};
+		B4F8699F2A387C77003749B8 /* Wechat */ = {
+			isa = PBXGroup;
+			children = (
+				B4F869A82A38A71C003749B8 /* Views */,
+				B4F869A52A38A321003749B8 /* Config */,
+				B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */,
+			);
+			path = Wechat;
+			sourceTree = "<group>";
+		};
+		B4F869A02A387C84003749B8 /* Alipay */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Alipay;
+			sourceTree = "<group>";
+		};
+		B4F869A12A387C8D003749B8 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		B4F869A22A387D38003749B8 /* FirstPages */ = {
+			isa = PBXGroup;
+			children = (
+				B4FFBE292A36161C001F09AD /* HomeViewController.swift */,
+				B4FFBE392A3619C2001F09AD /* MineViewController.swift */,
+			);
+			path = FirstPages;
+			sourceTree = "<group>";
+		};
+		B4F869A52A38A321003749B8 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				B4F869A62A38A346003749B8 /* WXConfig.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		B4F869A82A38A71C003749B8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B4F869A92A38A74A003749B8 /* WechatTabbar.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		B4FFBE192A36161C001F09AD = {
 			isa = PBXGroup;
 			children = (
@@ -88,13 +157,12 @@
 		B4FFBE242A36161C001F09AD /* Cheater */ = {
 			isa = PBXGroup;
 			children = (
-				B4FFBE3B2A362BE4001F09AD /* ChatInputBar */,
+				B4F8699E2A387C41003749B8 /* Project */,
 				B4FFBE252A36161C001F09AD /* AppDelegate.swift */,
 				B4FFBE272A36161C001F09AD /* SceneDelegate.swift */,
-				B4FFBE292A36161C001F09AD /* HomeViewController.swift */,
-				B4FFBE392A3619C2001F09AD /* MineViewController.swift */,
 				B4FFBE2B2A36161C001F09AD /* Main.storyboard */,
 				B4FFBE2E2A36161D001F09AD /* Assets.xcassets */,
+				B4F869AB2A38C41D003749B8 /* Resources.xcassets */,
 				B4FFBE302A36161D001F09AD /* LaunchScreen.storyboard */,
 				B4FFBE332A36161D001F09AD /* Info.plist */,
 				B475F2B92A3698AA006C7351 /* XYHomeViewController.h */,
@@ -176,6 +244,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4FFBE322A36161D001F09AD /* LaunchScreen.storyboard in Resources */,
+				B4F869AC2A38C41D003749B8 /* Resources.xcassets in Resources */,
 				B4FFBE2F2A36161D001F09AD /* Assets.xcassets in Resources */,
 				B4FFBE2D2A36161C001F09AD /* Main.storyboard in Resources */,
 			);
@@ -232,9 +301,12 @@
 			files = (
 				B475F2BB2A3698AA006C7351 /* XYHomeViewController.m in Sources */,
 				B4FFBE3D2A362C18001F09AD /* XYChatInputBar.swift in Sources */,
+				B4F869A42A38A011003749B8 /* WechatHomeViewController.swift in Sources */,
+				B4F869AA2A38A74A003749B8 /* WechatTabbar.swift in Sources */,
 				B4FFBE2A2A36161C001F09AD /* HomeViewController.swift in Sources */,
 				B4FFBE3A2A3619C2001F09AD /* MineViewController.swift in Sources */,
 				B4FFBE262A36161C001F09AD /* AppDelegate.swift in Sources */,
+				B4F869A72A38A346003749B8 /* WXConfig.swift in Sources */,
 				B4FFBE282A36161C001F09AD /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -399,6 +471,23 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"Masonry\"",
+					"-framework",
+					"\"SnapKit\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"XYInfomationSection\"",
+					"-framework",
+					"\"XYNav\"",
+					"-framework",
+					"\"XYUIKit\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaoyou.Cheater;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -436,6 +525,23 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"Masonry\"",
+					"-framework",
+					"\"SnapKit\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"XYInfomationSection\"",
+					"-framework",
+					"\"XYNav\"",
+					"-framework",
+					"\"XYUIKit\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaoyou.Cheater;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

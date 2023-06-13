@@ -9,7 +9,7 @@ PODS:
 
 DEPENDENCIES:
   - XYInfomationSection
-  - XYNav
+  - XYNav (from `/Users/quxiaoyou/Desktop/XYNav/`)
   - XYUIKit (from `/Users/quxiaoyou/Desktop/XYUIKit`)
 
 SPEC REPOS:
@@ -18,9 +18,10 @@ SPEC REPOS:
   trunk:
     - Masonry
     - XYInfomationSection
-    - XYNav
 
 EXTERNAL SOURCES:
+  XYNav:
+    :path: "/Users/quxiaoyou/Desktop/XYNav/"
   XYUIKit:
     :path: "/Users/quxiaoyou/Desktop/XYUIKit"
 
@@ -31,6 +32,6 @@ SPEC CHECKSUMS:
   XYNav: cd632211142b8c20c116218ced311dcf099a4077
   XYUIKit: 6778500453534251c667960c6f37aae9a77eb7d9
 
-PODFILE CHECKSUM: 7f0179f50fba5d3bb79edba8854969b1bf441f1e
+PODFILE CHECKSUM: 228abf4f87f8a9c6c9b6d5a23f8df14769853702
 
 COCOAPODS: 1.12.1

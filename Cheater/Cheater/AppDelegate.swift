@@ -6,6 +6,14 @@
 //
 
 import UIKit
+import XYNav
+/*
+    关于导入 XYNav 头文件, 不知道 Xcode 是什么问题,需要在某地显示导入一下,否则一些拓展方法无法使用.
+    不过可以理解的是: 需要在本项目的命名空间内引入一下其他命名空间的内容.
+ 
+    但是 SnapKit 为什么就可以呢? 可能是因为其他组件显示的 import snapkit 了,并且其他组件被 import,
+    在编译时期,系统会递归编译 import 过的所有内容,这样就解释通了
+ */
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

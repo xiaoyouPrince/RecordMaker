@@ -11,13 +11,13 @@ class MineViewController: UIViewController {
 
     override func viewDidLoad() {
         view.backgroundColor = .yellow
-//        navigationController?.navigationBar.tintColor = UIColor.orange
-//        navigationController?.navigationBar.barTintColor = UIColor.orange
         
-        setNavbarWechat()
+        nav_hideDefaultBackBtn()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+//        push(HomeViewController(), animated: true)
         
 //        navigationController?.popViewController(animated: true)
     }

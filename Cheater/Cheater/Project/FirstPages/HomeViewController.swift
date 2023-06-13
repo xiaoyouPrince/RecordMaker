@@ -27,15 +27,11 @@ public extension UIViewController {
         var color: XYColor? = XYColor.xy_getColor(hex: 0)
         switch type {
         case .Wechat:
-            color = .lightGray
+            color = WXConfig().navBarBgColor
         default:
             color = .blue
         }
         navigationController?.navigationBar.barTintColor = color
-    }
-    
-    func push(_ viewController: UIViewController, animated: Bool) {
-        navigationController?.pushViewController(viewController, animated: animated)
     }
 }
 
@@ -60,14 +56,6 @@ class HomeViewController: XYInfomationBaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-//        let detail = MineViewController()
-//        detail.title = "Second"
-//        navigationController?.pushViewController(detail, animated: true)
     }
     
     func getContentData() -> [Any] {
@@ -265,7 +253,12 @@ class HomeCell: XYInfomationCell {
                     itemView.addBlock(for: UIControl.Event.touchUpInside) { sender in
                         if let itemView = sender as? ItemView {
                             
-                            let detail = MineViewController()
+                            var detail: UIViewController!
+                            if itemView.item.title == "微信首页" {
+                                detail = WechatHomeViewController()
+                            }else{
+                                detail = MineViewController()
+                            }
                             detail.title = itemView.item.title
                             itemView.viewController?.push(detail, animated: true)
                         }
@@ -302,7 +295,6 @@ class HomeCell: XYInfomationCell {
                     make.bottom.equalToSuperview().offset(-20)
                 }
             }
-            
         }
     }
 }

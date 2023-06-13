@@ -7,7 +7,7 @@ target 'Cheater' do
   use_frameworks!
 
   # Pods for Cheater
-  pod 'XYNav'
   pod 'XYInfomationSection'
   pod 'XYUIKit', :path => '/Users/quxiaoyou/Desktop/XYUIKit'
+  pod 'XYNav', :path => '/Users/quxiaoyou/Desktop/XYNav/'
 end
