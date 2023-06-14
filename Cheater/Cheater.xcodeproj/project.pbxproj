@@ -13,6 +13,9 @@
 		B4F869A72A38A346003749B8 /* WXConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A62A38A346003749B8 /* WXConfig.swift */; };
 		B4F869AA2A38A74A003749B8 /* WechatTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A92A38A74A003749B8 /* WechatTabbar.swift */; };
 		B4F869AC2A38C41D003749B8 /* Resources.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4F869AB2A38C41D003749B8 /* Resources.xcassets */; };
+		B4F869AE2A396BD8003749B8 /* MineInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869AD2A396BD8003749B8 /* MineInfoView.swift */; };
+		B4F869B02A3989E9003749B8 /* WXPersonInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869AF2A3989E9003749B8 /* WXPersonInfoViewController.swift */; };
+		B4F869B22A39B98A003749B8 /* WXUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869B12A39B98A003749B8 /* WXUserInfo.swift */; };
 		B4FFBE262A36161C001F09AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE252A36161C001F09AD /* AppDelegate.swift */; };
 		B4FFBE282A36161C001F09AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE272A36161C001F09AD /* SceneDelegate.swift */; };
 		B4FFBE2A2A36161C001F09AD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE292A36161C001F09AD /* HomeViewController.swift */; };
@@ -34,6 +37,9 @@
 		B4F869A62A38A346003749B8 /* WXConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXConfig.swift; sourceTree = "<group>"; };
 		B4F869A92A38A74A003749B8 /* WechatTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatTabbar.swift; sourceTree = "<group>"; };
 		B4F869AB2A38C41D003749B8 /* Resources.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Resources.xcassets; sourceTree = "<group>"; };
+		B4F869AD2A396BD8003749B8 /* MineInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineInfoView.swift; sourceTree = "<group>"; };
+		B4F869AF2A3989E9003749B8 /* WXPersonInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXPersonInfoViewController.swift; sourceTree = "<group>"; };
+		B4F869B12A39B98A003749B8 /* WXUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXUserInfo.swift; sourceTree = "<group>"; };
 		B4FFBE222A36161C001F09AD /* Cheater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cheater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4FFBE252A36161C001F09AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4FFBE272A36161C001F09AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +99,7 @@
 				B4F869A82A38A71C003749B8 /* Views */,
 				B4F869A52A38A321003749B8 /* Config */,
 				B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */,
+				B4F869AF2A3989E9003749B8 /* WXPersonInfoViewController.swift */,
 			);
 			path = Wechat;
 			sourceTree = "<group>";
@@ -124,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				B4F869A62A38A346003749B8 /* WXConfig.swift */,
+				B4F869B12A39B98A003749B8 /* WXUserInfo.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -132,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				B4F869A92A38A74A003749B8 /* WechatTabbar.swift */,
+				B4F869AD2A396BD8003749B8 /* MineInfoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -304,8 +313,11 @@
 				B4F869A42A38A011003749B8 /* WechatHomeViewController.swift in Sources */,
 				B4F869AA2A38A74A003749B8 /* WechatTabbar.swift in Sources */,
 				B4FFBE2A2A36161C001F09AD /* HomeViewController.swift in Sources */,
+				B4F869AE2A396BD8003749B8 /* MineInfoView.swift in Sources */,
 				B4FFBE3A2A3619C2001F09AD /* MineViewController.swift in Sources */,
+				B4F869B02A3989E9003749B8 /* WXPersonInfoViewController.swift in Sources */,
 				B4FFBE262A36161C001F09AD /* AppDelegate.swift in Sources */,
+				B4F869B22A39B98A003749B8 /* WXUserInfo.swift in Sources */,
 				B4F869A72A38A346003749B8 /* WXConfig.swift in Sources */,
 				B4FFBE282A36161C001F09AD /* SceneDelegate.swift in Sources */,
 			);

@@ -27,7 +27,7 @@ public extension UIViewController {
         var color: XYColor? = XYColor.xy_getColor(hex: 0)
         switch type {
         case .Wechat:
-            color = WXConfig().navBarBgColor
+            color = WXConfig.navBarBgColor
         default:
             color = .blue
         }

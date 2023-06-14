@@ -12,9 +12,9 @@
 import XYUIKit
 
 protocol WechatTabbarProtocol {
-    /// 点击了第几个Item
-    /// - Parameter atIndex: 位置信息
-    func didSeletedItem(atIndex: Int)
+    /// 点击了哪个Item
+    /// - Parameter item: 对应信息
+    func didSeletedItem(item: TabbarItemInfo)
 }
 
 class TabbarItemInfo: NSObject {
@@ -82,10 +82,23 @@ class TabbarItemView: UIControl {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                self.iconImage.image = UIImage(named: item.icon_sel)
+                self.titleLabel.textColor = WXConfig.tabBarItemSelelectedColor
+            } else {
+                self.iconImage.image = UIImage(named: item.icon_normal)
+                self.titleLabel.textColor = WXConfig.tabBarItemNormalColor
+            }
+        }
+    }
 }
 
 class WechatTabbar: UIView {
     
+    var delegate: WechatTabbarProtocol?
     private var contentView: UIView = UIView()
     
     override init(frame: CGRect) {
@@ -99,7 +112,7 @@ class WechatTabbar: UIView {
         }
         
         self.frame = realFrame
-        self.backgroundColor = WXConfig().tabBarBgColor
+        self.backgroundColor = WXConfig.tabBarBgColor
         
         let home = TabbarItemInfo(title: "微信", icon_normal: "tabbar_mainframe1_24x22_", icon_sel: "tabbar_mainframeHL1_24x22_", badge: "旧版")
         let contact = TabbarItemInfo(title: "通讯录", icon_normal: "tabbar_contacts_new_26x21_", icon_sel: "tabbar_contactsHL_new_26x21_", badge: "新版")
@@ -122,6 +135,9 @@ class WechatTabbar: UIView {
             index += 1
             let itemView = TabbarItemView(item: item)
             contentView.addSubview(itemView)
+            if index == 0 {
+                itemView.isSelected = true
+            }
             itemView.snp.makeConstraints { make in
                 
                 make.left.equalToSuperview().offset((width + margin) * (index % colum))
@@ -135,17 +151,27 @@ class WechatTabbar: UIView {
             }
             
             // action
-            itemView.addBlock(for: UIControl.Event.touchUpInside) { sender in
-                if let itemView = sender as? ItemView {
+            itemView.addBlock(for: UIControl.Event.touchUpInside) {[weak self] sender in
+                if let itemView = sender as? TabbarItemView {
                     
-                    var detail: UIViewController!
-                    if itemView.item.title == "微信首页" {
-                        detail = WechatHomeViewController()
-                    }else{
-                        detail = MineViewController()
+                    // selecte / unselecte
+                    itemView.isSelected = true
+                    if let superView = itemView.superview {
+                        for subView in superView.subviews {
+                            if itemView == subView {
+                                continue
+                            } else {
+                                if let itemV = subView as? TabbarItemView {
+                                    itemV.isSelected = false
+                                }
+                            }
+                        }
                     }
-                    detail.title = itemView.item.title
-                    itemView.viewController?.push(detail, animated: true)
+                    
+                    // delegate
+                    if let delegate = self?.delegate {
+                        delegate.didSeletedItem(item: itemView.item)
+                    }
                 }
             }
         }
@@ -153,9 +179,9 @@ class WechatTabbar: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-        
-        
     }
+    
+    
 }
 
 extension WechatTabbar {

@@ -19,26 +19,38 @@ enum WXTheme {
 }
 
 struct WXConfig {
+    static var shared: WXConfig = WXConfig()
+    private init () { }
     
     /// 导航栏背景色
-    var navBarBgColor: UIColor {
+    static var navBarBgColor: UIColor {
         // 判断主题 - default is light
-        return UIColor.xy_getColor(red: 230, green: 230, blue: 230).withAlphaComponent(0.8)
+        return UIColor.xy_getColor(red: 230, green: 230, blue: 230)//.withAlphaComponent(0.8)
     }
     
     /// 微信tabbar背景色
-    var tabBarBgColor: UIColor {
+    static var tabBarBgColor: UIColor {
         return UIColor.xy_getColor(red: 246, green: 246, blue: 246).withAlphaComponent(0.8)
     }
     
     /// 微信tabbar Item 选中色
-    var tabBarItemSelelectedColor: UIColor {
+    static var tabBarItemSelelectedColor: UIColor {
         return UIColor.xy_getColor(red: 25, green: 184, blue: 78)
     }
     
+    /// 微信tabbar Item 未选中色
+    static var tabBarItemNormalColor: UIColor {
+        return UIColor.xy_getColor(red: 0, green: 0, blue: 0)
+    }
+    
     /// 微信列表背景色
-    var listBgColor: UIColor {
+    static var listBgColor: UIColor {
         return UIColor.xy_getColor(red: 255, green: 255, blue: 255)
+    }
+    
+    /// 微信主页的背景色(同导航栏颜色无透明)
+    static var tableViewBgColor: UIColor {
+        return navBarBgColor.withAlphaComponent(1)
     }
     
 }
