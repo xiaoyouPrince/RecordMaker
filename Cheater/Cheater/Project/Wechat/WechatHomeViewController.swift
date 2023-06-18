@@ -10,15 +10,27 @@ import XYUIKit
 import XYInfomationSection
 
 class WechatHomeViewController: XYInfomationBaseViewController {
+    
+    var tabbar: WechatTabbar = WechatTabbar()
+    var tableView = UITableView(frame: .zero)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        buildUI()
+    }
+    
+    func buildUI(){
+        setupNavBar()
+        addTabbar()
+    }
+    
+    func setupNavBar() {
         view.backgroundColor = WXConfig.listBgColor
         setNavbarWechat()
         nav_hideDefaultBackBtn()
-        
-        let tabbar = WechatTabbar()
+    }
+    
+    func addTabbar() {
         tabbar.frame.origin = CGPoint(x: 0, y: view.bounds.height - tabbar.bounds.height)
         tabbar.delegate = self
         view.addSubview(tabbar)
@@ -28,6 +40,12 @@ class WechatHomeViewController: XYInfomationBaseViewController {
         super.viewWillAppear(animated)
         
         nav_hideBarBottomLine()
+        addScrollDelegate()
+        
+        // 刷新消息列表最后一句话 - 简单说就是如果当前选中的是[微信]直接刷新一下
+        if tabbar.isSelectedHome {
+            didSelectedWechat()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -45,21 +63,45 @@ class WechatHomeViewController: XYInfomationBaseViewController {
             section.corner(radius: 0)
         }, sectionDistance: 10, contentEdgeInsets: .zero) { index, cell in
             Toast.make("\(cell.model.title)")
+            
+            if cell.model.titleKey == "wechat_chat" {
+                self.push(MineViewController(), animated: true)
+            }
         }
     }
 }
 
+extension WechatHomeViewController: UIScrollViewDelegate {
+    
+    func addScrollDelegate() {
+        scrollView.delegate = self
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {// 1.5 是恰好的一个值
+        nav_hideBarBottomLine((scrollView.contentOffset.y + kNavHeight - 1.5) < 0)
+    }
+}
 
 extension WechatHomeViewController: WechatTabbarProtocol {
     func didSeletedItem(item: TabbarItemInfo) {
         Toast.make("选择了 -- \(item.title)")
         self.title = item.title
         
+        if tabbar.isSelectedContact == false {
+            tableView.isHidden = true
+        }
+        
         if title == "我" {
             didSelectedMine()
         }else
         if title == "发现" {
             didSelectedDiscover()
+        }else
+        if title == "微信" {
+            didSelectedWechat()
+        }else
+        if title == "通讯录" {
+            didSelectedContact()
         }else
         {
             setHeaderView(UIView(), edgeInsets: .init(top: 0, left: 0, bottom: 0, right: 0))
@@ -70,10 +112,118 @@ extension WechatHomeViewController: WechatTabbarProtocol {
     }
 }
 
+// MARK: - 微信
+extension WechatHomeViewController {
+    
+    func didSelectedWechat() {
+        
+        let image = UIImage(named: "wechat_mnq_jia")?.withRenderingMode(.alwaysOriginal)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(self.wechatAddAction))
+        
+        setHeaderView(WechatSearchBarView(), edgeInsets: .init(top: 0, left: 0, bottom: 0, right: 0))
+        
+        view.backgroundColor = WXConfig.tableViewBgColor
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        
+        refreshUI(data: getWechatData())
+    }
+    
+    func getWechatData() -> [Any] {
+        let result: [[[String: Any]]] =
+        [ // totoal
+            [ // section 1
+                [ // cell 1
+                    "imageName": "discover_IconShowAlbum_22x22_",
+                    "title": "朋友圈",
+                    "type": XYInfoCellType.choose.rawValue,
+                    "titleKey": "wechat_chat",
+                ]
+            ]
+        ]
+        return result
+    }
+    
+    @objc
+    func wechatAddAction() {
+        Toast.make("首页添加 --- ")
+    }
+}
+
+// MARK: - 通讯录
+extension WechatHomeViewController {
+    
+    func didSelectedContact() {
+        
+        let image = UIImage(named: "wechat_mnq_addren")?.withRenderingMode(.alwaysOriginal)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(self.contactNavRightItemAction))
+        
+        view.backgroundColor = WXConfig.tableViewBgColor
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        
+        //setHeaderView(WechatSearchBarView(), edgeInsets: .init(top: 0, left: 0, bottom: 0, right: 0))
+        //refreshUI(data: getContactData())
+        setHeaderView(.init(), edgeInsets: .zero)
+        setContentView(.init(), edgeInsets: .zero)
+        
+        setupTableView()
+    }
+    
+    func setupTableView() {
+        view.addSubview(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.snp.remakeConstraints { make in
+            make.left.top.right.equalToSuperview()
+            make.bottom.equalTo(self.tabbar.snp.top)
+        }
+        tableView.isHidden = false
+    }
+    
+    func getContactData() -> [Any] {
+        let result: [[[String: Any]]] =
+        [ // totoal
+            [ // section 1
+                [ // cell 1
+                    "imageName": "discover_IconShowAlbum_22x22_",
+                    "title": "朋友圈",
+                    "type": XYInfoCellType.choose.rawValue,
+                    "titleKey": "wechat_chat",
+                ]
+            ]
+        ]
+        return result
+    }
+    
+    @objc
+    func contactNavRightItemAction() {
+        Toast.make("联系人添加 --- ")
+    }
+}
+
+extension WechatHomeViewController : UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        2
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        var cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cellID") ?? UITableViewCell(style: .default, reuseIdentifier: "cellID")
+        
+        cell.textLabel?.text = "\(indexPath)"
+        cell.backgroundColor = UIColor.random
+          
+        return cell
+    }
+    
+    
+}
+
 // MARK: - 发现
 extension WechatHomeViewController {
     
     func didSelectedDiscover() {
+        
+        navigationItem.rightBarButtonItem = nil
         setHeaderView(UIView(), edgeInsets: .init(top: 0, left: 0, bottom: 0, right: 0))
         
         view.backgroundColor = WXConfig.tableViewBgColor

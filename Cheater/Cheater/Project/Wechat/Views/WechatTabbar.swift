@@ -17,6 +17,13 @@ protocol WechatTabbarProtocol {
     func didSeletedItem(item: TabbarItemInfo)
 }
 
+enum WechatTabarItemName: String {
+    case wechat = "微信"
+    case contact = "通讯录"
+    case discover = "发现"
+    case me = "我"
+}
+
 class TabbarItemInfo: NSObject {
     var title: String
     var icon_normal: String
@@ -31,6 +38,7 @@ class TabbarItemInfo: NSObject {
     }
 }
 
+private
 class TabbarItemView: UIControl {
     
     var iconImage = UIImageView()
@@ -70,11 +78,14 @@ class TabbarItemView: UIControl {
         badge.text = item.badge
         badge.sizeToFit()
         badge.textAlignment = .center
-        badge.corner(radius: 7)
+        badge.corner(radius: (badge.bounds.size.height + 5) / 2)
+        badge.isHidden = badge.text?.isEmpty ?? false
+        
+        let width = max(badge.bounds.width + 10, badge.bounds.height + 5)
         badge.snp.makeConstraints { make in
-            make.left.equalTo(iconImage.snp.right).offset(-10)
-            make.top.equalTo(iconImage.snp.top).offset(-10)
-            make.width.equalTo(badge.bounds.size.width + 10)
+            make.right.equalTo(iconImage).offset(15)
+            make.top.equalTo(iconImage.snp.top).offset(-8)
+            make.width.equalTo(width)
             make.height.equalTo(badge.bounds.size.height + 5)
         }
     }
@@ -98,8 +109,17 @@ class TabbarItemView: UIControl {
 
 class WechatTabbar: UIView {
     
-    var delegate: WechatTabbarProtocol?
+    var delegate: WechatTabbarProtocol? {
+        didSet {
+            delegate?.didSeletedItem(item: home)
+        }
+    }
+    
     private var contentView: UIView = UIView()
+    private let home = TabbarItemInfo(title: "微信", icon_normal: "tabbar_mainframe1_24x22_", icon_sel: "tabbar_mainframeHL1_24x22_", badge: "")
+    private let contact = TabbarItemInfo(title: "通讯录", icon_normal: "tabbar_contacts_new_26x21_", icon_sel: "tabbar_contactsHL_new_26x21_", badge: "1")
+    private let find = TabbarItemInfo(title: "发现", icon_normal: "tabbar_discover_24x24_", icon_sel: "tabbar_discoverHL_24x24_", badge: "")
+    private let me = TabbarItemInfo(title: "我" , icon_normal: "tabbar_me_new_24x21_", icon_sel: "tabbar_meHL_new_23x21_", badge: "")
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -114,16 +134,10 @@ class WechatTabbar: UIView {
         self.frame = realFrame
         self.backgroundColor = WXConfig.tabBarBgColor
         
-        let home = TabbarItemInfo(title: "微信", icon_normal: "tabbar_mainframe1_24x22_", icon_sel: "tabbar_mainframeHL1_24x22_", badge: "旧版")
-        let contact = TabbarItemInfo(title: "通讯录", icon_normal: "tabbar_contacts_new_26x21_", icon_sel: "tabbar_contactsHL_new_26x21_", badge: "新版")
-        let find = TabbarItemInfo(title: "发现", icon_normal: "tabbar_discover_24x24_", icon_sel: "tabbar_discoverHL_24x24_", badge: "火热")
-        let me = TabbarItemInfo(title: "我" , icon_normal: "tabbar_me_new_24x21_", icon_sel: "tabbar_meHL_new_23x21_", badge: "教程")
         let items = [home, contact, find, me]
-        
         addSubview(contentView)
         
         contentView.frame = .init(origin: .zero, size: CGSize.init(width: UIScreen.main.bounds.width, height: 49))
-        //contentView.backgroundColor = .yellow
         
         let margin = 0
         let colum = 4
@@ -139,7 +153,6 @@ class WechatTabbar: UIView {
                 itemView.isSelected = true
             }
             itemView.snp.makeConstraints { make in
-                
                 make.left.equalToSuperview().offset((width + margin) * (index % colum))
                 make.top.equalToSuperview().offset((height + margin) * (index / colum))
                 make.width.equalTo(width)
@@ -180,8 +193,6 @@ class WechatTabbar: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
 }
 
 extension WechatTabbar {
@@ -199,5 +210,42 @@ extension WechatTabbar {
     
     func isIPhoneX() -> Bool {
         navHeight() != 20
+    }
+    
+    /// 当前选中的是否是微信首页
+    var isSelectedHome: Bool {
+//        for subview in contentView.subviews {
+//            if let itemView = subview as? TabbarItemView {
+//                if itemView.isSelected && itemView.item.title == "微信" {
+//                    return true
+//                }
+//            }
+//        }
+//        return false
+        isSelectedItem(with: .wechat)
+    }
+    
+    /// 当前选中的是否是微信通讯录
+    var isSelectedContact: Bool {
+//        for subview in contentView.subviews {
+//            if let itemView = subview as? TabbarItemView {
+//                if itemView.isSelected && itemView.item.title == "通讯录" {
+//                    return true
+//                }
+//            }
+//        }
+//        return false
+        isSelectedItem(with: .contact)
+    }
+    
+    private func isSelectedItem(with name: WechatTabarItemName) -> Bool {
+        for subview in contentView.subviews {
+            if let itemView = subview as? TabbarItemView {
+                if itemView.isSelected && itemView.item.title == name.rawValue {
+                    return true
+                }
+            }
+        }
+        return false
     }
 }
