@@ -12,7 +12,8 @@ import XYInfomationSection
 class WechatHomeViewController: XYInfomationBaseViewController {
     
     var tabbar: WechatTabbar = WechatTabbar()
-    var tableView = UITableView(frame: .zero)
+    var tableView = UITableView(frame: .zero, style: .plain)
+    let indexBar = XYIndexBar(frame: .init(origin: .init(x: .width - 30, y: 0), size: .init(width: 30, height: .height)))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,12 +29,16 @@ class WechatHomeViewController: XYInfomationBaseViewController {
         view.backgroundColor = WXConfig.listBgColor
         setNavbarWechat()
         nav_hideDefaultBackBtn()
+        navigationController?.navigationBar.isTranslucent = false
     }
     
     func addTabbar() {
-        tabbar.frame.origin = CGPoint(x: 0, y: view.bounds.height - tabbar.bounds.height)
         tabbar.delegate = self
         view.addSubview(tabbar)
+        tabbar.snp.makeConstraints { make in
+            make.left.bottom.right.equalToSuperview()
+            make.height.equalTo(tabbar.bounds.height)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,7 +83,13 @@ extension WechatHomeViewController: UIScrollViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {// 1.5 是恰好的一个值
-        nav_hideBarBottomLine((scrollView.contentOffset.y + kNavHeight - 1.5) < 0)
+        nav_hideBarBottomLine((scrollView.contentOffset.y < 1.5))
+        
+        if scrollView == tableView {
+            if let indexpath = tableView.indexPathsForVisibleRows?.first {
+                indexBar?.setSelectedLabel(indexpath.section)
+            }
+        }
     }
 }
 
@@ -87,9 +98,8 @@ extension WechatHomeViewController: WechatTabbarProtocol {
         Toast.make("选择了 -- \(item.title)")
         self.title = item.title
         
-        if tabbar.isSelectedContact == false {
-            tableView.isHidden = true
-        }
+        tableView.isHidden = !tabbar.isSelectedContact
+        indexBar?.isHidden = !tabbar.isSelectedContact
         
         if title == "我" {
             didSelectedMine()
@@ -172,26 +182,22 @@ extension WechatHomeViewController {
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.backgroundColor = WXConfig.tableViewBgColor
+        tableView.tableHeaderView = WechatSearchBarView()
         tableView.snp.remakeConstraints { make in
             make.left.top.right.equalToSuperview()
+            //make.top.equalTo(self.navigationController!.navigationBar.snp.bottom)
+//            make.top.equalToSuperview().offset(CGFloat.naviBar)
             make.bottom.equalTo(self.tabbar.snp.top)
         }
+        tableView.separatorInset = .init(top: 0, left: 70, bottom: 0, right: 0)
         tableView.isHidden = false
-    }
-    
-    func getContactData() -> [Any] {
-        let result: [[[String: Any]]] =
-        [ // totoal
-            [ // section 1
-                [ // cell 1
-                    "imageName": "discover_IconShowAlbum_22x22_",
-                    "title": "朋友圈",
-                    "type": XYInfoCellType.choose.rawValue,
-                    "titleKey": "wechat_chat",
-                ]
-            ]
-        ]
-        return result
+        
+        
+        indexBar?.delegate = self
+        indexBar?.setIndexes(["A","B","C"])
+        view.addSubview(indexBar!)
+        indexBar?.center.y = (CGFloat.height - .naviHeight - .tabBar) / 2
     }
     
     @objc
@@ -200,22 +206,97 @@ extension WechatHomeViewController {
     }
 }
 
+extension WechatHomeViewController : XYIndexBarDelegate {
+    func indexDidChanged(_ indexBar: XYIndexBar!, index: Int, title: String!) {
+        tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .top, animated: false)
+    }
+}
+
 extension WechatHomeViewController : UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return getContactData().count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        2
+        return getContactData()[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cellID") ?? UITableViewCell(style: .default, reuseIdentifier: "cellID")
+        let cell: WXContactCell = (tableView.dequeueReusableCell(withIdentifier: "cellID") as? WXContactCell) ?? WXContactCell(style: .default, reuseIdentifier: "cellID")
         
-        cell.textLabel?.text = "\(indexPath)"
-        cell.backgroundColor = UIColor.random
-          
+        cell.model = getContactData()[indexPath.section][indexPath.row]
+        
         return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section > 0 { //
+            return 20
+        }
+        return 0
+    }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let result = UIView()
+        if section > 0 { // 第 0 组, 默认组,没有header
+            //            result.frame = .init(origin: .zero, size: CGSize.init(width: kScreenW, height: 40))
+            result.backgroundColor = .random
+        }
+        return result
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 20
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footer = UIView(frame: .init(origin: .zero, size: .init(width: 100, height: 100)))
+        footer.backgroundColor = UIColor.red
+        return footer
+    }
+    
+//    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+//        return [UITableView.indexSearch ,"A", "B"]
+//    }
+    
+    func getContactData() -> [[WXContact]]{
+        var result = [[WXContact]]()
+        let sction1 = [
+            WXContact(image: UIImage(named: "wechat_lxr1") ?? .init(), title: "新的朋友"),
+            WXContact(image: UIImage(named: "wechat_lxr2") ?? .init(), title: "群聊"),
+            WXContact(image: UIImage(named: "wechat_lxr3")  ?? .init(), title: "标签"),
+            WXContact(image: UIImage(named: "wechat_lxr4")  ?? .init(), title: "公众号")
+        ]
+        
+        let sction2 = [
+            WXContact(image: UIImage(named: "wechat_lxr1") ?? .init(), title: "新的朋友"),
+            WXContact(image: UIImage(named: "wechat_lxr2") ?? .init(), title: "群聊"),
+            WXContact(image: UIImage(named: "wechat_lxr3")  ?? .init(), title: "标签"),
+            WXContact(image: UIImage(named: "wechat_lxr4")  ?? .init(), title: "公众号")
+        ]
+        
+        let sction3 = [
+            WXContact(image: UIImage(named: "wechat_lxr1") ?? .init(), title: "新的朋友"),
+            WXContact(image: UIImage(named: "wechat_lxr2") ?? .init(), title: "群聊"),
+            WXContact(image: UIImage(named: "wechat_lxr3")  ?? .init(), title: "标签"),
+            WXContact(image: UIImage(named: "wechat_lxr4")  ?? .init(), title: "公众号")
+        ]
+        
+        var section4 = [WXContact]()
+        for index in 100003...100028 {
+            let contact = WXContact(image: UIImage(named: "\(index)")  ?? .init(), title: "标签 \(index)")
+            section4.append(contact)
+        }
+        
+        result.append(sction1)
+        result.append(sction2)
+        result.append(sction3)
+        result.append(section4)
+        return result
+    }
 }
 
 // MARK: - 发现

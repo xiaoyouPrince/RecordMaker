@@ -16,7 +16,7 @@ class WechatSearchBarView: UIView {
     private var label = UILabel()
 
     init(title: String = "搜索") {
-        super.init(frame: .zero)
+        super.init(frame: .init(origin: .zero, size: CGSize(width: 0, height: 60)))
         addSubview(label)
         
         let textColor = UIColor.xy_getColor(red: 186, green: 186, blue: 186)

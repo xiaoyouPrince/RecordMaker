@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "XYIndexBar.h"
 #import "XYPickerView.h"
 
 FOUNDATION_EXPORT double XYUIKitVersionNumber;
