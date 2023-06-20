@@ -39,6 +39,7 @@ class WXContactCell: UITableViewCell {
         contentView.addSubview(iconView)
         contentView.addSubview(titleLabel)
         
+        iconView.corner(radius: 5)
         iconView.snp.makeConstraints { make in
             make.left.equalTo(15)
             make.centerY.equalToSuperview()

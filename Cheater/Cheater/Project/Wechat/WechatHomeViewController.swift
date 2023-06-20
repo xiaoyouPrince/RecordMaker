@@ -198,6 +198,10 @@ extension WechatHomeViewController {
         indexBar?.setIndexes(["A","B","C"])
         view.addSubview(indexBar!)
         indexBar?.center.y = (CGFloat.height - .naviHeight - .tabBar) / 2
+//        indexBar?.snp.makeConstraints({ make in
+//            make.left.equalTo(self.tableView.snp.right).offset(-30)
+//            make.centerY.equalTo(self.tableView)
+//        })
     }
     
     @objc
@@ -271,30 +275,19 @@ extension WechatHomeViewController : UITableViewDelegate, UITableViewDataSource 
             WXContact(image: UIImage(named: "wechat_lxr4")  ?? .init(), title: "公众号")
         ]
         
-        let sction2 = [
-            WXContact(image: UIImage(named: "wechat_lxr1") ?? .init(), title: "新的朋友"),
-            WXContact(image: UIImage(named: "wechat_lxr2") ?? .init(), title: "群聊"),
-            WXContact(image: UIImage(named: "wechat_lxr3")  ?? .init(), title: "标签"),
-            WXContact(image: UIImage(named: "wechat_lxr4")  ?? .init(), title: "公众号")
-        ]
+        var section2 = [WXContact]()
+//        for _ in 1...28 {
+//            let contact = WXContact.random
+//            section4.append(contact)
+//        }
         
-        let sction3 = [
-            WXContact(image: UIImage(named: "wechat_lxr1") ?? .init(), title: "新的朋友"),
-            WXContact(image: UIImage(named: "wechat_lxr2") ?? .init(), title: "群聊"),
-            WXContact(image: UIImage(named: "wechat_lxr3")  ?? .init(), title: "标签"),
-            WXContact(image: UIImage(named: "wechat_lxr4")  ?? .init(), title: "公众号")
-        ]
-        
-        var section4 = [WXContact]()
-        for index in 100003...100028 {
-            let contact = WXContact(image: UIImage(named: "\(index)")  ?? .init(), title: "标签 \(index)")
-            section4.append(contact)
+        let conts = WXContact.createContactList()
+        for contact in conts {
+            section2.append(contact)
         }
         
         result.append(sction1)
-        result.append(sction2)
-        result.append(sction3)
-        result.append(section4)
+        result.append(section2)
         return result
     }
 }
