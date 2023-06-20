@@ -20,6 +20,7 @@
 		B4F869B72A3F4801003749B8 /* WXDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869B62A3F4801003749B8 /* WXDataSource.swift */; };
 		B4F869BA2A404F39003749B8 /* WXModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869B92A404F39003749B8 /* WXModel.swift */; };
 		B4F869BC2A405475003749B8 /* WXContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869BB2A405475003749B8 /* WXContactCell.swift */; };
+		B4F869C72A4214FE003749B8 /* WXContactTableHaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869C62A4214FE003749B8 /* WXContactTableHaderFooterView.swift */; };
 		B4FFBE262A36161C001F09AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE252A36161C001F09AD /* AppDelegate.swift */; };
 		B4FFBE282A36161C001F09AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE272A36161C001F09AD /* SceneDelegate.swift */; };
 		B4FFBE2A2A36161C001F09AD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE292A36161C001F09AD /* HomeViewController.swift */; };
@@ -48,6 +49,7 @@
 		B4F869B62A3F4801003749B8 /* WXDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXDataSource.swift; sourceTree = "<group>"; };
 		B4F869B92A404F39003749B8 /* WXModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXModel.swift; sourceTree = "<group>"; };
 		B4F869BB2A405475003749B8 /* WXContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXContactCell.swift; sourceTree = "<group>"; };
+		B4F869C62A4214FE003749B8 /* WXContactTableHaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXContactTableHaderFooterView.swift; sourceTree = "<group>"; };
 		B4FFBE222A36161C001F09AD /* Cheater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cheater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4FFBE252A36161C001F09AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4FFBE272A36161C001F09AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				B4F869AD2A396BD8003749B8 /* MineInfoView.swift */,
 				B4F869B32A3C5585003749B8 /* WechatSearchBarView.swift */,
 				B4F869BB2A405475003749B8 /* WXContactCell.swift */,
+				B4F869C62A4214FE003749B8 /* WXContactTableHaderFooterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4F869B42A3C5585003749B8 /* WechatSearchBarView.swift in Sources */,
+				B4F869C72A4214FE003749B8 /* WXContactTableHaderFooterView.swift in Sources */,
 				B4F869B72A3F4801003749B8 /* WXDataSource.swift in Sources */,
 				B475F2BB2A3698AA006C7351 /* XYHomeViewController.m in Sources */,
 				B4FFBE3D2A362C18001F09AD /* XYChatInputBar.swift in Sources */,

@@ -43,6 +43,7 @@ extension WXContact {
     /// 创建一个联系人列表
     /// App 初始化之后就可以创建, 创建完成之后,随机写入 25 条默认数据作为原始数据
     /// - Returns: 返回创建的默认数据, 如果本身已经存在,直接返回文件中保存的数据
+    /// - NOTE: 需要注意的是文件操作比较耗性能,不要被在频繁的函数中调用,如tableView获取cell函数中
     static func createContactList() -> [WXContact] {
         guard let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("contact.dat") else { return [] }
         

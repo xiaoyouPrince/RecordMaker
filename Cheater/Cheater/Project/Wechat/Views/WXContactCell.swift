@@ -12,11 +12,29 @@ class WXContactCell: UITableViewCell {
     
     private var iconView = UIImageView()
     private var titleLabel = UILabel()
+    private var totalLabel = UILabel()
     
     var model: WXContact? {
         didSet {
             iconView.image = model?.image
             titleLabel.text = model?.title
+            totalLabel.text = model?.title
+            
+            if model?.image == nil {
+                totalLabel.isHidden = false
+                titleLabel.isHidden = true
+                
+                contentView.snp.remakeConstraints { make in
+                    make.height.equalTo(50)
+                }
+            }else{
+                totalLabel.isHidden = true
+                titleLabel.isHidden = false
+                
+                contentView.snp.remakeConstraints { make in
+                    make.height.equalTo(60)
+                }
+            }
         }
     }
     
@@ -38,6 +56,7 @@ class WXContactCell: UITableViewCell {
     func setupUI() {
         contentView.addSubview(iconView)
         contentView.addSubview(titleLabel)
+        contentView.addSubview(totalLabel)
         
         iconView.corner(radius: 5)
         iconView.snp.makeConstraints { make in
@@ -51,6 +70,12 @@ class WXContactCell: UITableViewCell {
             make.left.equalTo(iconView.snp.right).offset(15)
             make.centerY.equalToSuperview()
             make.right.lessThanOrEqualTo(-15)
+        }
+        
+        totalLabel.textAlignment = .center
+        totalLabel.snp.makeConstraints { make in
+            make.left.top.bottom.equalToSuperview()
+            make.width.equalTo(CGFloat.width)
         }
         
         contentView.snp.makeConstraints { make in

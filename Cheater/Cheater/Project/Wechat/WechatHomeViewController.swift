@@ -175,6 +175,9 @@ extension WechatHomeViewController {
         setHeaderView(.init(), edgeInsets: .zero)
         setContentView(.init(), edgeInsets: .zero)
         
+        // 每次进入通讯录刷新一下联系人数据源
+        ContactDataSource.update()
+        
         setupTableView()
     }
     
@@ -186,22 +189,19 @@ extension WechatHomeViewController {
         tableView.tableHeaderView = WechatSearchBarView()
         tableView.snp.remakeConstraints { make in
             make.left.top.right.equalToSuperview()
-            //make.top.equalTo(self.navigationController!.navigationBar.snp.bottom)
-//            make.top.equalToSuperview().offset(CGFloat.naviBar)
             make.bottom.equalTo(self.tabbar.snp.top)
         }
         tableView.separatorInset = .init(top: 0, left: 70, bottom: 0, right: 0)
         tableView.isHidden = false
+        tableView.reloadData()
         
         
         indexBar?.delegate = self
-        indexBar?.setIndexes(["A","B","C"])
+        //indexBar?.setIndexes(["A","B","C"])
+        indexBar?.setIndexes(sectionIndexTitles())
         view.addSubview(indexBar!)
         indexBar?.center.y = (CGFloat.height - .naviHeight - .tabBar) / 2
-//        indexBar?.snp.makeConstraints({ make in
-//            make.left.equalTo(self.tableView.snp.right).offset(-30)
-//            make.centerY.equalTo(self.tableView)
-//        })
+        
     }
     
     @objc
@@ -244,7 +244,12 @@ extension WechatHomeViewController : UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let result = UIView()
+        let header: WXContactTableHaderFooterView = (tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? WXContactTableHaderFooterView) ?? WXContactTableHaderFooterView(reuseIdentifier: "header")
+        
+        header.label.text = ContactDataSource.sectionIndexTitles[section - 1]
+        
+        
+        let result = header
         if section > 0 { // 第 0 组, 默认组,没有header
             //            result.frame = .init(origin: .zero, size: CGSize.init(width: kScreenW, height: 40))
             result.backgroundColor = .random
@@ -253,7 +258,7 @@ extension WechatHomeViewController : UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 20
+        return 0
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -266,6 +271,13 @@ extension WechatHomeViewController : UITableViewDelegate, UITableViewDataSource 
 //        return [UITableView.indexSearch ,"A", "B"]
 //    }
     
+    /// 返回所有联系人的首字符拼音
+    /// - Returns: 字符串数组
+    func sectionIndexTitles() -> [String] { // 🔍
+        ["🔍"] + ContactDataSource.sectionIndexTitles
+    }
+    
+    
     func getContactData() -> [[WXContact]]{
         var result = [[WXContact]]()
         let sction1 = [
@@ -274,20 +286,32 @@ extension WechatHomeViewController : UITableViewDelegate, UITableViewDataSource 
             WXContact(image: UIImage(named: "wechat_lxr3")  ?? .init(), title: "标签"),
             WXContact(image: UIImage(named: "wechat_lxr4")  ?? .init(), title: "公众号")
         ]
+        result.append(sction1)
         
-        var section2 = [WXContact]()
-//        for _ in 1...28 {
-//            let contact = WXContact.random
-//            section4.append(contact)
+        // sections
+        for section in ContactDataSource.sections {
+            result.append(section)
+        }
+//        let contacts = ContactDataSource.contacts
+//        let indexTitles = sectionIndexTitles()
+//        for (index,indexTitle) in indexTitles.enumerated() {
+//            var section = [WXContact]()
+//            for contact in contacts {
+//                if contact.title.firstCharacterToPinyin() == indexTitle {
+//                    section.append(contact)
+//                }
+//            }
+//            result.append(section)
+//
+////            if index == indexTitles.count - 1 { // 最后一组数据手动添加一个总人数
+////                section.append(WXContact(title: "\(contacts.count)位联系人"))
+////            }
 //        }
         
-        let conts = WXContact.createContactList()
-        for contact in conts {
-            section2.append(contact)
-        }
-        
-        result.append(sction1)
-        result.append(section2)
+        // 简单看整体数据
+        // var section2 = WXContact.createContactList()
+        // section2.append(WXContact(title: "\(section2.count)位联系人"))
+        // result.append(section2)
         return result
     }
 }

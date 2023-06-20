@@ -49,3 +49,55 @@
 
 import Foundation
 
+struct ContactDataSource {
+    /// 所有联系人 - 无序的原始数据
+    static var contacts = WXContact.createContactList()
+    /// 每一组的首字母 IndexTitles 已经排好序
+    static var sectionIndexTitles: [String] = []
+    /// 安首字母顺序排好的联系人组
+    static var sections: [[WXContact]] = []
+    
+    static func update() {
+        contacts = WXContact.createContactList()
+        sectionIndexTitles = updateSectionIndexTitles()
+        sections = updateSections()
+    }
+    
+    static private func updateSectionIndexTitles() -> [String] {
+        var allPinyin = [String]()
+        
+        // all pinyin
+        let contacts = ContactDataSource.contacts
+        for contact in contacts {
+            let pinyin = contact.title.firstCharacterToPinyin()
+            allPinyin.append(pinyin)
+        }
+        
+        // sort unique
+        let sorted = Set(allPinyin).sorted()
+        return sorted
+    }
+    
+    static private func updateSections() -> [[WXContact]] {
+        var result = [[WXContact]]()
+        
+        let contacts = ContactDataSource.contacts
+        let indexTitles = ContactDataSource.sectionIndexTitles
+        for (index,indexTitle) in indexTitles.enumerated() {
+            var section = [WXContact]()
+            for contact in contacts {
+                if contact.title.firstCharacterToPinyin() == indexTitle {
+                    section.append(contact)
+                }
+            }
+            
+            if index == indexTitles.count - 1 { // 最后一组数据手动添加一个总人数
+                section.append(WXContact(title: "\(contacts.count)位联系人"))
+            }
+            result.append(section)
+        }
+        
+        return result
+    }
+}
+
