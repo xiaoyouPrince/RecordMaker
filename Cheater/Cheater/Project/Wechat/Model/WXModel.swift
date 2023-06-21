@@ -9,11 +9,12 @@
 import UIKit
 import XYUIKit
 
-/// 微信通讯录数据模型
-struct WXContact: Codable {
+/// 微信通讯录数据模型(本来可以用 struct 但是微信联系人页面造数据会比较麻烦)
+class WXContact: Codable {
     var imageData: Data? //UIImage - 直接从相册/相机获取的照片
     var imageName: String? //直接默认生成,选择的默认照片
     var title: String
+    var isLast: Bool = false
     
     var image: UIImage? {
         if let data = imageData {
@@ -33,7 +34,7 @@ struct WXContact: Codable {
         self.title = title
     }
     
-    init(image: UIImage, title: String) {
+    convenience init(image: UIImage, title: String) {
         self.init(imageData: image.pngData(), title: title)
     }
 }

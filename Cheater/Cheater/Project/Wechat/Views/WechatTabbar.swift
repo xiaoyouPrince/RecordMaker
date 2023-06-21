@@ -124,6 +124,8 @@ class WechatTabbar: UIView {
     override init(frame: CGRect) {
         super.init(frame: .zero)
         
+        addBlurEffect()
+        
         var realFrame: CGRect = .zero
         if self.isIPhoneX() {
             realFrame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 49 + 34)

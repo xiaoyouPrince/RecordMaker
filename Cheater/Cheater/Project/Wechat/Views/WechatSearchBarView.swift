@@ -18,6 +18,7 @@ class WechatSearchBarView: UIView {
     init(title: String = "搜索") {
         super.init(frame: .init(origin: .zero, size: CGSize(width: 0, height: 60)))
         addSubview(label)
+        backgroundColor = WXConfig.tableViewBgColor
         
         let textColor = UIColor.xy_getColor(red: 186, green: 186, blue: 186)
         
@@ -41,6 +42,15 @@ class WechatSearchBarView: UIView {
             make.top.equalTo(10)
             make.bottom.equalTo(-10)
             make.height.equalTo(40)
+        }
+        
+        // bgView for wx contact
+        let bgView = UIView()
+        insertSubview(bgView, at: 0)
+        bgView.backgroundColor = backgroundColor
+        bgView.snp.makeConstraints { make in
+            make.left.right.bottom.equalToSuperview()
+            make.height.equalTo(400)
         }
     }
     

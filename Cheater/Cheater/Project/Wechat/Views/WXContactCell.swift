@@ -13,6 +13,7 @@ class WXContactCell: UITableViewCell {
     private var iconView = UIImageView()
     private var titleLabel = UILabel()
     private var totalLabel = UILabel()
+    private var sepLine = UIView.line
     
     var model: WXContact? {
         didSet {
@@ -35,6 +36,12 @@ class WXContactCell: UITableViewCell {
                     make.height.equalTo(60)
                 }
             }
+            
+            sepLine.snp.updateConstraints { make in
+                make.left.equalTo( model?.isLast == true ? 15 : 75)
+            }
+            sepLine.isHidden = model?.image == nil
+            
         }
     }
     
@@ -57,6 +64,7 @@ class WXContactCell: UITableViewCell {
         contentView.addSubview(iconView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(totalLabel)
+        contentView.addSubview(sepLine)
         
         iconView.corner(radius: 5)
         iconView.snp.makeConstraints { make in
@@ -76,6 +84,13 @@ class WXContactCell: UITableViewCell {
         totalLabel.snp.makeConstraints { make in
             make.left.top.bottom.equalToSuperview()
             make.width.equalTo(CGFloat.width)
+        }
+        
+        sepLine.snp.makeConstraints { make in
+            make.left.equalTo(15)
+            make.bottom.equalToSuperview()
+            make.width.equalTo(CGFloat.width)
+            make.height.equalTo(CGFloat.line)
         }
         
         contentView.snp.makeConstraints { make in

@@ -191,13 +191,18 @@ extension WechatHomeViewController {
             make.left.top.right.equalToSuperview()
             make.bottom.equalTo(self.tabbar.snp.top)
         }
-        tableView.separatorInset = .init(top: 0, left: 70, bottom: 0, right: 0)
+        //tableView.separatorInset = .init(top: 0, left: 70, bottom: 0, right: 0)
+        tableView.separatorStyle = .none
         tableView.isHidden = false
         tableView.reloadData()
+        if #available(iOS 15.0, *) { // 移除系统组间距
+            tableView.sectionHeaderTopPadding = 0
+        } else { }
         
         
         indexBar?.delegate = self
         //indexBar?.setIndexes(["A","B","C"])
+        indexBar?.selectedBackgroundColor = WXConfig.wxGreen
         indexBar?.setIndexes(sectionIndexTitles())
         view.addSubview(indexBar!)
         indexBar?.center.y = (CGFloat.height - .naviHeight - .tabBar) / 2
@@ -235,9 +240,13 @@ extension WechatHomeViewController : UITableViewDelegate, UITableViewDataSource 
         return cell
     }
     
+    var headerViewHeight: CGFloat {
+        30
+    }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section > 0 { //
-            return 20
+            return headerViewHeight
         }
         return 0
     }
@@ -250,22 +259,20 @@ extension WechatHomeViewController : UITableViewDelegate, UITableViewDataSource 
         
         
         let result = header
+        //let result = UIView()
         if section > 0 { // 第 0 组, 默认组,没有header
-            //            result.frame = .init(origin: .zero, size: CGSize.init(width: kScreenW, height: 40))
             result.backgroundColor = .random
         }
         return result
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footer = UIView(frame: .init(origin: .zero, size: .init(width: 100, height: 100)))
-        footer.backgroundColor = UIColor.red
-        return footer
-    }
+//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        return .line
+//    }
+//
+//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        return .line
+//    }
     
 //    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
 //        return [UITableView.indexSearch ,"A", "B"]
@@ -274,7 +281,7 @@ extension WechatHomeViewController : UITableViewDelegate, UITableViewDataSource 
     /// 返回所有联系人的首字符拼音
     /// - Returns: 字符串数组
     func sectionIndexTitles() -> [String] { // 🔍
-        ["🔍"] + ContactDataSource.sectionIndexTitles
+        [""] + ContactDataSource.sectionIndexTitles
     }
     
     

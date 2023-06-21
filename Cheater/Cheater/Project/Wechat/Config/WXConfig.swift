@@ -53,4 +53,9 @@ struct WXConfig {
         return navBarBgColor.withAlphaComponent(1)
     }
     
+    /// 微信主题绿色
+    static var wxGreen: UIColor {
+        return UIColor.xy_getColor(red: 25, green: 184, blue: 78)
+    }
+    
 }

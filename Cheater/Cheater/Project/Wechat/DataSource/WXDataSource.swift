@@ -97,6 +97,16 @@ struct ContactDataSource {
             result.append(section)
         }
         
+        // 标记是否为最后一个
+        for section in result {
+            for (index, item) in section.enumerated() {
+                item.isLast = (index == section.count - 1)
+                if item.image == nil { // 总人数的 cell 特殊处理
+                    item.isLast = false
+                }
+            }
+        }
+        
         return result
     }
 }
