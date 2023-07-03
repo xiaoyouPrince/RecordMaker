@@ -22,6 +22,7 @@
 		B4F869BC2A405475003749B8 /* WXContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869BB2A405475003749B8 /* WXContactCell.swift */; };
 		B4F869C72A4214FE003749B8 /* WXContactTableHaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869C62A4214FE003749B8 /* WXContactTableHaderFooterView.swift */; };
 		B4F869C92A4365BD003749B8 /* WXAddRuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869C82A4365BD003749B8 /* WXAddRuleViewController.swift */; };
+		B4F869CD2A52E0E1003749B8 /* WXBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869CC2A52E0E1003749B8 /* WXBubbleView.swift */; };
 		B4FFBE262A36161C001F09AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE252A36161C001F09AD /* AppDelegate.swift */; };
 		B4FFBE282A36161C001F09AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE272A36161C001F09AD /* SceneDelegate.swift */; };
 		B4FFBE2A2A36161C001F09AD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE292A36161C001F09AD /* HomeViewController.swift */; };
@@ -52,6 +53,7 @@
 		B4F869BB2A405475003749B8 /* WXContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXContactCell.swift; sourceTree = "<group>"; };
 		B4F869C62A4214FE003749B8 /* WXContactTableHaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXContactTableHaderFooterView.swift; sourceTree = "<group>"; };
 		B4F869C82A4365BD003749B8 /* WXAddRuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXAddRuleViewController.swift; sourceTree = "<group>"; };
+		B4F869CC2A52E0E1003749B8 /* WXBubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXBubbleView.swift; sourceTree = "<group>"; };
 		B4FFBE222A36161C001F09AD /* Cheater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cheater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4FFBE252A36161C001F09AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4FFBE272A36161C001F09AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				B4F869B32A3C5585003749B8 /* WechatSearchBarView.swift */,
 				B4F869BB2A405475003749B8 /* WXContactCell.swift */,
 				B4F869C62A4214FE003749B8 /* WXContactTableHaderFooterView.swift */,
+				B4F869CC2A52E0E1003749B8 /* WXBubbleView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -360,6 +363,7 @@
 				B4F869B22A39B98A003749B8 /* WXUserInfo.swift in Sources */,
 				B4F869A72A38A346003749B8 /* WXConfig.swift in Sources */,
 				B4FFBE282A36161C001F09AD /* SceneDelegate.swift in Sources */,
+				B4F869CD2A52E0E1003749B8 /* WXBubbleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

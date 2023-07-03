@@ -156,6 +156,10 @@ extension WechatHomeViewController {
     @objc
     func wechatAddAction() {
         Toast.make("首页添加 --- ")
+        
+        WXBubbleView.show(actionTitles: ["添加单聊", "添加群聊", "清空列表", "退出模拟器"]) { index in
+            Toast.makeDebug("第\(index)被点击")
+        }
     }
 }
 
