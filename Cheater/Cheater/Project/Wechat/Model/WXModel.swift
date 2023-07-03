@@ -78,6 +78,32 @@ extension WXContact {
         
         return result
     }
+    
+    /// 保存到文件,持久化存储
+    func save() {
+        guard let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("contact.dat") else { return }
+        
+        var origin = [WXContact]()
+        do {
+            let data = try Data(contentsOf: url) // 使用 JSONDecoder 解码数据为 contacts 对象
+            let decoder = JSONDecoder()
+            let contacts = try decoder.decode([WXContact].self, from: data)
+            origin = contacts
+        } catch {
+            print("Failed to read data from file: \(error)")
+        }
+        
+        origin.append(self)
+        
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted  // 可选：设置输出格式更易读
+        do {
+            let data = try encoder.encode(origin) // 将数据写入文件
+            try data.write(to: url)
+        } catch {
+            print("Failed to store contact data: \(error)")
+        }
+    }
 }
 
 

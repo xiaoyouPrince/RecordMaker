@@ -211,7 +211,8 @@ extension WechatHomeViewController {
     
     @objc
     func contactNavRightItemAction() {
-        Toast.make("联系人添加 --- ")
+        //Toast.make("联系人添加 --- ")
+        push(WXAddRuleViewController(), animated: true)
     }
 }
 
