@@ -104,6 +104,8 @@
 		B1E1FD7AC99CAB71B271908C620FD75E /* XYInfomationSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E53E22CF46679C95BEF078B7DA2A33E /* XYInfomationSection.m */; };
 		B43017FEC99D227D4CDD81DD2C27D9D9 /* ConstraintMakerPrioritizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F35FAEEDF398F5C19D51E2B25B382E /* ConstraintMakerPrioritizable.swift */; };
 		B4BE7728D87333785F811FED48CF134E /* MASCompositeConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B55AA9B83D556500F797B1419196364 /* MASCompositeConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B4F869D12A540464003749B8 /* XYFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869D02A540464003749B8 /* XYFileManager.swift */; };
+		B4F869D72A541F3B003749B8 /* XYBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869D62A541F3B003749B8 /* XYBadgeView.swift */; };
 		B61AA5459C2B345AD6D84D8A5111C9CE /* Masonry-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 03328E8AD26B027E6DE5A8AC533D222E /* Masonry-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B752F7C4BECB65894B1F49421049CE5F /* ConstraintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E265D70CC62455C44C266946436B3D /* ConstraintView.swift */; };
 		B93E2A333B5D8BCD887DDE4BC605D5F8 /* XYInfomationBaseViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 85497B169D19C57499E91457D1844D59 /* XYInfomationBaseViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -235,7 +237,7 @@
 		3A52ED7CA264870F2B6EA68E77B21C02 /* Pods-Cheater.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Cheater.debug.xcconfig"; sourceTree = "<group>"; };
 		3B17ECA13147149C7CFF4AEB4C6D7001 /* ConstraintPriorityTarget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintPriorityTarget.swift; path = Sources/ConstraintPriorityTarget.swift; sourceTree = "<group>"; };
 		3BF5A1A9507180639EAF165DCE01993F /* SnapKit-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SnapKit-Info.plist"; sourceTree = "<group>"; };
-		3CBD5AD729DB645B2A8A5FA72CB6DD06 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		3CBD5AD729DB645B2A8A5FA72CB6DD06 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		42D80E721E69F1F88E0C840169D64B4E /* Pods-Cheater-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Cheater-Info.plist"; sourceTree = "<group>"; };
 		4383CFD5FB18D23BC0A78775F298C2BB /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "ViewController+MASAdditions.m"; path = "Masonry/ViewController+MASAdditions.m"; sourceTree = "<group>"; };
 		47107D56C122E71A4118FE3527DD6FE5 /* XYRefreshTableViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = XYRefreshTableViewController.swift; sourceTree = "<group>"; };
@@ -257,7 +259,7 @@
 		61824A00FD83F3AF1F2C0F72715C3D02 /* XYUIKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "XYUIKit-prefix.pch"; sourceTree = "<group>"; };
 		61D7AC2E4DB3EE7E0FECE74A53F6F2CD /* ConstraintMakerEditable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMakerEditable.swift; path = Sources/ConstraintMakerEditable.swift; sourceTree = "<group>"; };
 		645893C657141C57D8BAC8C28FC8F84C /* XYInfomationTipCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XYInfomationTipCell.m; path = SectionDemo/XYInfomationSection/XYInfomationTipCell.m; sourceTree = "<group>"; };
-		65F29DA11355AA7E480703D87881C789 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		65F29DA11355AA7E480703D87881C789 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6855CE3C44754F6C41FB4D71C5398E18 /* MASViewConstraint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASViewConstraint.h; path = Masonry/MASViewConstraint.h; sourceTree = "<group>"; };
 		692EDE3E9606E4C300AFDDA57F168BA0 /* ConstraintMaker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMaker.swift; path = Sources/ConstraintMaker.swift; sourceTree = "<group>"; };
 		6962D1199CC88A98AF0D484EACE027C4 /* LayoutConstraintItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutConstraintItem.swift; path = Sources/LayoutConstraintItem.swift; sourceTree = "<group>"; };
@@ -270,7 +272,7 @@
 		730302266D205A9BD81F17673DA3EE7C /* XYInfomationSection-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "XYInfomationSection-prefix.pch"; sourceTree = "<group>"; };
 		74BE67AEE4FA4309D8FF23E76C92C98A /* XYInfomationSection.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = XYInfomationSection.release.xcconfig; sourceTree = "<group>"; };
 		758762949E654EA9D6F0272A55E4B409 /* Pods-Cheater-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Cheater-dummy.m"; sourceTree = "<group>"; };
-		78C2003519EFDFC8127F46C66731633D /* XYNav.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = XYNav.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		78C2003519EFDFC8127F46C66731633D /* XYNav.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = XYNav.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		7B3DA29E5EA1CB287049CE44D7195A28 /* LayoutConstraint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutConstraint.swift; path = Sources/LayoutConstraint.swift; sourceTree = "<group>"; };
 		7B55AA9B83D556500F797B1419196364 /* MASCompositeConstraint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASCompositeConstraint.h; path = Masonry/MASCompositeConstraint.h; sourceTree = "<group>"; };
 		7EA39D680ECACCD5B12DE7D134203D45 /* Date+XYAdd.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Date+XYAdd.swift"; sourceTree = "<group>"; };
@@ -296,7 +298,7 @@
 		9BEF47AB65556E55D2269A03FEB54A2B /* XYUIKit-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "XYUIKit-Info.plist"; sourceTree = "<group>"; };
 		9C0D634D72C8E9B3847E502D49AE4AA4 /* SnapKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SnapKit-prefix.pch"; sourceTree = "<group>"; };
 		9C70827134CFEC5254502CCB92697001 /* ConstraintRelatableTarget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintRelatableTarget.swift; path = Sources/ConstraintRelatableTarget.swift; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9E53E22CF46679C95BEF078B7DA2A33E /* XYInfomationSection.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XYInfomationSection.m; path = SectionDemo/XYInfomationSection/XYInfomationSection.m; sourceTree = "<group>"; };
 		9E935C4D200E9C77D3F550F466D086D2 /* UIView+XYAdd.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIView+XYAdd.swift"; sourceTree = "<group>"; };
 		9ED48AE7E2B5E77596C9CFD562001254 /* XYTagsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = XYTagsView.swift; sourceTree = "<group>"; };
@@ -310,12 +312,14 @@
 		AA55D5863A564F1203E4E2F42FDDFDA6 /* XYNetTool.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = XYNetTool.swift; sourceTree = "<group>"; };
 		AAB1B5A6DD5FE41E2412A48654A15127 /* Debugging.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Debugging.swift; path = Sources/Debugging.swift; sourceTree = "<group>"; };
 		AD19C7A0331EE8EB72A200878A4D8451 /* XYUIKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = XYUIKit.modulemap; sourceTree = "<group>"; };
-		AF82AA9E5DD9FE7FE26B5861337FA439 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		AF82AA9E5DD9FE7FE26B5861337FA439 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		AF8F753C83DE5B2EA81D7F056424CCEE /* XYContentController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = XYContentController.swift; path = XYNav/XYNav/Classes/XYContentController.swift; sourceTree = "<group>"; };
 		B1FE5573D44CBA1D7C0EAC2A465BA36B /* XYUIKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "XYUIKit-umbrella.h"; sourceTree = "<group>"; };
 		B25A5C43020F2054B8AB9E4ACC6B64C2 /* UILayoutSupport+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UILayoutSupport+Extensions.swift"; path = "Sources/UILayoutSupport+Extensions.swift"; sourceTree = "<group>"; };
 		B4684D82872BB59AAB3D2BD3F50DC332 /* Pods-Cheater.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Cheater.modulemap"; sourceTree = "<group>"; };
 		B4F6EA368669724E82D5B140F1AD3384 /* Masonry-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Masonry-prefix.pch"; sourceTree = "<group>"; };
+		B4F869D02A540464003749B8 /* XYFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYFileManager.swift; sourceTree = "<group>"; };
+		B4F869D62A541F3B003749B8 /* XYBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYBadgeView.swift; sourceTree = "<group>"; };
 		B598440AF694563D1FD22766B4BAED78 /* XYInfomationSwitchCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XYInfomationSwitchCell.m; path = SectionDemo/XYInfomationSection/XYInfomationSwitchCell.m; sourceTree = "<group>"; };
 		B8D176A78145778D4A749CA950F26894 /* NSLayoutConstraint+MASDebugAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+MASDebugAdditions.m"; path = "Masonry/NSLayoutConstraint+MASDebugAdditions.m"; sourceTree = "<group>"; };
 		B9E71377A31CCB90576B6272EE9CA5A7 /* XYIndexBar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = XYIndexBar.h; sourceTree = "<group>"; };
@@ -364,7 +368,7 @@
 		F82829E97BDE9F6626A0E3B9CEA75A99 /* XYInfoTextView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XYInfoTextView.h; path = SectionDemo/XYInfomationSection/XYInfoTextView.h; sourceTree = "<group>"; };
 		F88620AABAF0F0219FDC26DA25E2569D /* XYNav.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = XYNav.release.xcconfig; sourceTree = "<group>"; };
 		F8DB4941F68B565E2DEC272C7DC488AD /* ConstraintInsets.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintInsets.swift; path = Sources/ConstraintInsets.swift; sourceTree = "<group>"; };
-		F9208061C86706BFD6A09AF6F0300325 /* XYUIKit.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = XYUIKit.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		F9208061C86706BFD6A09AF6F0300325 /* XYUIKit.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = XYUIKit.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		F955143C062C70F38032CA3E5E7329DF /* SnapKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SnapKit.release.xcconfig; sourceTree = "<group>"; };
 		FC48D58F26F89CF90A14CA67DAAD1547 /* MASConstraint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASConstraint.m; path = Masonry/MASConstraint.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -435,7 +439,6 @@
 				100F01A6A7BAC914B869F6E5525B42B0 /* XYSpeedMatchController.swift */,
 				7259BF5C5F5A1A3425D011F7D7220091 /* XYSpeedMatchView.swift */,
 			);
-			name = SpeedMatch;
 			path = SpeedMatch;
 			sourceTree = "<group>";
 		};
@@ -488,7 +491,6 @@
 				0AA9DA88911110A5CCBC23A16E3E2951 /* Resources */,
 				884611A6E611A568A5902C62B8A9854A /* Support Files */,
 			);
-			name = XYInfomationSection;
 			path = XYInfomationSection;
 			sourceTree = "<group>";
 		};
@@ -498,7 +500,6 @@
 				C65FB5022E5A3E6E83B970832696C567 /* XYPickerView.h */,
 				2CEBCB948960BD9FD2A3F8A81CCD8382 /* XYPickerView.m */,
 			);
-			name = XYPickerView;
 			path = XYPickerView;
 			sourceTree = "<group>";
 		};
@@ -568,6 +569,7 @@
 			children = (
 				0FCEA219EAA3A60A796D1C9FE86F7F97 /* XYAlertManager.swift */,
 				AA55D5863A564F1203E4E2F42FDDFDA6 /* XYNetTool.swift */,
+				B4F869D02A540464003749B8 /* XYFileManager.swift */,
 			);
 			name = Tools;
 			path = XYUIKit/XYUIKit/XYUIKit/Classes/Tools;
@@ -624,7 +626,6 @@
 				B25A5C43020F2054B8AB9E4ACC6B64C2 /* UILayoutSupport+Extensions.swift */,
 				E34F659199AE859FAE92D2038DB5210B /* Support Files */,
 			);
-			name = SnapKit;
 			path = SnapKit;
 			sourceTree = "<group>";
 		};
@@ -635,6 +636,7 @@
 				9ED48AE7E2B5E77596C9CFD562001254 /* XYTagsView.swift */,
 				8D017DC6827CAB248A82CD7ED996BCA1 /* XYIndexBar */,
 				2AD997DEBCFBF45BA77248A378A943B8 /* XYPickerView */,
+				B4F869D62A541F3B003749B8 /* XYBadgeView.swift */,
 			);
 			name = Views;
 			path = XYUIKit/XYUIKit/XYUIKit/Classes/Views;
@@ -670,7 +672,6 @@
 				4383CFD5FB18D23BC0A78775F298C2BB /* ViewController+MASAdditions.m */,
 				9B18D708A75C017322E1F562D127C141 /* Support Files */,
 			);
-			name = Masonry;
 			path = Masonry;
 			sourceTree = "<group>";
 		};
@@ -706,7 +707,6 @@
 				B9E71377A31CCB90576B6272EE9CA5A7 /* XYIndexBar.h */,
 				7F6CB3BF4C936908B8D13A97ACA38E97 /* XYIndexBar.m */,
 			);
-			name = XYIndexBar;
 			path = XYIndexBar;
 			sourceTree = "<group>";
 		};
@@ -1176,6 +1176,8 @@
 				205863D5CC2A5AFF4C29A57027BA7008 /* UIViewController.swift in Sources */,
 				A0FF619699B5F339D141008A752F5DD9 /* XYAlertManager.swift in Sources */,
 				04AFB68357F69FF1FE6F31F2328FF68E /* XYAlertSheetController.swift in Sources */,
+				B4F869D12A540464003749B8 /* XYFileManager.swift in Sources */,
+				B4F869D72A541F3B003749B8 /* XYBadgeView.swift in Sources */,
 				681F34016EAA90AADA41CCB26557B63E /* XYFunctions.swift in Sources */,
 				3A840DA6919424E95AF05D103471B0DA /* XYIndexBar.m in Sources */,
 				99DCAC34D033376E36CBBB265460958F /* XYMacros.swift in Sources */,

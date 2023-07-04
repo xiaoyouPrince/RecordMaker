@@ -216,27 +216,11 @@ extension WechatTabbar {
     
     /// 当前选中的是否是微信首页
     var isSelectedHome: Bool {
-//        for subview in contentView.subviews {
-//            if let itemView = subview as? TabbarItemView {
-//                if itemView.isSelected && itemView.item.title == "微信" {
-//                    return true
-//                }
-//            }
-//        }
-//        return false
         isSelectedItem(with: .wechat)
     }
     
     /// 当前选中的是否是微信通讯录
     var isSelectedContact: Bool {
-//        for subview in contentView.subviews {
-//            if let itemView = subview as? TabbarItemView {
-//                if itemView.isSelected && itemView.item.title == "通讯录" {
-//                    return true
-//                }
-//            }
-//        }
-//        return false
         isSelectedItem(with: .contact)
     }
     

@@ -15,10 +15,10 @@ import XYInfomationSection
 class WXAddRuleViewController: XYInfomationBaseViewController {
     
     let addHeadImage = UIImage(named: "add_head")
-    private var saveCallback: (()->())?
+    private var saveCallback: ((WXContact)->())?
     private var randomContact: WXContact?
     
-    init(saveCallback: (()->())? = nil) {
+    init(saveCallback: ((WXContact)->())? = nil) {
         self.saveCallback = saveCallback
         super.init(nibName: nil, bundle: nil)
     }
@@ -134,7 +134,7 @@ extension WXAddRuleViewController {
 
         //Toast.makeDebug("新建的联系人 - \(contact.title)")
         ContactDataSource.update()
-        saveCallback?()
+        saveCallback?(contact)
         navigationController?.popViewController(animated: true)
     }
 }

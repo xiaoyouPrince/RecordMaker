@@ -53,9 +53,9 @@ struct ContactDataSource {
     /// 所有联系人 - 无序的原始数据
     static var contacts = WXContact.createContactList()
     /// 每一组的首字母 IndexTitles 已经排好序
-    static var sectionIndexTitles: [String] = []
+    static var sectionIndexTitles: [String] = updateSectionIndexTitles()//[]
     /// 安首字母顺序排好的联系人组
-    static var sections: [[WXContact]] = []
+    static var sections: [[WXContact]] = updateSections()//[]
     
     static func update() {
         contacts = WXContact.createContactList()
@@ -111,3 +111,9 @@ struct ContactDataSource {
     }
 }
 
+/**
+ 聊天列表
+ */
+struct ChatListDataSource {
+    
+}

@@ -14,6 +14,7 @@ class WechatHomeViewController: XYInfomationBaseViewController {
     var tabbar: WechatTabbar = WechatTabbar()
     var tableView = UITableView(frame: .zero, style: .plain)
     let indexBar = XYIndexBar(frame: .init(origin: .init(x: .width - 30, y: 0), size: .init(width: 30, height: .height)))
+    var hasSetupTableView = false // 用来标记 tableView 是否被设置过,避免重复设置,提升性能
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,11 +62,18 @@ class WechatHomeViewController: XYInfomationBaseViewController {
     
     func refreshUI(data: [Any]) {
         setContentWithData(data, itemConfig: { item in
-            item.value = ""
-            item.cellHeight = 60
-            item.accessoryView = UIImageView(image: UIImage(named: "youjiantou"))
+            if self.tabbar.isSelectedHome == false {
+                item.value = ""
+                item.cellHeight = 60
+                item.accessoryView = UIImageView(image: UIImage(named: "youjiantou"))
+            }
         }, sectionConfig: { section in
             section.corner(radius: 0)
+            if self.tabbar.isSelectedHome == false {
+                section.separatorInset = .init(top: 0, left: 47, bottom: 0, right: 0)
+            }else{
+                section.separatorInset = .init(top: 0, left: 77, bottom: 0, right: 0)
+            }
         }, sectionDistance: 10, contentEdgeInsets: .zero) { index, cell in
             Toast.make("\(cell.model.title)")
             
@@ -139,16 +147,34 @@ extension WechatHomeViewController {
     }
     
     func getWechatData() -> [Any] {
+        
+        let listModels: [WXListModel] = XYFileManager.readFile(with: WXConfig.chatListFile)
+//        listModels.map { model in // transform to xyinfotmationitem
+//            model.
+//        }
+        
+        var section: [[String: Any]] = []
+        for listModel in listModels {
+            let item = [
+                "title": listModel.title ?? "",
+                "type": XYInfoCellType.other.rawValue,
+                "customCellClass": WXListCell.self,
+                "obj": listModel
+            ] as [String : Any]
+            section.append(item)
+        }
+        
         let result: [[[String: Any]]] =
         [ // totoal
-            [ // section 1
-                [ // cell 1
-                    "imageName": "discover_IconShowAlbum_22x22_",
-                    "title": "朋友圈",
-                    "type": XYInfoCellType.choose.rawValue,
-                    "titleKey": "wechat_chat",
-                ]
-            ]
+            section
+//            [ // section 1
+//                [ // cell 1
+//                    "imageName": "discover_IconShowAlbum_22x22_",
+//                    "title": "朋友圈",
+//                    "type": XYInfoCellType.choose.rawValue,
+//                    "titleKey": "wechat_chat",
+//                ]
+//            ]
         ]
         return result
     }
@@ -157,11 +183,45 @@ extension WechatHomeViewController {
     func wechatAddAction() {
         Toast.make("首页添加 --- ")
         
-        WXBubbleView.show(actionTitles: ["添加单聊", "添加群聊", "清空列表", "退出模拟器"]) { index in
+        let actionTitles: [String] = [
+            "添加单聊",
+            "添加群聊",
+            "清空列表",
+            "退出模拟器"]
+        WXBubbleView.show(actionTitles: actionTitles) {[weak self] index in
             Toast.makeDebug("第\(index)被点击")
             
             if index == 0 {
-//                push(<#T##viewController: UIViewController##UIViewController#>, animated: <#T##Bool#>)
+                self?.push(WXAddSingleChatViewController(saveCallback: { [weak self] contact in
+                    // 刷新会话列表
+                    Toast.makeDebug("刷新会话列表 - 添加单聊")
+                    
+                    let model = WXListModel()
+                    model.imageData = contact.imageData
+                    model.title = contact.title
+                    
+                    XYFileManager.creatFile(with: WXConfig.chatListFile)
+                    let models = XYFileManager.appendFile(with: WXConfig.chatListFile, model: model)
+                    models.forEach { mo in
+                        print(mo.timeStr)
+                    }
+                    
+                    // update list
+                    self?.refreshUI(data: self?.getWechatData() ?? [])
+                    
+                }), animated: true)
+            }
+            
+            if index == 1 {
+                self?.navigationController?.popViewController(animated: true)
+            }
+            
+            if index == 2 {
+                self?.navigationController?.popViewController(animated: true)
+            }
+            
+            if index == 3 {
+                self?.navigationController?.popViewController(animated: true)
             }
         }
     }
@@ -184,9 +244,14 @@ extension WechatHomeViewController {
         setContentView(.init(), edgeInsets: .zero)
         
         // 每次进入通讯录刷新一下联系人数据源
-        ContactDataSource.update()
-        
-        setupTableView()
+        // ContactDataSource.update()
+
+        if hasSetupTableView == true {
+            return
+        }else{
+            hasSetupTableView = true
+            setupTableView()
+        }
     }
     
     func setupTableView() {
@@ -220,7 +285,7 @@ extension WechatHomeViewController {
     @objc
     func contactNavRightItemAction() {
         //Toast.make("联系人添加 --- ")
-        push(WXAddRuleViewController(saveCallback: {[weak self] in
+        push(WXAddRuleViewController(saveCallback: {[weak self] _ in
             self?.tableView.reloadData()
         }), animated: true)
     }

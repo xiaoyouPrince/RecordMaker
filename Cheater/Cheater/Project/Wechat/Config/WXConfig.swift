@@ -60,6 +60,11 @@ struct WXConfig {
     
 }
 
+extension WXConfig {
+    /// 微信消息列表的文件路径
+    static let chatListFile: String = "chatlist.dat"
+}
+
 
 extension UIColor {
     static var C_587CF7: UIColor = .xy_getColor(hex: 0x587CF7)
