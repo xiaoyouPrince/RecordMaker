@@ -159,6 +159,10 @@ extension WechatHomeViewController {
         
         WXBubbleView.show(actionTitles: ["添加单聊", "添加群聊", "清空列表", "退出模拟器"]) { index in
             Toast.makeDebug("第\(index)被点击")
+            
+            if index == 0 {
+//                push(<#T##viewController: UIViewController##UIViewController#>, animated: <#T##Bool#>)
+            }
         }
     }
 }
@@ -216,7 +220,9 @@ extension WechatHomeViewController {
     @objc
     func contactNavRightItemAction() {
         //Toast.make("联系人添加 --- ")
-        push(WXAddRuleViewController(), animated: true)
+        push(WXAddRuleViewController(saveCallback: {[weak self] in
+            self?.tableView.reloadData()
+        }), animated: true)
     }
 }
 
