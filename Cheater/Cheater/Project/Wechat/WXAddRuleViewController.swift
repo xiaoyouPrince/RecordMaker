@@ -11,8 +11,14 @@
 
 import XYUIKit
 import XYInfomationSection
+import XYAlbum
 
 class WXAddRuleViewController: XYInfomationBaseViewController {
+    
+    struct TitleText {
+        static let name = "名字"
+        static let icon = "头像"
+    }
     
     let addHeadImage = UIImage(named: "add_head")
     private var saveCallback: ((WXContact)->())?
@@ -55,8 +61,37 @@ extension WXAddRuleViewController {
             item.cellHeight = 60
         }, sectionConfig: {section in
             section.corner(radius: 0)
-        }, sectionDistance: 10, contentEdgeInsets: .zero) { index, cell in
-            Toast.make("\(cell.model.title)")
+        }, sectionDistance: 10, contentEdgeInsets: .zero) {[weak self] index, cell in
+            //Toast.make("\(cell.model.title)")
+            guard let self = self else {return}
+            
+            if cell.model.title == TitleText.icon {
+                XYAlertSheetController.showDefault(on: self, title: "从哪里选择", subTitle: nil, actions: ["相册","相机"]) { index in
+                    if index == 0 {
+                        self.askAuthAndChooseImage(type: .album)
+                    }else if index == 1 {
+                        self.askAuthAndChooseImage(type: .camera)
+                    }else{
+                        // 编辑当前图片
+                    }
+                }
+            }
+        }
+    }
+    
+    func askAuthAndChooseImage(type: AuthType) {
+        AuthorityManager.shared.request(auth: type) {[weak self] completion in
+            print(completion, "----")
+            
+            if type == .album {
+                self?.showAlbum()
+            }else
+            {
+                self?.showImagePicker()
+            }
+            
+        } settingHandler: { completion in
+            
         }
     }
     
@@ -89,14 +124,14 @@ extension WXAddRuleViewController {
         return [ // total
             [ // section 1
                 [
-                    "title": "头像",
+                    "title": TitleText.icon,
                     "type": XYInfoCellType.other.rawValue,
                     "customCellClass": PhotoCell.self,
                     "value": image != nil ? "true" : "false",
                     "obj": image ?? addHeadImage as Any
                 ],
                 [
-                    "title": "名字",
+                    "title": TitleText.name,
                     "type": XYInfoCellType.input.rawValue,
                     "value": title ?? ""
                 ]
@@ -119,12 +154,12 @@ extension WXAddRuleViewController {
             }
         }
         
-        if let image = result["头像"] as? String, image == "false" { // not choose icon
-            Toast.make("请选择头像")
+        if let image = result[TitleText.icon] as? String, image == "false" { // not choose icon
+            Toast.make("请选择\(TitleText.icon)")
             return
         }
-        if let title = result["名字"] as? String, title.isEmpty == true { // not input title
-            Toast.make("请输入名字")
+        if let title = result[TitleText.name] as? String, title.isEmpty == true { // not input title
+            Toast.make("请输入\(TitleText.name)")
             return
         }
         
@@ -136,5 +171,75 @@ extension WXAddRuleViewController {
         ContactDataSource.update()
         saveCallback?(contact)
         navigationController?.popViewController(animated: true)
+    }
+}
+
+extension WXAddRuleViewController : UIImagePickerControllerDelegate & UINavigationControllerDelegate, XYEidtViewControllerDelegate {
+    
+    func showImagePicker(){
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        imagePicker.sourceType = .camera
+        topMostViewController.present(imagePicker, animated: true)
+    }
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        print("info = \(info)")
+        
+        // 1. 销毁picker控制器
+        picker.dismiss(animated: true, completion: nil)
+        
+        // 原图
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            // 进入编辑页面
+            let editVC = XYEditViewController()
+            editVC.delegate = self
+            editVC.image = image
+            
+            present(editVC, animated: true, completion: nil)
+        }
+    }
+    
+    func imageEidtFinish(_ editedImage: UIImage) {
+        
+        if self.randomContact != nil {
+            self.randomContact?.imageData = editedImage.pngData()
+        }else{
+            self.randomContact = WXContact.random
+            self.randomContact?.imageData = editedImage.pngData()
+            self.randomContact?.title = ""
+        }
+        self.refreshContent()
+    }
+}
+
+
+extension WXAddRuleViewController {
+    
+    
+    func showAlbum() {
+        print("showAlbum---")
+        
+        let album = XYAlbumViewController.init { choosedImage in
+            
+        } finishEdit: {[weak self] editedImage in
+            // todo: - 压缩图片放到一个 50*50 的大小,用作 icon
+            self?.imageEidtFinish(editedImage)
+        }
+        UIViewController.currentVisibleVC.present(album, animated: true)
+    }
+    
+    /// 通过指定图片生成指定size大小的小图
+    /// - Parameters:
+    ///   - image: 原图
+    ///   - size: 目标大小
+    /// - Returns: 结果图
+    func generateThumbnail(image: UIImage, size: CGSize) -> UIImage? {
+        let renderer = UIGraphicsImageRenderer(size: size)
+        let thumbnail = renderer.image { context in
+            image.draw(in: CGRect(origin: .zero, size: size))
+        }
+        return thumbnail
     }
 }

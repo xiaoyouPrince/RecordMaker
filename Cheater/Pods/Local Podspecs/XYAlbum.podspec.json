@@ -1,0 +1,30 @@
+{
+  "name": "XYAlbum",
+  "version": "0.0.1",
+  "summary": "a custom segment component view, it decouple、elegant and efficient.",
+  "description": "一个开箱即食的图片选择器,图片编辑器. 没有业务耦合,接口简洁",
+  "homepage": "https://github.com/xiaoyouPrince/XYAlbum",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "xiaoyouPrince": "xiaoyouPrince@163.com"
+  },
+  "source": {
+    "git": "https://github.com/xiaoyouPrince/XYAlbum.git",
+    "tag": "0.0.1"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "swift_versions": "5.0",
+  "requires_arc": true,
+  "source_files": "XYAlbum/**/*.{swift,h,m,xib}",
+  "resource_bundles": {
+    "XYAlbum": [
+      "XYAlbum/files/*.png"
+    ]
+  },
+  "swift_version": "5.0"
+}

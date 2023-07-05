@@ -26,6 +26,10 @@
 		B4F869CF2A53D0B6003749B8 /* WXAddSingleChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869CE2A53D0B6003749B8 /* WXAddSingleChatViewController.swift */; };
 		B4F869D32A540D9A003749B8 /* WXListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869D22A540D9A003749B8 /* WXListModel.swift */; };
 		B4F869D52A541B83003749B8 /* WXListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869D42A541B83003749B8 /* WXListCell.swift */; };
+		B4F869DA2A551687003749B8 /* AuthorityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869D92A551687003749B8 /* AuthorityManager.swift */; };
+		B4F869DC2A553FEB003749B8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869DB2A553FEB003749B8 /* Constants.swift */; };
+		B4F869DE2A554051003749B8 /* AuthorityManagerAlbumExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869DD2A554051003749B8 /* AuthorityManagerAlbumExtension.swift */; };
+		B4F869E42A55B51E003749B8 /* AuthorityCameraExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869E32A55B51E003749B8 /* AuthorityCameraExtension.swift */; };
 		B4FFBE262A36161C001F09AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE252A36161C001F09AD /* AppDelegate.swift */; };
 		B4FFBE282A36161C001F09AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE272A36161C001F09AD /* SceneDelegate.swift */; };
 		B4FFBE2A2A36161C001F09AD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE292A36161C001F09AD /* HomeViewController.swift */; };
@@ -60,6 +64,10 @@
 		B4F869CE2A53D0B6003749B8 /* WXAddSingleChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXAddSingleChatViewController.swift; sourceTree = "<group>"; };
 		B4F869D22A540D9A003749B8 /* WXListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXListModel.swift; sourceTree = "<group>"; };
 		B4F869D42A541B83003749B8 /* WXListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXListCell.swift; sourceTree = "<group>"; };
+		B4F869D92A551687003749B8 /* AuthorityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorityManager.swift; sourceTree = "<group>"; };
+		B4F869DB2A553FEB003749B8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		B4F869DD2A554051003749B8 /* AuthorityManagerAlbumExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorityManagerAlbumExtension.swift; sourceTree = "<group>"; };
+		B4F869E32A55B51E003749B8 /* AuthorityCameraExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorityCameraExtension.swift; sourceTree = "<group>"; };
 		B4FFBE222A36161C001F09AD /* Cheater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cheater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4FFBE252A36161C001F09AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4FFBE272A36161C001F09AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +112,7 @@
 		B4F8699E2A387C41003749B8 /* Project */ = {
 			isa = PBXGroup;
 			children = (
+				B4F869D82A55166D003749B8 /* Tools */,
 				B4F869A22A387D38003749B8 /* FirstPages */,
 				B4F869A12A387C8D003749B8 /* Features */,
 				B4F869A02A387C84003749B8 /* Alipay */,
@@ -189,6 +198,17 @@
 				B4F869D22A540D9A003749B8 /* WXListModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		B4F869D82A55166D003749B8 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				B4F869D92A551687003749B8 /* AuthorityManager.swift */,
+				B4F869DB2A553FEB003749B8 /* Constants.swift */,
+				B4F869DD2A554051003749B8 /* AuthorityManagerAlbumExtension.swift */,
+				B4F869E32A55B51E003749B8 /* AuthorityCameraExtension.swift */,
+			);
+			path = Tools;
 			sourceTree = "<group>";
 		};
 		B4FFBE192A36161C001F09AD = {
@@ -356,6 +376,7 @@
 			files = (
 				B4F869B42A3C5585003749B8 /* WechatSearchBarView.swift in Sources */,
 				B4F869C72A4214FE003749B8 /* WXContactTableHaderFooterView.swift in Sources */,
+				B4F869E42A55B51E003749B8 /* AuthorityCameraExtension.swift in Sources */,
 				B4F869B72A3F4801003749B8 /* WXDataSource.swift in Sources */,
 				B475F2BB2A3698AA006C7351 /* XYHomeViewController.m in Sources */,
 				B4FFBE3D2A362C18001F09AD /* XYChatInputBar.swift in Sources */,
@@ -376,6 +397,9 @@
 				B4F869A72A38A346003749B8 /* WXConfig.swift in Sources */,
 				B4FFBE282A36161C001F09AD /* SceneDelegate.swift in Sources */,
 				B4F869CD2A52E0E1003749B8 /* WXBubbleView.swift in Sources */,
+				B4F869DE2A554051003749B8 /* AuthorityManagerAlbumExtension.swift in Sources */,
+				B4F869DA2A551687003749B8 /* AuthorityManager.swift in Sources */,
+				B4F869DC2A553FEB003749B8 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,13 +551,15 @@
 				DEVELOPMENT_TEAM = J9CJUEB6H8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cheater/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "需要访问您的相册,用于继续当前流程";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要访问您的相册,用于继续当前流程";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -581,13 +607,15 @@
 				DEVELOPMENT_TEAM = J9CJUEB6H8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cheater/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "需要访问您的相册,用于继续当前流程";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要访问您的相册,用于继续当前流程";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

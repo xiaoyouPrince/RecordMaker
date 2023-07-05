@@ -51,6 +51,7 @@ extension WXListCell {
         
         // badge
         
+        titleLabel.font = .systemFont(ofSize: 16)
         titleLabel.snp.makeConstraints { make in
             make.left.equalTo(iconView.snp.right).offset(12)
             make.top.equalTo(iconView).offset(2)
@@ -63,11 +64,15 @@ extension WXListCell {
             make.size.equalTo(CGSize(width: 20, height: 20))
         }
         
+        timeLabel.textColor = .xy_getColor(red: 180, green: 180, blue: 180)
+        timeLabel.font = UIFont.systemFont(ofSize: 12)
         timeLabel.snp.makeConstraints { make in
             make.right.equalToSuperview().offset(-12)
             make.centerY.equalTo(titleLabel)
         }
         
+        lastMessageLabel.textColor = .xy_getColor(red: 180, green: 180, blue: 180)
+        lastMessageLabel.font = .systemFont(ofSize: 14)
         lastMessageLabel.snp.makeConstraints { make in
             make.left.equalTo(titleLabel)
             make.bottom.equalTo(iconView).offset(-2)

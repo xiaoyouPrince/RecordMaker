@@ -1,6 +1,7 @@
 PODS:
   - Masonry (1.1.0)
   - SnapKit (5.6.0)
+  - XYAlbum (0.0.1)
   - XYInfomationSection (1.3.4):
     - Masonry
   - XYNav (1.2.0)
@@ -8,6 +9,7 @@ PODS:
     - SnapKit
 
 DEPENDENCIES:
+  - XYAlbum (from `/Users/quxiaoyou/Documents/github/XYAblum`)
   - XYInfomationSection
   - XYNav (from `/Users/quxiaoyou/Desktop/XYNav/`)
   - XYUIKit (from `/Users/quxiaoyou/Desktop/XYUIKit`)
@@ -20,6 +22,8 @@ SPEC REPOS:
     - XYInfomationSection
 
 EXTERNAL SOURCES:
+  XYAlbum:
+    :path: "/Users/quxiaoyou/Documents/github/XYAblum"
   XYNav:
     :path: "/Users/quxiaoyou/Desktop/XYNav/"
   XYUIKit:
@@ -28,10 +32,11 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  XYAlbum: cd8ff1e30589dd22c12452d3f601b6808d704370
   XYInfomationSection: 42de3cf27eebd9c4335bdceaa41437a56ad4b3d2
   XYNav: cd632211142b8c20c116218ced311dcf099a4077
   XYUIKit: 6778500453534251c667960c6f37aae9a77eb7d9
 
-PODFILE CHECKSUM: 228abf4f87f8a9c6c9b6d5a23f8df14769853702
+PODFILE CHECKSUM: e3f17040c96fbf1c97590610bcdad9245d222738
 
 COCOAPODS: 1.12.1

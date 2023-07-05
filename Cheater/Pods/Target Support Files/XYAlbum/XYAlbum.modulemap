@@ -1,0 +1,6 @@
+framework module XYAlbum {
+  umbrella header "XYAlbum-umbrella.h"
+
+  export *
+  module * { export * }
+}

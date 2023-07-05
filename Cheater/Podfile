@@ -10,4 +10,5 @@ target 'Cheater' do
   pod 'XYInfomationSection'
   pod 'XYUIKit', :path => '/Users/quxiaoyou/Desktop/XYUIKit'
   pod 'XYNav', :path => '/Users/quxiaoyou/Desktop/XYNav/'
+  pod 'XYAlbum', :path => '/Users/quxiaoyou/Documents/github/XYAblum'
 end

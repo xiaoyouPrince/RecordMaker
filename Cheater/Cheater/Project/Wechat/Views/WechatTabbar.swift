@@ -72,7 +72,7 @@ class TabbarItemView: UIControl {
             make.height.equalTo(10)
         }
         
-        badge.font = UIFont.systemFont(ofSize: 10)
+        badge.font = UIFont.boldSystemFont(ofSize: 13)
         badge.textColor = .white
         badge.backgroundColor = .red
         badge.text = item.badge

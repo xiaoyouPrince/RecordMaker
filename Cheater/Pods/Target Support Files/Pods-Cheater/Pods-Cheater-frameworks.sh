@@ -178,6 +178,7 @@ code_sign_if_enabled() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/XYAlbum/XYAlbum.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/XYInfomationSection/XYInfomationSection.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/XYNav/XYNav.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/XYUIKit/XYUIKit.framework"
@@ -185,6 +186,7 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/XYAlbum/XYAlbum.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/XYInfomationSection/XYInfomationSection.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/XYNav/XYNav.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/XYUIKit/XYUIKit.framework"
