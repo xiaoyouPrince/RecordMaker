@@ -48,6 +48,7 @@
  */
 
 import Foundation
+import XYUIKit
 
 struct ContactDataSource {
     /// 所有联系人 - 无序的原始数据
@@ -116,4 +117,5 @@ struct ContactDataSource {
  */
 struct ChatListDataSource {
     
+    static var listModel: [WXListModel] = XYFileManager.readFile(with: WXConfig.chatListFile)
 }

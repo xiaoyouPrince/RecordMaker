@@ -34,7 +34,6 @@ extension WXListCell {
     
     func setupUI() {
         addSubview(iconView)
-        addSubview(badge)
         addSubview(titleLabel)
         addSubview(statusView)
         addSubview(timeLabel)
@@ -48,8 +47,6 @@ extension WXListCell {
             make.bottom.equalTo(-10)
             make.width.height.equalTo(50)
         }
-        
-        // badge
         
         titleLabel.font = .systemFont(ofSize: 16)
         titleLabel.snp.makeConstraints { make in
@@ -87,6 +84,17 @@ extension WXListCell {
         }
     }
     
+    func setBadge(_ count: Int) -> XYBadgeView {
+        let badge = XYBadgeView(type: .stringContext)
+        addSubview(badge)
+        badge.intContent = count
+        badge.snp.makeConstraints { make in
+            make.right.equalTo(iconView).offset(8)
+            make.top.equalTo(iconView).offset(-5)
+        }
+        return badge
+    }
+    
     override var model: XYInfomationItem {
         didSet {
             guard let listModel = model.obj as? WXListModel else { return }
@@ -95,6 +103,12 @@ extension WXListCell {
             titleLabel.text = listModel.title
             timeLabel.text = listModel.timeStr
             statusView.image = UIImage(named: listModel.statusName ?? "")?.withRenderingMode(.alwaysTemplate)
+            backgroundColor = listModel.isTop == true ? WXConfig.navBarBgColor : .white
+
+            badge.removeFromSuperview()
+            if let count = listModel.badgeInt, count > 0 {
+                badge = setBadge(count)
+            }
         }
     }
 }

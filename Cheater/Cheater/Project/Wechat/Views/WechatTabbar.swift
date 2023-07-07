@@ -28,7 +28,12 @@ class TabbarItemInfo: NSObject {
     var title: String
     var icon_normal: String
     var icon_sel: String
-    var badge: String
+    var badge: String {
+        didSet {
+            view?.updateBadge(content: badge)
+        }
+    }
+    fileprivate weak var view: TabbarItemView?
     
     init(title: String, icon_normal: String, icon_sel: String, badge: String) {
         self.title = title
@@ -38,8 +43,7 @@ class TabbarItemInfo: NSObject {
     }
 }
 
-private
-class TabbarItemView: UIControl {
+private class TabbarItemView: UIControl {
     
     var iconImage = UIImageView()
     var titleLabel = UILabel()
@@ -50,6 +54,7 @@ class TabbarItemView: UIControl {
         self.item = item
         super.init(frame: .zero)
         
+        item.view = self
         iconImage.contentMode = .center
         titleLabel.textAlignment = .center
         
@@ -104,6 +109,22 @@ class TabbarItemView: UIControl {
                 self.titleLabel.textColor = WXConfig.tabBarItemNormalColor
             }
         }
+    }
+    
+    func updateBadge(content: String) {
+        badge.text = content
+        badge.sizeToFit()
+        badge.corner(radius: (badge.bounds.size.height + 5) / 2)
+        badge.isHidden = badge.text?.isEmpty ?? false
+        
+        let width = max(badge.bounds.width + 10, badge.bounds.height + 5)
+        badge.snp.remakeConstraints { make in
+            make.right.equalTo(iconImage).offset(15)
+            make.top.equalTo(iconImage.snp.top).offset(-8)
+            make.width.equalTo(width)
+            make.height.equalTo(badge.bounds.size.height + 5)
+        }
+        
     }
 }
 
@@ -195,23 +216,28 @@ class WechatTabbar: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func updateTabbarBadge(for type: WechatTabarItemName, count: Int) {
+        switch type {
+        case .wechat:
+            home.badge = count > 0 ? "\(count)" : ""
+        default:
+            break;
+        }
+    }
 }
 
 extension WechatTabbar {
     func navHeight() -> CGFloat {
-        if #available(iOS 13.0, *) {
-            return UIApplication.shared.keyWindow?.windowScene?.statusBarManager?.statusBarFrame.height ?? UIApplication.shared.statusBarFrame.height
-        } else {
-            return UIApplication.shared.statusBarFrame.height
-        }
+        CGFloat.naviBar
     }
     
     func tabbarSafeHeight() -> CGFloat {
-        isIPhoneX() ? 34 : 0
+        CGFloat.safeBottom
     }
     
     func isIPhoneX() -> Bool {
-        navHeight() != 20
+        CGFloat.isIPhoneX
     }
     
     /// 当前选中的是否是微信首页

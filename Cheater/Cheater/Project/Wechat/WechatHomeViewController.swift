@@ -70,43 +70,7 @@ class WechatHomeViewController: XYInfomationBaseViewController {
                 item.accessoryView = UIImageView(image: UIImage(named: "youjiantou"))
             }else
             {
-                let swipe = XYInfomationItemSwipeConfig()
-                swipe.canSwipe = true
-                swipe.actionBtns = { cell in
-                    let statusBtn = UIButton(frame: .init(origin: .zero, size: .init(width: 70, height: 0)))
-                    statusBtn.setTitle("状态", for: .normal)
-                    statusBtn.backgroundColor = .C_222222
-                    
-                    let editBtn = UIButton(frame: .init(origin: .zero, size: .init(width: 70, height: 0)))
-                    editBtn.setTitle("编辑", for: .normal)
-                    editBtn.backgroundColor = .C_587CF7
-                    
-                    let deletebtn = UIButton(frame: .init(origin: .zero, size: .init(width: 70, height: 0)))
-                    deletebtn.setTitle("删除", for: .normal)
-                    deletebtn.backgroundColor = .red
-                    
-                    let btns = [statusBtn, editBtn, deletebtn]
-                    btns.forEach { btn in
-                        btn.addBlock(for: .touchUpInside, block: { sender in
-                            guard let actionBtn = sender as? UIButton else { return }
-                            if actionBtn.currentTitle == "状态" {
-                                self.cellStatusAction(cell: cell)
-                            }
-                            
-                            if actionBtn.currentTitle == "编辑" {
-                                self.cellEditAction(cell: cell)
-                            }
-                            
-                            if actionBtn.currentTitle == "删除" {
-                                self.cellDeleteAction(cell: cell)
-                            }
-                        })
-                    }
-                    
-                    return btns
-                }
-                
-                item.swipeConfig = swipe
+                CellSwipeHelper().addSwipeFeature(for: item)
             }
         }, sectionConfig: { section in
             section.corner(radius: 0)
@@ -172,8 +136,10 @@ extension WechatHomeViewController: WechatTabbarProtocol {
 }
 
 // MARK: - 微信
+
 extension WechatHomeViewController {
     
+    /// tabbar 选中微信tab
     func didSelectedWechat() {
         
         let image = UIImage(named: "wechat_mnq_jia")?.withRenderingMode(.alwaysOriginal)
@@ -184,15 +150,43 @@ extension WechatHomeViewController {
         view.backgroundColor = WXConfig.tableViewBgColor
         navigationController?.setNavigationBarHidden(false, animated: false)
         
+        refreshWXListUI()
+    }
+    
+    /// 刷新微信列表的 UI
+    /// 比如列表数据排序之后,需要刷新UI
+    func refreshWXListUI() {
         refreshUI(data: getWechatData())
+    }
+    
+    /// 获取微信列表总的未读数量
+    var wxlistTotoalUnreadCount: Int {
+        var result = 0
+        let listModels: [WXListModel] = ChatListDataSource.listModel
+        listModels.forEach { model in
+            result += model.badgeInt ?? 0
+        }
+        return result
+    }
+    
+    /// 刷新微信 tabbar badge 总数
+    func refreshWXTabbarTotalCount() {
+        tabbar.updateTabbarBadge(for: .wechat, count: wxlistTotoalUnreadCount)
     }
     
     func getWechatData() -> [Any] {
         
-        let listModels: [WXListModel] = XYFileManager.readFile(with: WXConfig.chatListFile)
-//        listModels.map { model in // transform to xyinfotmationitem
-//            model.
-//        }
+        var listModels: [WXListModel] = ChatListDataSource.listModel
+        listModels = listModels.sorted { m1, m2 in
+            if m1.isTop == true, m2.isTop == true {
+                return m1.time > m2.time
+            } else
+            if m1.isTop == false, m2.isTop == false {
+                return m1.time > m2.time
+            } else {
+                return m1.isTop == true
+            }
+        }
         
         var section: [[String: Any]] = []
         for listModel in listModels {
@@ -266,60 +260,7 @@ extension WechatHomeViewController {
         }
     }
     
-    func cellStatusAction(cell: XYInfomationCell) {
-        /*
-         * - TODO -
-         * 选择状态,返回状态的 iconName
-         * 通过 iconName 修改数据源,刷新 Cell UI
-         *  1. 当下只刷新内存中的 数据 / UI
-         *  2. 当页面销毁/ App本身被销毁的时候,统一处理持久化数据
-         */
-        WXChooseStatusController.chooseStatus { iconName in
-            if iconName.isEmpty {
-                cell.resetInitialState()
-                return
-            }
-            
-            guard let obj = cell.model.obj as? WXListModel else { return }
-            obj.statusName = iconName
-            cell.model.obj = obj
-            let model = cell.model
-            cell.model = model
-            cell.resetInitialState()
-        }
-    }
-    
-    func cellEditAction(cell: XYInfomationCell) {
-        XYAlertSheetController.showDefault(on: self, title: "设置消息状态", subTitle: nil, actions: ["置顶聊天", "标记未读", "修改时间", "消息免打扰", "消息红点未读(免打扰状态)"]) { index in
-            
-            if (index >= 0) {
-                cell.resetInitialState()
-            }
-            
-            let a = UIView()
-            let b = a
-            if a == b {
-                print("a == b")
-            }
-            
-        }
-        
-        /*
-         * TODO - 删除文件,内容
-         *
-         */
-    }
-    
-    func cellDeleteAction(cell: XYInfomationCell) {
-        let mode = cell.model
-        mode.isFold = true
-        cell.model = mode
-        
-        /*
-         * TODO - 删除文件,内容
-         *
-         */
-    }
+
 }
 
 // MARK: - 通讯录

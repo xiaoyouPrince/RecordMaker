@@ -113,6 +113,7 @@ extension WXChooseStatusController {
             itemView.addTap { sender in
                 //Toast.make(item)
                 WXChooseStatusController.callback?(item)
+                XYAlertSheetController.dissmiss()
             }
         }
         

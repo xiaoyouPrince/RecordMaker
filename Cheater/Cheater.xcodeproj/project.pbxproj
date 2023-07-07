@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		7DA33F46A5B4A4C28F7E5C69 /* Pods_Cheater.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0BB7D9FF695167719B58D0 /* Pods_Cheater.framework */; };
 		B4498DF52A570E9A00B13CFA /* WXChooseStatusController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4498DF42A570E9A00B13CFA /* WXChooseStatusController.swift */; };
+		B4498DF82A57C0FD00B13CFA /* WXListCellLeftSwiptHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4498DF72A57C0FD00B13CFA /* WXListCellLeftSwiptHelper.swift */; };
+		B4498DFA2A58055000B13CFA /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4498DF92A58055000B13CFA /* AlertController.swift */; };
 		B475F2BB2A3698AA006C7351 /* XYHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B475F2BA2A3698AA006C7351 /* XYHomeViewController.m */; };
 		B4F869A42A38A011003749B8 /* WechatHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */; };
 		B4F869A72A38A346003749B8 /* WXConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A62A38A346003749B8 /* WXConfig.swift */; };
@@ -46,6 +48,8 @@
 		26A6EDACAA988EFA8AA90764 /* Pods-Cheater.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cheater.release.xcconfig"; path = "Target Support Files/Pods-Cheater/Pods-Cheater.release.xcconfig"; sourceTree = "<group>"; };
 		6E7EDBFBF8ACD50437237B58 /* Pods-Cheater.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cheater.debug.xcconfig"; path = "Target Support Files/Pods-Cheater/Pods-Cheater.debug.xcconfig"; sourceTree = "<group>"; };
 		B4498DF42A570E9A00B13CFA /* WXChooseStatusController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXChooseStatusController.swift; sourceTree = "<group>"; };
+		B4498DF72A57C0FD00B13CFA /* WXListCellLeftSwiptHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXListCellLeftSwiptHelper.swift; sourceTree = "<group>"; };
+		B4498DF92A58055000B13CFA /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		B475F2B82A3698A9006C7351 /* Cheater-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Cheater-Bridging-Header.h"; sourceTree = "<group>"; };
 		B475F2B92A3698AA006C7351 /* XYHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYHomeViewController.h; sourceTree = "<group>"; };
 		B475F2BA2A3698AA006C7351 /* XYHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYHomeViewController.m; sourceTree = "<group>"; };
@@ -109,6 +113,17 @@
 				0E0BB7D9FF695167719B58D0 /* Pods_Cheater.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B4498DF62A57C0AD00B13CFA /* AuthorityManager */ = {
+			isa = PBXGroup;
+			children = (
+				B4F869D92A551687003749B8 /* AuthorityManager.swift */,
+				B4F869DB2A553FEB003749B8 /* Constants.swift */,
+				B4F869DD2A554051003749B8 /* AuthorityManagerAlbumExtension.swift */,
+				B4F869E32A55B51E003749B8 /* AuthorityCameraExtension.swift */,
+			);
+			path = AuthorityManager;
 			sourceTree = "<group>";
 		};
 		B4F8699E2A387C41003749B8 /* Project */ = {
@@ -206,10 +221,9 @@
 		B4F869D82A55166D003749B8 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				B4F869D92A551687003749B8 /* AuthorityManager.swift */,
-				B4F869DB2A553FEB003749B8 /* Constants.swift */,
-				B4F869DD2A554051003749B8 /* AuthorityManagerAlbumExtension.swift */,
-				B4F869E32A55B51E003749B8 /* AuthorityCameraExtension.swift */,
+				B4498DF62A57C0AD00B13CFA /* AuthorityManager */,
+				B4498DF72A57C0FD00B13CFA /* WXListCellLeftSwiptHelper.swift */,
+				B4498DF92A58055000B13CFA /* AlertController.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -380,6 +394,7 @@
 				B4F869B42A3C5585003749B8 /* WechatSearchBarView.swift in Sources */,
 				B4F869C72A4214FE003749B8 /* WXContactTableHaderFooterView.swift in Sources */,
 				B4F869E42A55B51E003749B8 /* AuthorityCameraExtension.swift in Sources */,
+				B4498DF82A57C0FD00B13CFA /* WXListCellLeftSwiptHelper.swift in Sources */,
 				B4F869B72A3F4801003749B8 /* WXDataSource.swift in Sources */,
 				B475F2BB2A3698AA006C7351 /* XYHomeViewController.m in Sources */,
 				B4FFBE3D2A362C18001F09AD /* XYChatInputBar.swift in Sources */,
@@ -388,6 +403,7 @@
 				B4498DF52A570E9A00B13CFA /* WXChooseStatusController.swift in Sources */,
 				B4F869CF2A53D0B6003749B8 /* WXAddSingleChatViewController.swift in Sources */,
 				B4FFBE2A2A36161C001F09AD /* HomeViewController.swift in Sources */,
+				B4498DFA2A58055000B13CFA /* AlertController.swift in Sources */,
 				B4F869AE2A396BD8003749B8 /* MineInfoView.swift in Sources */,
 				B4F869D52A541B83003749B8 /* WXListCell.swift in Sources */,
 				B4FFBE3A2A3619C2001F09AD /* MineViewController.swift in Sources */,

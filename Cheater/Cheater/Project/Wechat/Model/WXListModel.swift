@@ -17,6 +17,9 @@ class WXListModel: Codable {
     var title: String?
     var time: TimeInterval = Date().timeIntervalSince1970
     var statusName: String?
+    var isTop: Bool? = false
+    var badgeInt: Int? = 0
+    var noDisturb: Bool? = false
 }
 
 extension WXListModel {
