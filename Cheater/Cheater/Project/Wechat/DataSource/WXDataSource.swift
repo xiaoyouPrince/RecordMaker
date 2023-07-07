@@ -119,6 +119,36 @@ struct DataSource_wxlist {
     
     static var listModel: [WXListModel] = XYFileManager.readFile(with: WXConfig.chatListFile)
     
+    /// 经过排好序的
+    static var listModels_sorted: [WXListModel] {
+        sortListModels(with: DataSource_wxlist.listModel)
+    }
+    
+    /// 对指定列表数组进行排序
+    /// - Parameter models: 指定数据源
+    /// - Returns: 排好序的数据源
+    static func sortListModels(with models: [WXListModel]) -> [WXListModel] {
+        var listModels: [WXListModel] = models
+        listModels = listModels.sorted { m1, m2 in
+            if m1.isTop == true {
+                if m2.isTop == true {
+                    return m1.time > m2.time
+                }else{
+                    return true
+                }
+            }else
+            {
+                if m2.isTop == true {
+                    return false
+                }else
+                {
+                    return m1.time > m2.time
+                }
+            }
+        }
+        return listModels
+    }
+    
     /*
      * - TODO -
      * 更新持久化微信列表数据

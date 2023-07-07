@@ -79,7 +79,7 @@ class WechatHomeViewController: XYInfomationBaseViewController {
             }else{
                 section.separatorInset = .init(top: 0, left: 77, bottom: 0, right: 0)
             }
-        }, sectionDistance: 10, contentEdgeInsets: .zero) { index, cell in
+        }, sectionDistance: 10, contentEdgeInsets: .init(top: .zero, left: .zero, bottom: .tabBar, right: .zero)) { index, cell in
             Toast.make("\(cell.model.title)")
             
             if cell.model.titleKey == "wechat_chat" {
@@ -177,17 +177,7 @@ extension WechatHomeViewController {
     
     func getWechatData() -> [Any] {
         
-        var listModels: [WXListModel] = DataSource_wxlist.listModel
-        listModels = listModels.sorted { m1, m2 in
-            if m1.isTop == true, m2.isTop == true {
-                return m1.time > m2.time
-            } else
-            if m1.isTop == false, m2.isTop == false {
-                return m1.time < m2.time
-            } else {
-                return m1.isTop == true
-            }
-        }
+        let listModels: [WXListModel] = DataSource_wxlist.listModels_sorted
         
         var section: [[String: Any]] = []
         for listModel in listModels {
@@ -200,18 +190,7 @@ extension WechatHomeViewController {
             section.append(item)
         }
         
-        let result: [[[String: Any]]] =
-        [ // totoal
-            section
-//            [ // section 1
-//                [ // cell 1
-//                    "imageName": "discover_IconShowAlbum_22x22_",
-//                    "title": "朋友圈",
-//                    "type": XYInfoCellType.choose.rawValue,
-//                    "titleKey": "wechat_chat",
-//                ]
-//            ]
-        ]
+        let result: [[[String: Any]]] = [section]
         return result
     }
     
@@ -244,7 +223,7 @@ extension WechatHomeViewController {
                     // update memory
                     DataSource_wxlist.listModel.append(model)
                     
-                    // update list
+                    // update list UI
                     self?.refreshUI(data: self?.getWechatData() ?? [])
                     
                     // update file

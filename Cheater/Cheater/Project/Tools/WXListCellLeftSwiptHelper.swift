@@ -60,33 +60,6 @@ extension XYInfomationCell {
     }
 }
 
-extension XYInfomationSection {
-    
-    /// 排序并刷新列表数据
-    func sortAndReloadData() {
-        var listModels = dataArray.map { item in
-            item.obj as! WXListModel
-        }
-        
-        listModels = listModels.sorted { m1, m2 in
-            if m1.isTop == true, m2.isTop == true {
-                return m1.time > m2.time
-            } else
-            if m1.isTop == false, m2.isTop == false {
-                return m1.time > m2.time
-            } else {
-                return m1.isTop == true
-            }
-        }
-        
-        for (index, item) in dataArray.enumerated() {
-            item.obj = listModels[index]
-        }
-        
-        self.dataArray = dataArray
-    }
-}
-
 struct CellSwipeHelper {
     
     /// 添加微信列表cell滑动功能
@@ -189,8 +162,40 @@ struct CellSwipeHelper {
                 }
             }
             
-            
-
+            if index == 2 { // change time
+                let datePicker = UIDatePicker()
+                // 设置时间选择器的模式为日期和时间
+                datePicker.datePickerMode = .dateAndTime
+                if #available(iOS 13.4, *) {
+                    datePicker.preferredDatePickerStyle = .wheels
+                } else {
+                    // Fallback on earlier versions
+                }
+                
+                // 设置时间选择器的本地化语言
+                datePicker.locale = Locale.current
+                
+                // 设置时间选择器的日期范围（可选）
+                let currentDate = Date()
+                let twoYearBeforeNow = Calendar.current.date(byAdding: .year, value: -2, to: currentDate)
+                datePicker.minimumDate = currentDate
+                datePicker.maximumDate = twoYearBeforeNow
+                
+                datePicker.snp.makeConstraints { make in
+                    make.height.equalTo(280)
+                }
+                
+                XYAlertSheetController.showCustom(on: UIViewController.currentVisibleVC, customHeader: datePicker, actions: [.init(title: "确定")]) { index in
+                    cell.resetInitialState()
+                    
+                    if index == 0 {
+                        let interval = datePicker.date.timeIntervalSince1970
+                        cell.updateAndRefreshList { listModel in
+                            listModel.time = interval
+                        }
+                    }
+                }
+            }
         }
         
         /*
