@@ -115,7 +115,19 @@ struct ContactDataSource {
 /**
  聊天列表
  */
-struct ChatListDataSource {
+struct DataSource_wxlist {
     
     static var listModel: [WXListModel] = XYFileManager.readFile(with: WXConfig.chatListFile)
+    
+    /*
+     * - TODO -
+     * 更新持久化微信列表数据
+     *
+     *  1. 只需要更新文件即可,内存中依旧使用内存数据,下次进入的时候才会对去文件
+     */
+    static func update() {
+        DispatchQueue.global().async {
+            XYFileManager.writeFile(with: WXConfig.chatListFile, models: listModel)
+        }
+    }
 }

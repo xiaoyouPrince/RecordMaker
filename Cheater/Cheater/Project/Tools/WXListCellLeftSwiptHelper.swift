@@ -47,6 +47,9 @@ extension XYInfomationCell {
         
         // 更新完之后归位
         resetInitialState()
+        
+        // 更新列表持久化数据
+        DataSource_wxlist.update()
     }
     
     /// 更新cell.真实模型, 完成之后刷新Cell所在列表

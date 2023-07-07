@@ -157,12 +157,13 @@ extension WechatHomeViewController {
     /// 比如列表数据排序之后,需要刷新UI
     func refreshWXListUI() {
         refreshUI(data: getWechatData())
+        refreshWXTabbarTotalCount()
     }
     
     /// 获取微信列表总的未读数量
     var wxlistTotoalUnreadCount: Int {
         var result = 0
-        let listModels: [WXListModel] = ChatListDataSource.listModel
+        let listModels: [WXListModel] = DataSource_wxlist.listModel
         listModels.forEach { model in
             result += model.badgeInt ?? 0
         }
@@ -176,13 +177,13 @@ extension WechatHomeViewController {
     
     func getWechatData() -> [Any] {
         
-        var listModels: [WXListModel] = ChatListDataSource.listModel
+        var listModels: [WXListModel] = DataSource_wxlist.listModel
         listModels = listModels.sorted { m1, m2 in
             if m1.isTop == true, m2.isTop == true {
                 return m1.time > m2.time
             } else
             if m1.isTop == false, m2.isTop == false {
-                return m1.time > m2.time
+                return m1.time < m2.time
             } else {
                 return m1.isTop == true
             }
@@ -234,14 +235,20 @@ extension WechatHomeViewController {
                     model.imageData = contact.imageData
                     model.title = contact.title
                     
-                    XYFileManager.creatFile(with: WXConfig.chatListFile)
-                    let models = XYFileManager.appendFile(with: WXConfig.chatListFile, model: model)
-                    models.forEach { mo in
-                        print(mo.timeStr)
-                    }
+//                    XYFileManager.creatFile(with: WXConfig.chatListFile)
+//                    let models = XYFileManager.appendFile(with: WXConfig.chatListFile, model: model)
+//                    models.forEach { mo in
+//                        print(mo.timeStr)
+//                    }
+                    
+                    // update memory
+                    DataSource_wxlist.listModel.append(model)
                     
                     // update list
                     self?.refreshUI(data: self?.getWechatData() ?? [])
+                    
+                    // update file
+                    DataSource_wxlist.update()
                     
                 }), animated: true)
             }
