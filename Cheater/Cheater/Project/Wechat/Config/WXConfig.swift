@@ -71,4 +71,5 @@ extension UIColor {
     static var C_FFFFFF: UIColor = .xy_getColor(hex: 0xFFFFFF)
     static var C_000000: UIColor = .xy_getColor(hex: 0x000000)
     static var C_222222: UIColor = .xy_getColor(hex: 0x222222)
+    static var C_wx_status: UIColor = .xy_getColor(red: 103, green: 113, blue: 148)
 }

@@ -61,11 +61,52 @@ class WechatHomeViewController: XYInfomationBaseViewController {
     }
     
     func refreshUI(data: [Any]) {
+        if let first = data.first as? [[String: Any]], first.isEmpty {return} // 空数据不加载
+        
         setContentWithData(data, itemConfig: { item in
             if self.tabbar.isSelectedHome == false {
                 item.value = ""
                 item.cellHeight = 60
                 item.accessoryView = UIImageView(image: UIImage(named: "youjiantou"))
+            }else
+            {
+                let swipe = XYInfomationItemSwipeConfig()
+                swipe.canSwipe = true
+                swipe.actionBtns = { cell in
+                    let statusBtn = UIButton(frame: .init(origin: .zero, size: .init(width: 70, height: 0)))
+                    statusBtn.setTitle("状态", for: .normal)
+                    statusBtn.backgroundColor = .C_222222
+                    
+                    let editBtn = UIButton(frame: .init(origin: .zero, size: .init(width: 70, height: 0)))
+                    editBtn.setTitle("编辑", for: .normal)
+                    editBtn.backgroundColor = .C_587CF7
+                    
+                    let deletebtn = UIButton(frame: .init(origin: .zero, size: .init(width: 70, height: 0)))
+                    deletebtn.setTitle("删除", for: .normal)
+                    deletebtn.backgroundColor = .red
+                    
+                    let btns = [statusBtn, editBtn, deletebtn]
+                    btns.forEach { btn in
+                        btn.addBlock(for: .touchUpInside, block: { sender in
+                            guard let actionBtn = sender as? UIButton else { return }
+                            if actionBtn.currentTitle == "状态" {
+                                self.cellStatusAction(cell: cell)
+                            }
+                            
+                            if actionBtn.currentTitle == "编辑" {
+                                self.cellEditAction(cell: cell)
+                            }
+                            
+                            if actionBtn.currentTitle == "删除" {
+                                self.cellDeleteAction(cell: cell)
+                            }
+                        })
+                    }
+                    
+                    return btns
+                }
+                
+                item.swipeConfig = swipe
             }
         }, sectionConfig: { section in
             section.corner(radius: 0)
@@ -179,8 +220,7 @@ extension WechatHomeViewController {
         return result
     }
     
-    @objc
-    func wechatAddAction() {
+    @objc func wechatAddAction() {
         Toast.make("首页添加 --- ")
         
         let actionTitles: [String] = [
@@ -224,6 +264,61 @@ extension WechatHomeViewController {
                 self?.navigationController?.popViewController(animated: true)
             }
         }
+    }
+    
+    func cellStatusAction(cell: XYInfomationCell) {
+        /*
+         * - TODO -
+         * 选择状态,返回状态的 iconName
+         * 通过 iconName 修改数据源,刷新 Cell UI
+         *  1. 当下只刷新内存中的 数据 / UI
+         *  2. 当页面销毁/ App本身被销毁的时候,统一处理持久化数据
+         */
+        WXChooseStatusController.chooseStatus { iconName in
+            if iconName.isEmpty {
+                cell.resetInitialState()
+                return
+            }
+            
+            guard let obj = cell.model.obj as? WXListModel else { return }
+            obj.statusName = iconName
+            cell.model.obj = obj
+            let model = cell.model
+            cell.model = model
+            cell.resetInitialState()
+        }
+    }
+    
+    func cellEditAction(cell: XYInfomationCell) {
+        XYAlertSheetController.showDefault(on: self, title: "设置消息状态", subTitle: nil, actions: ["置顶聊天", "标记未读", "修改时间", "消息免打扰", "消息红点未读(免打扰状态)"]) { index in
+            
+            if (index >= 0) {
+                cell.resetInitialState()
+            }
+            
+            let a = UIView()
+            let b = a
+            if a == b {
+                print("a == b")
+            }
+            
+        }
+        
+        /*
+         * TODO - 删除文件,内容
+         *
+         */
+    }
+    
+    func cellDeleteAction(cell: XYInfomationCell) {
+        let mode = cell.model
+        mode.isFold = true
+        cell.model = mode
+        
+        /*
+         * TODO - 删除文件,内容
+         *
+         */
     }
 }
 

@@ -16,6 +16,7 @@ class WXListModel: Codable {
     var imageData: Data?
     var title: String?
     var time: TimeInterval = Date().timeIntervalSince1970
+    var statusName: String?
 }
 
 extension WXListModel {

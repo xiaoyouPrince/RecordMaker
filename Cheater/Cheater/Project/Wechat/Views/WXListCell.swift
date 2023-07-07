@@ -58,6 +58,7 @@ extension WXListCell {
             make.width.lessThanOrEqualToSuperview().multipliedBy(0.5)
         }
         
+        statusView.tintColor = .C_wx_status
         statusView.snp.makeConstraints { make in
             make.left.equalTo(titleLabel.snp.right).offset(4)
             make.centerY.equalTo(titleLabel)
@@ -93,6 +94,7 @@ extension WXListCell {
             iconView.image = listModel.image
             titleLabel.text = listModel.title
             timeLabel.text = listModel.timeStr
+            statusView.image = UIImage(named: listModel.statusName ?? "")?.withRenderingMode(.alwaysTemplate)
         }
     }
 }

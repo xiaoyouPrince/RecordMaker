@@ -66,13 +66,27 @@ extension WXAddRuleViewController {
             guard let self = self else {return}
             
             if cell.model.title == TitleText.icon {
-                XYAlertSheetController.showDefault(on: self, title: "从哪里选择", subTitle: nil, actions: ["相册","相机"]) { index in
+                
+                var actions = ["相册","相机"]
+                var currentImage: UIImage?
+                if let obj = cell.model.obj as? UIImage, obj != self.addHeadImage {
+                    actions.append("编辑当前图片")
+                    currentImage = obj
+                }
+                
+                XYAlertSheetController.showDefault(on: self, title: "从哪里选择", subTitle: nil, actions: actions ) { index in
                     if index == 0 {
                         self.askAuthAndChooseImage(type: .album)
                     }else if index == 1 {
                         self.askAuthAndChooseImage(type: .camera)
                     }else{
-                        // 编辑当前图片
+                        if let currentImage = currentImage {
+                            // 编辑当前图片
+                            let editVC = XYEditViewController()
+                            editVC.delegate = self
+                            editVC.image = currentImage
+                            self.push(editVC, animated: true)
+                        }
                     }
                 }
             }
@@ -164,7 +178,7 @@ extension WXAddRuleViewController {
         }
         
         //Toast.makeDebug(result.toString ?? "")
-        let contact = WXContact(image: image, title: result["名字"] as! String)
+        let contact = WXContact(image: image, title: result[TitleText.name] as! String)
         contact.save()
 
         //Toast.makeDebug("新建的联系人 - \(contact.title)")
