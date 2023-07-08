@@ -163,37 +163,26 @@ struct CellSwipeHelper {
             }
             
             if index == 2 { // change time
-                let datePicker = UIDatePicker()
-                // 设置时间选择器的模式为日期和时间
-                datePicker.datePickerMode = .dateAndTime
-                if #available(iOS 13.4, *) {
-                    datePicker.preferredDatePickerStyle = .wheels
-                } else {
-                    // Fallback on earlier versions
-                }
-                
-                // 设置时间选择器的本地化语言
-                datePicker.locale = Locale.current
-                
-                // 设置时间选择器的日期范围（可选）
-                let currentDate = Date()
-                let twoYearBeforeNow = Calendar.current.date(byAdding: .year, value: -2, to: currentDate)
-                datePicker.minimumDate = currentDate
-                datePicker.maximumDate = twoYearBeforeNow
-                
-                datePicker.snp.makeConstraints { make in
-                    make.height.equalTo(280)
-                }
-                
-                XYAlertSheetController.showCustom(on: UIViewController.currentVisibleVC, customHeader: datePicker, actions: [.init(title: "确定")]) { index in
-                    cell.resetInitialState()
-                    
-                    if index == 0 {
-                        let interval = datePicker.date.timeIntervalSince1970
+                DatePickerController.chooseDate { timeInterval in
+                    if timeInterval >= 0 {
                         cell.updateAndRefreshList { listModel in
-                            listModel.time = interval
+                            listModel.time = timeInterval
                         }
+                    }else{
+                        cell.resetInitialState()
                     }
+                }
+            }
+            
+            if index == 3 { // 消息免打扰
+                cell.update { listModel in
+                    listModel.noDisturb = !(listModel.noDisturb ?? false)
+                }
+            }
+            
+            if index == 4 { // 消息红点未读(免打扰状态)
+                cell.updateAndRefreshList { listModel in
+                    listModel.silenceNotify = !(listModel.silenceNotify ?? false)
                 }
             }
         }

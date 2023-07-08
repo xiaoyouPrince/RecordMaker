@@ -11,6 +11,7 @@
 		B4498DF52A570E9A00B13CFA /* WXChooseStatusController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4498DF42A570E9A00B13CFA /* WXChooseStatusController.swift */; };
 		B4498DF82A57C0FD00B13CFA /* WXListCellLeftSwiptHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4498DF72A57C0FD00B13CFA /* WXListCellLeftSwiptHelper.swift */; };
 		B4498DFA2A58055000B13CFA /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4498DF92A58055000B13CFA /* AlertController.swift */; };
+		B4498DFC2A586EAE00B13CFA /* DatePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4498DFB2A586EAE00B13CFA /* DatePickerController.swift */; };
 		B475F2BB2A3698AA006C7351 /* XYHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B475F2BA2A3698AA006C7351 /* XYHomeViewController.m */; };
 		B4F869A42A38A011003749B8 /* WechatHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */; };
 		B4F869A72A38A346003749B8 /* WXConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A62A38A346003749B8 /* WXConfig.swift */; };
@@ -50,6 +51,7 @@
 		B4498DF42A570E9A00B13CFA /* WXChooseStatusController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXChooseStatusController.swift; sourceTree = "<group>"; };
 		B4498DF72A57C0FD00B13CFA /* WXListCellLeftSwiptHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXListCellLeftSwiptHelper.swift; sourceTree = "<group>"; };
 		B4498DF92A58055000B13CFA /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
+		B4498DFB2A586EAE00B13CFA /* DatePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerController.swift; sourceTree = "<group>"; };
 		B475F2B82A3698A9006C7351 /* Cheater-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Cheater-Bridging-Header.h"; sourceTree = "<group>"; };
 		B475F2B92A3698AA006C7351 /* XYHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYHomeViewController.h; sourceTree = "<group>"; };
 		B475F2BA2A3698AA006C7351 /* XYHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYHomeViewController.m; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 				B4498DF62A57C0AD00B13CFA /* AuthorityManager */,
 				B4498DF72A57C0FD00B13CFA /* WXListCellLeftSwiptHelper.swift */,
 				B4498DF92A58055000B13CFA /* AlertController.swift */,
+				B4498DFB2A586EAE00B13CFA /* DatePickerController.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				B4F869B42A3C5585003749B8 /* WechatSearchBarView.swift in Sources */,
 				B4F869C72A4214FE003749B8 /* WXContactTableHaderFooterView.swift in Sources */,
 				B4F869E42A55B51E003749B8 /* AuthorityCameraExtension.swift in Sources */,
+				B4498DFC2A586EAE00B13CFA /* DatePickerController.swift in Sources */,
 				B4498DF82A57C0FD00B13CFA /* WXListCellLeftSwiptHelper.swift in Sources */,
 				B4F869B72A3F4801003749B8 /* WXDataSource.swift in Sources */,
 				B475F2BB2A3698AA006C7351 /* XYHomeViewController.m in Sources */,

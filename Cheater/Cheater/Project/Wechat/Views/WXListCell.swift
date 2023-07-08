@@ -77,9 +77,10 @@ extension WXListCell {
             make.right.equalToSuperview().offset(-40)
         }
         
+        dontDisturbView.image = .init(named: "wechat_top_mute_new")
         dontDisturbView.snp.makeConstraints { make in
-            make.right.equalTo(titleLabel)
-            make.size.equalTo(CGSize(width: 20, height: 20))
+            make.right.equalTo(timeLabel)
+            make.size.equalTo(CGSize(width: 12, height: 12))
             make.centerY.equalTo(lastMessageLabel)
         }
     }
@@ -91,6 +92,16 @@ extension WXListCell {
         badge.snp.makeConstraints { make in
             make.right.equalTo(iconView).offset(8)
             make.top.equalTo(iconView).offset(-5)
+        }
+        return badge
+    }
+    
+    func setBadgeDot() -> XYBadgeView {
+        let badge = XYBadgeView(type: .redDot)
+        addSubview(badge)
+        badge.snp.makeConstraints { make in
+            make.right.equalTo(iconView).offset(4)
+            make.top.equalTo(iconView).offset(-4)
         }
         return badge
     }
@@ -108,6 +119,13 @@ extension WXListCell {
             badge.removeFromSuperview()
             if let count = listModel.badgeInt, count > 0 {
                 badge = setBadge(count)
+            }
+            
+            dontDisturbView.isHidden = !(listModel.noDisturb ?? false)
+            
+            if let silenceNotify = listModel.silenceNotify, silenceNotify {
+                badge.removeFromSuperview()
+                badge = setBadgeDot()
             }
         }
     }

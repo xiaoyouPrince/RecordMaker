@@ -18,8 +18,24 @@ class WXListModel: Codable {
     var time: TimeInterval = Date().timeIntervalSince1970
     var statusName: String?
     var isTop: Bool? = false
-    var badgeInt: Int? = 0
+    /// 未读数, 此属性和静默通知的红点互斥
+    var badgeInt: Int? = 0 {
+        didSet{
+            if (badgeInt ?? 0) > 0 {
+                silenceNotify = false
+            }
+        }
+    }
+    /// 是否是免打扰状态
     var noDisturb: Bool? = false
+    /// 是否有消息免打扰的静默通知, 显示为红点, 此属性和红点数字互斥
+    var silenceNotify: Bool? = false{
+        didSet{
+            if silenceNotify == true {
+                badgeInt = 0
+            }
+        }
+    }
 }
 
 extension WXListModel {
