@@ -11,6 +11,10 @@ import XYUIKit
 
 /// 微信通讯录数据模型(本来可以用 struct 但是微信联系人页面造数据会比较麻烦)
 class WXContact: Codable {
+
+    // 联系人的唯一 id,  由于是自己创建生成的,并且要序列化持久化存储,然后再给自己赋值,在此情景下 let 难以支持,只能自己知道不要改动此
+    var id: Int? = Int(arc4random())
+    
     var imageData: Data? //UIImage - 直接从相册/相机获取的照片
     var imageName: String? //直接默认生成,选择的默认照片
     var title: String

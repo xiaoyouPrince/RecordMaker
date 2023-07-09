@@ -82,10 +82,16 @@ class WechatHomeViewController: XYInfomationBaseViewController {
         }, sectionDistance: 10, contentEdgeInsets: .init(top: .zero, left: .zero, bottom: .tabBar, right: .zero)) { index, cell in
             Toast.make("\(cell.model.title)")
             
-            if cell.model.titleKey == "wechat_chat" {
-                self.push(MineViewController(), animated: true)
+            if self.tabbar.isSelectedHome, let listModel = cell.wxListModel { // 进入
+                let detail = WXDetailViewController(listModel: listModel)
+                detail.title = cell.model.title
+                self.push(detail, animated: true)
             }
         }
+    }
+    
+    deinit {
+        Toast.make("微信主页 - 被杀死")
     }
 }
 

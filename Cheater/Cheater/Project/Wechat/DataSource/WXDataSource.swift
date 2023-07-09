@@ -50,9 +50,31 @@
 import Foundation
 import XYUIKit
 
+
+extension Encodable {
+    
+    var toString: String? {
+        do {
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+            let data = try encoder.encode(self)
+            return String(data: data, encoding: .utf8)
+        }catch{
+            // error
+        }
+        
+        return ""
+    }
+}
+
+
+
+/**
+ *联系人数据源
+ */
 struct ContactDataSource {
     /// 所有联系人 - 无序的原始数据
-    static var contacts = WXContact.createContactList()
+    static var contacts: [WXContact] = WXContact.createContactList()
     /// 每一组的首字母 IndexTitles 已经排好序
     static var sectionIndexTitles: [String] = updateSectionIndexTitles()//[]
     /// 安首字母顺序排好的联系人组
@@ -113,7 +135,7 @@ struct ContactDataSource {
 }
 
 /**
- 聊天列表
+ *聊天列表
  */
 struct DataSource_wxlist {
     
@@ -160,4 +182,34 @@ struct DataSource_wxlist {
             XYFileManager.writeFile(with: WXConfig.chatListFile, models: listModel)
         }
     }
+}
+
+/*
+ * - TODO -
+ * 聊天详情数据源
+ *
+ *  1. 获取列表数据 - 按时间排序
+ *  2. 用户手动修改顺序, 这里方案暂定为: 修改两者时间,并持久化存储
+ */
+class DataSource_wxDetail {
+    
+    /// 当前会话目标对象 - 整个会话是通用的
+    static var targetContact: WXContact? {
+        didSet {
+            guard let targetContact = targetContact else { return }
+            let db_fileName = targetContact.title + "\(targetContact.id ?? 0)"
+            allMessages = XYFileManager.readFile(with: db_fileName)
+            
+            // 如果初次进入会话,没有数据,手动加一个系统数据
+            if allMessages?.isEmpty == true {
+                let msg = WXDetailModel()
+                msg.msgType = .text
+                msg.text = "手动十分广泛"
+                allMessages?.append(msg)
+            }
+        }
+    }
+    
+    static var allMessages: [WXDetailModel]?
+    
 }

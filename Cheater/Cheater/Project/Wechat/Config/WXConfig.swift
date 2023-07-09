@@ -58,11 +58,14 @@ struct WXConfig {
         return UIColor.xy_getColor(red: 25, green: 184, blue: 78)
     }
     
+    static var wx_backImag = UIImage(named: "wechat_fanhui")?.withRenderingMode(.alwaysOriginal)
+    
 }
 
 extension WXConfig {
     /// 微信消息列表的文件路径
     static let chatListFile: String = "chatlist.dat"
+    
 }
 
 
@@ -71,5 +74,15 @@ extension UIColor {
     static var C_FFFFFF: UIColor = .xy_getColor(hex: 0xFFFFFF)
     static var C_000000: UIColor = .xy_getColor(hex: 0x000000)
     static var C_222222: UIColor = .xy_getColor(hex: 0x222222)
+    /// 设置微信状态,图片的 initColor, 原图是黑色背景
     static var C_wx_status: UIColor = .xy_getColor(red: 103, green: 113, blue: 148)
+}
+
+extension UIImage {
+    
+    /// 微信返回按钮的图片
+    static var wx_backImag = UIImage(named: "wechat_fanhui")?.withRenderingMode(.alwaysOriginal)
+    
+    /// 微信右上角的三个点
+    static var wx_right_3dot = UIImage(named: "wechat_sandian")?.withRenderingMode(.alwaysOriginal)
 }

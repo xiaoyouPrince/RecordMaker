@@ -49,7 +49,7 @@ extension WXAddRuleViewController {
         view.backgroundColor = WXConfig.tableViewBgColor
         setNavbarWechat()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .plain, target: self, action: #selector(saveAction))
-        nav_setCustom(backImage: UIImage(named: "wechat_fanhui")?.withRenderingMode(.alwaysOriginal)) { true }
+        nav_setCustom(backImage: WXConfig.wx_backImag)
     }
     
     func refreshContent() {

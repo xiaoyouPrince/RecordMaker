@@ -141,6 +141,7 @@
 		B10646B6AF73D470221EF25A5DEEEB6F /* ViewController+MASAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D827C10BDB4BB377A56B36D369C29EAF /* ViewController+MASAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1E1FD7AC99CAB71B271908C620FD75E /* XYInfomationSection.m in Sources */ = {isa = PBXBuildFile; fileRef = F9BD5C56CD3DEF07D3CFBE6E4374CA60 /* XYInfomationSection.m */; };
 		B43017FEC99D227D4CDD81DD2C27D9D9 /* ConstraintMakerPrioritizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC1F54A392BDAFD5880E8A3728E08EC /* ConstraintMakerPrioritizable.swift */; };
+		B4498E002A5A62B300B13CFA /* UIBarButtonItem+XYNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4498DFF2A5A62B300B13CFA /* UIBarButtonItem+XYNav.swift */; };
 		B4BE7728D87333785F811FED48CF134E /* MASCompositeConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8045D653C1D63EEF68E296F01A96DD /* MASCompositeConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B504ABDE7CEF6E732D13A93FEC6E81C1 /* UIResponder+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0650D64A2F2D570738F916126ACC9821 /* UIResponder+XYAdd.swift */; };
 		B5851BD2252C21EBC6B5777D7D2B1563 /* XYAlbum-XYAlbum in Resources */ = {isa = PBXBuildFile; fileRef = A31058CC5946B24F27DF9DE6FA3DD0CE /* XYAlbum-XYAlbum */; };
@@ -273,11 +274,11 @@
 		0AEBC9D0AD7838D1B1EF99DFA305E76F /* SnapKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SnapKit.release.xcconfig; sourceTree = "<group>"; };
 		0B11CED3945F1CAFEDBD80B7DCD64E55 /* ConstraintRelation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintRelation.swift; path = Sources/ConstraintRelation.swift; sourceTree = "<group>"; };
 		0C160EBC3D278495B2DD2F334D01A55E /* XYInfomationSection-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "XYInfomationSection-Info.plist"; sourceTree = "<group>"; };
-		0CA57C05287D8DF719094FCCE70E01BC /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		0CA57C05287D8DF719094FCCE70E01BC /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		0D7895FD4F2F61F4342423FFB1FCF60E /* XYInfomationSection.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = XYInfomationSection.release.xcconfig; sourceTree = "<group>"; };
-		0EBF2AC8E0FF07120A6FA1686788FA9E /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		0EBF2AC8E0FF07120A6FA1686788FA9E /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0F332DC26CE075A1BB8C848F092DBA61 /* Pods-Cheater-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Cheater-frameworks.sh"; sourceTree = "<group>"; };
-		0FC5D781AA363673E0D9DF7D687259BE /* XYInfomationSection.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = XYInfomationSection.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		0FC5D781AA363673E0D9DF7D687259BE /* XYInfomationSection.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = XYInfomationSection.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		12D0C92B803DA2EF6568DFB64022583F /* XYPickerView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = XYPickerView.h; sourceTree = "<group>"; };
 		1400D67BFB21F168650DEB45162FA754 /* ConstraintConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintConfig.swift; path = Sources/ConstraintConfig.swift; sourceTree = "<group>"; };
 		140B49C383F3F064D5E72CFB0E2074BD /* MASViewConstraint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASViewConstraint.m; path = Masonry/MASViewConstraint.m; sourceTree = "<group>"; };
@@ -293,7 +294,7 @@
 		1C635E9090934CDACB7FF633A6BFC4A2 /* MASCompositeConstraint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASCompositeConstraint.m; path = Masonry/MASCompositeConstraint.m; sourceTree = "<group>"; };
 		1D176068CDA128542C14CBBA6D9FED12 /* ConstraintDSL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintDSL.swift; path = Sources/ConstraintDSL.swift; sourceTree = "<group>"; };
 		1D714DCAA57A680A231B72C70B9517F0 /* XYAlbum.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = XYAlbum.modulemap; sourceTree = "<group>"; };
-		1E8370DAE271556346BA1614834613EA /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		1E8370DAE271556346BA1614834613EA /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		1FD649A541A6BE8D72248A9BD0008E77 /* XYAlbum.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = XYAlbum.release.xcconfig; sourceTree = "<group>"; };
 		1FFED36A657123030ABB700256D73F15 /* Masonry */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Masonry; path = Masonry.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		26C57E643D6DF11F49ECF40724B4FA4D /* SnapKit-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SnapKit-Info.plist"; sourceTree = "<group>"; };
@@ -303,7 +304,7 @@
 		2B3105DBAB9F49A112EDA6B40CE16609 /* XYAlbumContentViewController.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = XYAlbumContentViewController.xib; path = XYAlbum/XYAlbumContentViewController.xib; sourceTree = "<group>"; };
 		2E49E08CE74DB75595AFD88DA6CCC103 /* XYUIKit-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "XYUIKit-Info.plist"; sourceTree = "<group>"; };
 		302BD0F25D739F6EFD62A45890C35253 /* ConstraintPriorityTarget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintPriorityTarget.swift; path = Sources/ConstraintPriorityTarget.swift; sourceTree = "<group>"; };
-		3077835AD302542A932A7C1A717DD413 /* XYNav.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = XYNav.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		3077835AD302542A932A7C1A717DD413 /* XYNav.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = XYNav.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		31110C152C9418223DAB5C7BC4CC914E /* Masonry-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Masonry-prefix.pch"; sourceTree = "<group>"; };
 		324BBAE3633D35AF33CB48D93418AC13 /* ConstraintDirectionalInsets.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintDirectionalInsets.swift; path = Sources/ConstraintDirectionalInsets.swift; sourceTree = "<group>"; };
 		32FF5AA0C3E93515239B866C863E16C7 /* XYAlbumTool.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XYAlbumTool.h; path = XYAlbum/XYAlbumTool.h; sourceTree = "<group>"; };
@@ -342,7 +343,7 @@
 		54EDB7CC593684A982E54B47DE67BD5B /* UIImage+JPExtension.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIImage+JPExtension.h"; sourceTree = "<group>"; };
 		55C0CD2D14BB161A434ACF9F7F107E9C /* ConstraintAttributes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintAttributes.swift; path = Sources/ConstraintAttributes.swift; sourceTree = "<group>"; };
 		56379CD477E40BA30E304E0F5FEBFF84 /* Debugging.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Debugging.swift; path = Sources/Debugging.swift; sourceTree = "<group>"; };
-		5697A96139CD54AEF197EEE627B542A0 /* XYUIKit.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = XYUIKit.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		5697A96139CD54AEF197EEE627B542A0 /* XYUIKit.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = XYUIKit.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		57E51618C01FA836D4AD8115F03BA773 /* AlbumCallBack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AlbumCallBack.h; path = XYAlbum/AlbumCallBack.h; sourceTree = "<group>"; };
 		582DC473EC2C53464E08695D6FAC1B83 /* XYInfomationSwitchCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XYInfomationSwitchCell.h; path = SectionDemo/XYInfomationSection/XYInfomationSwitchCell.h; sourceTree = "<group>"; };
 		594680903DA5A82058A752C422233C17 /* PHAssetCollection+info.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "PHAssetCollection+info.h"; path = "XYAlbum/PHAssetCollection+info.h"; sourceTree = "<group>"; };
@@ -386,7 +387,7 @@
 		81A489647FF58FC7C015C48230050EDA /* Toast+UIView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Toast+UIView.swift"; sourceTree = "<group>"; };
 		82F709CC1A512F90BAA9127F35427FC7 /* ConstraintMakerFinalizable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMakerFinalizable.swift; path = Sources/ConstraintMakerFinalizable.swift; sourceTree = "<group>"; };
 		8355038EBCC16918793883E2B821EAA5 /* UILayoutSupport+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UILayoutSupport+Extensions.swift"; path = "Sources/UILayoutSupport+Extensions.swift"; sourceTree = "<group>"; };
-		842DEF1D76BB8CB1D00E98273D49FF62 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		842DEF1D76BB8CB1D00E98273D49FF62 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		88392B7172513629D04B9D9964A386BA /* XYSpeedMatchController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = XYSpeedMatchController.swift; sourceTree = "<group>"; };
 		8A6CA1B35E698484B231B59E8F89094A /* XYAlbumContentViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XYAlbumContentViewController.h; path = XYAlbum/XYAlbumContentViewController.h; sourceTree = "<group>"; };
 		8ABBECDE0FEDE175FFB4396EDD84B7B7 /* LayoutConstraint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutConstraint.swift; path = Sources/LayoutConstraint.swift; sourceTree = "<group>"; };
@@ -404,7 +405,7 @@
 		9B3EFDBD2031A3EF30670E35B77A62AF /* XYBadgeView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = XYBadgeView.swift; sourceTree = "<group>"; };
 		9BD759D64A4E349B7556661A5DD7B0BC /* XYNavigationController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = XYNavigationController.swift; path = XYNav/XYNav/Classes/XYNavigationController.swift; sourceTree = "<group>"; };
 		9C9EE918A6BF76B461BAA11D8DFB757E /* Masonry.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Masonry.debug.xcconfig; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A045C7E87C53516AC3E0D73F307C8B32 /* XYInfomationSection */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = XYInfomationSection; path = XYInfomationSection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A09392CAB33F75A028CD38FC864F2511 /* XYAlbum-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "XYAlbum-umbrella.h"; sourceTree = "<group>"; };
 		A23E698B28CBAEB35DC25E24DE359F64 /* rightArraw_lightGray@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "rightArraw_lightGray@3x.png"; path = "SectionDemo/XYInfomationSection/XYInfomationSection.bundle/rightArraw_lightGray@3x.png"; sourceTree = "<group>"; };
@@ -418,9 +419,10 @@
 		A7E788D1E4AB01BF58828AD6F36E77FA /* sr_tailoring_icon@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "sr_tailoring_icon@3x.png"; path = "XYAlbum/files/sr_tailoring_icon@3x.png"; sourceTree = "<group>"; };
 		A8944695B6064EB147727AF2484F0BC7 /* Date+XYAdd.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Date+XYAdd.swift"; sourceTree = "<group>"; };
 		AB5BAEDC145EFBBEC25E43F04C99662B /* MASConstraint+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MASConstraint+Private.h"; path = "Masonry/MASConstraint+Private.h"; sourceTree = "<group>"; };
-		AEC655D1183187E1B291B79B6B457818 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		AEC655D1183187E1B291B79B6B457818 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B050007DADAB42527C66AF3CD1F89344 /* Masonry.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Masonry.h; path = Masonry/Masonry.h; sourceTree = "<group>"; };
 		B1BEB0536E39405BAB87A3B08D56C640 /* ResourceBundle-XYInfomationSection-XYInfomationSection-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-XYInfomationSection-XYInfomationSection-Info.plist"; sourceTree = "<group>"; };
+		B4498DFF2A5A62B300B13CFA /* UIBarButtonItem+XYNav.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIBarButtonItem+XYNav.swift"; path = "XYNav/XYNav/Classes/UIBarButtonItem+XYNav.swift"; sourceTree = "<group>"; };
 		B4684D82872BB59AAB3D2BD3F50DC332 /* Pods-Cheater.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Cheater.modulemap"; sourceTree = "<group>"; };
 		B7035700455A516E68A23E9CD11B04AE /* ConstraintMaker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMaker.swift; path = Sources/ConstraintMaker.swift; sourceTree = "<group>"; };
 		B70CEF677AA49E9AC4362DEE25ED747B /* UIImage+JPExtension.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIImage+JPExtension.m"; sourceTree = "<group>"; };
@@ -470,12 +472,12 @@
 		E00F6440E00033C8EC8DDB1E0980F26E /* XYPopView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = XYPopView.swift; sourceTree = "<group>"; };
 		E2466BEE701298796F1ADEDF44A825C1 /* MASUtilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASUtilities.h; path = Masonry/MASUtilities.h; sourceTree = "<group>"; };
 		E26C144A523B1F60DB26B2C49A779369 /* XYAlbumGroupViewController.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = XYAlbumGroupViewController.xib; path = XYAlbum/XYAlbumGroupViewController.xib; sourceTree = "<group>"; };
-		E45E1F6D2508CD45976A4BB9F5DE1FF2 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		E45E1F6D2508CD45976A4BB9F5DE1FF2 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		EA8C1B4894A61A3BE672812DC05F6C3E /* View+MASAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "View+MASAdditions.m"; path = "Masonry/View+MASAdditions.m"; sourceTree = "<group>"; };
 		EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		ECD8FC51C30518136CB4ACA590938A26 /* ConstraintItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintItem.swift; path = Sources/ConstraintItem.swift; sourceTree = "<group>"; };
 		EE59A1C73A3F1DBF114F3446005297AC /* XYAlbum.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = XYAlbum.debug.xcconfig; sourceTree = "<group>"; };
-		EF26B40B964DCEE8334E27DE02154E2A /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		EF26B40B964DCEE8334E27DE02154E2A /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F03A746E96D1F8E5C98FFCAE73FDAFAC /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
 		F04B08D0C0DA48C33ACF264392535F46 /* XYIndexBar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = XYIndexBar.h; sourceTree = "<group>"; };
 		F07919210BB73A4A4D12CEEF64DD7F4E /* NSLayoutConstraint+MASDebugAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+MASDebugAdditions.h"; path = "Masonry/NSLayoutConstraint+MASDebugAdditions.h"; sourceTree = "<group>"; };
@@ -492,7 +494,7 @@
 		FB7B51E0B73DD6BD161E16AAB6161EA2 /* XYRefreshTableViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = XYRefreshTableViewController.swift; sourceTree = "<group>"; };
 		FC60E6032750661ECC03E7E27F5D2AB3 /* UIViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		FC9F4AABD3EBDBB7E9EDF6AD53A55E1C /* NSArray+MASAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+MASAdditions.h"; path = "Masonry/NSArray+MASAdditions.h"; sourceTree = "<group>"; };
-		FDC7D4910D82D0A2EB44FE6C0875031E /* XYAlbum.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = XYAlbum.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		FDC7D4910D82D0A2EB44FE6C0875031E /* XYAlbum.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = XYAlbum.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -612,7 +614,6 @@
 				8355038EBCC16918793883E2B821EAA5 /* UILayoutSupport+Extensions.swift */,
 				69FE0E7F7697BB2078996836E2F30047 /* Support Files */,
 			);
-			name = SnapKit;
 			path = SnapKit;
 			sourceTree = "<group>";
 		};
@@ -720,7 +721,6 @@
 				6327D48BC60D33BF50F2CDA3A96CA992 /* ViewController+MASAdditions.m */,
 				658686883B76D84622FCA837A37B957E /* Support Files */,
 			);
-			name = Masonry;
 			path = Masonry;
 			sourceTree = "<group>";
 		};
@@ -730,7 +730,6 @@
 				88392B7172513629D04B9D9964A386BA /* XYSpeedMatchController.swift */,
 				3B9366A14331913F861D116EC48E0D87 /* XYSpeedMatchView.swift */,
 			);
-			name = SpeedMatch;
 			path = SpeedMatch;
 			sourceTree = "<group>";
 		};
@@ -738,6 +737,7 @@
 			isa = PBXGroup;
 			children = (
 				4B74EE24689759705ADE899B47F2409D /* UIViewController+XYNav.swift */,
+				B4498DFF2A5A62B300B13CFA /* UIBarButtonItem+XYNav.swift */,
 				A2D62578579100972E2231C34A8004A3 /* XYContentController.swift */,
 				53CC29F87A9E71CFF987DFA5DEB28921 /* XYContentNavController.swift */,
 				9BD759D64A4E349B7556661A5DD7B0BC /* XYNavigationController.swift */,
@@ -935,7 +935,6 @@
 				54EDB7CC593684A982E54B47DE67BD5B /* UIImage+JPExtension.h */,
 				B70CEF677AA49E9AC4362DEE25ED747B /* UIImage+JPExtension.m */,
 			);
-			name = Classes;
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -986,7 +985,6 @@
 				12D0C92B803DA2EF6568DFB64022583F /* XYPickerView.h */,
 				C5C14189AD1263869D920217FCA5EB8A /* XYPickerView.m */,
 			);
-			name = XYPickerView;
 			path = XYPickerView;
 			sourceTree = "<group>";
 		};
@@ -1067,7 +1065,6 @@
 				F04B08D0C0DA48C33ACF264392535F46 /* XYIndexBar.h */,
 				92E6BAD17FE203E27DB1B837FDB8E7B6 /* XYIndexBar.m */,
 			);
-			name = XYIndexBar;
 			path = XYIndexBar;
 			sourceTree = "<group>";
 		};
@@ -1666,6 +1663,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				77468BF631CD60427E0BDA57A1F34C06 /* UIViewController+XYNav.swift in Sources */,
+				B4498E002A5A62B300B13CFA /* UIBarButtonItem+XYNav.swift in Sources */,
 				DCD594AB6AE6B09C6C2EE10FF87EE05B /* XYContentController.swift in Sources */,
 				4C10660826F4AE649F426A5D087C11DC /* XYContentNavController.swift in Sources */,
 				E4A3E818211598E74D57F629EFBD797B /* XYNav-dummy.m in Sources */,

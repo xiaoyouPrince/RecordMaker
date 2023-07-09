@@ -13,8 +13,11 @@ import UIKit
 
 /// 可以用 struct, 但是此模型数据内容过多,并且频繁修改各种状态,在此使用 class
 class WXListModel: Codable {
+    /// 前三个来自 联系人,  -- 这里可以通过 ID 找到真实联系人
+    var contactID: Int?
     var imageData: Data?
     var title: String?
+    
     var time: TimeInterval = Date().timeIntervalSince1970
     var statusName: String?
     var isTop: Bool? = false
@@ -84,5 +87,20 @@ extension WXListModel {
         }
         
         return result
+    }
+}
+
+extension WXListModel {
+    
+    /// 会话目标对象
+    var targetContact: WXContact? {
+        var targetContact: WXContact? = nil
+        let contacts = ContactDataSource.contacts
+        for contact in contacts {
+            if contact.id == contactID {
+                targetContact = contact
+            }
+        }
+        return targetContact
     }
 }
