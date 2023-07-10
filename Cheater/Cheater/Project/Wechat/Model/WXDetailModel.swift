@@ -25,7 +25,7 @@ protocol WXDetailContentProtocol: NSObjectProtocol {
     var contentEdges: UIEdgeInsets { get }
     var showReadLabel: Bool { get }
     var contentClass: UIView.Type { get }
-    func setModel(_ data: Data)
+    func setModel(_ data: WXDetailModel) // 有点儿不好组织
     init()
 }
 
@@ -94,7 +94,7 @@ extension WXDetailModel {
     
     /// 是否是自己发出的消息
     var isOutGoingMsg: Bool {
-        if from == DataSource_wxDetail.targetContact?.id {
+        if from == WXUserInfo.shared.id {
             return true
         }
         

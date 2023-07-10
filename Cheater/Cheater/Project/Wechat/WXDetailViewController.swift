@@ -95,6 +95,7 @@ class WXDetailViewController: UIViewController {
     
     func setupTableView() {
         view.addSubview(tableView)
+        tableView.backgroundColor = .clear
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(WXDetailCell.self, forCellReuseIdentifier: WXDetailCell.indentifier)
@@ -172,6 +173,9 @@ extension WXDetailViewController {
         ]
         
         let model = WXDetailModel.init(text: titles[Int(arc4random())%4])
+        if (arc4random() % 2) == 0 {
+            model.from = WXUserInfo.shared.id
+        }
         self.dataArray.append(model)
         XYFileManager.writeFile(with: DataSource_wxDetail.targetDB_filePath, models: self.dataArray)
         

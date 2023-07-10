@@ -15,10 +15,6 @@ class WXDetailCell: UITableViewCell {
     var model: WXDetailModel? {
         didSet {
             guard let model = model else { return }
-            
-            subviews.forEach { subV in
-                subV.snp.removeConstraints()
-            }
         
             iconImage.image = DataSource_wxDetail.targetContact?.image
             nameLabel.text = DataSource_wxDetail.targetContact?.title
@@ -51,14 +47,14 @@ class WXDetailCell: UITableViewCell {
     
     func setupInnerView(model: WXDetailModel, innerView: UIView) {
         guard let data = model.data, let contentView = innerView as? WXDetailContentProtocol else { return }
-        contentView.setModel(data)
+        contentView.setModel(model)
         
         iconImage.isHidden = !contentView.showIconImage
         nameLabel.isHidden = !contentView.showNamelable
         statusBtn.isHidden = !contentView.showReadLabel
         
         // real layout
-        if model.isOutGoingMsg == false{
+        if model.isOutGoingMsg {
             nameLabel.textAlignment = .right
             layoutForMeSend()
         }else{
@@ -93,7 +89,7 @@ class WXDetailCell: UITableViewCell {
     }
     
     func buildUI() {
-        
+        backgroundColor = WXConfig.navBarBgColor
         contentView.addSubview(iconImage)
         contentView.addSubview(nameLabel)
         contentView.addSubview(bubbleView)
@@ -113,7 +109,7 @@ extension WXDetailCell {
     func layoutForMeSend() {
         
         if iconImage.isHidden { // 默认 iconHidden, name 一定是 hidden
-            bubbleView.snp.makeConstraints { make in
+            bubbleView.snp.remakeConstraints { make in
                 make.right.equalTo(-Margin.leftMargin)
                 make.left.equalTo((Margin.leftMargin * 2 + Margin.iconSize)) // 右边留一个边距
                 make.top.equalTo(Margin.topMargin)
@@ -123,7 +119,7 @@ extension WXDetailCell {
             if statusBtn.isHidden {
                 // nothing
             } else {
-                statusBtn.snp.makeConstraints { make in
+                statusBtn.snp.remakeConstraints { make in
                     make.right.equalTo(bubbleView.snp.left).offset(-3)
                     make.bottom.equalTo(bubbleView)
                     make.size.equalTo(CGSize.init(width: 40, height: 30))
@@ -132,7 +128,7 @@ extension WXDetailCell {
             
         } else {
             
-            iconImage.snp.makeConstraints { make in
+            iconImage.snp.remakeConstraints { make in
                 make.width.height.equalTo(Margin.iconSize)
                 make.right.equalTo(-Margin.leftMargin)
                 make.top.equalTo(Margin.topMargin)
@@ -140,7 +136,7 @@ extension WXDetailCell {
             }
             
             if nameLabel.isHidden {
-                bubbleView.snp.makeConstraints { make in
+                bubbleView.snp.remakeConstraints { make in
                     make.right.equalTo(iconImage.snp.left).offset(-5)
                     make.left.equalTo((Margin.leftMargin * 2 + Margin.iconSize)) // 左边留一个边距
                     make.top.equalTo(iconImage)
@@ -150,7 +146,7 @@ extension WXDetailCell {
                 if statusBtn.isHidden {
                     // nothing
                 } else {
-                    statusBtn.snp.makeConstraints { make in
+                    statusBtn.snp.remakeConstraints { make in
                         make.right.equalTo(bubbleView.snp.left).offset(-3)
                         make.bottom.equalTo(bubbleView)
                         make.size.equalTo(CGSize.init(width: 40, height: 30))
@@ -158,12 +154,12 @@ extension WXDetailCell {
                 }
             }else
             {
-                nameLabel.snp.makeConstraints { make in
+                nameLabel.snp.remakeConstraints { make in
                     make.right.equalTo(iconImage.snp.left).offset(-5)
                     make.top.equalTo(iconImage)
                 }
                 
-                bubbleView.snp.makeConstraints { make in
+                bubbleView.snp.remakeConstraints { make in
                     make.right.equalTo(nameLabel)
                     make.left.equalTo((Margin.leftMargin * 2 + Margin.iconSize)) // 右边留一个边距
                     make.top.equalTo(nameLabel.snp.bottom).offset(5)
@@ -173,7 +169,7 @@ extension WXDetailCell {
                 if statusBtn.isHidden {
                     // nothing
                 } else {
-                    statusBtn.snp.makeConstraints { make in
+                    statusBtn.snp.remakeConstraints { make in
                         make.right.equalTo(bubbleView.snp.left).offset(-3)
                         make.bottom.equalTo(bubbleView)
                         make.size.equalTo(CGSize.init(width: 40, height: 30))
@@ -188,7 +184,7 @@ extension WXDetailCell {
     func layoutForOtherSend() {
         
         if iconImage.isHidden { // 默认 iconHidden, name 一定是 hidden
-            bubbleView.snp.makeConstraints { make in
+            bubbleView.snp.remakeConstraints { make in
                 make.left.equalTo(Margin.leftMargin)
                 make.right.equalTo(-(Margin.leftMargin * 2 + Margin.iconSize)) // 右边留一个边距
                 make.top.equalTo(Margin.topMargin)
@@ -198,7 +194,7 @@ extension WXDetailCell {
             if statusBtn.isHidden {
                 // nothing
             } else {
-                statusBtn.snp.makeConstraints { make in
+                statusBtn.snp.remakeConstraints { make in
                     make.left.equalTo(bubbleView.snp.right).offset(3)
                     make.bottom.equalTo(bubbleView)
                     make.size.equalTo(CGSize.init(width: 40, height: 30))
@@ -207,7 +203,7 @@ extension WXDetailCell {
             
         } else {
             
-            iconImage.snp.makeConstraints { make in
+            iconImage.snp.remakeConstraints { make in
                 make.width.height.equalTo(Margin.iconSize)
                 make.left.equalTo(Margin.leftMargin)
                 make.top.equalTo(Margin.topMargin)
@@ -215,7 +211,7 @@ extension WXDetailCell {
             }
             
             if nameLabel.isHidden {
-                bubbleView.snp.makeConstraints { make in
+                bubbleView.snp.remakeConstraints { make in
                     make.left.equalTo(iconImage.snp.right).offset(5)
                     make.right.equalTo(-(Margin.leftMargin * 2 + Margin.iconSize)) // 右边留一个边距
                     make.top.equalTo(iconImage)
@@ -225,7 +221,7 @@ extension WXDetailCell {
                 if statusBtn.isHidden {
                     // nothing
                 } else {
-                    statusBtn.snp.makeConstraints { make in
+                    statusBtn.snp.remakeConstraints { make in
                         make.left.equalTo(bubbleView.snp.right).offset(3)
                         make.bottom.equalTo(bubbleView)
                         make.size.equalTo(CGSize.init(width: 40, height: 30))
@@ -233,12 +229,12 @@ extension WXDetailCell {
                 }
             }else
             {
-                nameLabel.snp.makeConstraints { make in
+                nameLabel.snp.remakeConstraints { make in
                     make.left.equalTo(iconImage.snp.right).offset(5)
                     make.top.equalTo(iconImage)
                 }
                 
-                bubbleView.snp.makeConstraints { make in
+                bubbleView.snp.remakeConstraints { make in
                     make.left.equalTo(nameLabel)
                     make.right.equalTo(-(Margin.leftMargin * 2 + Margin.iconSize)) // 右边留一个边距
                     make.top.equalTo(nameLabel.snp.bottom).offset(5)
@@ -248,7 +244,7 @@ extension WXDetailCell {
                 if statusBtn.isHidden {
                     // nothing
                 } else {
-                    statusBtn.snp.makeConstraints { make in
+                    statusBtn.snp.remakeConstraints { make in
                         make.left.equalTo(bubbleView.snp.right).offset(3)
                         make.bottom.equalTo(bubbleView)
                         make.size.equalTo(CGSize.init(width: 40, height: 30))

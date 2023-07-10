@@ -16,4 +16,6 @@ class WXUserInfo {
     var iconName: String? = "100003"
     var name: String? = "深海一只贝"
     var wechatId: String? = "Wx888"
+    
+    let id: Int = 10001 // 当前用户的ID
 }
