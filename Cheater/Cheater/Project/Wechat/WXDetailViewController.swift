@@ -22,7 +22,7 @@ import AudioToolbox
 class WXDetailViewController: UIViewController {
     
     var tableView: UITableView = UITableView(frame: .zero, style: .plain)
-    var sessionInputView = UIView()
+    var sessionInputView = ChatInputView()
     var lsitModel: WXListModel
     var dataArray: [WXDetailModel]
     
@@ -109,7 +109,7 @@ class WXDetailViewController: UIViewController {
     func layoutSubviews(){
         
         tableView.snp.makeConstraints { make in
-            make.left.left.right.top.equalToSuperview()
+            make.left.right.top.equalToSuperview()
             make.bottom.equalTo(sessionInputView.snp.top)
         }
         
@@ -123,6 +123,10 @@ class WXDetailViewController: UIViewController {
 }
 
 extension WXDetailViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        //sessionInputView.resignFirstResponder()
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         dataArray.count
