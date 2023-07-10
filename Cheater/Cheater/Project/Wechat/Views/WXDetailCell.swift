@@ -16,13 +16,54 @@ class WXDetailCell: UITableViewCell {
         didSet {
             guard let model = model else { return }
             
-            let contentView = model.contentClass.init()
-            bubbleView.addSubview(contentView)
-            contentView.snp.makeConstraints { make in
-                make.edges.equalToSuperview()
+            subviews.forEach { subV in
+                subV.snp.removeConstraints()
             }
+        
+            iconImage.image = DataSource_wxDetail.targetContact?.image
+            nameLabel.text = DataSource_wxDetail.targetContact?.title
+            statusBtn.setTitle("哈", for: . normal)
             
-            
+            guard let innerView = lastContent else {
+                let innerView = model.contentClass.init() as! UIView
+                bubbleView.addSubview(innerView)
+                lastContent = innerView
+                innerView.snp.makeConstraints { make in
+                    make.edges.equalToSuperview()
+                }
+                setupInnerView(model: model, innerView: innerView)
+                return
+            }
+        
+            if type(of: innerView) == model.contentClass { // can reuse
+                setupInnerView(model: model, innerView: innerView)
+            }else{ // can not reuse, nedd remove the old one, and create a new one
+                let innerView = model.contentClass.init() as! UIView
+                bubbleView.addSubview(innerView)
+                lastContent = innerView
+                innerView.snp.makeConstraints { make in
+                    make.edges.equalToSuperview()
+                }
+                setupInnerView(model: model, innerView: innerView)
+            }
+        }
+    }
+    
+    func setupInnerView(model: WXDetailModel, innerView: UIView) {
+        guard let data = model.data, let contentView = innerView as? WXDetailContentProtocol else { return }
+        contentView.setModel(data)
+        
+        iconImage.isHidden = !contentView.showIconImage
+        nameLabel.isHidden = !contentView.showNamelable
+        statusBtn.isHidden = !contentView.showReadLabel
+        
+        // real layout
+        if model.isOutGoingMsg == false{
+            nameLabel.textAlignment = .right
+            layoutForMeSend()
+        }else{
+            nameLabel.textAlignment = .left
+            layoutForOtherSend()
         }
     }
     
@@ -30,6 +71,7 @@ class WXDetailCell: UITableViewCell {
     var nameLabel: UILabel = UILabel()
     var bubbleView = UIControl()
     var statusBtn: UIButton = UIButton(type: .system)
+    var lastContent: UIView?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -52,38 +94,167 @@ class WXDetailCell: UITableViewCell {
     
     func buildUI() {
         
-        // 头像左右边距
-        let margin: CGFloat = 12
-        let iconSize: CGFloat = 50
-        
-        addSubview(iconImage)
-        addSubview(nameLabel)
-        addSubview(bubbleView)
-        addSubview(statusBtn)
-        
-        iconImage.snp.makeConstraints { make in
-            make.left.equalTo(margin)
-            make.width.height.equalTo(iconSize)
-            make.top.equalTo(8)
-            make.bottom.lessThanOrEqualTo(-8)
-        }
-        
-        nameLabel.snp.makeConstraints { make in
-            make.left.equalTo(iconImage.snp.right).offset(5)
-            make.top.equalTo(iconImage)
-        }
-        
-        bubbleView.snp.makeConstraints { make in
-            make.left.equalTo(nameLabel)
-            make.top.equalTo(nameLabel.snp.bottom).offset(5)
-        }
-        
-        statusBtn.snp.makeConstraints { make in
-            make.bottom.equalTo(bubbleView)
-            make.width.height.equalTo(25)
-            make.left.equalTo(bubbleView.snp.right).offset(3)
-        }
-        
+        contentView.addSubview(iconImage)
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(bubbleView)
+        contentView.addSubview(statusBtn)
     }
+}
 
+extension WXDetailCell {
+    
+    struct Margin {
+        static let leftMargin = 12
+        static let topMargin = 8
+        static let iconSize = 50
+    }
+    
+    /// 我发送消息的布局
+    func layoutForMeSend() {
+        
+        if iconImage.isHidden { // 默认 iconHidden, name 一定是 hidden
+            bubbleView.snp.makeConstraints { make in
+                make.right.equalTo(-Margin.leftMargin)
+                make.left.equalTo((Margin.leftMargin * 2 + Margin.iconSize)) // 右边留一个边距
+                make.top.equalTo(Margin.topMargin)
+                make.bottom.lessThanOrEqualToSuperview().offset(-Margin.topMargin)
+            }
+            
+            if statusBtn.isHidden {
+                // nothing
+            } else {
+                statusBtn.snp.makeConstraints { make in
+                    make.right.equalTo(bubbleView.snp.left).offset(-3)
+                    make.bottom.equalTo(bubbleView)
+                    make.size.equalTo(CGSize.init(width: 40, height: 30))
+                }
+            }
+            
+        } else {
+            
+            iconImage.snp.makeConstraints { make in
+                make.width.height.equalTo(Margin.iconSize)
+                make.right.equalTo(-Margin.leftMargin)
+                make.top.equalTo(Margin.topMargin)
+                make.bottom.lessThanOrEqualTo(-Margin.topMargin)
+            }
+            
+            if nameLabel.isHidden {
+                bubbleView.snp.makeConstraints { make in
+                    make.right.equalTo(iconImage.snp.left).offset(-5)
+                    make.left.equalTo((Margin.leftMargin * 2 + Margin.iconSize)) // 左边留一个边距
+                    make.top.equalTo(iconImage)
+                    make.bottom.lessThanOrEqualTo(-Margin.topMargin)
+                }
+                
+                if statusBtn.isHidden {
+                    // nothing
+                } else {
+                    statusBtn.snp.makeConstraints { make in
+                        make.right.equalTo(bubbleView.snp.left).offset(-3)
+                        make.bottom.equalTo(bubbleView)
+                        make.size.equalTo(CGSize.init(width: 40, height: 30))
+                    }
+                }
+            }else
+            {
+                nameLabel.snp.makeConstraints { make in
+                    make.right.equalTo(iconImage.snp.left).offset(-5)
+                    make.top.equalTo(iconImage)
+                }
+                
+                bubbleView.snp.makeConstraints { make in
+                    make.right.equalTo(nameLabel)
+                    make.left.equalTo((Margin.leftMargin * 2 + Margin.iconSize)) // 右边留一个边距
+                    make.top.equalTo(nameLabel.snp.bottom).offset(5)
+                    make.bottom.lessThanOrEqualTo(-Margin.topMargin)
+                }
+
+                if statusBtn.isHidden {
+                    // nothing
+                } else {
+                    statusBtn.snp.makeConstraints { make in
+                        make.right.equalTo(bubbleView.snp.left).offset(-3)
+                        make.bottom.equalTo(bubbleView)
+                        make.size.equalTo(CGSize.init(width: 40, height: 30))
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    /// 对方发送消息的布局
+    func layoutForOtherSend() {
+        
+        if iconImage.isHidden { // 默认 iconHidden, name 一定是 hidden
+            bubbleView.snp.makeConstraints { make in
+                make.left.equalTo(Margin.leftMargin)
+                make.right.equalTo(-(Margin.leftMargin * 2 + Margin.iconSize)) // 右边留一个边距
+                make.top.equalTo(Margin.topMargin)
+                make.bottom.lessThanOrEqualToSuperview().offset(-Margin.topMargin)
+            }
+            
+            if statusBtn.isHidden {
+                // nothing
+            } else {
+                statusBtn.snp.makeConstraints { make in
+                    make.left.equalTo(bubbleView.snp.right).offset(3)
+                    make.bottom.equalTo(bubbleView)
+                    make.size.equalTo(CGSize.init(width: 40, height: 30))
+                }
+            }
+            
+        } else {
+            
+            iconImage.snp.makeConstraints { make in
+                make.width.height.equalTo(Margin.iconSize)
+                make.left.equalTo(Margin.leftMargin)
+                make.top.equalTo(Margin.topMargin)
+                make.bottom.lessThanOrEqualTo(-Margin.topMargin)
+            }
+            
+            if nameLabel.isHidden {
+                bubbleView.snp.makeConstraints { make in
+                    make.left.equalTo(iconImage.snp.right).offset(5)
+                    make.right.equalTo(-(Margin.leftMargin * 2 + Margin.iconSize)) // 右边留一个边距
+                    make.top.equalTo(iconImage)
+                    make.bottom.lessThanOrEqualTo(-Margin.topMargin)
+                }
+                
+                if statusBtn.isHidden {
+                    // nothing
+                } else {
+                    statusBtn.snp.makeConstraints { make in
+                        make.left.equalTo(bubbleView.snp.right).offset(3)
+                        make.bottom.equalTo(bubbleView)
+                        make.size.equalTo(CGSize.init(width: 40, height: 30))
+                    }
+                }
+            }else
+            {
+                nameLabel.snp.makeConstraints { make in
+                    make.left.equalTo(iconImage.snp.right).offset(5)
+                    make.top.equalTo(iconImage)
+                }
+                
+                bubbleView.snp.makeConstraints { make in
+                    make.left.equalTo(nameLabel)
+                    make.right.equalTo(-(Margin.leftMargin * 2 + Margin.iconSize)) // 右边留一个边距
+                    make.top.equalTo(nameLabel.snp.bottom).offset(5)
+                    make.bottom.lessThanOrEqualTo(-Margin.topMargin)
+                }
+                
+                if statusBtn.isHidden {
+                    // nothing
+                } else {
+                    statusBtn.snp.makeConstraints { make in
+                        make.left.equalTo(bubbleView.snp.right).offset(3)
+                        make.bottom.equalTo(bubbleView)
+                        make.size.equalTo(CGSize.init(width: 40, height: 30))
+                    }
+                }
+            }
+        }
+    }
 }

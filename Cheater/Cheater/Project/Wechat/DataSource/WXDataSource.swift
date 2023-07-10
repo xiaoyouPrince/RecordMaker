@@ -53,18 +53,29 @@ import XYUIKit
 
 extension Encodable {
     
-    var toString: String? {
+    var toData: Data? {
         do {
             let encoder = JSONEncoder()
             encoder.outputFormatting = .prettyPrinted
             let data = try encoder.encode(self)
-            return String(data: data, encoding: .utf8)
-        }catch{
+            return data
+        } catch {
             // error
+            return nil
         }
         
-        return ""
+        return nil
     }
+    
+    var toString: String? {
+        if let data = toData {
+            return String(data: data, encoding: .utf8)
+        }else{
+            return ""
+        }
+    }
+    
+    
 }
 
 
@@ -182,6 +193,19 @@ struct DataSource_wxlist {
             XYFileManager.writeFile(with: WXConfig.chatListFile, models: listModel)
         }
     }
+    
+    /*
+     * - TODO -
+     * 删除指定数据
+     */
+    static func remove(model: WXListModel) {
+        DispatchQueue.global().async {
+            listModel = listModel.filter { item in
+                !(item.contactID == model.contactID && item.title == model.title)
+            }
+            XYFileManager.writeFile(with: WXConfig.chatListFile, models: listModel)
+        }
+    }
 }
 
 /*
@@ -192,6 +216,11 @@ struct DataSource_wxlist {
  *  2. 用户手动修改顺序, 这里方案暂定为: 修改两者时间,并持久化存储
  */
 class DataSource_wxDetail {
+    
+    static var targetDB_filePath: String {
+        let db_fileName = targetContact!.title + "\(targetContact?.id ?? 0)"
+        return db_fileName
+    }
     
     /// 当前会话目标对象 - 整个会话是通用的
     static var targetContact: WXContact? {
@@ -204,8 +233,16 @@ class DataSource_wxDetail {
             if allMessages?.isEmpty == true {
                 let msg = WXDetailModel()
                 msg.msgType = .text
-                msg.text = "手动十分广泛"
+                msg.text = "手动十分广泛 -- 为什么会这样呢 why is this..  shhagoagoeng"
+                if let data = msg.text?.data(using: .utf8) {
+                    msg.data = data
+                }
+                
                 allMessages?.append(msg)
+                
+                // save
+                guard let allMsgs = allMessages else { return }
+                XYFileManager.writeFile(with: db_fileName, models: allMsgs)
             }
         }
     }

@@ -97,7 +97,7 @@ extension WXListModel {
         var targetContact: WXContact? = nil
         let contacts = ContactDataSource.contacts
         for contact in contacts {
-            if contact.id == contactID {
+            if contact.id == contactID, contact.title == title {
                 targetContact = contact
             }
         }

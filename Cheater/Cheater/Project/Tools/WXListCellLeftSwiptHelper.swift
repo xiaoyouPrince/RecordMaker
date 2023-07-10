@@ -40,6 +40,17 @@ extension XYInfomationCell {
     
     /// 更新cell.真实模型
     /// - Parameter configurationHandler: 更新内容
+    func remove() {
+        guard let listModel = wxListModel else { return }
+        self.model.isFold = true
+        model = self.model
+        
+        // 更新列表持久化数据
+        DataSource_wxlist.remove(model: listModel)
+    }
+    
+    /// 更新cell.真实模型
+    /// - Parameter configurationHandler: 更新内容
     func update(_ configurationHandler: ((_ listModel: WXListModel) -> Void)) {
         guard let listModel = wxListModel else { return }
         configurationHandler(listModel)
@@ -196,9 +207,7 @@ struct CellSwipeHelper {
     /// Cell 左滑删除
     /// - Parameter cell: cell
     func cellDeleteAction(cell: XYInfomationCell) {
-        let mode = cell.model
-        mode.isFold = true
-        cell.model = mode
+        cell.remove()
         
         /*
          * TODO - 删除文件,内容

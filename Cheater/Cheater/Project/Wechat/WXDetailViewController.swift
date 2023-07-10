@@ -48,8 +48,15 @@ class WXDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
+        tableView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.tableView.scrollToRow(at: IndexPath.init(row: self.dataArray.count-1, section: 0), at: .bottom, animated: false)
+        }
     }
     
     func setupUI() {
@@ -91,7 +98,7 @@ class WXDetailViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(WXDetailCell.self, forCellReuseIdentifier: WXDetailCell.indentifier)
-        tableView.estimatedRowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 20 + 8 + 8 //UITableView.automaticDimension
     }
     
     func setupSessionInputView() {
@@ -147,5 +154,30 @@ extension WXDetailViewController {
     
     @objc func rightBtnClick(){
         Toast.make("rightBtnClick")
+        
+        /*
+         * - TODO -
+         * 随机生成一条文本消息,并放入UI
+         * <#这里输入你要做的事情的一些思路#>
+         *  <#1. ...#>
+         *  <#2. ...#>
+         */
+        
+        
+        let titles = [
+            "你好",
+            "随机生成一条文本消息,并放入UI",
+            "随机生成一条文本消息,并放入UI随机生成一条文本消息,并放入UI随机生成一条文本消息,并放入UI",
+            "ZTC晋升申请表-202206月ZTC晋升申请表-202206月"
+        ]
+        
+        let model = WXDetailModel.init(text: titles[Int(arc4random())%4])
+        self.dataArray.append(model)
+        XYFileManager.writeFile(with: DataSource_wxDetail.targetDB_filePath, models: self.dataArray)
+        
+        tableView.reloadData()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.25) {
+            self.tableView.scrollToRow(at: IndexPath.init(row: self.dataArray.count-1, section: 0), at: .bottom, animated: true)
+        }
     }
 }

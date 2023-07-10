@@ -219,6 +219,7 @@ extension WechatHomeViewController {
                     let model = WXListModel()
                     model.imageData = contact.imageData
                     model.title = contact.title
+                    model.contactID = contact.id
                     
 //                    XYFileManager.creatFile(with: WXConfig.chatListFile)
 //                    let models = XYFileManager.appendFile(with: WXConfig.chatListFile, model: model)

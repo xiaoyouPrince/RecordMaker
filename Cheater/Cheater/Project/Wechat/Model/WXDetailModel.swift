@@ -19,15 +19,33 @@ import Foundation
 import UIKit
 
 
-protocol WXDetailContentProtocol {
-    
+protocol WXDetailContentProtocol: NSObjectProtocol {
+    var showIconImage: Bool { get }
+    var showNamelable: Bool { get }
+    var contentEdges: UIEdgeInsets { get }
+    var showReadLabel: Bool { get }
+    var contentClass: UIView.Type { get }
+    func setModel(_ data: Data)
+    init()
 }
 
-class PictureModel: WXDetailContentProtocol {
-    
+extension WXDetailContentProtocol {
+    var showIconImage: Bool { true }
+    var showNamelable: Bool { false }
+    var contentEdges: UIEdgeInsets { .zero }
+    var showReadLabel: Bool { true }
 }
 
-
+//
+//class PictureModel: WXDetailContentProtocol {
+//    func setModel(_ data: Data) {
+//
+//    }
+//
+//    var contentClass: UIView.Type {
+//        return UIView.self
+//    }
+//}
 
 
 enum MsgType: Int, Codable {
@@ -49,18 +67,21 @@ class WXDetailModel: Codable {
     /// 只有是 .text 类型时候有效
     var text: String?
     
-    /// 真实存储的消息内容
+    /// 真实存储的消息内容 - 由于前后端都在客户端,这里直接用属性先
     var data: Data?
-    
-    var contentModel: WXDetailContentProtocol? {
-        return PictureModel()
-    }
 }
 
 extension WXDetailModel {
     
+    convenience init(text: String) {
+        self.init()
+        self.text = text
+        self.msgType = .text
+        self.data = text.data(using: .utf8)
+    }
+    
     /// 消息内容真实类型
-    var contentClass: UIView.Type {
+    var contentClass: WXDetailContentProtocol.Type {
         switch msgType {
         case .text:
             return CellContentText.self
