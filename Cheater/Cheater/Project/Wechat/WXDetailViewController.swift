@@ -18,6 +18,12 @@ import Foundation
 import XYUIKit
 import AudioToolbox
 
+/// 微信消息有更新的协议
+protocol WXMessageDidupdateProtocol: AnyObject {
+    /// 最后一条消息有更新, 列表需要刷新, 内部做持久化操作
+    func lastMessageDidupdate()
+}
+
 
 class WXDetailViewController: UIViewController {
     
@@ -25,9 +31,13 @@ class WXDetailViewController: UIViewController {
     var sessionInputView = ChatInputView()
     var lsitModel: WXListModel
     var dataArray: [WXDetailModel]
+    /// 当前发送者id, 默认是自己,后续可以随时调整
+    var currentSenderID: Int = WXUserInfo.shared.id
+    weak var delegate: WXMessageDidupdateProtocol?
     
-    init(listModel: WXListModel) {
+    init(listModel: WXListModel, delegate: WXMessageDidupdateProtocol) {
         self.lsitModel = listModel
+        self.delegate = delegate
         /*
          * - TODO -
          * 进入详情的参数,目的是知道找哪个目标聊天记录的文件
@@ -79,9 +89,23 @@ class WXDetailViewController: UIViewController {
         let titleViewCoverView = UIView(frame: .init(origin: .init(x: 100, y: 0), size: CGSize(width: .width - 200, height: 44)))
         navigationController?.navigationBar .addSubview(titleViewCoverView)
         titleViewCoverView.backgroundColor = .red.withAlphaComponent(0.5)
-        titleViewCoverView.addTap { sender in
+        titleViewCoverView.addTap { [weak self] sender in
             // guard let corverView as
-            Toast.make("切换发言者 - 给个震动反馈")
+            Toast.make("切换发言者 - 给个震动反馈 (群聊特殊处理)")
+            guard let self = self, let targetId = DataSource_wxDetail.targetContact?.id else{ return }
+            let mineId = WXUserInfo.shared.id
+            
+            if self.currentSenderID == targetId {
+                self.currentSenderID = mineId
+            } else
+            {
+                self.currentSenderID = targetId
+            }
+            
+            
+            
+            
+            
             // 震动一下
             //AudioServicesPlaySystemSound(0)
             
@@ -104,13 +128,15 @@ class WXDetailViewController: UIViewController {
     
     func setupSessionInputView() {
         view.addSubview(sessionInputView)
+        sessionInputView.deledate = self
     }
     
     func layoutSubviews(){
         
         tableView.snp.makeConstraints { make in
-            make.left.right.top.equalToSuperview()
+            make.left.right.equalToSuperview()
             make.bottom.equalTo(sessionInputView.snp.top)
+            make.height.equalTo(CGFloat.height - CGFloat.tabBar)
         }
         
         sessionInputView.snp.makeConstraints { make in
@@ -146,7 +172,58 @@ extension WXDetailViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.scrollToRow(at: .init(row: dataArray.count - 1, section: 0), at: .bottom, animated: false)
+    }
     
+    
+}
+
+// MARK: - 输入框的代理回调
+
+extension WXDetailViewController: ChatInputViewCallBackProtocal {
+    func sendBtnClick(text: String) {
+        // Toast.make("发送 - \(text)")
+        let model = WXDetailModel.init(text: text)
+        model.from = currentSenderID
+        
+        self.dataArray.append(model)
+        XYFileManager.writeFile(with: DataSource_wxDetail.targetDB_filePath, models: self.dataArray)
+        
+        tableView.reloadData()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.25) {
+            self.tableView.scrollToRow(at: IndexPath.init(row: self.dataArray.count-1, section: 0), at: .bottom, animated: true)
+        }
+        
+        // 更新消息列表最后一句话和时间
+        self.lsitModel.time = Date().timeIntervalSince1970
+        self.lsitModel.lsatMessage = text
+        self.lsitModel.updateListMemory()
+        self.delegate?.lastMessageDidupdate()
+    }
+    
+    func keyboardWillShow(_ noti: Notification) {
+        let cover = UIView()
+        cover.tag = 711 // date of create
+        view.insertSubview(cover, aboveSubview: tableView)
+        cover.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        cover.addTap {[weak self] sender in
+            self?.sessionInputView.resignFirstResponder()
+        }
+    }
+    
+    func keyboardWillHide(_ noti: Notification) {
+        view.findSubView { cover in
+            if cover.tag == 711 {
+                cover.removeFromSuperview()
+                return true
+            }
+            return false
+        }
+    }
 }
 
 extension WXDetailViewController {

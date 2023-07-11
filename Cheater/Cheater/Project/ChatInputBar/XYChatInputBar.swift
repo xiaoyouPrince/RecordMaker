@@ -9,15 +9,49 @@
 import UIKit
 import XYUIKit
 
+public protocol ChatInputViewCallBackProtocal: AnyObject {
+    
+    /// 键盘将要弹出 - optional
+    /// - Parameter noti: 系统弹键盘通知
+    func keyboardWillShow(_ noti: Notification)
+    
+    /// 键盘将要收起 - optional
+    /// - Parameter noti: 系统收键盘通知
+    func keyboardWillHide(_ noti: Notification)
+    
+    /// 键盘发送按钮点击
+    /// - Parameter text: 当前输入框文本
+    func sendBtnClick(text: String)
+    
+    /// 点击发送按钮之后是否收起键盘
+    /// - Returns: 返回值是否收起键盘  true 收起 / false 不收起 - 默认不收起键盘
+    func shouldHideKeyboardWhenSendClick() -> Bool
+    
+}
+
+extension ChatInputViewCallBackProtocal {
+    func keyboardWillShow(_ noti: Notification){ }
+    func keyboardWillHide(_ noti: Notification){ }
+    func shouldHideKeyboardWhenSendClick() -> Bool { false }
+}
+
+
 public class ChatInputView: UIView {
     private var contentView = UIView()
     private var inputBar = ChatInputBar()
+    
+    weak var deledate: ChatInputViewCallBackProtocal? {
+        didSet{
+            inputBar.deledate = deledate
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
         
         addSubview(contentView)
         contentView.addSubview(inputBar)
+        contentView.backgroundColor = WXConfig.inputBgColor
         
         contentView.snp.makeConstraints { make in
             make.left.top.right.bottom.equalToSuperview()
@@ -45,28 +79,18 @@ public class ChatInputView: UIView {
 /// 初始默认高度 56，默认会设置 frame 为 screen 宽度
 private class ChatInputBar: UIView {
     
-    enum BarState: Int {
-        /// 初始状态, 初始化时候的状态
-        case initinal
-        /// 已经有文本输入之后的状态,此状态可能发生 布局 修改
-        case hasInput
-        
-        case voice
-        
-        case input
-        
-        case emotion
-        
-        case add
-    }
-    
+    /// 保存一下 keyBoard 整理高度, 内部使用
     static var keyBoardHeight: CGFloat = 0
     
     // MARK: - 共有有属性，可外部使用
+    
     /// 默认自适应高度最大值，当输入内容自适应高度大于此值，不再变高，输入内容变为可滚动
     var maxHeight: CGFloat = 100
     
+    /// 当前状态
     var state: BarState = .initinal
+    
+    var deledate: ChatInputViewCallBackProtocal?
     
     lazy var voiceBtn: UIButton = createBtn(named: "wechat_input_voice")
     lazy var emotionBtn: UIButton = createBtn(named: "wechat_input_emoticon")
@@ -75,7 +99,7 @@ private class ChatInputBar: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        self.backgroundColor = WXConfig.wxGreen
+        self.backgroundColor = WXConfig.inputBgColor
         
         setupSubviews()
         addKeyNotification()
@@ -155,9 +179,25 @@ private class ChatInputBar: UIView {
             }
         }
     }
+}
+
+
+extension ChatInputBar {
     
-    
-    
+    enum BarState: Int {
+        /// 初始状态, 初始化时候的状态
+        case initinal
+        /// 已经有文本输入之后的状态,此状态可能发生 布局 修改
+        case hasInput
+        
+        case voice
+        
+        case input
+        
+        case emotion
+        
+        case add
+    }
 }
 
 // MARK: - UITextViewDelegate
@@ -167,6 +207,25 @@ extension ChatInputBar: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         adjustSelfFrame(with: textView)
     }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            // 用户点击了 Return 按钮
+            sendBtnClick()
+            // 返回 false 可以阻止 UITextView 插入换行符
+            return false
+        }
+        
+        if text == "" {
+            // 用户点击了 back 按钮
+            return true
+        }
+        
+        // 返回 true 以允许 UITextView 插入文本
+        return true
+    }
+    
+    
 }
 
 // MARK: - 键盘通知
@@ -179,7 +238,8 @@ extension ChatInputBar {
     }
     
     @objc func keyboardWillShow(_ noti: Notification){
-        print(noti)
+        // print(noti)
+        deledate?.keyboardWillShow(noti)
         guard let userInfo = noti.userInfo as? [String: Any],
               let kbEndFrame = userInfo["UIKeyboardFrameEndUserInfoKey"] as? CGRect,
               let time = userInfo["UIKeyboardAnimationDurationUserInfoKey"] as? TimeInterval else {
@@ -210,14 +270,15 @@ extension ChatInputBar {
             }
         }
         
-        
+        setTextViewCurser()
     }
     
     @objc func keyboardWillHide(_ noti: Notification){
-        print(noti)
+        deledate?.keyboardWillHide(noti)
+        //print(noti)
         
         guard let userInfo = noti.userInfo as? [String: Any],
-              let kbEndFrame = userInfo["UIKeyboardFrameEndUserInfoKey"] as? CGRect,
+              let _ = userInfo["UIKeyboardFrameEndUserInfoKey"] as? CGRect,
               let time = userInfo["UIKeyboardAnimationDurationUserInfoKey"] as? TimeInterval else {
             return
         }
@@ -281,15 +342,20 @@ extension ChatInputBar {
         self.snp.makeConstraints { make in
             make.height.equalTo(textView).offset(14)
         }
+        
+        // top line
+        addSubview(.line)
     }
     
     private func createTextView() -> UITextView {
         let textView = UITextView()
         textView.delegate = self
-        textView.backgroundColor = .red//UIColor.groupTableViewBackground
+        textView.backgroundColor = .white//UIColor.groupTableViewBackground
         textView.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         textView.textContainerInset = UIEdgeInsets(top: 9, left: 16, bottom: 9, right: 16)
         textView.returnKeyType = .send
+        textView.enablesReturnKeyAutomatically = true
+        textView.corner(radius: 5)
         return textView
     }
     
@@ -299,38 +365,36 @@ extension ChatInputBar {
     
     private func createBtn(image: UIImage) -> UIButton {
         let btn = UIButton(type: .system)
-        btn.setImage(image, for: .normal)
+        btn.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
         btn.snp.makeConstraints { make in
             make.width.height.equalTo(CGSize.init(width: 35, height: 35))
         }
         return btn
     }
     
+    /// 设置 textView 的光标颜色 -  需要有光标的时候才能设置
+    private func setTextViewCurser(){
+        textView.findSubViewRecursion { subview in
+            if subview.bounds.width == 2 {
+                subview.backgroundColor = WXConfig.wxGreen
+                return true
+            }
+            
+            return false
+        }
+    }
+    
     
     @objc func sendBtnClick(){
+        let text = textView.text ?? ""
+        deledate?.sendBtnClick(text: text)
+        textView.text = ""
+        textViewDidChange(textView)
         
-        if textView.inputView == nil {
-            
+        let shouldHideKeyboard = deledate?.shouldHideKeyboardWhenSendClick() ?? false
+        if shouldHideKeyboard { // 收起键盘的操作
             textView.resignFirstResponder()
-            let inputView = UIView()
-            inputView.backgroundColor = .green
-            inputView.frame = CGRect(x: 0, y: 0, width: 300, height: 600)
-            
-            textView.inputView = inputView
-            //            textView.inputView = emotionVC.view
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-                self.textView.becomeFirstResponder()
-            }
-        }else{
-            textView.resignFirstResponder()
-            textView.inputView = nil
-            
-            //            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            //                self.textView.becomeFirstResponder()
-            //            }
-        }
-        
+        }// 不收起键盘的操作
     }
 }
 

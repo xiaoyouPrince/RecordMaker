@@ -39,6 +39,7 @@ class WXListModel: Codable {
             }
         }
     }
+    var lsatMessage: String?
 }
 
 extension WXListModel {
@@ -91,6 +92,27 @@ extension WXListModel {
 }
 
 extension WXListModel {
+    
+    /// 更新消息列表数据
+    func updateListMemory() {
+        saveArchive()
+    }
+    
+    /// 保存到内存,并更新到文件,持久化存储
+    func appendMemoryAndArchive() {
+        // update memory
+        DataSource_wxlist.listModel.append(self)
+        
+        saveArchive()
+    }
+    
+    /// 持久化存储
+    func saveArchive() {
+        DispatchQueue.global().async {
+            // update file
+            DataSource_wxlist.update()
+        }
+    }
     
     /// 会话目标对象
     var targetContact: WXContact? {

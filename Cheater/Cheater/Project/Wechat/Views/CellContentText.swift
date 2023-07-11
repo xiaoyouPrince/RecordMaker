@@ -41,6 +41,7 @@ class CellContentText: UIView {
         
         //backgroundColor = .red
         label.numberOfLines = 0
+        label.lineBreakMode = .byCharWrapping
         label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         label.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
     }

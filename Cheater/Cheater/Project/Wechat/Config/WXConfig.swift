@@ -58,6 +58,12 @@ struct WXConfig {
         return UIColor.xy_getColor(red: 25, green: 184, blue: 78)
     }
     
+    /// 输入框背景色
+    static var inputBgColor: UIColor {
+        // 判断主题 - default is light
+        return UIColor.xy_getColor(red: 244, green: 244, blue: 244)//.withAlphaComponent(0.8)
+    }
+    
     static var wx_backImag = UIImage(named: "wechat_fanhui")?.withRenderingMode(.alwaysOriginal)
     
 }

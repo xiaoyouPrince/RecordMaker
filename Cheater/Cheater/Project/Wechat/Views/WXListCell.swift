@@ -127,6 +127,8 @@ extension WXListCell {
                 badge.removeFromSuperview()
                 badge = setBadgeDot()
             }
+            
+            lastMessageLabel.text = listModel.lsatMessage
         }
     }
 }

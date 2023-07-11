@@ -83,7 +83,7 @@ class WechatHomeViewController: XYInfomationBaseViewController {
             Toast.make("\(cell.model.title)")
             
             if self.tabbar.isSelectedHome, let listModel = cell.wxListModel { // 进入
-                let detail = WXDetailViewController(listModel: listModel)
+                let detail = WXDetailViewController(listModel: listModel, delegate: self)
                 detail.title = cell.model.title
                 self.push(detail, animated: true)
             }
@@ -93,6 +93,15 @@ class WechatHomeViewController: XYInfomationBaseViewController {
     deinit {
         Toast.make("微信主页 - 被杀死")
     }
+}
+
+extension WechatHomeViewController: WXMessageDidupdateProtocol {
+    func lastMessageDidupdate() {
+        // update list UI
+        self.refreshUI(data: self.getWechatData() )
+    }
+    
+    
 }
 
 extension WechatHomeViewController: UIScrollViewDelegate {
@@ -221,20 +230,11 @@ extension WechatHomeViewController {
                     model.title = contact.title
                     model.contactID = contact.id
                     
-//                    XYFileManager.creatFile(with: WXConfig.chatListFile)
-//                    let models = XYFileManager.appendFile(with: WXConfig.chatListFile, model: model)
-//                    models.forEach { mo in
-//                        print(mo.timeStr)
-//                    }
-                    
-                    // update memory
-                    DataSource_wxlist.listModel.append(model)
+                    // update memory and update file for archive
+                    model.appendMemoryAndArchive()
                     
                     // update list UI
                     self?.refreshUI(data: self?.getWechatData() ?? [])
-                    
-                    // update file
-                    DataSource_wxlist.update()
                     
                 }), animated: true)
             }
@@ -252,8 +252,6 @@ extension WechatHomeViewController {
             }
         }
     }
-    
-
 }
 
 // MARK: - 通讯录

@@ -16,7 +16,12 @@ class WXDetailCell: UITableViewCell {
         didSet {
             guard let model = model else { return }
         
-            iconImage.image = DataSource_wxDetail.targetContact?.image
+            if model.isOutGoingMsg {
+                iconImage.image = WXUserInfo.shared.icon
+            }else{
+                iconImage.image = DataSource_wxDetail.targetContact?.image
+            }
+            
             nameLabel.text = DataSource_wxDetail.targetContact?.title
             statusBtn.setTitle("哈", for: . normal)
             
