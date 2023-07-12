@@ -79,16 +79,19 @@ public class ChatInputView: UIView {
 /// 初始默认高度 56，默认会设置 frame 为 screen 宽度
 private class ChatInputBar: UIView {
     
-    /// 保存一下 keyBoard 整理高度, 内部使用
+    /// 保存一下 keyBoard 高度, 内部使用
     static var keyBoardHeight: CGFloat = 0
+    /// 保存一下 keyBoard 弹出收起动画时间, 内部使用
+    static var keyBoardAnimationTimeinterval: CGFloat = 0
     
     // MARK: - 共有有属性，可外部使用
     
     /// 默认自适应高度最大值，当输入内容自适应高度大于此值，不再变高，输入内容变为可滚动
     var maxHeight: CGFloat = 100
-    
     /// 当前状态
     var state: BarState = .initinal
+    /// 输入框草稿
+    var draft: String = ""
     
     var deledate: ChatInputViewCallBackProtocal?
     
@@ -96,6 +99,7 @@ private class ChatInputBar: UIView {
     lazy var emotionBtn: UIButton = createBtn(named: "wechat_input_emoticon")
     lazy var addBtn: UIButton = createBtn(named: "wechat_input_more")
     lazy var textView: UITextView = createTextView()
+    lazy var holdSpeakBtn = createHoldSpeakBtn()
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -103,15 +107,55 @@ private class ChatInputBar: UIView {
         
         setupSubviews()
         addKeyNotification()
-        
-        addBtn.addTap {[weak self] sender in
-            self?.textView.resignFirstResponder()
-        }
-        
+        addBtnActions()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+}
+
+
+extension ChatInputBar {
+    
+    enum BarState: Int {
+        /// 初始状态, 初始化时候的状态, 即键盘未弹出时候的状态
+        case initinal
+        /// 键盘弹出且在输入时候到状态, 此时可能已经有输入,或者没有输入,此状态可能发生 布局 修改
+        case keyboard
+        /// 语音按钮点击后状态,输出语音状态
+        case voice
+        
+        case emotion
+        
+        case add
+    }
+}
+
+// MARK: - UITextViewDelegate
+
+extension ChatInputBar: UITextViewDelegate {
+    
+    func textViewDidChange(_ textView: UITextView) {
+        adjustSelfFrame(with: textView)
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            // 用户点击了 Return 按钮
+            keyBoardSendBtnClick()
+            // 返回 false 可以阻止 UITextView 插入换行符
+            return false
+        }
+        
+        if text == "" {
+            // 用户点击了 back 按钮
+            return true
+        }
+        
+        // 返回 true 以允许 UITextView 插入文本
+        return true
     }
     
     /// textView 内部内容改动时候适配高度
@@ -119,7 +163,7 @@ private class ChatInputBar: UIView {
     func adjustSelfFrame(with textView: UITextView){
         
         if textView.text.isEmpty == false {
-            state = .hasInput
+            state = .keyboard
         }else{
             state = .initinal
         }
@@ -165,67 +209,6 @@ private class ChatInputBar: UIView {
             }
         }
     }
-    
-    /// 调整内部 view 的 frame，当 self.frame 发生改变时调用
-    /// - Parameter except: 指定不需调整的View，默认是内部 textView
-    func adjustSubViewsFrame(_ except: UIView) {
-        return;
-        for subView in self.subviews {
-            if subView == except {
-                continue
-            }else{
-                let vInset = (self.bounds.height - self.textView.bounds.height) / 2
-                subView.frame = CGRect(x: subView.frame.origin.x, y: self.bounds.height - subView.frame.size.height - vInset, width: subView.frame.size.width, height: subView.frame.size.height)
-            }
-        }
-    }
-}
-
-
-extension ChatInputBar {
-    
-    enum BarState: Int {
-        /// 初始状态, 初始化时候的状态
-        case initinal
-        /// 已经有文本输入之后的状态,此状态可能发生 布局 修改
-        case hasInput
-        
-        case voice
-        
-        case input
-        
-        case emotion
-        
-        case add
-    }
-}
-
-// MARK: - UITextViewDelegate
-
-extension ChatInputBar: UITextViewDelegate {
-    
-    func textViewDidChange(_ textView: UITextView) {
-        adjustSelfFrame(with: textView)
-    }
-    
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if text == "\n" {
-            // 用户点击了 Return 按钮
-            sendBtnClick()
-            // 返回 false 可以阻止 UITextView 插入换行符
-            return false
-        }
-        
-        if text == "" {
-            // 用户点击了 back 按钮
-            return true
-        }
-        
-        // 返回 true 以允许 UITextView 插入文本
-        return true
-    }
-    
-    
 }
 
 // MARK: - 键盘通知
@@ -248,6 +231,7 @@ extension ChatInputBar {
         
         let keyboardHeight = kbEndFrame.height
         ChatInputBar.keyBoardHeight = keyboardHeight
+        ChatInputBar.keyBoardAnimationTimeinterval = time
         
         if state == .initinal {
             if let contentView = self.superview?.superview {
@@ -259,7 +243,7 @@ extension ChatInputBar {
                 }
             }
         } else
-        if state == .hasInput {
+        if state == .keyboard {
             if let contentView = self.superview?.superview {
                 UIView.animate(withDuration: time, delay: 0) {
                     contentView.snp.updateConstraints { make in
@@ -293,7 +277,7 @@ extension ChatInputBar {
                 }
             }
         }else
-        if state == .hasInput {
+        if state == .keyboard {
             if let contentView = self.superview?.superview {
                 UIView.animate(withDuration: time, delay: 0) {
                     contentView.snp.updateConstraints { make in
@@ -307,6 +291,41 @@ extension ChatInputBar {
     }
 }
 
+// MARK: - ButtonActions
+
+extension ChatInputBar {
+    
+    private func addBtnActions() {
+        
+        voiceBtn.addTap {[weak self] sender in
+            guard let self = self else { return }
+            if self.state == .keyboard || self.state == .initinal { // 当前是键盘输入状态, 记录草稿, 修改为语音状态
+                self.setUIforVoice()
+            } else
+            if self.state == .voice { // 当前语音状态, 修改为 keyboard 状态,有草稿就恢复一下
+                self.setUIforKeyboad()
+            }
+            else
+            if self.state == .emotion || self.state == .add { // 当前弹框,直接修改为语音状态
+                
+            }
+        }
+    }
+    
+    /// 键盘上 return 按钮点击
+    private func keyBoardSendBtnClick(){
+        let text = textView.text ?? ""
+        deledate?.sendBtnClick(text: text)
+        textView.text = ""
+        textViewDidChange(textView)
+        
+        let shouldHideKeyboard = deledate?.shouldHideKeyboardWhenSendClick() ?? false
+        if shouldHideKeyboard { // 收起键盘的操作
+            textView.resignFirstResponder()
+        }// 不收起键盘的操作
+    }
+}
+
 // MARK: - UI
 
 extension ChatInputBar {
@@ -316,6 +335,7 @@ extension ChatInputBar {
         addSubview(textView)
         addSubview(emotionBtn)
         addSubview(addBtn)
+        addSubview(holdSpeakBtn)
         
         voiceBtn.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(12)
@@ -337,6 +357,11 @@ extension ChatInputBar {
             make.left.equalTo(emotionBtn.snp.right).offset(5)
             make.right.equalToSuperview().offset(-12)
             make.bottom.equalToSuperview().offset(-7)
+        }
+        
+        holdSpeakBtn.isHidden = true
+        holdSpeakBtn.snp.makeConstraints { make in
+            make.edges.equalTo(textView)
         }
         
         self.snp.makeConstraints { make in
@@ -372,6 +397,14 @@ extension ChatInputBar {
         return btn
     }
     
+    private func createHoldSpeakBtn() -> UIButton {
+        let btn = UIButton(type: .system)
+        btn.titleLabel?.font = .boldSystemFont(ofSize: 15)
+        btn.setTitle("按住 说话", for: .normal)
+        btn.setTitleColor(.black, for: .normal)
+        return btn
+    }
+    
     /// 设置 textView 的光标颜色 -  需要有光标的时候才能设置
     private func setTextViewCurser(){
         textView.findSubViewRecursion { subview in
@@ -384,18 +417,76 @@ extension ChatInputBar {
         }
     }
     
-    
-    @objc func sendBtnClick(){
-        let text = textView.text ?? ""
-        deledate?.sendBtnClick(text: text)
-        textView.text = ""
-        textViewDidChange(textView)
-        
-        let shouldHideKeyboard = deledate?.shouldHideKeyboardWhenSendClick() ?? false
-        if shouldHideKeyboard { // 收起键盘的操作
-            textView.resignFirstResponder()
-        }// 不收起键盘的操作
+    var keyBoardHeight: CGFloat {
+        ChatInputBar.keyBoardHeight
     }
+    
+    var keyBoardTime: TimeInterval {
+        ChatInputBar.keyBoardAnimationTimeinterval
+    }
+    
+    /// 保存草稿
+    private func restoreDraft() {
+        draft = textView.text
+        textView.text = ""
+    }
+    
+    /// 恢复草稿
+    private func recoverDraft() {
+        textView.text = draft
+        textViewDidChange(textView)
+    }
+    
+    private func setUIforInitinal(){
+        state = .initinal
+        textView.resignFirstResponder()
+        
+        voiceBtn.setImage(UIImage(named: "wechat_input_voice")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        holdSpeakBtn.isHidden = true
+        
+        if let contentView = self.superview?.superview {
+            UIView.animate(withDuration: keyBoardTime, delay: 0) {
+                contentView.snp.updateConstraints { make in
+                    make.height.equalTo(CGFloat.tabBar)
+                }
+                self.viewController?.view.layoutIfNeeded()
+            }
+        }
+    }
+    
+    private func setUIforKeyboad(){
+        state = .keyboard
+        // 应该先弹出键盘,否则动画期间恢复草稿
+        recoverDraft()
+        textView.becomeFirstResponder()
+        
+        voiceBtn.setImage(UIImage(named: "wechat_input_voice")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        holdSpeakBtn.isHidden = true
+    }
+    
+    private func setUIforVoice(){
+        state = .voice
+        textView.resignFirstResponder()
+        
+        voiceBtn.setImage(UIImage(named: "wechat_input_keyboard")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        holdSpeakBtn.isHidden = false
+        
+        restoreDraft()
+        
+        self.textView.snp.updateConstraints { make in
+            make.height.equalTo(35)
+        }
+        
+        if let contentView = self.superview?.superview {
+            UIView.animate(withDuration: keyBoardTime, delay: 0) {
+                contentView.snp.updateConstraints { make in
+                    make.height.equalTo(CGFloat.tabBar)
+                }
+                self.viewController?.view.layoutIfNeeded()
+            }
+        }
+    }
+    
 }
 
 
