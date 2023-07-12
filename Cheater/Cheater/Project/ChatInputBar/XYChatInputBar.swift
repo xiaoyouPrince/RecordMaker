@@ -81,8 +81,8 @@ private class ChatInputBar: UIView {
     
     /// 保存一下 keyBoard 高度, 内部使用
     static var keyBoardHeight: CGFloat = 0
-    /// 保存一下 keyBoard 弹出收起动画时间, 内部使用
-    static var keyBoardAnimationTimeinterval: CGFloat = 0
+    /// 保存一下 keyBoard 弹出收起动画时间, 内部使用, 默认值 0.25, 根据键盘弹出真实赋值
+    static var keyBoardAnimationTimeinterval: CGFloat = 0.25
     
     // MARK: - 共有有属性，可外部使用
     
@@ -130,6 +130,12 @@ extension ChatInputBar {
         case emotion
         
         case add
+    }
+    
+    /// 子视图 tag
+    struct ViewTag {
+        static let emotionPad: Int = 10001
+        static let morePad: Int = 10002
     }
 }
 
@@ -252,6 +258,11 @@ extension ChatInputBar {
                     self.viewController?.view.layoutIfNeeded()
                 }
             }
+            
+        } else { // voice / emotion / add
+            removeEmotionPad()
+            removeMorePad()
+            setUIforKeyboad()
         }
         
         setTextViewCurser()
@@ -307,8 +318,95 @@ extension ChatInputBar {
             }
             else
             if self.state == .emotion || self.state == .add { // 当前弹框,直接修改为语音状态
-                
+                self.setUIforVoice()
             }
+        }
+        
+        holdSpeakBtn.addTap { [weak self] sender in
+            guard let self = self, let sender = sender as? UIButton  else { return }
+            
+            Toast.make(sender.currentTitle ?? "")
+            
+            
+        }
+        
+        emotionBtn.addTap { [weak self] sender in
+            guard let self = self else { return }
+        
+            if self.state == .emotion { // change to keyboard
+                self.state = .keyboard
+                self.removeEmotionPad()
+                self.setUIforKeyboad()
+                return;
+            }
+            
+            self.state = .emotion
+            self.holdSpeakBtn.isHidden = true
+            self.textView.resignFirstResponder()
+            self.emotionBtn.setImage(UIImage(named: "wechat_input_keyboard")?.withRenderingMode(.alwaysOriginal), for: .normal)
+            
+            self.removeMorePad()
+            
+            let emotionHeight: CGFloat = 600
+            let emotionPad = UIView()
+            emotionPad.tag = ViewTag.emotionPad
+            emotionPad.backgroundColor = .red.withAlphaComponent(0.5)
+            
+            if let contentView = self.superview?.superview {
+                contentView.addSubview(emotionPad)
+                emotionPad.frame = .init(origin: .init(x: 0, y: contentView.bounds.height), size: .init(width: .width, height: emotionHeight))
+                
+                UIView.animate(withDuration: self.keyBoardTime, delay: 0) {
+                    var targetFrame = emotionPad.frame
+                    targetFrame.origin.y = self.bounds.height
+                    emotionPad.frame = targetFrame
+                    
+                    contentView.snp.updateConstraints { make in
+                        make.height.equalTo(emotionHeight + self.bounds.height)
+                    }
+                    self.viewController?.view.layoutIfNeeded()
+                }
+            }
+        }
+        
+        addBtn.addTap { [weak self] sender in
+            guard let self = self else { return }
+            
+            if self.state == .add { // change to keyboard
+                self.state = .keyboard
+                self.removeMorePad()
+                self.setUIforKeyboad()
+                return;
+            }
+            
+            self.state = .add
+            self.holdSpeakBtn.isHidden = true
+            self.textView.resignFirstResponder()
+            self.setVoiceAndEmotionBtnInitinal()
+            
+            self.removeEmotionPad()
+            
+            let emotionHeight: CGFloat = 400
+            let emotionPad = UIView()
+            emotionPad.tag = ViewTag.morePad
+            emotionPad.backgroundColor = .green.withAlphaComponent(0.5)
+            
+            if let contentView = self.superview?.superview {
+                contentView.addSubview(emotionPad)
+                emotionPad.frame = .init(origin: .init(x: 0, y: contentView.bounds.height), size: .init(width: .width, height: emotionHeight))
+                
+                UIView.animate(withDuration: self.keyBoardTime, delay: 0) {
+                    var targetFrame = emotionPad.frame
+                    targetFrame.origin.y = self.bounds.height
+                    emotionPad.frame = targetFrame
+                    
+                    contentView.snp.updateConstraints { make in
+                        make.height.equalTo(emotionHeight + self.bounds.height)
+                    }
+                    self.viewController?.view.layoutIfNeeded()
+                }
+            }
+            
         }
     }
     
@@ -425,6 +523,32 @@ extension ChatInputBar {
         ChatInputBar.keyBoardAnimationTimeinterval
     }
     
+    /// 移除 emotionPad
+    private func removeEmotionPad() {
+        guard let contentView = self.superview?.superview else { return } // ChatInputView
+        
+        contentView.findSubView { subview in
+            if subview.tag == ViewTag.emotionPad {
+                subview.removeFromSuperview()
+                return true
+            }
+            return false
+        }
+    }
+    
+    /// 移除 addPad
+    private func removeMorePad() {
+        guard let contentView = self.superview?.superview else { return } // ChatInputView
+        
+        contentView.findSubView { subview in
+            if subview.tag == ViewTag.morePad {
+                subview.removeFromSuperview()
+                return true
+            }
+            return false
+        }
+    }
+    
     /// 保存草稿
     private func restoreDraft() {
         draft = textView.text
@@ -437,12 +561,18 @@ extension ChatInputBar {
         textViewDidChange(textView)
     }
     
+    private func setVoiceAndEmotionBtnInitinal() {
+        voiceBtn.setImage(UIImage(named: "wechat_input_voice")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        holdSpeakBtn.isHidden = true
+        
+        emotionBtn.setImage(UIImage(named: "wechat_input_emoticon")?.withRenderingMode(.alwaysOriginal), for: .normal)
+    }
+    
     private func setUIforInitinal(){
         state = .initinal
         textView.resignFirstResponder()
         
-        voiceBtn.setImage(UIImage(named: "wechat_input_voice")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        holdSpeakBtn.isHidden = true
+        setVoiceAndEmotionBtnInitinal()
         
         if let contentView = self.superview?.superview {
             UIView.animate(withDuration: keyBoardTime, delay: 0) {
@@ -460,16 +590,28 @@ extension ChatInputBar {
         recoverDraft()
         textView.becomeFirstResponder()
         
-        voiceBtn.setImage(UIImage(named: "wechat_input_voice")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        holdSpeakBtn.isHidden = true
+        setVoiceAndEmotionBtnInitinal()
+        
+        if let contentView = self.superview?.superview {
+            UIView.animate(withDuration: self.keyBoardTime, delay: 0) {
+                contentView.snp.updateConstraints { make in
+                    make.height.equalTo(self.keyBoardHeight + self.bounds.height)
+                }
+                self.viewController?.view.layoutIfNeeded()
+            }
+        }
     }
     
     private func setUIforVoice(){
         state = .voice
         textView.resignFirstResponder()
+        removeEmotionPad()
+        removeMorePad()
         
         voiceBtn.setImage(UIImage(named: "wechat_input_keyboard")?.withRenderingMode(.alwaysOriginal), for: .normal)
         holdSpeakBtn.isHidden = false
+        
+        emotionBtn.setImage(UIImage(named: "wechat_input_emoticon")?.withRenderingMode(.alwaysOriginal), for: .normal)
         
         restoreDraft()
         
