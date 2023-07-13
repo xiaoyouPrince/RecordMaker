@@ -82,6 +82,8 @@ extension UIColor {
     static var C_222222: UIColor = .xy_getColor(hex: 0x222222)
     /// 设置微信状态,图片的 initColor, 原图是黑色背景
     static var C_wx_status: UIColor = .xy_getColor(red: 103, green: 113, blue: 148)
+    
+    static var C_red_dot: UIColor = .xy_getColor(red: 228, green: 53, blue: 58)
 }
 
 extension UIImage {

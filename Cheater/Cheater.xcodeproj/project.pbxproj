@@ -17,6 +17,8 @@
 		B4498E042A5AC7BB00B13CFA /* WXDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4498E032A5AC7BB00B13CFA /* WXDetailModel.swift */; };
 		B4498E062A5AD22900B13CFA /* CellContentText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4498E052A5AD22900B13CFA /* CellContentText.swift */; };
 		B475F2BB2A3698AA006C7351 /* XYHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B475F2BA2A3698AA006C7351 /* XYHomeViewController.m */; };
+		B48055422A5F9D9A00712CEF /* SendAudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48055412A5F9D9A00712CEF /* SendAudioViewController.swift */; };
+		B48055452A5FC21700712CEF /* CellContentVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48055442A5FC21700712CEF /* CellContentVoice.swift */; };
 		B4F869A42A38A011003749B8 /* WechatHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */; };
 		B4F869A72A38A346003749B8 /* WXConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A62A38A346003749B8 /* WXConfig.swift */; };
 		B4F869AA2A38A74A003749B8 /* WechatTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A92A38A74A003749B8 /* WechatTabbar.swift */; };
@@ -63,6 +65,8 @@
 		B475F2B82A3698A9006C7351 /* Cheater-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Cheater-Bridging-Header.h"; sourceTree = "<group>"; };
 		B475F2B92A3698AA006C7351 /* XYHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYHomeViewController.h; sourceTree = "<group>"; };
 		B475F2BA2A3698AA006C7351 /* XYHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYHomeViewController.m; sourceTree = "<group>"; };
+		B48055412A5F9D9A00712CEF /* SendAudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendAudioViewController.swift; sourceTree = "<group>"; };
+		B48055442A5FC21700712CEF /* CellContentVoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellContentVoice.swift; sourceTree = "<group>"; };
 		B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatHomeViewController.swift; sourceTree = "<group>"; };
 		B4F869A62A38A346003749B8 /* WXConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXConfig.swift; sourceTree = "<group>"; };
 		B4F869A92A38A74A003749B8 /* WechatTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatTabbar.swift; sourceTree = "<group>"; };
@@ -136,6 +140,15 @@
 			path = AuthorityManager;
 			sourceTree = "<group>";
 		};
+		B48055432A5FC1E800712CEF /* ContentViews */ = {
+			isa = PBXGroup;
+			children = (
+				B4498E052A5AD22900B13CFA /* CellContentText.swift */,
+				B48055442A5FC21700712CEF /* CellContentVoice.swift */,
+			);
+			path = ContentViews;
+			sourceTree = "<group>";
+		};
 		B4F8699E2A387C41003749B8 /* Project */ = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +171,7 @@
 				B4F869A52A38A321003749B8 /* Config */,
 				B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */,
 				B4498DFD2A5A571E00B13CFA /* WXDetailViewController.swift */,
+				B48055412A5F9D9A00712CEF /* SendAudioViewController.swift */,
 				B4F869C82A4365BD003749B8 /* WXAddRuleViewController.swift */,
 				B4F869CE2A53D0B6003749B8 /* WXAddSingleChatViewController.swift */,
 				B4F869AF2A3989E9003749B8 /* WXPersonInfoViewController.swift */,
@@ -209,7 +223,7 @@
 				B4F869CC2A52E0E1003749B8 /* WXBubbleView.swift */,
 				B4F869D42A541B83003749B8 /* WXListCell.swift */,
 				B4498E012A5AC48600B13CFA /* WXDetailCell.swift */,
-				B4498E052A5AD22900B13CFA /* CellContentText.swift */,
+				B48055432A5FC1E800712CEF /* ContentViews */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -420,9 +434,11 @@
 				B4498DF52A570E9A00B13CFA /* WXChooseStatusController.swift in Sources */,
 				B4F869CF2A53D0B6003749B8 /* WXAddSingleChatViewController.swift in Sources */,
 				B4FFBE2A2A36161C001F09AD /* HomeViewController.swift in Sources */,
+				B48055422A5F9D9A00712CEF /* SendAudioViewController.swift in Sources */,
 				B4498E042A5AC7BB00B13CFA /* WXDetailModel.swift in Sources */,
 				B4498DFA2A58055000B13CFA /* AlertController.swift in Sources */,
 				B4F869AE2A396BD8003749B8 /* MineInfoView.swift in Sources */,
+				B48055452A5FC21700712CEF /* CellContentVoice.swift in Sources */,
 				B4498E022A5AC48600B13CFA /* WXDetailCell.swift in Sources */,
 				B4F869D52A541B83003749B8 /* WXListCell.swift in Sources */,
 				B4FFBE3A2A3619C2001F09AD /* MineViewController.swift in Sources */,

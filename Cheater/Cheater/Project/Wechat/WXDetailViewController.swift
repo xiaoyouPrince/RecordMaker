@@ -64,6 +64,9 @@ class WXDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        tableView.reloadData()
+        XYFileManager.writeFile(with: DataSource_wxDetail.targetDB_filePath, models: self.dataArray)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.tableView.scrollToRow(at: IndexPath.init(row: self.dataArray.count-1, section: 0), at: .bottom, animated: false)
         }
@@ -183,9 +186,34 @@ extension WXDetailViewController: UITableViewDataSource, UITableViewDelegate {
 // MARK: - 输入框的代理回调
 
 extension WXDetailViewController: ChatInputViewCallBackProtocal {
+    func holdSpeakBtnClick() {
+        push(SendAudioViewController(senderId: currentSenderID, callback: {[weak self] voiceModel in
+            guard let self = self else { return }
+            
+            // 创建新消息对象,写入内存,绘制UI,数据持久化
+            let model = WXDetailModel(voice: voiceModel)
+            model.from = self.currentSenderID
+            
+            self.dataArray.append(model)
+            XYFileManager.writeFile(with: DataSource_wxDetail.targetDB_filePath, models: self.dataArray)
+            
+            self.tableView.reloadData()
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.25) {
+                self.tableView.scrollToRow(at: IndexPath.init(row: self.dataArray.count-1, section: 0), at: .bottom, animated: true)
+            }
+            
+            // 更新消息列表最后一句话和时间
+            self.lsitModel.time = Date().timeIntervalSince1970
+            self.lsitModel.lsatMessage = "[语音]"
+            self.lsitModel.updateListMemory()
+            self.delegate?.lastMessageDidupdate()
+            
+        }), animated: true)
+    }
+    
     func sendBtnClick(text: String) {
         // Toast.make("发送 - \(text)")
-        let model = WXDetailModel.init(text: text)
+        let model = WXDetailModel(text: text)
         model.from = currentSenderID
         
         self.dataArray.append(model)

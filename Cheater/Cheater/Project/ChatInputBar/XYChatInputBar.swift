@@ -26,7 +26,7 @@ public protocol ChatInputViewCallBackProtocal: AnyObject {
     /// 点击发送按钮之后是否收起键盘
     /// - Returns: 返回值是否收起键盘  true 收起 / false 不收起 - 默认不收起键盘
     func shouldHideKeyboardWhenSendClick() -> Bool
-    
+    func holdSpeakBtnClick()
 }
 
 extension ChatInputViewCallBackProtocal {
@@ -325,9 +325,17 @@ extension ChatInputBar {
         holdSpeakBtn.addTap { [weak self] sender in
             guard let self = self, let sender = sender as? UIButton  else { return }
             
-            Toast.make(sender.currentTitle ?? "")
+            // Toast.make(sender.currentTitle ?? "")
             
+            /*
+             * - TODO -
+             * 添加语音输入功能,添加语音类型的消息.
+             * 传出去,让代理做具体事情
+             *  1. 单聊
+             *  2. 群聊
+             */
             
+            self.deledate?.holdSpeakBtnClick()
         }
         
         emotionBtn.addTap { [weak self] sender in

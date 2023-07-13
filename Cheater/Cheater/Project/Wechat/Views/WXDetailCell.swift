@@ -35,10 +35,13 @@ class WXDetailCell: UITableViewCell {
                 setupInnerView(model: model, innerView: innerView)
                 return
             }
-        
+
             if type(of: innerView) == model.contentClass { // can reuse
+                lastContent = innerView
                 setupInnerView(model: model, innerView: innerView)
             }else{ // can not reuse, nedd remove the old one, and create a new one
+                lastContent?.removeFromSuperview()
+                
                 let innerView = model.contentClass.init() as! UIView
                 bubbleView.addSubview(innerView)
                 lastContent = innerView
@@ -51,7 +54,7 @@ class WXDetailCell: UITableViewCell {
     }
     
     func setupInnerView(model: WXDetailModel, innerView: UIView) {
-        guard let data = model.data, let contentView = innerView as? WXDetailContentProtocol else { return }
+        guard let contentView = innerView as? WXDetailContentProtocol else { return }
         contentView.setModel(model)
         
         iconImage.isHidden = !contentView.showIconImage
@@ -99,6 +102,33 @@ class WXDetailCell: UITableViewCell {
         contentView.addSubview(nameLabel)
         contentView.addSubview(bubbleView)
         contentView.addSubview(statusBtn)
+        
+        bubbleView.addLongPress { sender in
+            guard let sender = sender as? UIControl else { return }
+            
+            // 复制
+            let copy = UIMenuItem(title: "复制", action: #selector(self.copyText))
+            
+            // 编辑
+            let edit = UIMenuItem(title: "编辑", action: #selector(self.cellEdit))
+            
+            
+            let mc = UIMenuController.shared
+            mc.menuItems = [copy, edit]
+            mc.showMenu(from: sender, rect: sender.subviews.first?.frame ?? .zero)
+        }
+    }
+    
+    @objc func copyText(){
+        Toast.make("复制 -- 细节功能较多,主要架子完成后一点点细化")
+    }
+    
+    @objc func cellEdit(){
+        Toast.make("复制 -- 细节功能较多,主要架子完成后一点点细化")
+        
+        if model?.msgType == .voice, let model = self.model {
+            viewController?.push(SendAudioViewController(msgModel: model), animated: true) 
+        }
     }
 }
 

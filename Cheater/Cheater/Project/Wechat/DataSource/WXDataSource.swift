@@ -52,7 +52,6 @@ import XYUIKit
 
 
 extension Encodable {
-    
     var toData: Data? {
         do {
             let encoder = JSONEncoder()
@@ -74,8 +73,21 @@ extension Encodable {
             return ""
         }
     }
-    
-    
+}
+
+extension Data {
+    func toModel<T: Decodable>() -> T? {
+        do {
+            let decoder = JSONDecoder()
+            let model = try decoder.decode(T.self, from: self)
+            return model
+        } catch {
+            // error
+            return nil
+        }
+        
+        return nil
+    }
 }
 
 

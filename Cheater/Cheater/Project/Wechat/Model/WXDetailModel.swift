@@ -36,20 +36,11 @@ extension WXDetailContentProtocol {
     var showReadLabel: Bool { true }
 }
 
-//
-//class PictureModel: WXDetailContentProtocol {
-//    func setModel(_ data: Data) {
-//
-//    }
-//
-//    var contentClass: UIView.Type {
-//        return UIView.self
-//    }
-//}
-
 
 enum MsgType: Int, Codable {
+    case time           // 时间戳
     case text           // 文本
+    case voice          // 语音
     case image          // 图片
     case video          // 视频
     case system         // 系统通知
@@ -66,13 +57,25 @@ class WXDetailModel: Codable {
     var from: Int?
     /// 只有是 .text 类型时候有效
     var text: String?
+    /// 消息发送时间戳
+    var timeInterval: TimeInterval? = Date().timeIntervalSince1970
     
     /// 真实存储的消息内容 - 由于前后端都在客户端,这里直接用属性先
+    /// 根据真实的 megType, 此数据可以解析为真正的 content 类型
     var data: Data?
 }
 
 extension WXDetailModel {
     
+    /// 快速创建一个时间戳消息
+    convenience init(timeInterval: TimeInterval? = nil) {
+        self.init()
+        self.timeInterval = timeInterval ?? Date().timeIntervalSince1970
+        self.msgType = .time
+    }
+    
+    /// 快速创建一个文本消息
+    /// - Parameter text: 文本消息体积
     convenience init(text: String) {
         self.init()
         self.text = text
@@ -80,11 +83,21 @@ extension WXDetailModel {
         self.data = text.data(using: .utf8)
     }
     
+    /// 快速创建一个语音消息
+    /// - Parameter text: 文本消息体积
+    convenience init(voice: MsgVoiceModel) {
+        self.init()
+        self.msgType = .voice
+        self.data = voice.toData
+    }
+    
     /// 消息内容真实类型
     var contentClass: WXDetailContentProtocol.Type {
         switch msgType {
         case .text:
             return CellContentText.self
+        case .voice:
+            return CellContentVoice.self
         default:
             break
         }
