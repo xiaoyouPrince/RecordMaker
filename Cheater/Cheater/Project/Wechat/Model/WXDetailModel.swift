@@ -18,12 +18,14 @@
 import Foundation
 import UIKit
 
+// MARK: - 消息内容 view 协议
 
 protocol WXDetailContentProtocol: NSObjectProtocol {
     var showIconImage: Bool { get }
     var showNamelable: Bool { get }
     var contentEdges: UIEdgeInsets { get }
     var showReadLabel: Bool { get }
+    var fullCustom: Bool { get }
     var contentClass: UIView.Type { get }
     func setModel(_ data: WXDetailModel) // 有点儿不好组织
     init()
@@ -34,6 +36,7 @@ extension WXDetailContentProtocol {
     var showNamelable: Bool { false }
     var contentEdges: UIEdgeInsets { .zero }
     var showReadLabel: Bool { true }
+    var fullCustom: Bool { false }
 }
 
 
@@ -70,8 +73,12 @@ extension WXDetailModel {
     /// 快速创建一个时间戳消息
     convenience init(timeInterval: TimeInterval? = nil) {
         self.init()
-        self.timeInterval = timeInterval ?? Date().timeIntervalSince1970
         self.msgType = .time
+        
+        let realModel = MsgTimeModel()
+        realModel.time = timeInterval ?? Date().timeIntervalSince1970
+        
+        self.data = realModel.toData
     }
     
     /// 快速创建一个文本消息
@@ -102,7 +109,7 @@ extension WXDetailModel {
             break
         }
         
-        return CellContentText.self
+        return CellContentTime.self
     }
     
     /// 是否是自己发出的消息

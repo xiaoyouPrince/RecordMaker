@@ -66,9 +66,23 @@ class WXDetailViewController: UIViewController {
         super.viewWillAppear(animated)
         
         tableView.reloadData()
-        XYFileManager.writeFile(with: DataSource_wxDetail.targetDB_filePath, models: self.dataArray)
+        
+        DispatchQueue.global().async {
+            XYFileManager.writeFile(with: DataSource_wxDetail.targetDB_filePath, models: self.dataArray)
+        }
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.tableView.scrollToRow(at: IndexPath.init(row: self.dataArray.count-1, section: 0), at: .bottom, animated: false)
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // update msg list
+        
+        // update file archive
+        DispatchQueue.global().async {
+            XYFileManager.writeFile(with: DataSource_wxDetail.targetDB_filePath, models: self.dataArray)
         }
     }
     
@@ -194,8 +208,9 @@ extension WXDetailViewController: ChatInputViewCallBackProtocal {
             let model = WXDetailModel(voice: voiceModel)
             model.from = self.currentSenderID
             
-            self.dataArray.append(model)
-            XYFileManager.writeFile(with: DataSource_wxDetail.targetDB_filePath, models: self.dataArray)
+            // self.dataArray.append(model)
+            // 写入文件的操作,在 view will appear 生命周期统一处理
+            self.dataArrayAppendMsg(model)
             
             self.tableView.reloadData()
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.25) {
@@ -216,7 +231,8 @@ extension WXDetailViewController: ChatInputViewCallBackProtocal {
         let model = WXDetailModel(text: text)
         model.from = currentSenderID
         
-        self.dataArray.append(model)
+        //self.dataArray.append(model)
+        dataArrayAppendMsg(model)
         XYFileManager.writeFile(with: DataSource_wxDetail.targetDB_filePath, models: self.dataArray)
         
         tableView.reloadData()
@@ -254,6 +270,32 @@ extension WXDetailViewController: ChatInputViewCallBackProtocal {
     }
 }
 
+//: MARK - special functinos
+
+extension WXDetailViewController {
+    
+    /// 内存中新增消息对象,内部处理是否需要添加时间戳
+    /// - Parameter model: 消息对象
+    func dataArrayAppendMsg(_ model: WXDetailModel) {
+        
+        if let lastMsg = self.dataArray.last,
+           lastMsg.msgType != .time,
+           let lastTime = lastMsg.timeInterval,
+           let currentTime = model.timeInterval,
+           currentTime - lastTime < 5 * 60 {
+            self.dataArray.append(model)
+        }else
+        {
+            // 添加一个时间戳
+            let time = WXDetailModel(timeInterval: Date().timeIntervalSince1970)
+            self.dataArray.append(time)
+            self.dataArray.append(model)
+        }
+    }
+}
+
+//: MARK - Actions
+
 extension WXDetailViewController {
     
     @objc func leftBtnClick(){
@@ -285,7 +327,8 @@ extension WXDetailViewController {
         if (arc4random() % 2) == 0 {
             model.from = WXUserInfo.shared.id
         }
-        self.dataArray.append(model)
+        //self.dataArray.append(model)
+        dataArrayAppendMsg(model)
         XYFileManager.writeFile(with: DataSource_wxDetail.targetDB_filePath, models: self.dataArray)
         
         tableView.reloadData()

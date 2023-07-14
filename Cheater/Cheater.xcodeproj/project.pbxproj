@@ -19,6 +19,8 @@
 		B475F2BB2A3698AA006C7351 /* XYHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B475F2BA2A3698AA006C7351 /* XYHomeViewController.m */; };
 		B48055422A5F9D9A00712CEF /* SendAudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48055412A5F9D9A00712CEF /* SendAudioViewController.swift */; };
 		B48055452A5FC21700712CEF /* CellContentVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48055442A5FC21700712CEF /* CellContentVoice.swift */; };
+		B48055472A60F09100712CEF /* CellContentTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48055462A60F09100712CEF /* CellContentTime.swift */; };
+		B48055492A60FA2000712CEF /* TimeTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48055482A60FA2000712CEF /* TimeTool.swift */; };
 		B4F869A42A38A011003749B8 /* WechatHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */; };
 		B4F869A72A38A346003749B8 /* WXConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A62A38A346003749B8 /* WXConfig.swift */; };
 		B4F869AA2A38A74A003749B8 /* WechatTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A92A38A74A003749B8 /* WechatTabbar.swift */; };
@@ -67,6 +69,8 @@
 		B475F2BA2A3698AA006C7351 /* XYHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYHomeViewController.m; sourceTree = "<group>"; };
 		B48055412A5F9D9A00712CEF /* SendAudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendAudioViewController.swift; sourceTree = "<group>"; };
 		B48055442A5FC21700712CEF /* CellContentVoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellContentVoice.swift; sourceTree = "<group>"; };
+		B48055462A60F09100712CEF /* CellContentTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellContentTime.swift; sourceTree = "<group>"; };
+		B48055482A60FA2000712CEF /* TimeTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTool.swift; sourceTree = "<group>"; };
 		B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatHomeViewController.swift; sourceTree = "<group>"; };
 		B4F869A62A38A346003749B8 /* WXConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXConfig.swift; sourceTree = "<group>"; };
 		B4F869A92A38A74A003749B8 /* WechatTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatTabbar.swift; sourceTree = "<group>"; };
@@ -145,6 +149,7 @@
 			children = (
 				B4498E052A5AD22900B13CFA /* CellContentText.swift */,
 				B48055442A5FC21700712CEF /* CellContentVoice.swift */,
+				B48055462A60F09100712CEF /* CellContentTime.swift */,
 			);
 			path = ContentViews;
 			sourceTree = "<group>";
@@ -253,6 +258,7 @@
 				B4498DF72A57C0FD00B13CFA /* WXListCellLeftSwiptHelper.swift */,
 				B4498DF92A58055000B13CFA /* AlertController.swift */,
 				B4498DFB2A586EAE00B13CFA /* DatePickerController.swift */,
+				B48055482A60FA2000712CEF /* TimeTool.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -422,6 +428,7 @@
 			files = (
 				B4F869B42A3C5585003749B8 /* WechatSearchBarView.swift in Sources */,
 				B4F869C72A4214FE003749B8 /* WXContactTableHaderFooterView.swift in Sources */,
+				B48055492A60FA2000712CEF /* TimeTool.swift in Sources */,
 				B4F869E42A55B51E003749B8 /* AuthorityCameraExtension.swift in Sources */,
 				B4498DFC2A586EAE00B13CFA /* DatePickerController.swift in Sources */,
 				B4498DF82A57C0FD00B13CFA /* WXListCellLeftSwiptHelper.swift in Sources */,
@@ -450,6 +457,7 @@
 				B4FFBE262A36161C001F09AD /* AppDelegate.swift in Sources */,
 				B4F869B22A39B98A003749B8 /* WXUserInfo.swift in Sources */,
 				B4F869A72A38A346003749B8 /* WXConfig.swift in Sources */,
+				B48055472A60F09100712CEF /* CellContentTime.swift in Sources */,
 				B4FFBE282A36161C001F09AD /* SceneDelegate.swift in Sources */,
 				B4F869CD2A52E0E1003749B8 /* WXBubbleView.swift in Sources */,
 				B4F869DE2A554051003749B8 /* AuthorityManagerAlbumExtension.swift in Sources */,

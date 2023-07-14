@@ -25,7 +25,7 @@ class WXDetailCell: UITableViewCell {
             nameLabel.text = DataSource_wxDetail.targetContact?.title
             statusBtn.setTitle("哈", for: . normal)
             
-            guard let innerView = lastContent else {
+            guard let innerView = lastContent else { // not create, create and save it
                 let innerView = model.contentClass.init() as! UIView
                 bubbleView.addSubview(innerView)
                 lastContent = innerView
@@ -60,6 +60,15 @@ class WXDetailCell: UITableViewCell {
         iconImage.isHidden = !contentView.showIconImage
         nameLabel.isHidden = !contentView.showNamelable
         statusBtn.isHidden = !contentView.showReadLabel
+        
+        if contentView.fullCustom {
+            iconImage.isHidden = true
+            nameLabel.isHidden = true
+            statusBtn.isHidden = true
+            
+            layoutForFullCustom()
+            return
+        }
         
         // real layout
         if model.isOutGoingMsg {
@@ -286,6 +295,14 @@ extension WXDetailCell {
                     }
                 }
             }
+        }
+    }
+    
+    /// 完全自定义的布局
+    /// 整个cell区域,都是自定义区域,不展示默认所有内容
+    func layoutForFullCustom() {
+        bubbleView.snp.remakeConstraints { make in
+            make.edges.equalToSuperview()
         }
     }
 }

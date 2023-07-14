@@ -16,6 +16,7 @@ class MsgVoiceModel: Codable {
     var hasRead: Bool? = false
 }
 
+/// 语音转文字内容view
 private class ContentView: UIView {
     let label = UILabel()
     
