@@ -1,5 +1,5 @@
 //
-//  CellContentPhoto.swift
+//  CellContentVideo.swift
 //  Cheater
 //
 //  Created by 渠晓友 on 2023/7/16.
@@ -10,14 +10,19 @@ import UIKit
 import XYUIKit
 
 /// 时间戳数据模型
-class MsgPhotoModel: Codable {
-    
+class MsgVideoModel: Codable {
+    /// 视频封面
+    var imageData: Data?
+    /// 视频时长 egg: 10:20
+    var videoTime: String?
 }
 
 
-class CellContentPhoto: UIView {
+class CellContentVideo: UIView {
     let contentView = UIView()
     let imageView = UIImageView()
+    let playIcon = UIImageView()
+    let timeLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -31,6 +36,8 @@ class CellContentPhoto: UIView {
     func setupUI() {
         addSubview(contentView)
         contentView.addSubview(imageView)
+        contentView.addSubview(playIcon)
+        contentView.addSubview(timeLabel)
         
         contentView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -40,10 +47,21 @@ class CellContentPhoto: UIView {
         imageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        
+        playIcon.image = UIImage(named: "play_video_icon2")
+        playIcon.snp.makeConstraints { make in
+            make.center.equalTo(imageView)
+        }
+        
+        timeLabel.textColor = .C_FFFFFF
+        timeLabel.snp.makeConstraints { make in
+            make.right.equalTo(imageView.snp.right).offset(-10)
+            make.bottom.equalTo(imageView.snp.bottom).offset(-10)
+        }
     }
 }
 
-extension CellContentPhoto: WXDetailContentProtocol {
+extension CellContentVideo: WXDetailContentProtocol {
     var contentClass: UIView.Type {
         CellContentPhoto.self
     }
@@ -53,7 +71,9 @@ extension CellContentPhoto: WXDetailContentProtocol {
     var showReadLabel: Bool { false }
     
     func setModel(_ model: WXDetailModel) {
-        guard let image = model.image else { return } // 图片累类型,必须有图片
+        guard let videoModel: MsgVideoModel = model.data?.toModel(),
+              let imageData = videoModel.imageData,
+              let image = UIImage(data: imageData) else { return } // 图片累类型,必须有图片
         
         let size = image.size
         let maxWH: CGFloat = 150
@@ -88,6 +108,8 @@ extension CellContentPhoto: WXDetailContentProtocol {
             make.height.equalTo(imageSize.height)
             make.top.bottom.equalToSuperview()
         }
+        
+        timeLabel.text = videoModel.videoTime
     }
 }
 

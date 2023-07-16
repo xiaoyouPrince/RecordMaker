@@ -25,6 +25,9 @@
 		B48055502A61A66B00712CEF /* InputBarAddFunctionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B480554F2A61A66B00712CEF /* InputBarAddFunctionHelper.swift */; };
 		B48055522A62615D00712CEF /* ChoosePhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48055512A62615D00712CEF /* ChoosePhotoController.swift */; };
 		B48055542A64293100712CEF /* CellContentPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48055532A64293100712CEF /* CellContentPhoto.swift */; };
+		B48055562A644B9D00712CEF /* SendVideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48055552A644B9D00712CEF /* SendVideoController.swift */; };
+		B48055582A644CD300712CEF /* CellContentVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48055572A644CD300712CEF /* CellContentVideo.swift */; };
+		B480555A2A64540300712CEF /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48055592A64540300712CEF /* Categories.swift */; };
 		B4F869A42A38A011003749B8 /* WechatHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */; };
 		B4F869A72A38A346003749B8 /* WXConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A62A38A346003749B8 /* WXConfig.swift */; };
 		B4F869AA2A38A74A003749B8 /* WechatTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A92A38A74A003749B8 /* WechatTabbar.swift */; };
@@ -79,6 +82,9 @@
 		B480554F2A61A66B00712CEF /* InputBarAddFunctionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputBarAddFunctionHelper.swift; sourceTree = "<group>"; };
 		B48055512A62615D00712CEF /* ChoosePhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePhotoController.swift; sourceTree = "<group>"; };
 		B48055532A64293100712CEF /* CellContentPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellContentPhoto.swift; sourceTree = "<group>"; };
+		B48055552A644B9D00712CEF /* SendVideoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendVideoController.swift; sourceTree = "<group>"; };
+		B48055572A644CD300712CEF /* CellContentVideo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellContentVideo.swift; sourceTree = "<group>"; };
+		B48055592A64540300712CEF /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatHomeViewController.swift; sourceTree = "<group>"; };
 		B4F869A62A38A346003749B8 /* WXConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXConfig.swift; sourceTree = "<group>"; };
 		B4F869A92A38A74A003749B8 /* WechatTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatTabbar.swift; sourceTree = "<group>"; };
@@ -159,6 +165,7 @@
 				B48055442A5FC21700712CEF /* CellContentVoice.swift */,
 				B48055462A60F09100712CEF /* CellContentTime.swift */,
 				B48055532A64293100712CEF /* CellContentPhoto.swift */,
+				B48055572A644CD300712CEF /* CellContentVideo.swift */,
 			);
 			path = ContentViews;
 			sourceTree = "<group>";
@@ -186,6 +193,7 @@
 				B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */,
 				B4498DFD2A5A571E00B13CFA /* WXDetailViewController.swift */,
 				B48055412A5F9D9A00712CEF /* SendAudioViewController.swift */,
+				B48055552A644B9D00712CEF /* SendVideoController.swift */,
 				B4F869C82A4365BD003749B8 /* WXAddRuleViewController.swift */,
 				B4F869CE2A53D0B6003749B8 /* WXAddSingleChatViewController.swift */,
 				B4F869AF2A3989E9003749B8 /* WXPersonInfoViewController.swift */,
@@ -256,6 +264,7 @@
 				B4F869B92A404F39003749B8 /* WXContact.swift */,
 				B4F869D22A540D9A003749B8 /* WXListModel.swift */,
 				B4498E032A5AC7BB00B13CFA /* WXDetailModel.swift */,
+				B48055592A64540300712CEF /* Categories.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -446,6 +455,7 @@
 				B4498DF82A57C0FD00B13CFA /* WXListCellLeftSwiptHelper.swift in Sources */,
 				B48055502A61A66B00712CEF /* InputBarAddFunctionHelper.swift in Sources */,
 				B4F869B72A3F4801003749B8 /* WXDataSource.swift in Sources */,
+				B48055562A644B9D00712CEF /* SendVideoController.swift in Sources */,
 				B4498E062A5AD22900B13CFA /* CellContentText.swift in Sources */,
 				B475F2BB2A3698AA006C7351 /* XYHomeViewController.m in Sources */,
 				B4FFBE3D2A362C18001F09AD /* XYChatInputBar.swift in Sources */,
@@ -468,6 +478,8 @@
 				B4F869C92A4365BD003749B8 /* WXAddRuleViewController.swift in Sources */,
 				B4F869B02A3989E9003749B8 /* WXPersonInfoViewController.swift in Sources */,
 				B4F869D32A540D9A003749B8 /* WXListModel.swift in Sources */,
+				B48055582A644CD300712CEF /* CellContentVideo.swift in Sources */,
+				B480555A2A64540300712CEF /* Categories.swift in Sources */,
 				B4F869BA2A404F39003749B8 /* WXContact.swift in Sources */,
 				B4FFBE262A36161C001F09AD /* AppDelegate.swift in Sources */,
 				B4F869B22A39B98A003749B8 /* WXUserInfo.swift in Sources */,

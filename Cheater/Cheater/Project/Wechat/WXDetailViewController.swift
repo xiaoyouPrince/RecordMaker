@@ -62,18 +62,27 @@ class WXDetailViewController: UIViewController {
         tableView.reloadData()
     }
     
+    /// 持久化聊天记录详情
+    func archiveChatDB() {
+        DispatchQueue.global().async {
+            XYFileManager.writeFile(with: DataSource_wxDetail.targetDB_filePath, models: self.dataArray)
+        }
+    }
+    
+    func tableViewScrollToBottom(){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.tableView.scrollToRow(at: IndexPath.init(row: self.dataArray.count-1, section: 0), at: .bottom, animated: false)
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         tableView.reloadData()
         
-        DispatchQueue.global().async {
-            XYFileManager.writeFile(with: DataSource_wxDetail.targetDB_filePath, models: self.dataArray)
-        }
+        archiveChatDB()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.tableView.scrollToRow(at: IndexPath.init(row: self.dataArray.count-1, section: 0), at: .bottom, animated: false)
-        }
+        tableViewScrollToBottom()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -81,9 +90,7 @@ class WXDetailViewController: UIViewController {
         // update msg list
         
         // update file archive
-        DispatchQueue.global().async {
-            XYFileManager.writeFile(with: DataSource_wxDetail.targetDB_filePath, models: self.dataArray)
-        }
+        archiveChatDB()
     }
     
     func setupUI() {
@@ -295,6 +302,12 @@ extension WXDetailViewController {
             self.dataArray.append(time)
             self.dataArray.append(model)
         }
+        
+        tableView.reloadData()
+        
+        archiveChatDB()
+        
+        tableViewScrollToBottom()
     }
 }
 

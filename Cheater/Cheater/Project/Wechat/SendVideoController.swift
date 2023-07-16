@@ -1,32 +1,33 @@
 //
-//  SendAudioViewController.swift
+//  SendVideoController.swift
 //  Cheater
 //
-//  Created by 渠晓友 on 2023/7/13.
+//  Created by 渠晓友 on 2023/7/17.
 //  Copyright © 2023 xiaoyou. All rights reserved.
 //
 /*
  * - TODO -
- * 输入框发送语音按钮点击后,添加语音功能
+ * 发送视频编辑页面
  *
- *  1. 发送语音
- *  2. 发送语音编辑页面
+ *  1. 发送视频
+ *  2. 编辑已经发送的视频
  */
 
 import UIKit
 import XYUIKit
 import XYInfomationSection
 
-class SendAudioViewController: XYInfomationBaseViewController {
+class SendVideoController: XYInfomationBaseViewController {
+
     var senderId: Int = WXUserInfo.shared.id
-    var callback: ((MsgVoiceModel)->())?
+    var callback: ((MsgVideoModel)->())?
     var msgModel: WXDetailModel?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
-    init(senderId: Int, callback: @escaping (MsgVoiceModel)->()) {
+    init(senderId: Int, callback: @escaping (MsgVideoModel)->()) {
         self.senderId = senderId
         self.callback = callback
         super.init(nibName: nil, bundle: nil)
@@ -57,7 +58,7 @@ class SendAudioViewController: XYInfomationBaseViewController {
         self.view.backgroundColor = WXConfig.navBarBgColor
         
         nav_setCustom(backImage: WXConfig.wx_backImag)
-        title = isEdit ? "编辑语音" : "添加语音"
+        title = isEdit ? "编辑视频" : "添加视频"
         navigationItem.rightBarButtonItem = .xy_item(withTarget: self, action: #selector(doneClick), title: isEdit ? "保存" : "添加")
         
         setContentWithData(contentData(), itemConfig: { item in
@@ -65,6 +66,14 @@ class SendAudioViewController: XYInfomationBaseViewController {
         }, sectionConfig: { section in
             section.corner(radius: 5)
         }, sectionDistance: 0, contentEdgeInsets: .init(top: 10, left: 10, bottom: 0, right: 10)) { index, cell in
+            
+            if cell.model.title == "视频封面" {
+                ChoosePhotoController.choosePhoto { image in
+                    cell.model.obj = image.pngData() as Any
+                    let model = cell.model
+                    cell.model = model
+                }
+            }
             
         }
         
@@ -85,9 +94,9 @@ class SendAudioViewController: XYInfomationBaseViewController {
     
 }
 
-extension SendAudioViewController {
+extension SendVideoController {
     
-    func voiceModel() -> MsgVoiceModel? {
+    func videoModel() -> MsgVideoModel? {
         if isEdit {
             return msgModel!.data!.toModel()
         }
@@ -105,12 +114,7 @@ extension SendAudioViewController {
             imageData = DataSource_wxDetail.targetContact?.image?.pngData()
         }
         
-//        var voiceTime: Int = 0
-//        var showText: Bool = false
-//        var textContent: String = ""
-//        var hasRead: Bool = false
-        
-        var section: [[String: Any]] = [
+        let section: [[String: Any]] = [
             [
                 "title": title ?? "",
                 "type": XYInfoCellType.other.rawValue,
@@ -118,88 +122,71 @@ extension SendAudioViewController {
                 "obj": imageData as Any
             ],
             [
-                "title": "语音时间(最大60秒)",
-                "titleKey": "voiceTime",
+                "title": "视频封面",
+                "titleKey": "videoPhoto",
+                "type": XYInfoCellType.other.rawValue,
+                "customCellClass": ChoosePhotoCell.self,
+                "obj": videoModel()?.imageData as Any
+            ],
+            [
+                "title": "视频时长",
+                "titleKey": "videoTime",
                 "type": XYInfoCellType.input.rawValue,
-                "placeholderValue": "请输入时长",
-                "value": voiceModel()?.voiceTime?.toString as Any
-            ],
-            [
-                "title": "显示转文字",
-                "titleKey": "showText",
-                "type": XYInfoCellType.switch.rawValue,
-                "isOn": voiceModel()?.showText as Any
-            ],
-            [
-                "title": "语音转文字内容",
-                "titleKey": "textContent",
-                "type": XYInfoCellType.textView.rawValue,
-                "cellHeight": 100,
-                "value": voiceModel()?.textContent as Any
+                "value": videoModel()?.videoTime as Any,
+                "placeholderValue": "时间用英文“:”分隔"
             ]
         ]
-        
-        if self.senderId != from {
-            let hasRead: [String : Any] = [
-                "title": "是否已读",
-                "titleKey": "hasRead",
-                "type": XYInfoCellType.switch.rawValue,
-                "isOn": voiceModel()?.hasRead as Any
-            ]
-            section.append(hasRead)
-        }
         
         result.append(section)
         return result
     }
     
     @objc func doneClick() {
+        let videoModel = MsgVideoModel()
         var params: [AnyHashable: Any] = [:]
         self.view.findSubViewRecursion { subview in
             if let section = subview as? XYInfomationSection {
                 params = section.contentKeyValues
+                
+                let item = section.dataArray[1]
+                videoModel.imageData = item.obj as? Data
                 return true
             }
             return false
         }
         
-        let voiceModel = MsgVoiceModel()
-        voiceModel.voiceTime = (params["voiceTime"] as? String)?.intValue
-        voiceModel.showText = (params["showText"] as? String) == "1" ? true : false
-        voiceModel.textContent = params["textContent"] as? String
-        voiceModel.hasRead = (params["hasRead"] as? String) == "1" ? true : false
+        videoModel.videoTime = params["videoTime"] as? String
         
-        callback?(voiceModel)
+        callback?(videoModel)
         if isEdit {
-            msgModel?.data = voiceModel.toData
+            msgModel?.data = videoModel.toData
         }
         navigationController?.popViewController(animated: true)
     }
 }
 
-class SenderCell: XYInfomationCell {
+class ChoosePhotoCell: XYInfomationCell {
     
-    let imageView = UIImageView()
     let titleLabel = UILabel()
+    let imageView = UIImageView(image: .defaultHead)
     
     override init(frame: CGRect) {
-        super.init(frame: CGRect.zero)
+        super.init(frame: .zero)
         
-        addSubview(imageView)
         addSubview(titleLabel)
+        addSubview(imageView)
         
-        imageView.corner(radius: 5)
-        imageView.snp.makeConstraints { make in
+        titleLabel.font = .systemFont(ofSize: 15)
+        titleLabel.snp.makeConstraints { make in
             make.left.equalTo(15)
-            make.top.equalTo(8)
-            make.bottom.equalTo(-8)
-            make.width.height.equalTo(50)
+            make.centerY.equalToSuperview()
         }
         
-        titleLabel.snp.makeConstraints { make in
-            make.left.equalTo(imageView.snp.right).offset(10)
-            make.right.equalTo(-10)
-            make.centerY.equalToSuperview()
+        imageView.snp.makeConstraints { make in
+            make.right.equalTo(-15)
+            make.top.equalToSuperview().offset(10)
+            make.bottom.equalToSuperview().offset(-10)
+            make.width.height.equalTo(50)
         }
     }
     
@@ -207,11 +194,13 @@ class SenderCell: XYInfomationCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override var model: XYInfomationItem{
-        didSet {
-            guard let obj = model.obj as? Data else { return }
-            imageView.image = UIImage(data: obj)
+    override var model: XYInfomationItem {
+        didSet{
+            if let imageData = model.obj as? Data {
+                imageView.image = UIImage(data: imageData)
+            }
             titleLabel.text = model.title
         }
     }
 }
+

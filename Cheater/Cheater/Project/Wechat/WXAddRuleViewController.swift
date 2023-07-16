@@ -20,7 +20,7 @@ class WXAddRuleViewController: XYInfomationBaseViewController {
         static let icon = "头像"
     }
     
-    let addHeadImage = UIImage(named: "add_head")
+    let addHeadImage = UIImage.defaultHead
     private var saveCallback: ((WXContact)->())?
     private var randomContact: WXContact?
     

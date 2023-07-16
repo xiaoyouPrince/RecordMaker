@@ -74,6 +74,13 @@ class WXDetailModel: Codable {
 extension WXDetailModel {
     
     /// 快速创建一个图片类型消息
+    convenience init(video: MsgVideoModel? = nil) {
+        self.init()
+        self.msgType = .video
+        self.data = video.toData
+    }
+    
+    /// 快速创建一个图片类型消息
     convenience init(image: UIImage? = nil) {
         self.init()
         self.msgType = .image
@@ -126,6 +133,8 @@ extension WXDetailModel {
             return CellContentVoice.self
         case .image:
             return CellContentPhoto.self
+        case .video:
+            return CellContentVideo.self
         default:
             break
         }

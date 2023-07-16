@@ -95,4 +95,7 @@ extension UIImage {
     
     /// 微信右上角的三个点
     static var wx_right_3dot = UIImage(named: "wechat_sandian")?.withRenderingMode(.alwaysOriginal)
+    
+    /// 默认添加头像
+    static var defaultHead = UIImage(named: "add_head")?.withRenderingMode(.alwaysOriginal)
 }
