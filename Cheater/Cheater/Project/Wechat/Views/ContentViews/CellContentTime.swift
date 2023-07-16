@@ -51,6 +51,8 @@ class CellContentTime: UIView {
         addSubview(label)
         
         label.textAlignment = .center
+        label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         label.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }

@@ -243,15 +243,8 @@ class DataSource_wxDetail {
             
             // 如果初次进入会话,没有数据,手动加一个系统数据
             if allMessages?.isEmpty == true {
-                let msg = WXDetailModel()
-                msg.msgType = .text
-                msg.text = "手动十分广泛 -- 为什么会这样呢 why is this..  shhagoagoeng"
-                if let data = msg.text?.data(using: .utf8) {
-                    msg.data = data
-                }
-                
+                let msg = WXDetailModel(timeInterval: .since1970)
                 allMessages?.append(msg)
-                
                 // save
                 guard let allMsgs = allMessages else { return }
                 XYFileManager.writeFile(with: db_fileName, models: allMsgs)

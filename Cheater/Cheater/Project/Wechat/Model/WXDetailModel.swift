@@ -66,9 +66,28 @@ class WXDetailModel: Codable {
     /// 真实存储的消息内容 - 由于前后端都在客户端,这里直接用属性先
     /// 根据真实的 megType, 此数据可以解析为真正的 content 类型
     var data: Data?
+    
+    /// 图片消息可以存储imageName 动态加载图片库图片
+    var imageName: String?
 }
 
 extension WXDetailModel {
+    
+    /// 快速创建一个图片类型消息
+    convenience init(image: UIImage? = nil) {
+        self.init()
+        self.msgType = .image
+        
+        self.data = image?.pngData()
+    }
+    
+    /// 快速创建一个图片类型消息
+    convenience init(imageName: String? = nil) {
+        self.init()
+        self.msgType = .image
+        
+        self.imageName = imageName
+    }
     
     /// 快速创建一个时间戳消息
     convenience init(timeInterval: TimeInterval? = nil) {
@@ -105,6 +124,8 @@ extension WXDetailModel {
             return CellContentText.self
         case .voice:
             return CellContentVoice.self
+        case .image:
+            return CellContentPhoto.self
         default:
             break
         }
@@ -119,5 +140,18 @@ extension WXDetailModel {
         }
         
         return false
+    }
+    
+    var image: UIImage? {
+        if msgType == .image {
+            if let imageName = imageName {
+                return UIImage(named: imageName)
+            }
+            
+            if let data = data {
+                return UIImage(data: data)
+            }
+        }
+        return nil
     }
 }

@@ -21,6 +21,10 @@
 		B48055452A5FC21700712CEF /* CellContentVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48055442A5FC21700712CEF /* CellContentVoice.swift */; };
 		B48055472A60F09100712CEF /* CellContentTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48055462A60F09100712CEF /* CellContentTime.swift */; };
 		B48055492A60FA2000712CEF /* TimeTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48055482A60FA2000712CEF /* TimeTool.swift */; };
+		B480554D2A61450E00712CEF /* XYChatInputFunctionPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = B480554C2A61450E00712CEF /* XYChatInputFunctionPad.swift */; };
+		B48055502A61A66B00712CEF /* InputBarAddFunctionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B480554F2A61A66B00712CEF /* InputBarAddFunctionHelper.swift */; };
+		B48055522A62615D00712CEF /* ChoosePhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48055512A62615D00712CEF /* ChoosePhotoController.swift */; };
+		B48055542A64293100712CEF /* CellContentPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48055532A64293100712CEF /* CellContentPhoto.swift */; };
 		B4F869A42A38A011003749B8 /* WechatHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */; };
 		B4F869A72A38A346003749B8 /* WXConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A62A38A346003749B8 /* WXConfig.swift */; };
 		B4F869AA2A38A74A003749B8 /* WechatTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A92A38A74A003749B8 /* WechatTabbar.swift */; };
@@ -71,6 +75,10 @@
 		B48055442A5FC21700712CEF /* CellContentVoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellContentVoice.swift; sourceTree = "<group>"; };
 		B48055462A60F09100712CEF /* CellContentTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellContentTime.swift; sourceTree = "<group>"; };
 		B48055482A60FA2000712CEF /* TimeTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTool.swift; sourceTree = "<group>"; };
+		B480554C2A61450E00712CEF /* XYChatInputFunctionPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYChatInputFunctionPad.swift; sourceTree = "<group>"; };
+		B480554F2A61A66B00712CEF /* InputBarAddFunctionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputBarAddFunctionHelper.swift; sourceTree = "<group>"; };
+		B48055512A62615D00712CEF /* ChoosePhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePhotoController.swift; sourceTree = "<group>"; };
+		B48055532A64293100712CEF /* CellContentPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellContentPhoto.swift; sourceTree = "<group>"; };
 		B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatHomeViewController.swift; sourceTree = "<group>"; };
 		B4F869A62A38A346003749B8 /* WXConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXConfig.swift; sourceTree = "<group>"; };
 		B4F869A92A38A74A003749B8 /* WechatTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatTabbar.swift; sourceTree = "<group>"; };
@@ -150,6 +158,7 @@
 				B4498E052A5AD22900B13CFA /* CellContentText.swift */,
 				B48055442A5FC21700712CEF /* CellContentVoice.swift */,
 				B48055462A60F09100712CEF /* CellContentTime.swift */,
+				B48055532A64293100712CEF /* CellContentPhoto.swift */,
 			);
 			path = ContentViews;
 			sourceTree = "<group>";
@@ -259,6 +268,8 @@
 				B4498DF92A58055000B13CFA /* AlertController.swift */,
 				B4498DFB2A586EAE00B13CFA /* DatePickerController.swift */,
 				B48055482A60FA2000712CEF /* TimeTool.swift */,
+				B480554F2A61A66B00712CEF /* InputBarAddFunctionHelper.swift */,
+				B48055512A62615D00712CEF /* ChoosePhotoController.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -303,6 +314,7 @@
 			isa = PBXGroup;
 			children = (
 				B4FFBE3C2A362C18001F09AD /* XYChatInputBar.swift */,
+				B480554C2A61450E00712CEF /* XYChatInputFunctionPad.swift */,
 			);
 			path = ChatInputBar;
 			sourceTree = "<group>";
@@ -432,6 +444,7 @@
 				B4F869E42A55B51E003749B8 /* AuthorityCameraExtension.swift in Sources */,
 				B4498DFC2A586EAE00B13CFA /* DatePickerController.swift in Sources */,
 				B4498DF82A57C0FD00B13CFA /* WXListCellLeftSwiptHelper.swift in Sources */,
+				B48055502A61A66B00712CEF /* InputBarAddFunctionHelper.swift in Sources */,
 				B4F869B72A3F4801003749B8 /* WXDataSource.swift in Sources */,
 				B4498E062A5AD22900B13CFA /* CellContentText.swift in Sources */,
 				B475F2BB2A3698AA006C7351 /* XYHomeViewController.m in Sources */,
@@ -441,12 +454,14 @@
 				B4498DF52A570E9A00B13CFA /* WXChooseStatusController.swift in Sources */,
 				B4F869CF2A53D0B6003749B8 /* WXAddSingleChatViewController.swift in Sources */,
 				B4FFBE2A2A36161C001F09AD /* HomeViewController.swift in Sources */,
+				B480554D2A61450E00712CEF /* XYChatInputFunctionPad.swift in Sources */,
 				B48055422A5F9D9A00712CEF /* SendAudioViewController.swift in Sources */,
 				B4498E042A5AC7BB00B13CFA /* WXDetailModel.swift in Sources */,
 				B4498DFA2A58055000B13CFA /* AlertController.swift in Sources */,
 				B4F869AE2A396BD8003749B8 /* MineInfoView.swift in Sources */,
 				B48055452A5FC21700712CEF /* CellContentVoice.swift in Sources */,
 				B4498E022A5AC48600B13CFA /* WXDetailCell.swift in Sources */,
+				B48055522A62615D00712CEF /* ChoosePhotoController.swift in Sources */,
 				B4F869D52A541B83003749B8 /* WXListCell.swift in Sources */,
 				B4FFBE3A2A3619C2001F09AD /* MineViewController.swift in Sources */,
 				B4F869BC2A405475003749B8 /* WXContactCell.swift in Sources */,
@@ -463,6 +478,7 @@
 				B4F869DE2A554051003749B8 /* AuthorityManagerAlbumExtension.swift in Sources */,
 				B4F869DA2A551687003749B8 /* AuthorityManager.swift in Sources */,
 				B4F869DC2A553FEB003749B8 /* Constants.swift in Sources */,
+				B48055542A64293100712CEF /* CellContentPhoto.swift in Sources */,
 				B4498DFE2A5A571E00B13CFA /* WXDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

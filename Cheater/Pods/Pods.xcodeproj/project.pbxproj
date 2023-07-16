@@ -142,6 +142,7 @@
 		B1E1FD7AC99CAB71B271908C620FD75E /* XYInfomationSection.m in Sources */ = {isa = PBXBuildFile; fileRef = F9BD5C56CD3DEF07D3CFBE6E4374CA60 /* XYInfomationSection.m */; };
 		B43017FEC99D227D4CDD81DD2C27D9D9 /* ConstraintMakerPrioritizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC1F54A392BDAFD5880E8A3728E08EC /* ConstraintMakerPrioritizable.swift */; };
 		B4498E002A5A62B300B13CFA /* UIBarButtonItem+XYNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4498DFF2A5A62B300B13CFA /* UIBarButtonItem+XYNav.swift */; };
+		B480554B2A61054D00712CEF /* TimeInteval+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B480554A2A61054D00712CEF /* TimeInteval+XYAdd.swift */; };
 		B4BE7728D87333785F811FED48CF134E /* MASCompositeConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8045D653C1D63EEF68E296F01A96DD /* MASCompositeConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B504ABDE7CEF6E732D13A93FEC6E81C1 /* UIResponder+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0650D64A2F2D570738F916126ACC9821 /* UIResponder+XYAdd.swift */; };
 		B5851BD2252C21EBC6B5777D7D2B1563 /* XYAlbum-XYAlbum in Resources */ = {isa = PBXBuildFile; fileRef = A31058CC5946B24F27DF9DE6FA3DD0CE /* XYAlbum-XYAlbum */; };
@@ -424,6 +425,7 @@
 		B1BEB0536E39405BAB87A3B08D56C640 /* ResourceBundle-XYInfomationSection-XYInfomationSection-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-XYInfomationSection-XYInfomationSection-Info.plist"; sourceTree = "<group>"; };
 		B4498DFF2A5A62B300B13CFA /* UIBarButtonItem+XYNav.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIBarButtonItem+XYNav.swift"; path = "XYNav/XYNav/Classes/UIBarButtonItem+XYNav.swift"; sourceTree = "<group>"; };
 		B4684D82872BB59AAB3D2BD3F50DC332 /* Pods-Cheater.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Cheater.modulemap"; sourceTree = "<group>"; };
+		B480554A2A61054D00712CEF /* TimeInteval+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInteval+XYAdd.swift"; sourceTree = "<group>"; };
 		B7035700455A516E68A23E9CD11B04AE /* ConstraintMaker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMaker.swift; path = Sources/ConstraintMaker.swift; sourceTree = "<group>"; };
 		B70CEF677AA49E9AC4362DEE25ED747B /* UIImage+JPExtension.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIImage+JPExtension.m"; sourceTree = "<group>"; };
 		B7BDA83E97ADE4EC2B11A4EE25BA2735 /* XYInfomationSwitchCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XYInfomationSwitchCell.m; path = SectionDemo/XYInfomationSection/XYInfomationSwitchCell.m; sourceTree = "<group>"; };
@@ -816,6 +818,7 @@
 				DC2DDD276D7631419C90D62C8456DC0C /* UIScrollView+XYAdd.swift */,
 				92FA7436FD9B1C2B376EE3C220FA0EC4 /* UIView+XYAdd.swift */,
 				FC60E6032750661ECC03E7E27F5D2AB3 /* UIViewController.swift */,
+				B480554A2A61054D00712CEF /* TimeInteval+XYAdd.swift */,
 			);
 			name = Categories;
 			path = XYUIKit/XYUIKit/XYUIKit/Classes/Categories;
@@ -1513,6 +1516,7 @@
 				424550C2CA717891F0DAFD26FE584E1C /* UILabel+XYAdd.swift in Sources */,
 				B504ABDE7CEF6E732D13A93FEC6E81C1 /* UIResponder+XYAdd.swift in Sources */,
 				103CDB4182C02FBA23C6E95A99079822 /* UIScrollView+XYAdd.swift in Sources */,
+				B480554B2A61054D00712CEF /* TimeInteval+XYAdd.swift in Sources */,
 				076D4E48CE75C18041BD07A5324AD475 /* UIView+XYAdd.swift in Sources */,
 				4565EC0C3C775EAAF08633D783DF0633 /* UIViewController.swift in Sources */,
 				AAD5FD6C631A19CBFD6678B3B38A184E /* XYAlertManager.swift in Sources */,

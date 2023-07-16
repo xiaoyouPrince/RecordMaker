@@ -26,13 +26,20 @@ public protocol ChatInputViewCallBackProtocal: AnyObject {
     /// 点击发送按钮之后是否收起键盘
     /// - Returns: 返回值是否收起键盘  true 收起 / false 不收起 - 默认不收起键盘
     func shouldHideKeyboardWhenSendClick() -> Bool
+    
+    /// 语音状态下,点击长按说话按钮事件
     func holdSpeakBtnClick()
+    
+    /// 点击更多面板事件的回调
+    /// - Parameter actionName: 时间名称,如 拍照/红包
+    func functionAction(actionName: String)
 }
 
 extension ChatInputViewCallBackProtocal {
     func keyboardWillShow(_ noti: Notification){ }
     func keyboardWillHide(_ noti: Notification){ }
     func shouldHideKeyboardWhenSendClick() -> Bool { false }
+    func functionAction(actionName: String){ }
 }
 
 
@@ -100,6 +107,8 @@ private class ChatInputBar: UIView {
     lazy var addBtn: UIButton = createBtn(named: "wechat_input_more")
     lazy var textView: UITextView = createTextView()
     lazy var holdSpeakBtn = createHoldSpeakBtn()
+    private var emotionPad: UIView?
+    private var functionPad: UIView?
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -323,7 +332,7 @@ extension ChatInputBar {
         }
         
         holdSpeakBtn.addTap { [weak self] sender in
-            guard let self = self, let sender = sender as? UIButton  else { return }
+            guard let self = self else { return }
             
             // Toast.make(sender.currentTitle ?? "")
             
@@ -394,22 +403,31 @@ extension ChatInputBar {
             
             self.removeEmotionPad()
             
-            let emotionHeight: CGFloat = 400
-            let emotionPad = UIView()
-            emotionPad.tag = ViewTag.morePad
-            emotionPad.backgroundColor = .green.withAlphaComponent(0.5)
+            
+            // create function pad & animation to right position
+            let functionHeight: CGFloat = 260
+            var functionPad: UIView! = self.functionPad
+            if functionPad == nil {
+                let Pad = XYChatInputFunctionPad(frame: .zero)
+                Pad.actionCallback = { [weak self] title in
+                    self?.deledate?.functionAction(actionName: title)
+                }
+                functionPad = Pad
+            }
+            self.functionPad = functionPad
+            functionPad.tag = ViewTag.morePad
             
             if let contentView = self.superview?.superview {
-                contentView.addSubview(emotionPad)
-                emotionPad.frame = .init(origin: .init(x: 0, y: contentView.bounds.height), size: .init(width: .width, height: emotionHeight))
+                contentView.addSubview(functionPad)
+                functionPad.frame = .init(origin: .init(x: 0, y: contentView.bounds.height), size: .init(width: .width, height: functionHeight))
                 
                 UIView.animate(withDuration: self.keyBoardTime, delay: 0) {
-                    var targetFrame = emotionPad.frame
+                    var targetFrame = functionPad.frame
                     targetFrame.origin.y = self.bounds.height
-                    emotionPad.frame = targetFrame
+                    functionPad.frame = targetFrame
                     
                     contentView.snp.updateConstraints { make in
-                        make.height.equalTo(emotionHeight + self.bounds.height)
+                        make.height.equalTo(functionHeight + self.bounds.height)
                     }
                     self.viewController?.view.layoutIfNeeded()
                 }

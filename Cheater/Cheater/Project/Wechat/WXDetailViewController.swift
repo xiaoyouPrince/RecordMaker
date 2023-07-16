@@ -268,6 +268,10 @@ extension WXDetailViewController: ChatInputViewCallBackProtocal {
             return false
         }
     }
+    
+    func functionAction(actionName: String) {
+        InputBarAddFunctionHelper.dealAction(with: actionName, forVC: self)
+    }
 }
 
 //: MARK - special functinos
