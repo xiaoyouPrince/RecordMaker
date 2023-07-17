@@ -17,7 +17,7 @@ class InputBarAddFunctionHelper: UIViewController {
         case red_packet = "红包"
         case take_photo = "拍摄"
         case monery_transfer = "转账"
-        case video = "视频通话"
+        case voip = "视频通话"
         case voice = "语音输入"
         case location = "位置"
         case my_fav = "收藏"
@@ -64,6 +64,39 @@ class InputBarAddFunctionHelper: UIViewController {
                 forVC.dataArrayAppendMsg(model)
             })
             forVC.push(sendAudioVC, animated: true)
+        case .voip:
+            let titles = ["添加语音/视频通话记录", "取消视频通话", "取消语音通话", "拒绝视频通话", "拒绝语音通话"]
+            XYAlertSheetController.showDefault(on: forVC, title: "操作类型", subTitle: nil, actions: titles) { index in
+                if index == -1 { return }
+                
+                if index == 0 { // 手动配置页面
+                    forVC.push(SendVoipCpntroller.init(senderId: forVC.currentSenderID) { voipModel in
+                        let model = WXDetailModel(voip: voipModel)
+                        model.from = forVC.currentSenderID
+                        forVC.dataArrayAppendMsg(model)
+                    }, animated: true)
+                } else {
+                    let voipModel = MsgVoipModel()
+                    voipModel.isCancel = false
+                    voipModel.isRefuse = false
+                    if index == 1 {
+                        voipModel.isCancel = true
+                        voipModel.voipType = 0
+                    }else if index == 2 {
+                        voipModel.isCancel = true
+                        voipModel.voipType = 1
+                    }else if index == 3 {
+                        voipModel.isRefuse = true
+                        voipModel.voipType = 0
+                    }else if index == 4 {
+                        voipModel.isRefuse = true
+                        voipModel.voipType = 1
+                    }
+                    let msgModel = WXDetailModel(voip: voipModel)
+                    msgModel.from = forVC.currentSenderID
+                    forVC.dataArrayAppendMsg(msgModel)
+                }
+            }
         default:
             Toast.make("一个一个实现")
         }

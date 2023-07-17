@@ -46,6 +46,7 @@ enum MsgType: Int, Codable {
     case voice          // 语音
     case image          // 图片
     case video          // 视频
+    case voip           // 音视频通话
     case system         // 系统通知
     case red_packet     // 红包
     case money_tansfor  // 转账
@@ -72,6 +73,13 @@ class WXDetailModel: Codable {
 }
 
 extension WXDetailModel {
+    
+    /// 快速创建一个 Voip 类型消息
+    convenience init(voip: MsgVoipModel? = nil) {
+        self.init()
+        self.msgType = .voip
+        self.data = voip.toData
+    }
     
     /// 快速创建一个图片类型消息
     convenience init(video: MsgVideoModel? = nil) {
@@ -135,6 +143,8 @@ extension WXDetailModel {
             return CellContentPhoto.self
         case .video:
             return CellContentVideo.self
+        case .voip:
+            return CellContentVoip.self
         default:
             break
         }
