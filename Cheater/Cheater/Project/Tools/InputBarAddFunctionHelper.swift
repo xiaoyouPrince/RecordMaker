@@ -97,6 +97,14 @@ class InputBarAddFunctionHelper: UIViewController {
                     forVC.dataArrayAppendMsg(msgModel)
                 }
             }
+        case .red_packet:
+            let vc = SendRedpacketViewController()
+            forVC.push(vc, animated: true)
+            vc.callback = { msgRedPacketModel in
+                let msgModel = WXDetailModel(redPacket: msgRedPacketModel)
+                msgModel.from = forVC.currentSenderID
+                forVC.dataArrayAppendMsg(msgModel)
+            }
         default:
             Toast.make("一个一个实现")
         }

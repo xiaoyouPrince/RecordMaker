@@ -30,6 +30,9 @@
 		B480555A2A64540300712CEF /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48055592A64540300712CEF /* Categories.swift */; };
 		B480555C2A64940800712CEF /* CellContentVoip.swift in Sources */ = {isa = PBXBuildFile; fileRef = B480555B2A64940800712CEF /* CellContentVoip.swift */; };
 		B480555E2A64BD7200712CEF /* SendVoipCpntroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = B480555D2A64BD7200712CEF /* SendVoipCpntroller.swift */; };
+		B48055602A657AB500712CEF /* SendRedpacketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B480555F2A657AB500712CEF /* SendRedpacketViewController.swift */; };
+		B4AF223C2A65A27300405672 /* WeChatSansStd-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4AF223B2A65A27300405672 /* WeChatSansStd-Medium.ttf */; };
+		B4AF223E2A683F2900405672 /* CellContentRedPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF223D2A683F2900405672 /* CellContentRedPacket.swift */; };
 		B4F869A42A38A011003749B8 /* WechatHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */; };
 		B4F869A72A38A346003749B8 /* WXConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A62A38A346003749B8 /* WXConfig.swift */; };
 		B4F869AA2A38A74A003749B8 /* WechatTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A92A38A74A003749B8 /* WechatTabbar.swift */; };
@@ -89,6 +92,9 @@
 		B48055592A64540300712CEF /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		B480555B2A64940800712CEF /* CellContentVoip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellContentVoip.swift; sourceTree = "<group>"; };
 		B480555D2A64BD7200712CEF /* SendVoipCpntroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendVoipCpntroller.swift; sourceTree = "<group>"; };
+		B480555F2A657AB500712CEF /* SendRedpacketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendRedpacketViewController.swift; sourceTree = "<group>"; };
+		B4AF223B2A65A27300405672 /* WeChatSansStd-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WeChatSansStd-Medium.ttf"; sourceTree = "<group>"; };
+		B4AF223D2A683F2900405672 /* CellContentRedPacket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellContentRedPacket.swift; sourceTree = "<group>"; };
 		B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatHomeViewController.swift; sourceTree = "<group>"; };
 		B4F869A62A38A346003749B8 /* WXConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXConfig.swift; sourceTree = "<group>"; };
 		B4F869A92A38A74A003749B8 /* WechatTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatTabbar.swift; sourceTree = "<group>"; };
@@ -171,6 +177,7 @@
 				B48055532A64293100712CEF /* CellContentPhoto.swift */,
 				B48055572A644CD300712CEF /* CellContentVideo.swift */,
 				B480555B2A64940800712CEF /* CellContentVoip.swift */,
+				B4AF223D2A683F2900405672 /* CellContentRedPacket.swift */,
 			);
 			path = ContentViews;
 			sourceTree = "<group>";
@@ -200,6 +207,7 @@
 				B48055412A5F9D9A00712CEF /* SendAudioViewController.swift */,
 				B48055552A644B9D00712CEF /* SendVideoController.swift */,
 				B480555D2A64BD7200712CEF /* SendVoipCpntroller.swift */,
+				B480555F2A657AB500712CEF /* SendRedpacketViewController.swift */,
 				B4F869C82A4365BD003749B8 /* WXAddRuleViewController.swift */,
 				B4F869CE2A53D0B6003749B8 /* WXAddSingleChatViewController.swift */,
 				B4F869AF2A3989E9003749B8 /* WXPersonInfoViewController.swift */,
@@ -317,6 +325,7 @@
 				B4FFBE2E2A36161D001F09AD /* Assets.xcassets */,
 				B4F869AB2A38C41D003749B8 /* Resources.xcassets */,
 				B4FFBE302A36161D001F09AD /* LaunchScreen.storyboard */,
+				B4AF223B2A65A27300405672 /* WeChatSansStd-Medium.ttf */,
 				B4FFBE332A36161D001F09AD /* Info.plist */,
 				B475F2B92A3698AA006C7351 /* XYHomeViewController.h */,
 				B475F2BA2A3698AA006C7351 /* XYHomeViewController.m */,
@@ -397,6 +406,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4AF223C2A65A27300405672 /* WeChatSansStd-Medium.ttf in Resources */,
 				B4FFBE322A36161D001F09AD /* LaunchScreen.storyboard in Resources */,
 				B4F869AC2A38C41D003749B8 /* Resources.xcassets in Resources */,
 				B4FFBE2F2A36161D001F09AD /* Assets.xcassets in Resources */,
@@ -477,6 +487,7 @@
 				B4498E042A5AC7BB00B13CFA /* WXDetailModel.swift in Sources */,
 				B4498DFA2A58055000B13CFA /* AlertController.swift in Sources */,
 				B4F869AE2A396BD8003749B8 /* MineInfoView.swift in Sources */,
+				B48055602A657AB500712CEF /* SendRedpacketViewController.swift in Sources */,
 				B48055452A5FC21700712CEF /* CellContentVoice.swift in Sources */,
 				B4498E022A5AC48600B13CFA /* WXDetailCell.swift in Sources */,
 				B48055522A62615D00712CEF /* ChoosePhotoController.swift in Sources */,
@@ -486,6 +497,7 @@
 				B4F869C92A4365BD003749B8 /* WXAddRuleViewController.swift in Sources */,
 				B4F869B02A3989E9003749B8 /* WXPersonInfoViewController.swift in Sources */,
 				B4F869D32A540D9A003749B8 /* WXListModel.swift in Sources */,
+				B4AF223E2A683F2900405672 /* CellContentRedPacket.swift in Sources */,
 				B48055582A644CD300712CEF /* CellContentVideo.swift in Sources */,
 				B480555A2A64540300712CEF /* Categories.swift in Sources */,
 				B4F869BA2A404F39003749B8 /* WXContact.swift in Sources */,
@@ -651,6 +663,7 @@
 				DEVELOPMENT_TEAM = J9CJUEB6H8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cheater/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "需要访问您的相册,用于继续当前流程";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要访问您的相册,用于继续当前流程";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -707,6 +720,7 @@
 				DEVELOPMENT_TEAM = J9CJUEB6H8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Cheater/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "需要访问您的相册,用于继续当前流程";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要访问您的相册,用于继续当前流程";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

@@ -75,6 +75,13 @@ class WXDetailModel: Codable {
 extension WXDetailModel {
     
     /// 快速创建一个 Voip 类型消息
+    convenience init(redPacket: MsgRedPacketModel? = nil) {
+        self.init()
+        self.msgType = .red_packet
+        self.data = redPacket.toData
+    }
+    
+    /// 快速创建一个 Voip 类型消息
     convenience init(voip: MsgVoipModel? = nil) {
         self.init()
         self.msgType = .voip
@@ -145,6 +152,8 @@ extension WXDetailModel {
             return CellContentVideo.self
         case .voip:
             return CellContentVoip.self
+        case .red_packet:
+            return CellContentRedPacket.self
         default:
             break
         }
