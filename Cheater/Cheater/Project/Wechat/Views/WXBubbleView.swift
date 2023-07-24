@@ -33,9 +33,9 @@ fileprivate class TriangleView: UIView {
     }
     
     func drawLines(with context: CGContext) {
-            context.move(to: CGPoint(x: 7, y: 0))
-            context.addLine(to: CGPoint(x: 0, y: 6))
-            context.addLine(to: CGPoint(x: 14, y: 6))
+        context.move(to: CGPoint(x: 7, y: 0))
+        context.addLine(to: CGPoint(x: 0, y: 6))
+        context.addLine(to: CGPoint(x: 14, y: 6))
     }
     
 }

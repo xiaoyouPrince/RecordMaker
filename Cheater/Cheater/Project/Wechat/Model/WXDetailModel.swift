@@ -49,7 +49,7 @@ enum MsgType: Int, Codable {
     case voip           // 音视频通话
     case system         // 系统通知
     case red_packet     // 红包
-    case money_tansfor  // 转账
+    case money_transfer  // 转账
     case link           // 链接
 }
 
@@ -154,6 +154,8 @@ extension WXDetailModel {
             return CellContentVoip.self
         case .red_packet:
             return CellContentRedPacket.self
+        case .money_transfer:
+            return CellContentMoneyTransfer.self
         default:
             break
         }

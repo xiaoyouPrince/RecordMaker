@@ -236,6 +236,8 @@ extension ChatInputBar {
     }
     
     @objc func keyboardWillShow(_ noti: Notification){
+        if !textView.isFirstResponder {return}
+        
         // print(noti)
         deledate?.keyboardWillShow(noti)
         guard let userInfo = noti.userInfo as? [String: Any],

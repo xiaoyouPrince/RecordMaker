@@ -126,7 +126,7 @@ private extension SendRedpacketViewController {
     
     func createContentView() -> UIView {
         let contentView = UIView()
-        let yuanLabel = UILabel(title: "¥", font: UIFont(name: "WeChat-Sans-Std-Medium", size: 35) ?? .boldSystemFont(ofSize: 25), textColor: .C_000000, textAlignment: .center)
+        let yuanLabel = UILabel(title: "¥", font: .wx_moeny_font(35), textColor: .C_000000, textAlignment: .center)
         let moneyLabel = UILabel()
         contentView.addSubview(yuanLabel)
         contentView.addSubview(moneyLabel)
@@ -137,7 +137,7 @@ private extension SendRedpacketViewController {
             make.bottom.top.equalToSuperview()
         }
         moneyLabel.text = "0.00"
-        moneyLabel.font = UIFont(name: "WeChat-Sans-Std-Medium", size: 50) ?? .boldSystemFont(ofSize: 50)
+        moneyLabel.font = .wx_moeny_font(50)
         yuanLabel.snp.makeConstraints { make in
             make.right.equalTo(moneyLabel.snp.left).offset(-5)
             make.top.equalTo(moneyLabel).offset(5)

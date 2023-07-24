@@ -106,3 +106,13 @@ extension UIImage {
     /// 默认添加头像
     static var defaultHead = UIImage(named: "add_head")?.withRenderingMode(.alwaysOriginal)
 }
+
+
+extension UIFont {
+    /// 获取微信金额有关的 font
+    /// - Parameter size: 字号大小
+    /// - Returns: uifont
+    static func wx_moeny_font(_ size: CGFloat) -> UIFont {
+        UIFont(name: "WeChat-Sans-Std-Medium", size: size) ?? .boldSystemFont(ofSize: size)
+    }
+}

@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// voip数据模型
+/// 红包数据模型
 class MsgRedPacketModel: Codable {
     /// 金额
     var amountOfMoney: String?
@@ -50,20 +50,6 @@ class CellContentRedPacket: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-}
-
-extension CellContentRedPacket: WXDetailContentProtocol {
-    
-    
-    var showIconImage: Bool { true }
-    
-    var showNamelable: Bool { false }
-    
-    var showReadLabel: Bool { false }
-    
-    var contentClass: UIView.Type {
-        CellContentVoip.self
     }
     
     func setModel(_ model: WXDetailModel) {
@@ -151,6 +137,20 @@ extension CellContentRedPacket: WXDetailContentProtocol {
             guard let voipModel: MsgRedPacketModel = data.toModel() else { return }
             setModel(voipModel, isOutGoingMsg: model.isOutGoingMsg)
         }
+    }
+}
+
+extension CellContentRedPacket: WXDetailContentProtocol {
+    
+    
+    var showIconImage: Bool { true }
+    
+    var showNamelable: Bool { false }
+    
+    var showReadLabel: Bool { false }
+    
+    var contentClass: UIView.Type {
+        CellContentVoip.self
     }
     
     func setModel(_ data: MsgRedPacketModel, isOutGoingMsg: Bool) {

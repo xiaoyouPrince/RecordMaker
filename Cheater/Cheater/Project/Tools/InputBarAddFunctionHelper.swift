@@ -105,6 +105,14 @@ class InputBarAddFunctionHelper: UIViewController {
                 msgModel.from = forVC.currentSenderID
                 forVC.dataArrayAppendMsg(msgModel)
             }
+        case .monery_transfer:
+            let vc = SendMoneyTransfertViewController()
+            forVC.push(vc, animated: true)
+            vc.callback = { msgRedPacketModel in
+                let msgModel = WXDetailModel(redPacket: msgRedPacketModel)
+                msgModel.from = forVC.currentSenderID
+                forVC.dataArrayAppendMsg(msgModel)
+            }
         default:
             Toast.make("一个一个实现")
         }
