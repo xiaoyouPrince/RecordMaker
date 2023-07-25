@@ -39,10 +39,11 @@
 		B4AF22472A6D895200405672 /* MoneyTransferInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF22462A6D895200405672 /* MoneyTransferInputView.swift */; };
 		B4AF22492A6D896B00405672 /* MoneyTransferContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF22482A6D896B00405672 /* MoneyTransferContentView.swift */; };
 		B4AF224B2A6E784700405672 /* MoneyTransferTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF224A2A6E784700405672 /* MoneyTransferTipView.swift */; };
+		B4AF224D2A7013FB00405672 /* WXPayHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF224C2A7013FB00405672 /* WXPayHUD.swift */; };
 		B4F869A42A38A011003749B8 /* WechatHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */; };
 		B4F869A72A38A346003749B8 /* WXConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A62A38A346003749B8 /* WXConfig.swift */; };
 		B4F869AA2A38A74A003749B8 /* WechatTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A92A38A74A003749B8 /* WechatTabbar.swift */; };
-		B4F869AC2A38C41D003749B8 /* Resources.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4F869AB2A38C41D003749B8 /* Resources.xcassets */; };
+		B4F869AC2A38C41D003749B8 /* WXResources.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4F869AB2A38C41D003749B8 /* WXResources.xcassets */; };
 		B4F869AE2A396BD8003749B8 /* MineInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869AD2A396BD8003749B8 /* MineInfoView.swift */; };
 		B4F869B02A3989E9003749B8 /* WXPersonInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869AF2A3989E9003749B8 /* WXPersonInfoViewController.swift */; };
 		B4F869B22A39B98A003749B8 /* WXUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869B12A39B98A003749B8 /* WXUserInfo.swift */; };
@@ -107,10 +108,11 @@
 		B4AF22462A6D895200405672 /* MoneyTransferInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyTransferInputView.swift; sourceTree = "<group>"; };
 		B4AF22482A6D896B00405672 /* MoneyTransferContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyTransferContentView.swift; sourceTree = "<group>"; };
 		B4AF224A2A6E784700405672 /* MoneyTransferTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyTransferTipView.swift; sourceTree = "<group>"; };
+		B4AF224C2A7013FB00405672 /* WXPayHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXPayHUD.swift; sourceTree = "<group>"; };
 		B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatHomeViewController.swift; sourceTree = "<group>"; };
 		B4F869A62A38A346003749B8 /* WXConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXConfig.swift; sourceTree = "<group>"; };
 		B4F869A92A38A74A003749B8 /* WechatTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatTabbar.swift; sourceTree = "<group>"; };
-		B4F869AB2A38C41D003749B8 /* Resources.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Resources.xcassets; sourceTree = "<group>"; };
+		B4F869AB2A38C41D003749B8 /* WXResources.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = WXResources.xcassets; sourceTree = "<group>"; };
 		B4F869AD2A396BD8003749B8 /* MineInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineInfoView.swift; sourceTree = "<group>"; };
 		B4F869AF2A3989E9003749B8 /* WXPersonInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXPersonInfoViewController.swift; sourceTree = "<group>"; };
 		B4F869B12A39B98A003749B8 /* WXUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXUserInfo.swift; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 		B4F869A82A38A71C003749B8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B48055432A5FC1E800712CEF /* ContentViews */,
 				B4AF22452A6D891C00405672 /* MoneyTransfer */,
 				B4F869A92A38A74A003749B8 /* WechatTabbar.swift */,
 				B4F869AD2A396BD8003749B8 /* MineInfoView.swift */,
@@ -285,7 +288,7 @@
 				B4F869CC2A52E0E1003749B8 /* WXBubbleView.swift */,
 				B4F869D42A541B83003749B8 /* WXListCell.swift */,
 				B4498E012A5AC48600B13CFA /* WXDetailCell.swift */,
-				B48055432A5FC1E800712CEF /* ContentViews */,
+				B4AF224C2A7013FB00405672 /* WXPayHUD.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -349,7 +352,7 @@
 				B4FFBE272A36161C001F09AD /* SceneDelegate.swift */,
 				B4FFBE2B2A36161C001F09AD /* Main.storyboard */,
 				B4FFBE2E2A36161D001F09AD /* Assets.xcassets */,
-				B4F869AB2A38C41D003749B8 /* Resources.xcassets */,
+				B4F869AB2A38C41D003749B8 /* WXResources.xcassets */,
 				B4FFBE302A36161D001F09AD /* LaunchScreen.storyboard */,
 				B4AF223B2A65A27300405672 /* WeChatSansStd-Medium.ttf */,
 				B4FFBE332A36161D001F09AD /* Info.plist */,
@@ -434,7 +437,7 @@
 			files = (
 				B4AF223C2A65A27300405672 /* WeChatSansStd-Medium.ttf in Resources */,
 				B4FFBE322A36161D001F09AD /* LaunchScreen.storyboard in Resources */,
-				B4F869AC2A38C41D003749B8 /* Resources.xcassets in Resources */,
+				B4F869AC2A38C41D003749B8 /* WXResources.xcassets in Resources */,
 				B4FFBE2F2A36161D001F09AD /* Assets.xcassets in Resources */,
 				B4FFBE2D2A36161C001F09AD /* Main.storyboard in Resources */,
 			);
@@ -508,6 +511,7 @@
 				B4AF224B2A6E784700405672 /* MoneyTransferTipView.swift in Sources */,
 				B4498DF52A570E9A00B13CFA /* WXChooseStatusController.swift in Sources */,
 				B4F869CF2A53D0B6003749B8 /* WXAddSingleChatViewController.swift in Sources */,
+				B4AF224D2A7013FB00405672 /* WXPayHUD.swift in Sources */,
 				B4FFBE2A2A36161C001F09AD /* HomeViewController.swift in Sources */,
 				B480555C2A64940800712CEF /* CellContentVoip.swift in Sources */,
 				B480554D2A61450E00712CEF /* XYChatInputFunctionPad.swift in Sources */,
