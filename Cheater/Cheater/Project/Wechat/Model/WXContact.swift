@@ -18,6 +18,8 @@ class WXContact: Codable {
     var imageData: Data? //UIImage - 直接从相册/相机获取的照片
     var imageName: String? //直接默认生成,选择的默认照片
     var title: String   // 联系人昵称
+    var realName: String? = WXContact.randomName()
+    var wechatId: String?
     var isLast: Bool = false
     
     var image: UIImage? {
@@ -34,10 +36,11 @@ class WXContact: Codable {
     
     var userInfo: WXUserInfo {
         let userInfo = WXUserInfo()
-        userInfo.icon = image
+        userInfo.iconData = imageData
+        userInfo.iconName = imageName
         userInfo.name = title
-        userInfo.realName = WXContact.randomName()
-        userInfo.wechatId = String(id!)
+        userInfo.realName = realName
+        userInfo.wechatId = wechatId
         return userInfo
     }
     
@@ -49,6 +52,12 @@ class WXContact: Codable {
     
     convenience init(image: UIImage, title: String) {
         self.init(imageData: image.pngData(), title: title)
+    }
+    
+    convenience init(userInfo: WXUserInfo) {
+        self.init(imageName: userInfo.iconName, title: userInfo.name ?? "")
+        realName = userInfo.realName ?? ""
+        wechatId = userInfo.wechatId
     }
 }
 

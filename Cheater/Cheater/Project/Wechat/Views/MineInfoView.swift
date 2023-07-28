@@ -38,7 +38,7 @@ class MineInfoView : UIControl {
             self.addSubview(subView)
         }
         
-        iconView.image = WXUserInfo.shared.icon//UIImage(named: "moren_head")
+        iconView.image = WXUserInfo.shared.icon
         iconView.corner(radius: 5)
         iconView.snp.makeConstraints { make in
             make.left.top.equalTo(20)

@@ -225,6 +225,7 @@ struct DataSource_wxlist {
  */
 class DataSource_wxDetail {
     
+    /// 当前会话聊天目标对象数据源归档文件路径
     static var targetDB_filePath: String {
         let db_fileName = targetContact!.title + "\(targetContact?.id ?? 0)"
         return db_fileName
@@ -248,6 +249,22 @@ class DataSource_wxDetail {
         }
     }
     
+    /// 当前会话所有的消息数据的数组
     static var allMessages: [WXDetailModel]?
+    
+    /// 当前会话的当前发言人, 是用户自己还是对端用户
+    static var currentSpeaker: WXContact?
+    /// 当前被发言的人, 单聊中就是用户自己或者 targetContact, 群聊中就是更具体的对方
+    static var currentUserBeingSpoken: WXContact? {
+        if currentSpeaker == nil { // 默认没有设置的时候就是对方<当前仅为单聊,群聊后续处理>
+            return targetContact
+        }
+        
+        if currentSpeaker?.userInfo.wechatId == WXUserInfo.shared.wechatId {
+            return targetContact
+        }else{
+            return WXContact.init(userInfo: WXUserInfo.shared)
+        }
+    }
     
 }

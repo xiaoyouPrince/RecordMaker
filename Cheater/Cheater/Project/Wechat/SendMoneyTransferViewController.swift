@@ -58,7 +58,9 @@ private extension SendMoneyTransfertViewController {
             make.left.right.equalToSuperview()
             make.top.equalTo(CGFloat.naviBar)
         })
-        header.setModel(userInfo: WXUserInfo.shared)
+        if let currentUserBeingSpoken = DataSource_wxDetail.currentUserBeingSpoken {
+            header.setModel(userInfo: currentUserBeingSpoken.userInfo)
+        }
     }
     
     func buildContent() {

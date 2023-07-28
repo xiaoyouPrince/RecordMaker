@@ -57,7 +57,7 @@ class MoneyTransferHeader: UIView {
     func setModel(userInfo: WXUserInfo) {
         toLabel.text = "转账给" + " " + userInfo.paySceneName
         wxNoLabel.text = "微信号:" + " " + (userInfo.wechatId ?? "")
-        iconView.image = userInfo.icon ?? UIImage(named: userInfo.iconName ?? "")
+        iconView.image = userInfo.icon
     }
     
 }

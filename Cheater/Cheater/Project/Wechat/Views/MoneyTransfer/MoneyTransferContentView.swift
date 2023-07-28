@@ -256,7 +256,7 @@ private extension MoneyTransferContentView {
             guard let self = self else { return }
             // 默认2s展示完成
             
-            let target = DataSource_wxDetail.targetContact
+            let target = DataSource_wxDetail.currentUserBeingSpoken
             let model = WXPayInputPwdViewModel(userName: target?.userInfo.paySceneName ?? "", amountOfMoney: CGFloat(self.moneyTF.text?.floatValue ?? 0.0))
             let payInputView = WXPayInputPwdView(model: model, callback: { [weak self] in
                 guard let self = self else { return }

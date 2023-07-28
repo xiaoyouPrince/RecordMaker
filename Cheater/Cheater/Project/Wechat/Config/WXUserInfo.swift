@@ -12,7 +12,7 @@ class WXUserInfo {
     static var shared: WXUserInfo = WXUserInfo()
     //private init () { }
     
-    var icon: UIImage? = UIImage(named: "100003")
+    var iconData: Data?
     var iconName: String? = "100003"
     var name: String? = "深海一只贝"
     var realName: String? = "xiaoyou"
@@ -25,7 +25,7 @@ extension WXUserInfo {
     /// 获取加密后的真实姓名 egg: (**峰)
     var screatRealName: String {
         if var name = realName {
-            var result = "("
+            let result = "("
             var stars = ""
             for _ in 0..<name.count {
                 stars.append("*")
@@ -33,11 +33,19 @@ extension WXUserInfo {
             name.replaceSubrange(name.startIndex..<name.index(before: name.endIndex), with: stars)
             return result + name + ")"
         }
-        return "(***)"
+        return "(**峰)"
     }
     
     /// 支付或者转账场景下的名称 egg: 深海一只贝 (**u)
     var paySceneName: String {
         (name ?? "") + " " + screatRealName
+    }
+    
+    var icon: UIImage? {
+        if let data = iconData {
+            return UIImage(data: data)
+        }else{
+            return UIImage(named: iconName ?? "")
+        }
     }
 }

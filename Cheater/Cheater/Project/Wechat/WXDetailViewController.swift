@@ -114,16 +114,18 @@ class WXDetailViewController: UIViewController {
         navigationController?.navigationBar .addSubview(titleViewCoverView)
         titleViewCoverView.backgroundColor = .red.withAlphaComponent(0.5)
         titleViewCoverView.addTap { [weak self] sender in
-            // guard let corverView as
-            Toast.make("切换发言者 - 给个震动反馈 (群聊特殊处理)")
-            guard let self = self, let targetId = DataSource_wxDetail.targetContact?.id else{ return }
+            guard let self = self, let target = DataSource_wxDetail.targetContact,let targetId = target.id else{ return }
             let mineId = WXUserInfo.shared.id
             
             if self.currentSenderID == targetId {
                 self.currentSenderID = mineId
+                DataSource_wxDetail.currentSpeaker = WXContact.init(userInfo: WXUserInfo.shared)
+                Toast.make("当前发言: \(String(describing: WXUserInfo.shared.name)) - 给个震动反馈 (群聊特殊处理)")
             } else
             {
                 self.currentSenderID = targetId
+                DataSource_wxDetail.currentSpeaker = WXContact.init(userInfo: target.userInfo)
+                Toast.make("当前发言: \(String(describing: target.userInfo.name)) - 给个震动反馈 (群聊特殊处理)")
             }
             
             
