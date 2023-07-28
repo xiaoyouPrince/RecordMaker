@@ -74,7 +74,14 @@ class WXDetailModel: Codable {
 
 extension WXDetailModel {
     
-    /// 快速创建一个 Voip 类型消息
+    /// 快速创建一个 转账 类型消息
+    convenience init(moneyTransfer: MsgMoneyTransferModel? = nil) {
+        self.init()
+        self.msgType = .money_transfer
+        self.data = moneyTransfer.toData
+    }
+    
+    /// 快速创建一个 红包 类型消息
     convenience init(redPacket: MsgRedPacketModel? = nil) {
         self.init()
         self.msgType = .red_packet

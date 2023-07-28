@@ -93,6 +93,9 @@ extension UIColor {
     
     /// 微信提示文字的颜色 一种浅灰色
     static var C_wx_tip_text: UIColor = .xy_getColor(red: 137, green: 137, blue: 137)
+    
+    /// 微信自定义键盘的背景色
+    static var C_wx_keyboard_bgcolor: UIColor = .xy_getColor(red: 241, green: 241, blue: 241)
 }
 
 extension UIImage {
@@ -105,6 +108,9 @@ extension UIImage {
     
     /// 默认添加头像
     static var defaultHead = UIImage(named: "add_head")?.withRenderingMode(.alwaysOriginal)
+    
+    /// 默认添加头像
+    static var nav_close = UIImage(named: "nav_close")?.withRenderingMode(.alwaysOriginal)
 }
 
 
@@ -114,5 +120,14 @@ extension UIFont {
     /// - Returns: uifont
     static func wx_moeny_font(_ size: CGFloat) -> UIFont {
         UIFont(name: "WeChat-Sans-Std-Medium", size: size) ?? .boldSystemFont(ofSize: size)
+    }
+}
+
+
+// MARK: - 统一记录一下存储在 UserDefault 中的 key
+extension UserDefaults {
+    struct Key {
+        /// 用户创建微信转账时候输入微信密码提示弹框的 key
+        static let tip_for_wx_pay_pwd_has_closed_by_user = "tip_for_wx_pay_pwd_has_closed_by_user"
     }
 }

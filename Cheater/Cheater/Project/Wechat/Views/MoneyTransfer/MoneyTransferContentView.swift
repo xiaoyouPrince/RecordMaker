@@ -31,13 +31,14 @@ class MoneyTextField: UITextField {
 
 class MoneyTransferContentView: UIView {
 
-    let topLabel = UILabel()
-    let yuanLabel = UILabel()
-    let moneyTF = MoneyTextField()
-    let line = UIView.line
-    let moneyTipView = MoneyTransferTipView()
-    let tipLabel = UILabel()
-    let changeTipBtn = UIButton(type: .system)
+    private let topLabel = UILabel()
+    private let yuanLabel = UILabel()
+    private let moneyTF = MoneyTextField()
+    private let line = UIView.line
+    private let moneyTipView = MoneyTransferTipView()
+    private let tipLabel = UILabel()
+    private let changeTipBtn = UIButton(type: .system)
+    public var callback: (()->())?
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -52,8 +53,64 @@ class MoneyTransferContentView: UIView {
     }
 }
 
-
 extension MoneyTransferContentView {
+    
+    /// 获取转账数额
+    var moneyString: String {
+        moneyTF.text ?? ""
+    }
+    
+    /// 转账说明
+    var transferInstructions: String {
+        tipLabel.text ?? ""
+    }
+    
+    
+    func start() {
+        moneyTF.becomeFirstResponder()
+        
+        let input = MoneyTransferInputView()
+        input.callback = {[weak self] newKey in
+            guard let self = self else { return }
+            let currentText = self.moneyTF.text ?? ""
+            
+            if newKey == "\n" {
+                if currentText.doubleValue > 0 {
+                    self.readyToTransfer()
+                }else{
+                    Toast.make("需先填写金额")
+                }
+                
+            }else
+            if newKey == "" {
+                let newText = currentText.dropLast(1)
+                self.moneyTF.text = String(newText)
+                NotificationCenter.default.post(Notification(name: UITextField.textDidChangeNotification,object: self.moneyTF))
+            }else{
+                self.moneyTF.text = currentText + newKey
+                NotificationCenter.default.post(Notification(name: UITextField.textDidChangeNotification,object: self.moneyTF))
+            }
+        }
+        
+        moneyTF.inputView = input
+        DispatchQueue.main.asyncAfter(deadline: .now() + UINavigationController.hideShowBarDuration, execute: {
+            self.moneyTF.becomeFirstResponder()
+            self.moneyTF.findSubViewRecursion { subview in
+                if subview.bounds.width == 2 {
+                    subview.backgroundColor = WXConfig.wxGreen
+                    return true
+                }
+                return false
+            }
+        })
+    }
+    
+    func end() {
+        moneyTF.resignFirstResponder()
+    }
+}
+
+private extension MoneyTransferContentView {
     
     @objc func textFieldTextDidChange(_ noti: Notification){
         
@@ -153,49 +210,6 @@ extension MoneyTransferContentView {
         }
     }
     
-    func start() {
-        moneyTF.becomeFirstResponder()
-        
-        let input = MoneyTransferInputView()
-        input.callback = {[weak self] newKey in
-            guard let self = self else { return }
-            let currentText = self.moneyTF.text ?? ""
-            
-            if newKey == "\n" {
-                if currentText.intValue > 0 {
-                    Toast.make("转钱啊")
-                }else{
-                    Toast.make("需先填写金额")
-                }
-                
-            }else
-            if newKey == "" {
-                let newText = currentText.dropLast(1)
-                self.moneyTF.text = String(newText)
-                NotificationCenter.default.post(Notification(name: UITextField.textDidChangeNotification,object: self.moneyTF))
-            }else{
-                self.moneyTF.text = currentText + newKey
-                NotificationCenter.default.post(Notification(name: UITextField.textDidChangeNotification,object: self.moneyTF))
-            }
-        }
-        
-        moneyTF.inputView = input
-        DispatchQueue.main.asyncAfter(deadline: .now() + UINavigationController.hideShowBarDuration, execute: {
-            self.moneyTF.becomeFirstResponder()
-            self.moneyTF.findSubViewRecursion { subview in
-                if subview.bounds.width == 2 {
-                    subview.backgroundColor = WXConfig.wxGreen
-                    return true
-                }
-                return false
-            }
-        })
-    }
-    
-    func end() {
-        moneyTF.resignFirstResponder()
-    }
-    
     /// 添加转装说明
     func addTransferTips() {
         guard let currentVC = viewController else { return }
@@ -237,10 +251,50 @@ extension MoneyTransferContentView {
          *  2. 微信支付密码验证
          *  3. 提示用户,这是个假的,随便输入即可
          */
+        
+        WXPayHUD.show { [weak self] in
+            guard let self = self else { return }
+            // 默认2s展示完成
+            
+            let target = DataSource_wxDetail.targetContact
+            let model = WXPayInputPwdViewModel(userName: target?.userInfo.paySceneName ?? "", amountOfMoney: CGFloat(self.moneyTF.text?.floatValue ?? 0.0))
+            let payInputView = WXPayInputPwdView(model: model, callback: { [weak self] in
+                guard let self = self else { return }
+                XYAlertSheetController.dissmiss()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25, execute: {
+                    self.callback?()
+                })
+            })
+            
+            
+            let sheet = XYAlertSheetController.showCustom(on: UIViewController.currentVisibleVC, customContentView: payInputView)
+            sheet.setBottomSafeAreaBackgroundColor(.C_wx_keyboard_bgcolor)
+            sheet.dismissCallback = {
+                self.moneyTF.becomeFirstResponder()
+            }
+            
+            // show fake tip
+            self.showFakeTip()
+        }
+    }
+    
+    func showFakeTip() {
+        if UserDefaults.standard.bool(forKey: UserDefaults.Key.tip_for_wx_pay_pwd_has_closed_by_user) == false {
+            let alert = UIAlertController(title: "提示", message: "该密码为虛拟密码，不是真正的微信密码，请勿输入您的微信密码，随便输入即可，我们不会记录您的输入内容！", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "关闭", style: .cancel, handler: { action in
+                alert.dismiss(animated: true)
+            }))
+            alert.addAction(UIAlertAction(title: "不再提示", style: .destructive, handler: { action in
+                alert.dismiss(animated: true)
+                UserDefaults.standard.setValue(true, forKey: UserDefaults.Key.tip_for_wx_pay_pwd_has_closed_by_user)
+                UserDefaults.standard.synchronize()
+            }))
+            UIViewController.currentVisibleVC.present(alert, animated: true)
+        }
     }
 }
 
-extension MoneyTransferContentView {
+private extension MoneyTransferContentView {
     
     /// 弹出添加转装说明的view
     /// - Parameters:

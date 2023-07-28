@@ -42,14 +42,26 @@ private extension SendMoneyTransfertViewController {
     
     func buildUI() {
         buildNav()
-        
+        buildHeader()
+        buildContent()
+    }
+    
+    func buildNav() {
+        setNavbarWechat()
+        nav_hideBarBottomLine()
+        nav_setCustom(backImage: .wx_backImag)
+    }
+    
+    func buildHeader() {
         view.addSubview(header)
         header.snp.makeConstraints({ make in
             make.left.right.equalToSuperview()
             make.top.equalTo(CGFloat.naviBar)
         })
         header.setModel(userInfo: WXUserInfo.shared)
-        
+    }
+    
+    func buildContent() {
         view.addSubview(content)
         content.backgroundColor = .white
         content.corner(radius: 15)
@@ -58,13 +70,17 @@ private extension SendMoneyTransfertViewController {
             make.left.right.equalToSuperview()
             make.bottom.equalToSuperview().offset(15)
         }
-    }
-    
-    func buildNav() {
         
-        setNavbarWechat()
-        nav_hideBarBottomLine()
-        nav_setCustom(backImage: .wx_backImag)
+        content.callback = { // 用户输入完成回调, 这里创建 转账模型
+            [weak self] in
+            guard let self = self else { return }
+            
+            let model = MsgMoneyTransferModel()
+            model.amountOfMoney = self.content.moneyString
+            model.transferInstructions = self.content.transferInstructions
+            self.callback?(model)
+            self.cancelClick()
+        }
     }
     
     @objc func cancelClick() {

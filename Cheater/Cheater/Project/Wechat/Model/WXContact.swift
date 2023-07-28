@@ -17,7 +17,7 @@ class WXContact: Codable {
     
     var imageData: Data? //UIImage - 直接从相册/相机获取的照片
     var imageName: String? //直接默认生成,选择的默认照片
-    var title: String
+    var title: String   // 联系人昵称
     var isLast: Bool = false
     
     var image: UIImage? {
@@ -30,6 +30,15 @@ class WXContact: Codable {
         }
         
         return nil
+    }
+    
+    var userInfo: WXUserInfo {
+        let userInfo = WXUserInfo()
+        userInfo.icon = image
+        userInfo.name = title
+        userInfo.realName = WXContact.randomName()
+        userInfo.wechatId = String(id!)
+        return userInfo
     }
     
     init(imageData: Data? = nil, imageName: String? = nil, title: String) {
@@ -136,7 +145,7 @@ extension WXContact {
     
     /// 生成一个随机微信昵称
     /// - Returns: 随机昵称
-    private static func randomName() -> String {
+    /*private*/ static func randomName() -> String {
         /**
          * 随机昵称 形容词
          */

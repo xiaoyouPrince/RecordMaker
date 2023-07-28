@@ -62,8 +62,6 @@ extension Encodable {
             // error
             return nil
         }
-        
-        return nil
     }
     
     var toString: String? {
@@ -85,8 +83,6 @@ extension Data {
             // error
             return nil
         }
-        
-        return nil
     }
 }
 

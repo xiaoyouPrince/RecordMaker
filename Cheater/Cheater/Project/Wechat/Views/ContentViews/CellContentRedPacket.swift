@@ -61,6 +61,7 @@ class CellContentRedPacket: UIView {
                 make.left.greaterThanOrEqualToSuperview()
                 make.top.equalToSuperview()
                 make.bottom.equalToSuperview()
+                make.width.equalTo(CGFloat.width - 80 - 80)
             }
             
             iconView.image = wechat_chat_hongbao_not_open
@@ -72,7 +73,7 @@ class CellContentRedPacket: UIView {
             titleLabel.text = "恭喜发才,大吉大利"
             titleLabel.snp.remakeConstraints { make in
                 make.centerY.equalTo(iconView)
-                make.right.equalToSuperview().offset(-15)
+                make.right.lessThanOrEqualToSuperview().offset(-15)
                 make.left.equalTo(iconView.snp.right).offset(10)
             }
             
@@ -100,6 +101,7 @@ class CellContentRedPacket: UIView {
                 make.right.lessThanOrEqualToSuperview()
                 make.top.equalToSuperview()
                 make.bottom.equalToSuperview()
+                make.width.equalTo(CGFloat.width - 80 - 80)
             }
             
             
@@ -112,7 +114,7 @@ class CellContentRedPacket: UIView {
             titleLabel.text = "恭喜发才,大吉大利"
             titleLabel.snp.remakeConstraints { make in
                 make.centerY.equalTo(iconView)
-                make.right.equalToSuperview().offset(-10)
+                make.right.lessThanOrEqualToSuperview().offset(-10)
                 make.left.equalTo(iconView.snp.right).offset(10)
             }
             

@@ -10,7 +10,7 @@ import XYUIKit
 
 class WXUserInfo {
     static var shared: WXUserInfo = WXUserInfo()
-    private init () { }
+    //private init () { }
     
     var icon: UIImage? = UIImage(named: "100003")
     var iconName: String? = "100003"
@@ -34,5 +34,10 @@ extension WXUserInfo {
             return result + name + ")"
         }
         return "(***)"
+    }
+    
+    /// 支付或者转账场景下的名称 egg: 深海一只贝 (**u)
+    var paySceneName: String {
+        (name ?? "") + " " + screatRealName
     }
 }

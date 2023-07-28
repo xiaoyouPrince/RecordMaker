@@ -22,7 +22,7 @@ class MoneyTransferInputView: UIView {
     override init(frame: CGRect) {
         super.init(frame: .zero)
         addSubview(line)
-        backgroundColor = .white.withAlphaComponent(0.8)
+        backgroundColor = .C_wx_keyboard_bgcolor
         
         let margin: CGFloat = 8
         let clunm = 4
