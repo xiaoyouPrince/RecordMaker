@@ -13,71 +13,7 @@ class WXDetailCell: UITableViewCell {
     
     static let indentifier = "WXDetailCell"
     var model: WXDetailModel? {
-        didSet {
-            guard let model = model else { return }
-        
-            if model.isOutGoingMsg {
-                iconImage.image = WXUserInfo.shared.icon
-            }else{
-                iconImage.image = DataSource_wxDetail.targetContact?.image
-            }
-            
-            nameLabel.text = DataSource_wxDetail.targetContact?.title
-            statusBtn.setTitle("哈", for: . normal)
-            
-            guard let innerView = lastContent else { // not create, create and save it
-                let innerView = model.contentClass.init() as! UIView
-                bubbleView.addSubview(innerView)
-                lastContent = innerView
-                innerView.snp.makeConstraints { make in
-                    make.edges.equalToSuperview()
-                }
-                setupInnerView(model: model, innerView: innerView)
-                return
-            }
-
-            if type(of: innerView) == model.contentClass { // can reuse
-                lastContent = innerView
-                setupInnerView(model: model, innerView: innerView)
-            }else{ // can not reuse, nedd remove the old one, and create a new one
-                lastContent?.removeFromSuperview()
-                
-                let innerView = model.contentClass.init() as! UIView
-                bubbleView.addSubview(innerView)
-                lastContent = innerView
-                innerView.snp.makeConstraints { make in
-                    make.edges.equalToSuperview()
-                }
-                setupInnerView(model: model, innerView: innerView)
-            }
-        }
-    }
-    
-    func setupInnerView(model: WXDetailModel, innerView: UIView) {
-        guard let contentView = innerView as? WXDetailContentProtocol else { return }
-        contentView.setModel(model)
-        
-        iconImage.isHidden = !contentView.showIconImage
-        nameLabel.isHidden = !contentView.showNamelable
-        statusBtn.isHidden = !contentView.showReadLabel
-        
-        if contentView.fullCustom {
-            iconImage.isHidden = true
-            nameLabel.isHidden = true
-            statusBtn.isHidden = true
-            
-            layoutForFullCustom()
-            return
-        }
-        
-        // real layout
-        if model.isOutGoingMsg {
-            nameLabel.textAlignment = .right
-            layoutForMeSend()
-        }else{
-            nameLabel.textAlignment = .left
-            layoutForOtherSend()
-        }
+        didSet { modelDidSet() }
     }
     
     var iconImage: UIImageView = UIImageView()
@@ -137,6 +73,76 @@ class WXDetailCell: UITableViewCell {
         
         if model?.msgType == .voice, let model = self.model {
             viewController?.push(SendAudioViewController(msgModel: model), animated: true) 
+        }
+    }
+}
+
+extension WXDetailCell {
+    
+    func modelDidSet() {
+        guard let model = model else { return }
+        
+        if model.isOutGoingMsg {
+            iconImage.image = WXUserInfo.shared.icon
+        }else{
+            iconImage.image = DataSource_wxDetail.targetContact?.image
+        }
+        
+        nameLabel.text = DataSource_wxDetail.targetContact?.title
+        statusBtn.setTitle("哈", for: . normal)
+        
+        guard let innerView = lastContent else { // not create, create and save it
+            let innerView = model.contentClass.init() as! UIView
+            bubbleView.addSubview(innerView)
+            lastContent = innerView
+            innerView.snp.makeConstraints { make in
+                make.edges.equalToSuperview()
+            }
+            setupInnerView(model: model, innerView: innerView)
+            return
+        }
+        
+        if type(of: innerView) == model.contentClass { // can reuse
+            lastContent = innerView
+            setupInnerView(model: model, innerView: innerView)
+        }else{ // can not reuse, need remove the old one, and create a new one
+            lastContent?.removeFromSuperview()
+            removeAllContraints()
+            
+            let innerView = model.contentClass.init() as! UIView
+            bubbleView.addSubview(innerView)
+            lastContent = innerView
+            innerView.snp.makeConstraints { make in
+                make.edges.equalToSuperview()
+            }
+            setupInnerView(model: model, innerView: innerView)
+        }
+    }
+    
+    func setupInnerView(model: WXDetailModel, innerView: UIView) {
+        guard let contentView = innerView as? WXDetailContentProtocol else { return }
+        contentView.setModel(model)
+        
+        iconImage.isHidden = !contentView.showIconImage
+        nameLabel.isHidden = !contentView.showNamelable
+        statusBtn.isHidden = !contentView.showReadLabel
+        
+        if contentView.fullCustom {
+            iconImage.isHidden = true
+            nameLabel.isHidden = true
+            statusBtn.isHidden = true
+            
+            layoutForFullCustom()
+            return
+        }
+        
+        // real layout
+        if model.isOutGoingMsg {
+            nameLabel.textAlignment = .right
+            layoutForMeSend()
+        }else{
+            nameLabel.textAlignment = .left
+            layoutForOtherSend()
         }
     }
 }
@@ -303,6 +309,14 @@ extension WXDetailCell {
     func layoutForFullCustom() {
         bubbleView.snp.remakeConstraints { make in
             make.edges.equalToSuperview()
+        }
+    }
+    
+    /// 移除所有的约束,当复用cell,但是其content无法复用的时候,就需要移除旧的约束,完全使用新约束
+    func removeAllContraints() {
+        contentView.snp.removeConstraints()
+        contentView.subviews.forEach { subV in
+            subV.snp.removeConstraints()
         }
     }
 }
