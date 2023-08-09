@@ -129,6 +129,17 @@ class InputBarAddFunctionHelper: UIViewController {
                 msgModel.from = forVC.currentSenderID
                 forVC.dataArrayAppendMsg(msgModel)
             }
+        case .change_user:
+            forVC.changeUser()
+        case .link:
+            let vc = SendLinkController()
+            vc.msgTitle = action?.rawValue ?? ""
+            forVC.push(vc, animated: true)
+            vc.callback = { link in
+                let msgModel = WXDetailModel(link: link)
+                msgModel.from = forVC.currentSenderID
+                forVC.dataArrayAppendMsg(msgModel)
+            }
         default:
             Toast.make("一个一个实现")
         }

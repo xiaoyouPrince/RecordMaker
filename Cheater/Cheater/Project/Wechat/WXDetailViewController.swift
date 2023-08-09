@@ -114,33 +114,40 @@ class WXDetailViewController: UIViewController {
         navigationController?.navigationBar .addSubview(titleViewCoverView)
         titleViewCoverView.backgroundColor = .red.withAlphaComponent(0.5)
         titleViewCoverView.addTap { [weak self] sender in
-            guard let self = self, let target = DataSource_wxDetail.targetContact,let targetId = target.id else{ return }
-            let mineId = WXUserInfo.shared.id
-            
-            if self.currentSenderID == targetId {
-                self.currentSenderID = mineId
-                DataSource_wxDetail.currentSpeaker = WXContact.init(userInfo: WXUserInfo.shared)
-                Toast.make("当前发言: \(String(describing: WXUserInfo.shared.name)) - 给个震动反馈 (群聊特殊处理)")
-            } else
-            {
-                self.currentSenderID = targetId
-                DataSource_wxDetail.currentSpeaker = WXContact.init(userInfo: target.userInfo)
-                Toast.make("当前发言: \(String(describing: target.userInfo.name)) - 给个震动反馈 (群聊特殊处理)")
-            }
-            
-            
-            
-            
-            
-            // 震动一下
-            //AudioServicesPlaySystemSound(0)
-            
-            /*
-             * - TODO -
-             * 切换当前发言者 && 震动反馈
-             * 如果是群聊,需要特殊处理,可以弹框手动选择发言人
-             */
+            guard let self = self else{ return }
+            self.changeUser()
         }
+    }
+    
+    func changeUser() {
+        guard let target = DataSource_wxDetail.targetContact,let targetId = target.id else { return }
+        let mineId = WXUserInfo.shared.id
+        
+        if self.currentSenderID == targetId {
+            self.currentSenderID = mineId
+            DataSource_wxDetail.currentSpeaker = WXContact.init(userInfo: WXUserInfo.shared)
+            
+            let userName = String(describing: WXUserInfo.shared.name ?? "")
+            Toast.make("切换为 \"\(userName)\" 发言")
+        } else
+        {
+            self.currentSenderID = targetId
+            DataSource_wxDetail.currentSpeaker = WXContact.init(userInfo: target.userInfo)
+            
+            let userName = String(describing: target.userInfo.name ?? "")
+            Toast.make("切换为 \"\(userName)\" 发言")
+        }
+        
+        
+        
+        // 震动一下
+        //AudioServicesPlaySystemSound(0)
+        
+        /*
+         * - TODO -
+         * 切换当前发言者 && 震动反馈
+         * 如果是群聊,需要特殊处理,可以弹框手动选择发言人
+         */
     }
     
     func setupTableView() {

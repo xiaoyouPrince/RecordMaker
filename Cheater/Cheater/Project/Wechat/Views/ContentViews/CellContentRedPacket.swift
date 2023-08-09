@@ -18,10 +18,10 @@ class MsgRedPacketModel: Codable {
 
 class CellContentRedPacket: UIView {
     
-    let receiveImg = UIImage(named: "ChatRoom_Bubble_HB_Receiver")?.resizableImage(withCapInsets: .init(top: 25, left: 30, bottom: 22, right: 30))
-    let receiveImg_Handled = UIImage(named: "ChatRoom_Bubble_HB_Receiver_Handled")?.resizableImage(withCapInsets: .init(top: 25, left: 30, bottom: 22, right: 30))
-    let sendImg = UIImage(named: "ChatRoom_Bubble_HB_Sender")?.resizableImage(withCapInsets: .init(top: 25, left: 30, bottom: 22, right: 30))
-    let sendImg_Handled = UIImage(named: "ChatRoom_Bubble_HB_Sender_Handled")?.resizableImage(withCapInsets: .init(top: 25, left: 30, bottom: 22, right: 30))
+    var receiveImg = UIImage(named: "ChatRoom_Bubble_HB_Receiver")?.resizableImage(withCapInsets: .init(top: 25, left: 30, bottom: 22, right: 30))
+    var receiveImg_Handled = UIImage(named: "ChatRoom_Bubble_HB_Receiver_Handled")?.resizableImage(withCapInsets: .init(top: 25, left: 30, bottom: 22, right: 30))
+    var sendImg = UIImage(named: "ChatRoom_Bubble_HB_Sender")?.resizableImage(withCapInsets: .init(top: 25, left: 30, bottom: 22, right: 30))
+    var sendImg_Handled = UIImage(named: "ChatRoom_Bubble_HB_Sender_Handled")?.resizableImage(withCapInsets: .init(top: 25, left: 30, bottom: 22, right: 30))
     let wechat_chat_hongbao_not_open = UIImage(named: "wechat_chat_hongbao_a")
     let wechat_chat_hongbao_open = UIImage(named: "wechat_chat_hongbao_c")
     
@@ -29,7 +29,9 @@ class CellContentRedPacket: UIView {
     let bubbleView = UIImageView()
     let iconView: UIImageView = UIImageView()
     let titleLabel: UILabel = UILabel()
+    let subTitleLabel: UILabel = UILabel()
     let line: UIView = UIView.line
+    let appIcon: UIImageView = UIImageView()
     let bottomLabel = UILabel(title: "微信红包", font: .systemFont(ofSize: 10), textColor: .white, textAlignment: .left)
     
     override init(frame: CGRect) {
@@ -38,8 +40,10 @@ class CellContentRedPacket: UIView {
         addSubview(contentView)
         contentView.addSubview(bubbleView)
         bubbleView.addSubview(iconView)
+        bubbleView.addSubview(subTitleLabel)
         bubbleView.addSubview(titleLabel)
         bubbleView.addSubview(line)
+        bubbleView.addSubview(appIcon)
         bubbleView.addSubview(bottomLabel)
         
         contentView.snp.makeConstraints { make in
@@ -85,8 +89,15 @@ class CellContentRedPacket: UIView {
                 make.top.equalTo(iconView.snp.bottom).offset(10)
             }
             
+            appIcon.corner(radius:5)
+            appIcon.snp.remakeConstraints { make in
+                make.width.height.equalTo(10)
+                make.left.equalTo(line)
+                make.centerY.equalTo(bottomLabel)
+            }
+            
             bottomLabel.snp.remakeConstraints { make in
-                make.left.equalTo(10)
+                make.left.equalTo(appIcon.snp.right).offset(5)
                 make.right.equalTo(-15)
                 make.top.equalTo(line.snp.bottom).offset(3)
                 make.bottom.equalToSuperview().offset(-3)
@@ -126,8 +137,15 @@ class CellContentRedPacket: UIView {
                 make.top.equalTo(iconView.snp.bottom).offset(10)
             }
             
+            appIcon.corner(radius:5)
+            appIcon.snp.remakeConstraints { make in
+                make.width.height.equalTo(10)
+                make.left.equalTo(line)
+                make.centerY.equalTo(bottomLabel)
+            }
+            
             bottomLabel.snp.remakeConstraints { make in
-                make.left.equalTo(15)
+                make.left.equalTo(appIcon.snp.right).offset(5)
                 make.right.equalTo(-10)
                 make.top.equalTo(line.snp.bottom).offset(3)
                 make.bottom.equalToSuperview().offset(-3)
@@ -139,6 +157,15 @@ class CellContentRedPacket: UIView {
             guard let voipModel: MsgRedPacketModel = data.toModel() else { return }
             setModel(voipModel, isOutGoingMsg: model.isOutGoingMsg)
         }
+    }
+    
+    func setBubbleTintColor(_ color: UIColor) {
+        bubbleView.tintColor = color
+        
+        receiveImg = receiveImg?.withRenderingMode(.alwaysTemplate)
+        receiveImg_Handled = receiveImg_Handled?.withRenderingMode(.alwaysTemplate)
+        sendImg = sendImg?.withRenderingMode(.alwaysTemplate)
+        sendImg_Handled = sendImg_Handled?.withRenderingMode(.alwaysTemplate)
     }
 }
 
