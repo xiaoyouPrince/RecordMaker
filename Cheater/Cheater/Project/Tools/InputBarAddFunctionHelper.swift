@@ -140,6 +140,15 @@ class InputBarAddFunctionHelper: UIViewController {
                 msgModel.from = forVC.currentSenderID
                 forVC.dataArrayAppendMsg(msgModel)
             }
+        case .file:
+            let vc = SendFileController()
+            vc.msgTitle = action?.rawValue ?? ""
+            forVC.push(vc, animated: true)
+            vc.callback = { file in
+                let msgModel = WXDetailModel(file: file)
+                msgModel.from = forVC.currentSenderID
+                forVC.dataArrayAppendMsg(msgModel)
+            }
         default:
             Toast.make("一个一个实现")
         }

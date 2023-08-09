@@ -51,6 +51,7 @@ enum MsgType: Int, Codable {
     case red_packet     // 红包
     case money_transfer  // 转账
     case link           // 链接
+    case file           // 文件
 }
 
 class WXDetailModel: Codable {
@@ -73,6 +74,13 @@ class WXDetailModel: Codable {
 }
 
 extension WXDetailModel {
+    
+    /// 快速创建一个 链接🔗 类型消息
+    convenience init(file: MsgModelFile? = nil) {
+        self.init()
+        self.msgType = .file
+        self.data = file.toData
+    }
     
     /// 快速创建一个 链接🔗 类型消息
     convenience init(link: MsgModelLink? = nil) {
@@ -181,6 +189,8 @@ extension WXDetailModel {
             return CellContentSystemMsg.self
         case .link:
             return CellContentLink.self
+        case .file:
+            return CellContentFile.self
         default:
             break
         }
