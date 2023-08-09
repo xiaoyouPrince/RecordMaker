@@ -41,6 +41,8 @@
 		B4AF224B2A6E784700405672 /* MoneyTransferTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF224A2A6E784700405672 /* MoneyTransferTipView.swift */; };
 		B4AF224D2A7013FB00405672 /* WXPayHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF224C2A7013FB00405672 /* WXPayHUD.swift */; };
 		B4AF224F2A702C2700405672 /* WXPayInputPwdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF224E2A702C2700405672 /* WXPayInputPwdView.swift */; };
+		B4AF22532A823A9900405672 /* CellContentSysgtemMsg.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF22522A823A9900405672 /* CellContentSysgtemMsg.swift */; };
+		B4AF22552A8256A200405672 /* SendSystemMsgController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF22542A8256A200405672 /* SendSystemMsgController.swift */; };
 		B4F869A42A38A011003749B8 /* WechatHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */; };
 		B4F869A72A38A346003749B8 /* WXConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A62A38A346003749B8 /* WXConfig.swift */; };
 		B4F869AA2A38A74A003749B8 /* WechatTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A92A38A74A003749B8 /* WechatTabbar.swift */; };
@@ -111,6 +113,8 @@
 		B4AF224A2A6E784700405672 /* MoneyTransferTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyTransferTipView.swift; sourceTree = "<group>"; };
 		B4AF224C2A7013FB00405672 /* WXPayHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXPayHUD.swift; sourceTree = "<group>"; };
 		B4AF224E2A702C2700405672 /* WXPayInputPwdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXPayInputPwdView.swift; sourceTree = "<group>"; };
+		B4AF22522A823A9900405672 /* CellContentSysgtemMsg.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellContentSysgtemMsg.swift; sourceTree = "<group>"; };
+		B4AF22542A8256A200405672 /* SendSystemMsgController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendSystemMsgController.swift; sourceTree = "<group>"; };
 		B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatHomeViewController.swift; sourceTree = "<group>"; };
 		B4F869A62A38A346003749B8 /* WXConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXConfig.swift; sourceTree = "<group>"; };
 		B4F869A92A38A74A003749B8 /* WechatTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatTabbar.swift; sourceTree = "<group>"; };
@@ -187,6 +191,7 @@
 		B48055432A5FC1E800712CEF /* ContentViews */ = {
 			isa = PBXGroup;
 			children = (
+				B4AF22522A823A9900405672 /* CellContentSysgtemMsg.swift */,
 				B4498E052A5AD22900B13CFA /* CellContentText.swift */,
 				B48055442A5FC21700712CEF /* CellContentVoice.swift */,
 				B48055462A60F09100712CEF /* CellContentTime.swift */,
@@ -233,6 +238,7 @@
 				B4F869A82A38A71C003749B8 /* Views */,
 				B4F869A52A38A321003749B8 /* Config */,
 				B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */,
+				B4AF22542A8256A200405672 /* SendSystemMsgController.swift */,
 				B4498DFD2A5A571E00B13CFA /* WXDetailViewController.swift */,
 				B48055412A5F9D9A00712CEF /* SendAudioViewController.swift */,
 				B48055552A644B9D00712CEF /* SendVideoController.swift */,
@@ -551,6 +557,8 @@
 				B4F869DA2A551687003749B8 /* AuthorityManager.swift in Sources */,
 				B4F869DC2A553FEB003749B8 /* Constants.swift in Sources */,
 				B48055542A64293100712CEF /* CellContentPhoto.swift in Sources */,
+				B4AF22552A8256A200405672 /* SendSystemMsgController.swift in Sources */,
+				B4AF22532A823A9900405672 /* CellContentSysgtemMsg.swift in Sources */,
 				B4498DFE2A5A571E00B13CFA /* WXDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

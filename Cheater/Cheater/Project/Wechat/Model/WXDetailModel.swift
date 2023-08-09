@@ -75,6 +75,13 @@ class WXDetailModel: Codable {
 extension WXDetailModel {
     
     /// 快速创建一个 转账 类型消息
+    convenience init(systemMsg: MsgSystemModel? = nil) {
+        self.init()
+        self.msgType = .system
+        self.data = systemMsg.toData
+    }
+    
+    /// 快速创建一个 转账 类型消息
     convenience init(moneyTransfer: MsgMoneyTransferModel? = nil) {
         self.init()
         self.msgType = .money_transfer
@@ -163,6 +170,8 @@ extension WXDetailModel {
             return CellContentRedPacket.self
         case .money_transfer:
             return CellContentMoneyTransfer.self
+        case .system:
+            return CellContentSystemMsg.self
         default:
             break
         }

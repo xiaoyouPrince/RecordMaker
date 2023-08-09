@@ -42,6 +42,7 @@ class HomeViewController: XYInfomationBaseViewController {
         
         view.backgroundColor = XYColor.xy_getColor(red: 246, green: 246, blue: 246)
         setNavbarWechat()
+        navigationController?.navigationBar.isTranslucent = false
         
         setContentWithData(getContentData(), itemConfig: { item in
             item.type = .other

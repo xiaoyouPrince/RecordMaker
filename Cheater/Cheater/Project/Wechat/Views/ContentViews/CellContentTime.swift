@@ -51,11 +51,8 @@ class CellContentTime: UIView {
         addSubview(label)
         
         label.textAlignment = .center
-        label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
-        label.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+        label.textColor = .C_wx_tip_text
+        label.font = UIFont.systemFont(ofSize: 15)
     }
 }
 
@@ -75,5 +72,14 @@ extension CellContentTime: WXDetailContentProtocol {
         
         let timeSting = data.timeString
         label.text = timeSting
+        let stringHeight = timeSting.heightOf(font: label.font, size: .init(width: .width, height: .height))
+        
+        label.snp.remakeConstraints { make in
+            make.left.equalTo(60)
+            make.right.equalTo(-60)
+            make.top.equalTo(8)
+            make.bottom.equalTo(-8)
+            make.height.equalTo(stringHeight)
+        }
     }
 }
