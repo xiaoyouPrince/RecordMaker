@@ -121,6 +121,14 @@ class InputBarAddFunctionHelper: UIViewController {
                 msgModel.from = forVC.currentSenderID
                 forVC.dataArrayAppendMsg(msgModel)
             }
+        case .add_time:
+            let vc = SendTimeController()
+            forVC.push(vc, animated: true)
+            vc.callback = { timeInterval in
+                let msgModel = WXDetailModel(timeInterval: timeInterval)
+                msgModel.from = forVC.currentSenderID
+                forVC.dataArrayAppendMsg(msgModel)
+            }
         default:
             Toast.make("一个一个实现")
         }

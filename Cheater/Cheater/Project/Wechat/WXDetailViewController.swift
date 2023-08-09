@@ -290,19 +290,31 @@ extension WXDetailViewController {
     /// 内存中新增消息对象,内部处理是否需要添加时间戳
     /// - Parameter model: 消息对象
     func dataArrayAppendMsg(_ model: WXDetailModel) {
-        
-        if let lastMsg = self.dataArray.last,
-           lastMsg.msgType != .time,
-           let lastTime = lastMsg.timeInterval,
-           let currentTime = model.timeInterval,
-           currentTime - lastTime < 5 * 60 {
-            self.dataArray.append(model)
-        }else
-        {
+        if dataArray.isEmpty {
             // 添加一个时间戳
             let time = WXDetailModel(timeInterval: Date().timeIntervalSince1970)
             self.dataArray.append(time)
             self.dataArray.append(model)
+        }else{
+            // 上一条消息间隔5分钟之内,直接添加新消息
+            if let lastMsg = self.dataArray.last,
+               let lastTime = lastMsg.timeInterval,
+               let currentTime = model.timeInterval,
+               currentTime - lastTime < 5 * 60 {
+                self.dataArray.append(model)
+            }else
+            {
+                // 上一条消息本身是时间,间隔超过5分钟
+                if let lastMsg = self.dataArray.last,
+                   lastMsg.msgType == .time {
+                    self.dataArray.append(model)
+                }else{
+                    // 添加一个时间戳
+                    let time = WXDetailModel(timeInterval: model.timeInterval)
+                    self.dataArray.append(time)
+                    self.dataArray.append(model)
+                }
+            }
         }
         
         tableView.reloadData()
