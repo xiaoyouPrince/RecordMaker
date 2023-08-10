@@ -1,5 +1,5 @@
 //
-//  SendLinkController.swift
+//  SendIDCardController.swift
 //  Cheater
 //
 //  Created by 渠晓友 on 2023/8/9.
@@ -10,9 +10,9 @@ import UIKit
 import XYUIKit
 import XYInfomationSection
 
-class SendLinkController: BaseSendMsgController {
+class SendIDCardController: BaseSendMsgController {
     
-    var callback: ((MsgModelLink)->())?
+    var callback: ((MsgModelIDCard)->())?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +22,7 @@ class SendLinkController: BaseSendMsgController {
         }, sectionConfig: { section in
             section.corner(radius: 5)
         }, sectionDistance: 0, contentEdgeInsets: .init(top: 10, left: 10, bottom: 0, right: 10)) { index, cell in
-            if cell.model.title == "连接图标" || cell.model.title == "应用图标" {
+            if cell.model.titleKey == "iconData" {
                 ChoosePhotoController.choosePhoto { image in
                     let model = cell.model
                     model.obj = image as Any
@@ -37,38 +37,26 @@ class SendLinkController: BaseSendMsgController {
         
         let section: [[String: Any]] = [
             [
-                "title": "连接地址",
-                "titleKey": "url",
+                "title": "昵称",
+                "titleKey": "name",
                 "type": XYInfoCellType.input.rawValue,
             ],
             [
-                "title": "连接标题",
-                "titleKey": "title",
-                "type": XYInfoCellType.input.rawValue,
-            ],
-            [
-                "title": "连接描述",
-                "titleKey": "desc",
-                "type": XYInfoCellType.input.rawValue,
-            ],
-            [
-                "title": "连接图标",
-                "titleKey": "linkIcon",
+                "title": "头像",
+                "titleKey": "iconData",
                 "type": XYInfoCellType.other.rawValue,
                 "customCellClass": PhotoCell.self,
                 "obj": UIImage.defaultHead as Any
             ],
             [
-                "title": "应用图标",
-                "titleKey": "appIcon",
-                "type": XYInfoCellType.other.rawValue,
-                "customCellClass": PhotoCell.self,
-                "obj": UIImage.defaultHead as Any
+                "title": "微信号",
+                "titleKey": "wechatID",
+                "type": XYInfoCellType.input.rawValue,
             ],
             [
-                "title": "应用名字",
-                "titleKey": "appName",
-                "type": XYInfoCellType.input.rawValue,
+                "title": "是否是公众号名片",
+                "titleKey": "isOfficial",
+                "type": XYInfoCellType.switch.rawValue
             ]
         ]
         
@@ -81,19 +69,15 @@ class SendLinkController: BaseSendMsgController {
         let params = totalParams
         let allItems = totalModels
         
-        let link = MsgModelLink()
-        link.url = params["url"] as? String
-        link.title = params["title"] as? String
-        link.desc = params["desc"] as? String
-        link.appName = params["appName"] as? String
+        let idcard = MsgModelIDCard()
+        idcard.name = params["name"] as? String
+        idcard.wechatID = params["wechatID"] as? String
+        let isOfficial = params["isOfficial"] as? String
+        idcard.isOfficial = (isOfficial == "1")
         
         for model in allItems {
-            if model.titleKey == "linkIcon" {
-                link.linkIcon = (model.obj as? UIImage)?.pngData()
-            }
-            
-            if model.titleKey == "appIcon" {
-                link.appIcon = (model.obj as? UIImage)?.pngData()
+            if model.titleKey == "iconData" {
+                idcard.iconData = (model.obj as? UIImage)?.pngData()
             }
         }
         
@@ -101,7 +85,7 @@ class SendLinkController: BaseSendMsgController {
             
         }
         
-        callback?(link)
+        callback?(idcard)
         // Toast.make(params.description)
     }
    

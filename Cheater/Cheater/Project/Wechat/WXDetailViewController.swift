@@ -157,6 +157,7 @@ class WXDetailViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(WXDetailCell.self, forCellReuseIdentifier: WXDetailCell.indentifier)
         tableView.estimatedRowHeight = 20 + 8 + 8 //UITableView.automaticDimension
+        tableView.separatorStyle = .none
     }
     
     func setupSessionInputView() {

@@ -77,7 +77,7 @@ extension CellContentTime: WXDetailContentProtocol {
         label.snp.remakeConstraints { make in
             make.left.equalTo(60)
             make.right.equalTo(-60)
-            make.top.equalTo(8)
+            make.top.equalTo(15)    // top 距离大一些
             make.bottom.equalTo(-8)
             make.height.equalTo(stringHeight)
         }

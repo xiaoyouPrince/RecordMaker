@@ -149,6 +149,24 @@ class InputBarAddFunctionHelper: UIViewController {
                 msgModel.from = forVC.currentSenderID
                 forVC.dataArrayAppendMsg(msgModel)
             }
+        case .profile:
+            let vc = SendIDCardController()
+            vc.msgTitle = action?.rawValue ?? ""
+            forVC.push(vc, animated: true)
+            vc.callback = { idcard in
+                let msgModel = WXDetailModel(idCard: idcard)
+                msgModel.from = forVC.currentSenderID
+                forVC.dataArrayAppendMsg(msgModel)
+            }
+        case .location:
+            let vc = SendLocationController()
+//            vc.msgTitle = action?.rawValue ?? ""
+            forVC.push(vc, animated: true)
+//            vc.callback = { idcard in
+//                let msgModel = WXDetailModel(idCard: idcard)
+//                msgModel.from = forVC.currentSenderID
+//                forVC.dataArrayAppendMsg(msgModel)
+//            }
         default:
             Toast.make("一个一个实现")
         }

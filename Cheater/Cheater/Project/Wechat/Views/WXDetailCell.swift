@@ -43,6 +43,7 @@ class WXDetailCell: UITableViewCell {
     
     func buildUI() {
         backgroundColor = WXConfig.navBarBgColor
+        iconImage.corner(radius: 5)
         contentView.addSubview(iconImage)
         contentView.addSubview(nameLabel)
         contentView.addSubview(bubbleView)
@@ -152,7 +153,7 @@ extension WXDetailCell {
     struct Margin {
         static let leftMargin = 12
         static let topMargin = 8
-        static let iconSize = 50
+        static let iconSize = 40
     }
     
     /// 我发送消息的布局

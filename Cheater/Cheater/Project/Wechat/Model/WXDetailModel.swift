@@ -52,6 +52,7 @@ enum MsgType: Int, Codable {
     case money_transfer  // 转账
     case link           // 链接
     case file           // 文件
+    case idCard         // 名片
 }
 
 class WXDetailModel: Codable {
@@ -75,7 +76,14 @@ class WXDetailModel: Codable {
 
 extension WXDetailModel {
     
-    /// 快速创建一个 链接🔗 类型消息
+    /// 快速创建一个 名片 消息
+    convenience init(idCard: MsgModelIDCard? = nil) {
+        self.init()
+        self.msgType = .idCard
+        self.data = idCard.toData
+    }
+    
+    /// 快速创建一个 文件类型消息
     convenience init(file: MsgModelFile? = nil) {
         self.init()
         self.msgType = .file
@@ -191,6 +199,8 @@ extension WXDetailModel {
             return CellContentLink.self
         case .file:
             return CellContentFile.self
+        case .idCard:
+            return CellContentIDCard.self
         default:
             break
         }
