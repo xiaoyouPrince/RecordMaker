@@ -52,6 +52,10 @@
 		B4AF22632A83ED3B00405672 /* CellContentIDCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF22622A83ED3B00405672 /* CellContentIDCard.swift */; };
 		B4AF22652A83EDD100405672 /* SendIDCardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF22642A83EDD100405672 /* SendIDCardController.swift */; };
 		B4AF22672A83FCF300405672 /* SendLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF22662A83FCF300405672 /* SendLocationController.swift */; };
+		B4AF22692A84A94400405672 /* SendLocationController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF22682A84A94400405672 /* SendLocationController2.swift */; };
+		B4AF226C2A85CA2D00405672 /* jQuery.js in Resources */ = {isa = PBXBuildFile; fileRef = B4AF226B2A85CA2D00405672 /* jQuery.js */; };
+		B4AF226E2A85CC7D00405672 /* locationPicker.html in Resources */ = {isa = PBXBuildFile; fileRef = B4AF226D2A85CC7D00405672 /* locationPicker.html */; };
+		B4AF22702A85E38600405672 /* CellContentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF226F2A85E38600405672 /* CellContentLocation.swift */; };
 		B4F869A42A38A011003749B8 /* WechatHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */; };
 		B4F869A72A38A346003749B8 /* WXConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A62A38A346003749B8 /* WXConfig.swift */; };
 		B4F869AA2A38A74A003749B8 /* WechatTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A92A38A74A003749B8 /* WechatTabbar.swift */; };
@@ -133,6 +137,10 @@
 		B4AF22622A83ED3B00405672 /* CellContentIDCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellContentIDCard.swift; sourceTree = "<group>"; };
 		B4AF22642A83EDD100405672 /* SendIDCardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendIDCardController.swift; sourceTree = "<group>"; };
 		B4AF22662A83FCF300405672 /* SendLocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendLocationController.swift; sourceTree = "<group>"; };
+		B4AF22682A84A94400405672 /* SendLocationController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendLocationController2.swift; sourceTree = "<group>"; };
+		B4AF226B2A85CA2D00405672 /* jQuery.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = jQuery.js; sourceTree = "<group>"; };
+		B4AF226D2A85CC7D00405672 /* locationPicker.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = locationPicker.html; sourceTree = "<group>"; };
+		B4AF226F2A85E38600405672 /* CellContentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellContentLocation.swift; sourceTree = "<group>"; };
 		B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatHomeViewController.swift; sourceTree = "<group>"; };
 		B4F869A62A38A346003749B8 /* WXConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXConfig.swift; sourceTree = "<group>"; };
 		B4F869A92A38A74A003749B8 /* WechatTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatTabbar.swift; sourceTree = "<group>"; };
@@ -209,6 +217,7 @@
 		B48055432A5FC1E800712CEF /* ContentViews */ = {
 			isa = PBXGroup;
 			children = (
+				B4AF226F2A85E38600405672 /* CellContentLocation.swift */,
 				B4AF22622A83ED3B00405672 /* CellContentIDCard.swift */,
 				B4AF22522A823A9900405672 /* CellContentSysgtemMsg.swift */,
 				B4498E052A5AD22900B13CFA /* CellContentText.swift */,
@@ -238,6 +247,17 @@
 			path = MoneyTransfer;
 			sourceTree = "<group>";
 		};
+		B4AF226A2A85C87500405672 /* SendLocation */ = {
+			isa = PBXGroup;
+			children = (
+				B4AF22662A83FCF300405672 /* SendLocationController.swift */,
+				B4AF22682A84A94400405672 /* SendLocationController2.swift */,
+				B4AF226B2A85CA2D00405672 /* jQuery.js */,
+				B4AF226D2A85CC7D00405672 /* locationPicker.html */,
+			);
+			path = SendLocation;
+			sourceTree = "<group>";
+		};
 		B4F8699E2A387C41003749B8 /* Project */ = {
 			isa = PBXGroup;
 			children = (
@@ -260,7 +280,7 @@
 				B4F869A52A38A321003749B8 /* Config */,
 				B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */,
 				B4AF22582A834DA700405672 /* SendTimeController.swift */,
-				B4AF22662A83FCF300405672 /* SendLocationController.swift */,
+				B4AF226A2A85C87500405672 /* SendLocation */,
 				B4AF225A2A8353AC00405672 /* SendLinkController.swift */,
 				B4AF22602A83CBFE00405672 /* SendFileController.swift */,
 				B4AF22642A83EDD100405672 /* SendIDCardController.swift */,
@@ -475,7 +495,9 @@
 				B4FFBE322A36161D001F09AD /* LaunchScreen.storyboard in Resources */,
 				B4F869AC2A38C41D003749B8 /* WXResources.xcassets in Resources */,
 				B4FFBE2F2A36161D001F09AD /* Assets.xcassets in Resources */,
+				B4AF226C2A85CA2D00405672 /* jQuery.js in Resources */,
 				B4FFBE2D2A36161C001F09AD /* Main.storyboard in Resources */,
+				B4AF226E2A85CC7D00405672 /* locationPicker.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -536,6 +558,7 @@
 				B480555E2A64BD7200712CEF /* SendVoipCpntroller.swift in Sources */,
 				B4498DFC2A586EAE00B13CFA /* DatePickerController.swift in Sources */,
 				B4498DF82A57C0FD00B13CFA /* WXListCellLeftSwiptHelper.swift in Sources */,
+				B4AF22702A85E38600405672 /* CellContentLocation.swift in Sources */,
 				B48055502A61A66B00712CEF /* InputBarAddFunctionHelper.swift in Sources */,
 				B4F869B72A3F4801003749B8 /* WXDataSource.swift in Sources */,
 				B48055562A644B9D00712CEF /* SendVideoController.swift in Sources */,
@@ -547,6 +570,7 @@
 				B4FFBE3D2A362C18001F09AD /* XYChatInputBar.swift in Sources */,
 				B4F869A42A38A011003749B8 /* WechatHomeViewController.swift in Sources */,
 				B4F869AA2A38A74A003749B8 /* WechatTabbar.swift in Sources */,
+				B4AF22692A84A94400405672 /* SendLocationController2.swift in Sources */,
 				B4AF22572A83427300405672 /* BaseSendMsgController.swift in Sources */,
 				B4AF224B2A6E784700405672 /* MoneyTransferTipView.swift in Sources */,
 				B4498DF52A570E9A00B13CFA /* WXChooseStatusController.swift in Sources */,

@@ -1,0 +1,88 @@
+<html><head>
+    <!--
+    * @Author: mars
+    * @Date: 2022-11-08 21:23:45
+    -->
+    <meta charset="UTF-8">
+    <title>微信对话生成器 -  2023最新版 - 易截图 - 易截图2 - 微截图 - 微截图2</title>
+    <meta name="keywords" content="易截图,易截图2,微截图,微截图2,微信对话生成器,微信转账生成器,微信钱包生成器,微信红包生成器,微信零钱生成器,微信账单生成器">
+    <meta name="description" content="微信对话生成器是由易截图开发的一款在线微信聊天对话生成器，通过简单的设置，可以方便的生成您想要的截图。如微信对话、微信转账、微信红包、微信钱包、微信零钱、支付宝聊天对话、支付宝转账等强大功能 。只需要输入微信对话的内容，能自动合成微信聊天记录的图片，简单方便。通过它你可以自定义你的微信头像、名称、内容、图片、发布时间等，达到任何你想要修改的结果。">
+    <meta name="renderer" content="webkit">
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <meta content="telephone=no, address=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="icon" href="/favicon.png?v=2">
+    <link href="/Public/static/mobile/reset.css?v=20221122" rel="stylesheet" type="text/css">
+    <link href="/Public/static/mobile/style.css?v=20221122" rel="stylesheet" type="text/css">
+    <style>
+        #btn a{
+            position: absolute;
+            background: #4caf50;
+            z-index: 999999;
+            top: 60px;
+            right: 10px;
+            font-size: 14px;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+        }
+    </style>
+    
+    <script type="text/javascript" src="/Public/static/mobile/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="jQuery.js"></script>
+    <script type="text/javascript" src="/Public/static/mobile/iscroll.min.js"></script>
+    
+    <script>
+        //iframe页面调用方法
+        $(function(){
+            
+            adaptHeight();//动态适配高度
+            
+            window.onresize = function() { //横屏、QQ浏览器变全屏模式下的时候，需要重新计算高度
+                adaptHeight();
+            }
+            
+            function adaptHeight() {
+                var winH = $(window).height();
+                var bodyH = document.documentElement.clientHeight;
+                if (winH > bodyH) {
+                    window.parent.document.getElementById("iframe").height=winH;
+                } else {
+                    window.parent.document.getElementById("iframe").height=bodyH;
+                }
+            }
+        });
+        
+        var loc;
+        
+        window.addEventListener('message', function(event) {
+            // 接收位置信息，用户选择确认位置点后选点组件会触发该事件，回传用户的位置信息
+            if(event.data && event.data.module == 'locationPicker'){
+                loc = event.data;
+            }
+        }, false);
+        
+        function send(){
+            if(!loc){
+                alert('请在下面列表选择地点');
+                return;
+            }
+            var location = loc.latlng.lat + ',' + loc.latlng.lng;
+            loc.mapImage = 'https://apis.map.qq.com/ws/staticmap/v2/?center=' + location + '&zoom=15&size=1000*200&maptype=roadmap&key=4UGBZ-62SWP-HJRDU-V6Q4W-HS4XQ-5EFKG&scale=2';
+            
+            <!--alert(loc.mapImage);-->
+            window.webkit.messageHandlers.myApp.postMessage(loc);
+        }
+    </script>
+</head>
+<body>
+    
+    <!-- 通过 iframe 嵌入地图选点组件 -->
+    <iframe id="iframe" width="100%" frameborder="0" scrolling="no" src="https://apis.map.qq.com/tools/locpicker?search=1&amp;type=1&amp;key=4UGBZ-62SWP-HJRDU-V6Q4W-HS4XQ-5EFKG&amp;referer=myapp" height="800">
+    </iframe>
+    
+    <div id="btn">
+        <a onclick="send()">发送</a>
+    </div>
+</body></html>

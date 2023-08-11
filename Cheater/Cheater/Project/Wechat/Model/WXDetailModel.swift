@@ -53,6 +53,7 @@ enum MsgType: Int, Codable {
     case link           // 链接
     case file           // 文件
     case idCard         // 名片
+    case location       // 地理位置
 }
 
 class WXDetailModel: Codable {
@@ -75,6 +76,13 @@ class WXDetailModel: Codable {
 }
 
 extension WXDetailModel {
+    
+    /// 快速创建一个 地理位置 消息
+    convenience init(location: MsgModelLocation? = nil) {
+        self.init()
+        self.msgType = .location
+        self.data = location.toData
+    }
     
     /// 快速创建一个 名片 消息
     convenience init(idCard: MsgModelIDCard? = nil) {
@@ -201,6 +209,8 @@ extension WXDetailModel {
             return CellContentFile.self
         case .idCard:
             return CellContentIDCard.self
+        case .location:
+            return CellContentLocation.self
         default:
             break
         }
