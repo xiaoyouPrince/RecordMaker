@@ -54,6 +54,7 @@ class SendLocationController2: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        nav_setCustom(backImage: .wx_backImag)
     
         let config = WKWebViewConfiguration()
         webView = WebView(frame: .zero, configuration: config)

@@ -175,11 +175,9 @@ class WXDetailViewController: UIViewController {
         
         sessionInputView.snp.makeConstraints { make in
             make.left.right.bottom.equalToSuperview()
-            make.height.equalTo(CGFloat.tabBar)
+            //make.height.equalTo(CGFloat.tabBar)
         }
     }
-    
-    
 }
 
 extension WXDetailViewController: UITableViewDataSource, UITableViewDelegate {
@@ -200,6 +198,7 @@ extension WXDetailViewController: UITableViewDataSource, UITableViewDelegate {
         
         // cell config
         // ...
+        cell?.delegate = self
         cell?.model = self.dataArray[indexPath.row]
         
         return cell!
@@ -214,9 +213,130 @@ extension WXDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
 }
 
+// MARK: - Cell Based Actions
+
+extension WXDetailViewController: WXDetailCellDelegate {
+    func deleteUserForMsg(_ model: WXDetailModel) {
+        model.isUserBeingDeleted = true
+        model.isUserBeingBlocked = false
+        tableView.reloadData()
+        archiveChatDB()
+    }
+    
+    func cancelDeleteUserForMsg(_ model: WXDetailModel) {
+        model.isUserBeingDeleted = false
+        tableView.reloadData()
+        archiveChatDB()
+    }
+    
+    func blockUserForMsg(_ model: WXDetailModel) {
+        model.isUserBeingBlocked = true
+        model.isUserBeingDeleted = false
+        tableView.reloadData()
+        archiveChatDB()
+    }
+    
+    func cancelBlockUserForMsg(_ model: WXDetailModel) {
+        model.isUserBeingBlocked = false
+        tableView.reloadData()
+        archiveChatDB()
+    }
+    
+    func copyTextForMsg(_ model: WXDetailModel) {
+        
+    }
+    
+    func editForMsg(_ model: WXDetailModel) {
+        
+    }
+    
+    func recallForMsg(_ model: WXDetailModel) {
+        AlertController.showTipAlert(title: "提示", message: "确认要撤回消息吗?") {
+            let sModel = MsgSystemModel()
+            sModel.content = "你撤回了一条消息"
+            let recallModel = WXDetailModel(systemMsg: sModel)
+            
+            if let index = self.dataArray.firstIndex(of: model){
+                self.dataArray[index] = recallModel
+            }
+            self.tableView.reloadData()
+            self.archiveChatDB()
+        }
+    }
+    
+    func changeSenderForMsg(_ model: WXDetailModel) {
+        let meId = WXUserInfo.shared.id
+        let targetId = DataSource_wxDetail.targetContact?.id
+        if model.from == meId {
+            model.from = targetId
+        }else{
+            model.from = meId
+        }
+        tableView.reloadData()
+        archiveChatDB()
+    }
+    
+    func referenceMsg(_ model: WXDetailModel) {
+        // 被引用消息,告知 inputView
+        // inputView 点击发送的时候需要回传被引用的 model
+        sessionInputView.referenceMsg = model
+    }
+    
+    func deleteMsg(_ model: WXDetailModel) {
+        deleteMsgModel(model)
+    }
+}
+
+
+// MARK: - VC Based Actions
+
+extension WXDetailViewController {
+    
+    @objc func leftBtnClick(){
+        Toast.make("leftBtnClick")
+        
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func rightBtnClick(){
+        Toast.make("rightBtnClick")
+        
+        /*
+         * - TODO -
+         * 随机生成一条文本消息,并放入UI
+         * <#这里输入你要做的事情的一些思路#>
+         *  <#1. ...#>
+         *  <#2. ...#>
+         */
+        
+        
+        let titles = [
+            "你好",
+            "随机生成一条文本消息,并放入UI",
+            "随机生成一条文本消息,并放入UI随机生成一条文本消息,并放入UI随机生成一条文本消息,并放入UI",
+            "ZTC晋升申请表-202206月ZTC晋升申请表-202206月"
+        ]
+        
+        let model = WXDetailModel.init(text: titles[Int(arc4random())%4])
+        if (arc4random() % 2) == 0 {
+            model.from = WXUserInfo.shared.id
+        }
+        //self.dataArray.append(model)
+        dataArrayAppendMsg(model)
+        XYFileManager.writeFile(with: DataSource_wxDetail.targetDB_filePath, models: self.dataArray)
+        
+        tableView.reloadData()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.25) {
+            self.tableView.scrollToRow(at: IndexPath.init(row: self.dataArray.count-1, section: 0), at: .bottom, animated: true)
+        }
+    }
+}
+
+
 // MARK: - 输入框的代理回调
 
 extension WXDetailViewController: ChatInputViewCallBackProtocal {
+    
     func holdSpeakBtnClick() {
         push(SendAudioViewController(senderId: currentSenderID, callback: {[weak self] voiceModel in
             guard let self = self else { return }
@@ -243,10 +363,16 @@ extension WXDetailViewController: ChatInputViewCallBackProtocal {
         }), animated: true)
     }
     
-    func sendBtnClick(text: String) {
+    func sendBtnClick(text: String, referenceMsg: ChatInputViewReferenceAble?) {
+        if let referenceModel = referenceMsg as? WXDetailModel {
+            sendBtnClick(text: text, referenceMsg: referenceModel)
+        }
+    }
+    func sendBtnClick(text: String, referenceMsg: WXDetailModel?) {
         // Toast.make("发送 - \(text)")
         let model = WXDetailModel(text: text)
         model.from = currentSenderID
+        model.referencedModel = referenceMsg
         
         //self.dataArray.append(model)
         dataArrayAppendMsg(model)
@@ -331,48 +457,16 @@ extension WXDetailViewController {
         
         tableViewScrollToBottom()
     }
-}
-
-//: MARK - Actions
-
-extension WXDetailViewController {
     
-    @objc func leftBtnClick(){
-        Toast.make("leftBtnClick")
-        
-        navigationController?.popViewController(animated: true)
-    }
-    
-    @objc func rightBtnClick(){
-        Toast.make("rightBtnClick")
-        
-        /*
-         * - TODO -
-         * 随机生成一条文本消息,并放入UI
-         * <#这里输入你要做的事情的一些思路#>
-         *  <#1. ...#>
-         *  <#2. ...#>
-         */
-        
-        
-        let titles = [
-            "你好",
-            "随机生成一条文本消息,并放入UI",
-            "随机生成一条文本消息,并放入UI随机生成一条文本消息,并放入UI随机生成一条文本消息,并放入UI",
-            "ZTC晋升申请表-202206月ZTC晋升申请表-202206月"
-        ]
-        
-        let model = WXDetailModel.init(text: titles[Int(arc4random())%4])
-        if (arc4random() % 2) == 0 {
-            model.from = WXUserInfo.shared.id
-        }
-        //self.dataArray.append(model)
-        dataArrayAppendMsg(model)
-        XYFileManager.writeFile(with: DataSource_wxDetail.targetDB_filePath, models: self.dataArray)
-        
+    /// 删除一条消息
+    /// - Parameter model: 被删除的消息对象
+    func deleteMsgModel(_ model: WXDetailModel) {
+        // dataArray delete
+        dataArray = dataArray.filter { msgModel in model != msgModel }
+        // ui reload
         tableView.reloadData()
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.25) {
-            self.tableView.scrollToRow(at: IndexPath.init(row: self.dataArray.count-1, section: 0), at: .bottom, animated: true)
-        }
+        // archive DB
+        archiveChatDB()
     }
 }
+

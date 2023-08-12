@@ -56,6 +56,7 @@
 		B4AF226C2A85CA2D00405672 /* jQuery.js in Resources */ = {isa = PBXBuildFile; fileRef = B4AF226B2A85CA2D00405672 /* jQuery.js */; };
 		B4AF226E2A85CC7D00405672 /* locationPicker.html in Resources */ = {isa = PBXBuildFile; fileRef = B4AF226D2A85CC7D00405672 /* locationPicker.html */; };
 		B4AF22702A85E38600405672 /* CellContentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF226F2A85E38600405672 /* CellContentLocation.swift */; };
+		B4AF22722A864D6800405672 /* MsgCellMenuManageer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF22712A864D6800405672 /* MsgCellMenuManageer.swift */; };
 		B4F869A42A38A011003749B8 /* WechatHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */; };
 		B4F869A72A38A346003749B8 /* WXConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A62A38A346003749B8 /* WXConfig.swift */; };
 		B4F869AA2A38A74A003749B8 /* WechatTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A92A38A74A003749B8 /* WechatTabbar.swift */; };
@@ -141,6 +142,7 @@
 		B4AF226B2A85CA2D00405672 /* jQuery.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = jQuery.js; sourceTree = "<group>"; };
 		B4AF226D2A85CC7D00405672 /* locationPicker.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = locationPicker.html; sourceTree = "<group>"; };
 		B4AF226F2A85E38600405672 /* CellContentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellContentLocation.swift; sourceTree = "<group>"; };
+		B4AF22712A864D6800405672 /* MsgCellMenuManageer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgCellMenuManageer.swift; sourceTree = "<group>"; };
 		B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatHomeViewController.swift; sourceTree = "<group>"; };
 		B4F869A62A38A346003749B8 /* WXConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXConfig.swift; sourceTree = "<group>"; };
 		B4F869A92A38A74A003749B8 /* WechatTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatTabbar.swift; sourceTree = "<group>"; };
@@ -378,6 +380,7 @@
 				B48055482A60FA2000712CEF /* TimeTool.swift */,
 				B480554F2A61A66B00712CEF /* InputBarAddFunctionHelper.swift */,
 				B48055512A62615D00712CEF /* ChoosePhotoController.swift */,
+				B4AF22712A864D6800405672 /* MsgCellMenuManageer.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -574,6 +577,7 @@
 				B4AF22572A83427300405672 /* BaseSendMsgController.swift in Sources */,
 				B4AF224B2A6E784700405672 /* MoneyTransferTipView.swift in Sources */,
 				B4498DF52A570E9A00B13CFA /* WXChooseStatusController.swift in Sources */,
+				B4AF22722A864D6800405672 /* MsgCellMenuManageer.swift in Sources */,
 				B4F869CF2A53D0B6003749B8 /* WXAddSingleChatViewController.swift in Sources */,
 				B4AF224D2A7013FB00405672 /* WXPayHUD.swift in Sources */,
 				B4FFBE2A2A36161C001F09AD /* HomeViewController.swift in Sources */,

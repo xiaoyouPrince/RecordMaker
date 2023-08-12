@@ -156,7 +156,7 @@ struct CellSwipeHelper {
             }
             
             if index == 1 { // 标记未读
-                AlertController().showInputCountAlert { text in
+                AlertController.showInputCountAlert { text in
                     cell.update { listModel in
                         listModel.badgeInt = Int(text)
                     }

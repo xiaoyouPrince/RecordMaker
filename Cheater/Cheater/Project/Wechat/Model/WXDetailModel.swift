@@ -73,6 +73,13 @@ class WXDetailModel: Codable {
     
     /// 图片消息可以存储imageName 动态加载图片库图片
     var imageName: String?
+    
+    /// 当前用户是否是被对方拉黑
+    var isUserBeingBlocked: Bool?
+    /// 当前用户是否被对方删除
+    var isUserBeingDeleted: Bool?
+    /// 当前消息引用的消息对象
+    var referencedModel: WXDetailModel?
 }
 
 extension WXDetailModel {
@@ -238,5 +245,17 @@ extension WXDetailModel {
             }
         }
         return nil
+    }
+}
+
+extension WXDetailModel: ChatInputViewReferenceAble {
+    var content: String {
+        "你好,我是引用内容"
+    }
+}
+
+extension WXDetailModel: Equatable {
+    static func == (lhs: WXDetailModel, rhs: WXDetailModel) -> Bool {
+        lhs.timeInterval == rhs.timeInterval
     }
 }

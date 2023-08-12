@@ -9,18 +9,62 @@
 import UIKit
 import XYUIKit
 
+protocol WXDetailCellDelegate: AnyObject {
+    
+    /// 设置为用户被删除
+    /// - Parameter model: 当前 model
+    func deleteUserForMsg(_ model: WXDetailModel)
+    
+    /// 取消用户被删除
+    /// - Parameter model: 当前 model
+    func cancelDeleteUserForMsg(_ model: WXDetailModel)
+    
+    /// 设置为用户被删除
+    /// - Parameter model: 当前 model
+    func blockUserForMsg(_ model: WXDetailModel)
+    
+    /// 取消用户被删除
+    /// - Parameter model: 当前 model
+    func cancelBlockUserForMsg(_ model: WXDetailModel)
+    
+    /// 复制内容
+    /// - Parameter model: 当前 model
+    func copyTextForMsg(_ model: WXDetailModel)
+    
+    /// 编辑消息
+    /// - Parameter model: 当前 model
+    func editForMsg(_ model: WXDetailModel)
+    
+    /// 撤回消息
+    /// - Parameter model: 当前 model
+    func recallForMsg(_ model: WXDetailModel)
+    
+    /// 消息被删除
+    /// - Parameter model: 当前 cemodelll
+    func deleteMsg(_ model: WXDetailModel)
+    
+    /// 切换用户
+    /// - Parameter model: 当前 model
+    func changeSenderForMsg(_ model: WXDetailModel)
+    
+    /// 引用消息
+    /// - Parameter model: 当前 cemodelll
+    func referenceMsg(_ model: WXDetailModel)
+}
+
 class WXDetailCell: UITableViewCell {
     
     static let indentifier = "WXDetailCell"
+    weak var delegate: WXDetailCellDelegate?
     var model: WXDetailModel? {
         didSet { modelDidSet() }
     }
     
-    var iconImage: UIImageView = UIImageView()
-    var nameLabel: UILabel = UILabel()
-    var bubbleView = UIControl()
-    var statusBtn: UIButton = UIButton(type: .system)
-    var lastContent: UIView?
+    private var iconImage: UIImageView = UIImageView()
+    private var nameLabel: UILabel = UILabel()
+    private var bubbleView = UIControl()
+    private var statusBtn: UIButton = UIButton(type: .system)
+    private var lastContent: UIView?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -49,31 +93,77 @@ class WXDetailCell: UITableViewCell {
         contentView.addSubview(bubbleView)
         contentView.addSubview(statusBtn)
         
-        bubbleView.addLongPress { sender in
-            guard let sender = sender as? UIControl else { return }
+        bubbleView.addLongPress {[weak self] sender in
+            guard let self = self,
+                  let sender = sender as? UIControl,
+                  let model = self.model else { return }
             
-            // 复制
-            let copy = UIMenuItem(title: "复制", action: #selector(self.copyText))
-            
-            // 编辑
-            let edit = UIMenuItem(title: "编辑", action: #selector(self.cellEdit))
-            
-            
-            let mc = UIMenuController.shared
-            mc.menuItems = [copy, edit]
-            mc.showMenu(from: sender, rect: sender.subviews.first?.frame ?? .zero)
+            MsgCellMenuManageer.showMenu(onView: sender, forMsg: model) {[weak self] title in
+                self?.cellAction(title: title)
+            }
+        }
+    }
+}
+
+extension WXDetailCell {
+    
+    /// Cell 本身的事件处理
+    /// - Parameter title: 事件名称
+    func cellAction(title: String) {
+        guard let model = self.model else { return }
+        
+        let cellAction: CellMenuAction? = CellMenuAction(rawValue: title)
+        switch cellAction {
+        case .userDeleted:
+            delegate?.deleteUserForMsg(model)
+        case .cancelUserDeleted:
+            delegate?.cancelDeleteUserForMsg(model)
+        case .userBlocked:
+            delegate?.blockUserForMsg(model)
+        case .cancelUserBlocked:
+            delegate?.cancelBlockUserForMsg(model)
+        case .copy:
+            delegate?.copyTextForMsg(model)
+            //copyText()
+        case .edit:
+            delegate?.editForMsg(model)
+            //editMsg()
+        case .recall:
+            delegate?.recallForMsg(model)
+        case .msgDelete:
+            delegate?.deleteMsg(model)
+            //deleteMsg()
+        case .changeUser:
+            delegate?.changeSenderForMsg(model)
+        case .refer:
+            delegate?.referenceMsg(model)
+        default:
+            break
+        }
+        
+    }
+    
+    /// 删除消息
+    @objc func deleteMsg(){
+        guard let model = model else { return }
+        delegate?.deleteMsg(model)
+    }
+    
+    /// 拷贝文本内容
+    @objc func copyText(){
+        Toast.make("复制 -- 细节功能较多,主要架子完成后一点点细化")
+        if model?.msgType == .text, let model = self.model {
+            UIPasteboard.general.string = model.text
+            Toast.make("复制完成")
         }
     }
     
-    @objc func copyText(){
-        Toast.make("复制 -- 细节功能较多,主要架子完成后一点点细化")
-    }
-    
-    @objc func cellEdit(){
+    /// 编辑消息
+    @objc func editMsg(){
         Toast.make("复制 -- 细节功能较多,主要架子完成后一点点细化")
         
         if model?.msgType == .voice, let model = self.model {
-            viewController?.push(SendAudioViewController(msgModel: model), animated: true) 
+            viewController?.push(SendAudioViewController(msgModel: model), animated: true)
         }
     }
 }
@@ -87,6 +177,14 @@ extension WXDetailCell {
             iconImage.image = WXUserInfo.shared.icon
         }else{
             iconImage.image = DataSource_wxDetail.targetContact?.image
+        }
+        
+        if model.isUserBeingDeleted == true {
+            backgroundColor = .black
+        }
+        
+        if model.isUserBeingBlocked == true {
+            backgroundColor = .yellow
         }
         
         nameLabel.text = DataSource_wxDetail.targetContact?.title
