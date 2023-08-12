@@ -9,6 +9,11 @@
 import UIKit
 import XYUIKit
 
+/// 使用此协议为了屏蔽细节,解耦
+public protocol ChatInputViewReferenceAble: AnyObject {
+    var content: String { get }
+}
+
 public protocol ChatInputViewCallBackProtocal: AnyObject {
     
     /// 键盘将要弹出 - optional
@@ -21,7 +26,8 @@ public protocol ChatInputViewCallBackProtocal: AnyObject {
     
     /// 键盘发送按钮点击
     /// - Parameter text: 当前输入框文本
-    func sendBtnClick(text: String)
+    /// - Parameter referenceMsg: 被引用的消息和内容
+    func sendBtnClick(text: String, referenceMsg: ChatInputViewReferenceAble?)
     
     /// 点击发送按钮之后是否收起键盘
     /// - Returns: 返回值是否收起键盘  true 收起 / false 不收起 - 默认不收起键盘
@@ -42,10 +48,13 @@ extension ChatInputViewCallBackProtocal {
     func functionAction(actionName: String){ }
 }
 
-
+/*
+ 此类使用 autolayout, 高度根据内容自适应, 外部布局时候不要设置高度约束
+ */
 public class ChatInputView: UIView {
     private var contentView = UIView()
     private var inputBar = ChatInputBar()
+    weak var referenceMsg: ChatInputViewReferenceAble? { didSet{ inputBar.reference = referenceMsg } }
     
     weak var deledate: ChatInputViewCallBackProtocal? {
         didSet{
@@ -61,12 +70,12 @@ public class ChatInputView: UIView {
         contentView.backgroundColor = WXConfig.inputBgColor
         
         contentView.snp.makeConstraints { make in
-            make.left.top.right.bottom.equalToSuperview()
-            make.height.equalTo(CGFloat.tabBar)
+            make.edges.equalToSuperview()
         }
         
         inputBar.snp.makeConstraints { make in
             make.left.top.right.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-CGFloat.safeBottom)
         }
     }
     
@@ -100,6 +109,7 @@ private class ChatInputBar: UIView {
     /// 输入框草稿
     var draft: String = ""
     
+    var reference: ChatInputViewReferenceAble? { didSet{ setupBottomView() } }
     var deledate: ChatInputViewCallBackProtocal?
     
     lazy var voiceBtn: UIButton = createBtn(named: "wechat_input_voice")
@@ -107,6 +117,7 @@ private class ChatInputBar: UIView {
     lazy var addBtn: UIButton = createBtn(named: "wechat_input_more")
     lazy var textView: UITextView = createTextView()
     lazy var holdSpeakBtn = createHoldSpeakBtn()
+    lazy var bottomBoxView = UIView()
     private var emotionPad: UIView?
     private var functionPad: UIView?
     
@@ -123,6 +134,26 @@ private class ChatInputBar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// 自定义底部容器,设置引用视图
+    func setupBottomView() {
+        let label = UILabel(title: reference?.content, font: .systemFont(ofSize: 13), textColor: .C_wx_tip_text, textAlignment: .left)
+        bottomBoxView.addSubview(label)
+        label.backgroundColor = .white.withAlphaComponent(0.5)
+        label.corner(radius: 5)
+        label.snp.makeConstraints { make in
+            make.left.top.right.equalToSuperview()
+            make.height.equalTo(40)
+            make.bottom.equalTo(-3)
+        }
+        
+        label.addTap {[weak self] sender in
+            guard let self = self else { return }
+            sender.removeFromSuperview()
+            self.updatePadViewsLayout()
+        }
+        
+        updatePadViewsLayout()
+    }
 }
 
 
@@ -187,40 +218,20 @@ extension ChatInputBar: UITextViewDelegate {
         let currentHeight = textView.bounds.size.height
         var targetHeight = currentHeight + textView.contentOffset.y
         
-        
         if currentHeight > contentSize.height { // 需要减少了
             if (contentSize.height - 35) < 5 { // 取巧,比初始值大一点,按初始值算
                 textView.snp.updateConstraints { make in
                     make.height.equalTo(35)
                 }
-                
-                if let inputVie = superview?.superview {
-                    inputVie.snp.updateConstraints { make in
-                        make.height.equalTo(CGFloat.tabBar - CGFloat.safeBottom + ChatInputBar.keyBoardHeight)
-                    }
-                }
             }else{
                 textView.snp.updateConstraints { make in
                     make.height.equalTo(contentSize.height)
                 }
-                
-                if let inputVie = superview?.superview {
-                    inputVie.snp.updateConstraints { make in
-                        make.height.equalTo(contentSize.height + 14 + ChatInputBar.keyBoardHeight)
-                    }
-                }
             }
         } else { // 增高
-            
             targetHeight = min(targetHeight, maxHeight)
             textView.snp.updateConstraints { make in
                 make.height.equalTo(targetHeight)
-            }
-            
-            if let inputVie = superview?.superview {
-                inputVie.snp.updateConstraints { make in
-                    make.height.equalTo(targetHeight - textView.bounds.height + inputVie.bounds.height)
-                }
             }
         }
     }
@@ -251,32 +262,25 @@ extension ChatInputBar {
         ChatInputBar.keyBoardAnimationTimeinterval = time
         
         if state == .initinal {
-            if let contentView = self.superview?.superview {
-                UIView.animate(withDuration: time, delay: 0) {
-                    contentView.snp.updateConstraints { make in
-                        make.height.equalTo(keyboardHeight + CGFloat.tabBar - CGFloat.safeBottom)
-                    }
-                    self.viewController?.view.layoutIfNeeded()
+            UIView.animate(withDuration: time) {
+                self.snp.updateConstraints { make in
+                    make.bottom.equalToSuperview().offset(-keyboardHeight)
                 }
+                self.viewController?.view.layoutIfNeeded()
             }
         } else
         if state == .keyboard {
-            if let contentView = self.superview?.superview {
-                UIView.animate(withDuration: time, delay: 0) {
-                    contentView.snp.updateConstraints { make in
-                        make.height.equalTo(keyboardHeight + self.bounds.height)
-                    }
-                    self.viewController?.view.layoutIfNeeded()
+            UIView.animate(withDuration: self.keyBoardTime, delay: 0) {
+                self.snp.updateConstraints { make in
+                    make.bottom.equalToSuperview().offset(-self.keyBoardHeight)
                 }
+                self.viewController?.view.layoutIfNeeded()
             }
-            
         } else { // voice / emotion / add
             removeEmotionPad()
             removeMorePad()
             setUIforKeyboad()
         }
-        
-        setTextViewCurser()
     }
     
     @objc func keyboardWillHide(_ noti: Notification){
@@ -290,20 +294,18 @@ extension ChatInputBar {
         }
         
         if state == .initinal {
-            if let contentView = self.superview?.superview {
-                UIView.animate(withDuration: time, delay: 0) {
-                    contentView.snp.updateConstraints { make in
-                        make.height.equalTo(CGFloat.tabBar)
-                    }
-                    self.viewController?.view.layoutIfNeeded()
+            UIView.animate(withDuration: time) {
+                self.snp.updateConstraints { make in
+                    make.bottom.equalToSuperview().offset(-CGFloat.safeBottom)
                 }
+                self.viewController?.view.layoutIfNeeded()
             }
         }else
         if state == .keyboard {
             if let contentView = self.superview?.superview {
                 UIView.animate(withDuration: time, delay: 0) {
                     contentView.snp.updateConstraints { make in
-                        make.height.equalTo(self.textView.bounds.height + CGFloat.safeBottom)
+                        make.height.equalTo(self.textView.bounds.height + self.bottomBoxView.bounds.height + CGFloat.safeBottom)
                     }
                     self.viewController?.view.layoutIfNeeded()
                 }
@@ -370,18 +372,15 @@ extension ChatInputBar {
             let emotionPad = UIView()
             emotionPad.tag = ViewTag.emotionPad
             emotionPad.backgroundColor = .red.withAlphaComponent(0.5)
+            self.emotionPad = emotionPad
             
-            if let contentView = self.superview?.superview {
+            if let contentView = self.superview?.superview { // inputView
                 contentView.addSubview(emotionPad)
-                emotionPad.frame = .init(origin: .init(x: 0, y: contentView.bounds.height), size: .init(width: .width, height: emotionHeight))
+                emotionPad.frame = .init(origin: .init(x: 0, y: self.bounds.height), size: .init(width: .width, height: emotionHeight))
                 
                 UIView.animate(withDuration: self.keyBoardTime, delay: 0) {
-                    var targetFrame = emotionPad.frame
-                    targetFrame.origin.y = self.bounds.height
-                    emotionPad.frame = targetFrame
-                    
-                    contentView.snp.updateConstraints { make in
-                        make.height.equalTo(emotionHeight + self.bounds.height)
+                    self.snp.updateConstraints { make in
+                        make.bottom.equalToSuperview().offset(-emotionHeight)
                     }
                     self.viewController?.view.layoutIfNeeded()
                 }
@@ -419,17 +418,13 @@ extension ChatInputBar {
             self.functionPad = functionPad
             functionPad.tag = ViewTag.morePad
             
-            if let contentView = self.superview?.superview {
+            if let contentView = self.superview?.superview { // inputView
                 contentView.addSubview(functionPad)
-                functionPad.frame = .init(origin: .init(x: 0, y: contentView.bounds.height), size: .init(width: .width, height: functionHeight))
+                functionPad.frame = .init(origin: .init(x: 0, y: self.bounds.height), size: .init(width: .width, height: functionHeight))
                 
                 UIView.animate(withDuration: self.keyBoardTime, delay: 0) {
-                    var targetFrame = functionPad.frame
-                    targetFrame.origin.y = self.bounds.height
-                    functionPad.frame = targetFrame
-                    
-                    contentView.snp.updateConstraints { make in
-                        make.height.equalTo(functionHeight + self.bounds.height)
+                    self.snp.updateConstraints { make in
+                        make.bottom.equalToSuperview().offset(-functionHeight)
                     }
                     self.viewController?.view.layoutIfNeeded()
                 }
@@ -441,7 +436,7 @@ extension ChatInputBar {
     /// 键盘上 return 按钮点击
     private func keyBoardSendBtnClick(){
         let text = textView.text ?? ""
-        deledate?.sendBtnClick(text: text)
+        deledate?.sendBtnClick(text: text, referenceMsg: nil)
         textView.text = ""
         textViewDidChange(textView)
         
@@ -462,6 +457,7 @@ extension ChatInputBar {
         addSubview(emotionBtn)
         addSubview(addBtn)
         addSubview(holdSpeakBtn)
+        addSubview(bottomBoxView)
         
         voiceBtn.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(12)
@@ -470,7 +466,7 @@ extension ChatInputBar {
         
         textView.snp.makeConstraints { make in
             make.left.equalTo(voiceBtn.snp.right).offset(5)
-            make.bottom.equalToSuperview().offset(-7)
+            make.top.equalToSuperview().offset(7)
             make.height.equalTo(35)
         }
         
@@ -490,18 +486,34 @@ extension ChatInputBar {
             make.edges.equalTo(textView)
         }
         
+        bottomBoxView.snp.makeConstraints { make in
+            make.left.width.equalTo(textView)
+            make.top.equalTo(textView.snp.bottom).offset(3)
+        }
+        
         self.snp.makeConstraints { make in
-            make.height.equalTo(textView).offset(14)
+            make.bottom.equalTo(bottomBoxView).offset(4)
         }
         
         // top line
         addSubview(.line)
     }
     
+    /// 更新表情框和功能框布局
+    private func updatePadViewsLayout() {
+        setNeedsLayout()
+        layoutIfNeeded()
+        
+        let orgin: CGPoint = .init(x: 0, y: self.bounds.height)
+        emotionPad?.frame.origin = orgin
+        functionPad?.frame.origin = orgin
+    }
+    
     private func createTextView() -> UITextView {
         let textView = UITextView()
         textView.delegate = self
         textView.backgroundColor = .white//UIColor.groupTableViewBackground
+        textView.tintColor = WXConfig.wxGreen
         textView.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         textView.textContainerInset = UIEdgeInsets(top: 9, left: 16, bottom: 9, right: 16)
         textView.returnKeyType = .send
@@ -529,18 +541,6 @@ extension ChatInputBar {
         btn.setTitle("按住 说话", for: .normal)
         btn.setTitleColor(.black, for: .normal)
         return btn
-    }
-    
-    /// 设置 textView 的光标颜色 -  需要有光标的时候才能设置
-    private func setTextViewCurser(){
-        textView.findSubViewRecursion { subview in
-            if subview.bounds.width == 2 {
-                subview.backgroundColor = WXConfig.wxGreen
-                return true
-            }
-            
-            return false
-        }
     }
     
     var keyBoardHeight: CGFloat {
@@ -605,7 +605,7 @@ extension ChatInputBar {
         if let contentView = self.superview?.superview {
             UIView.animate(withDuration: keyBoardTime, delay: 0) {
                 contentView.snp.updateConstraints { make in
-                    make.height.equalTo(CGFloat.tabBar)
+                    make.height.equalTo(CGFloat.tabBar + self.bottomBoxView.bounds.height)
                 }
                 self.viewController?.view.layoutIfNeeded()
             }
@@ -620,14 +620,13 @@ extension ChatInputBar {
         
         setVoiceAndEmotionBtnInitinal()
         
-        if let contentView = self.superview?.superview {
-            UIView.animate(withDuration: self.keyBoardTime, delay: 0) {
-                contentView.snp.updateConstraints { make in
-                    make.height.equalTo(self.keyBoardHeight + self.bounds.height)
-                }
-                self.viewController?.view.layoutIfNeeded()
+        UIView.animate(withDuration: keyBoardTime, delay: 0) {
+            self.snp.updateConstraints { make in
+                make.bottom.equalToSuperview().offset(-self.keyBoardHeight)
             }
+            self.viewController?.view.layoutIfNeeded()
         }
+        
     }
     
     private func setUIforVoice(){
@@ -647,13 +646,11 @@ extension ChatInputBar {
             make.height.equalTo(35)
         }
         
-        if let contentView = self.superview?.superview {
-            UIView.animate(withDuration: keyBoardTime, delay: 0) {
-                contentView.snp.updateConstraints { make in
-                    make.height.equalTo(CGFloat.tabBar)
-                }
-                self.viewController?.view.layoutIfNeeded()
+        UIView.animate(withDuration: keyBoardTime) {
+            self.snp.updateConstraints { make in
+                make.bottom.equalToSuperview().offset(-CGFloat.safeBottom)
             }
+            self.viewController?.view.layoutIfNeeded()
         }
     }
     
