@@ -9,7 +9,7 @@
 import UIKit
 
 /// 红包数据模型
-class MsgRedPacketModel: Codable {
+class MsgRedPacketModel: WXDetailContentModelProtocol {
     /// 金额
     var amountOfMoney: String?
     /// 是否已经被拆开,被处理过

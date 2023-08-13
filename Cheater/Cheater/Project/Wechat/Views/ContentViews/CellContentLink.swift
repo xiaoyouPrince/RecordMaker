@@ -13,7 +13,7 @@
 
 import UIKit
 
-class MsgModelLink: Codable {
+class MsgModelLink: WXDetailContentModelProtocol {
     /// 连接地址
     var url: String?
     /// 连接标题

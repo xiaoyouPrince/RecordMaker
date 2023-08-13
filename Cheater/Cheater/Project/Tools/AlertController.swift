@@ -16,8 +16,8 @@ struct AlertController {
     ///   - title: 标题
     ///   - message: 消息
     ///   - callback: 确认按钮点击回调
-    static func showTipAlert(title: String, message: String, _ callback:@escaping ()->()) {
-        showAlert(title: title, message: message, btnTitles: "知道了") { _ in callback() }
+    static func showTipAlert(title: String, message: String, okBtnTitle btnTitle: String, _ callback:@escaping ()->()) {
+        showAlert(title: title, message: message, btnTitles: btnTitle) { _ in callback() }
     }
     
     /// 弹出一个弹框

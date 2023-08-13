@@ -10,7 +10,7 @@ import UIKit
 import XYUIKit
 
 /// 时间戳数据模型
-class MsgVideoModel: Codable {
+class MsgVideoModel: WXDetailContentModelProtocol {
     /// 视频封面
     var imageData: Data?
     /// 视频时长 egg: 10:20

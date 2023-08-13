@@ -17,48 +17,11 @@ import UIKit
 import XYUIKit
 import XYInfomationSection
 
-class SendAudioViewController: XYInfomationBaseViewController {
-    var senderId: Int = WXUserInfo.shared.id
+class SendAudioViewController: BaseSendMsgController {
     var callback: ((MsgVoiceModel)->())?
-    var msgModel: WXDetailModel?
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-    
-    init(senderId: Int, callback: @escaping (MsgVoiceModel)->()) {
-        self.senderId = senderId
-        self.callback = callback
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    init(msgModel: WXDetailModel) {
-        super.init(nibName: nil, bundle: nil)
-        self.msgModel = msgModel
-        self.senderId = msgModel.from ?? 0
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        buildUI()
-        
-    }
-    
-    /// 是否是编辑
-    var isEdit: Bool { msgModel != nil }
-    
-    func buildUI() {
-        
-        self.view.backgroundColor = WXConfig.navBarBgColor
-        
-        nav_setCustom(backImage: WXConfig.wx_backImag)
-        title = isEdit ? "编辑语音" : "添加语音"
-        navigationItem.rightBarButtonItem = .xy_item(withTarget: self, action: #selector(doneClick), title: isEdit ? "保存" : "添加")
         
         setContentWithData(contentData(), itemConfig: { item in
             item.titleWidthRate = 0.5
@@ -67,22 +30,7 @@ class SendAudioViewController: XYInfomationBaseViewController {
         }, sectionDistance: 0, contentEdgeInsets: .init(top: 10, left: 10, bottom: 0, right: 10)) { index, cell in
             
         }
-        
-        let button = UIButton(type: .system)
-        button.setTitle(isEdit ? "保存" : "添加", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = WXConfig.wxGreen
-        button.corner(radius: 5)
-        button.snp.makeConstraints { make in
-            make.height.equalTo(44)
-        }
-        button.addTap { [weak self] sender in
-            guard let self = self else { return }
-            self.doneClick()
-        }
-        setFooterView(button, edgeInsets: .init(top: 20, left: 10, bottom: 0, right: 10))
     }
-    
 }
 
 extension SendAudioViewController {
@@ -97,26 +45,12 @@ extension SendAudioViewController {
     func contentData() -> [Any] {
         var result = [Any]()
         
-        let from = WXUserInfo.shared.id
-        var title = WXUserInfo.shared.name
-        var imageData = WXUserInfo.shared.icon?.pngData()
-        if self.senderId != from {
-            title = DataSource_wxDetail.targetContact?.title
-            imageData = DataSource_wxDetail.targetContact?.image?.pngData()
-        }
-        
 //        var voiceTime: Int = 0
 //        var showText: Bool = false
 //        var textContent: String = ""
 //        var hasRead: Bool = false
         
         var section: [[String: Any]] = [
-            [
-                "title": title ?? "",
-                "type": XYInfoCellType.other.rawValue,
-                "customCellClass": SenderCell.self,
-                "obj": imageData as Any
-            ],
             [
                 "title": "语音时间(最大60秒)",
                 "titleKey": "voiceTime",
@@ -139,7 +73,7 @@ extension SendAudioViewController {
             ]
         ]
         
-        if self.senderId != from {
+        if !isMsgBelongsToMe { // 不是我发的
             let hasRead: [String : Any] = [
                 "title": "是否已读",
                 "titleKey": "hasRead",
@@ -153,16 +87,8 @@ extension SendAudioViewController {
         return result
     }
     
-    @objc func doneClick() {
-        var params: [AnyHashable: Any] = [:]
-        self.view.findSubViewRecursion { subview in
-            if let section = subview as? XYInfomationSection {
-                params = section.contentKeyValues
-                return true
-            }
-            return false
-        }
-        
+    @objc override func doneClick() {
+        let params = totalParams
         let voiceModel = MsgVoiceModel()
         voiceModel.voiceTime = (params["voiceTime"] as? String)?.intValue
         voiceModel.showText = (params["showText"] as? String) == "1" ? true : false
@@ -171,9 +97,10 @@ extension SendAudioViewController {
         
         callback?(voiceModel)
         if isEdit {
-            msgModel?.data = voiceModel.toData
+            msgModel?.updateContent(voiceModel)
         }
-        navigationController?.popViewController(animated: true)
+        
+        super.doneClick()
     }
 }
 

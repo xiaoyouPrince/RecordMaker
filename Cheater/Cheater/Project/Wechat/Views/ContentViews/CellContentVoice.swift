@@ -9,7 +9,7 @@
 import UIKit
 
 /// 语音数据模型
-class MsgVoiceModel: Codable {
+class MsgVoiceModel: WXDetailContentModelProtocol {
     var voiceTime: Int? = 0
     var showText: Bool? = false
     var textContent: String? = ""

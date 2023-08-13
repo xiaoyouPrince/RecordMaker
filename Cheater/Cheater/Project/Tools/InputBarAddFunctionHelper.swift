@@ -51,7 +51,8 @@ class InputBarAddFunctionHelper: UIViewController {
                 forVC.dataArrayAppendMsg(model)
             }
         case .voice:
-            let sendAudioVC = SendAudioViewController(senderId: forVC.currentSenderID) { voiceModel in
+            let sendAudioVC = SendAudioViewController()
+            sendAudioVC.callback = { voiceModel in
                 let model = WXDetailModel(voice: voiceModel)
                 model.from = forVC.currentSenderID
                 forVC.dataArrayAppendMsg(model)
@@ -70,11 +71,13 @@ class InputBarAddFunctionHelper: UIViewController {
                 if index == -1 { return }
                 
                 if index == 0 { // 手动配置页面
-                    forVC.push(SendVoipCpntroller.init(senderId: forVC.currentSenderID) { voipModel in
+                    let voipVC = SendVoipCpntroller()
+                    voipVC.callback = { voipModel in
                         let model = WXDetailModel(voip: voipModel)
                         model.from = forVC.currentSenderID
                         forVC.dataArrayAppendMsg(model)
-                    }, animated: true)
+                    }
+                    forVC.push(voipVC , animated: true)
                 } else {
                     let voipModel = MsgVoipModel()
                     voipModel.isCancel = false

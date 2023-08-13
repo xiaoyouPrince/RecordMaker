@@ -13,7 +13,7 @@
 
 import UIKit
 
-class MsgModelLocation: Codable {
+class MsgModelLocation: WXDetailContentModelProtocol {
     
 //    {
 //        cityname = "\U5317\U4eac\U5e02";

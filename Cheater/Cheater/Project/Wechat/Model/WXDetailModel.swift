@@ -19,6 +19,9 @@ import Foundation
 import UIKit
 
 // MARK: - 消息内容 view 协议
+protocol WXDetailContentModelProtocol: Codable {
+    
+}
 
 protocol WXDetailContentProtocol: NSObjectProtocol {
     var showIconImage: Bool { get }
@@ -223,6 +226,22 @@ extension WXDetailModel {
         }
         
         return CellContentTime.self
+    }
+    
+    /// 文本消息可以更新文本内容
+    /// - Parameter text: 需要更新的文本内容
+    func updateText(_ text: String) {
+        if msgType == .text {
+            self.text = text
+            data = text.data(using: .utf8)
+        }
+    }
+    
+    /// 非消息可以更新自己
+    /// - Parameter text: 需要更新的文本内容
+    func updateContent(_ contentModel: WXDetailContentModelProtocol) {
+        guard msgType != .text else { return }
+        data = contentModel.toData
     }
     
     /// 是否是自己发出的消息

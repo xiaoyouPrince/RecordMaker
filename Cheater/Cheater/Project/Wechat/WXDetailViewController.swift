@@ -47,9 +47,6 @@ class WXDetailViewController: UIViewController {
         self.dataArray = DataSource_wxDetail.allMessages ?? []
         
         super.init(nibName: nil, bundle: nil)
-        
-        
-        
     }
     
     required init?(coder: NSCoder) {
@@ -219,39 +216,79 @@ extension WXDetailViewController: WXDetailCellDelegate {
     func deleteUserForMsg(_ model: WXDetailModel) {
         model.isUserBeingDeleted = true
         model.isUserBeingBlocked = false
-        tableView.reloadData()
-        archiveChatDB()
+        reloadTableAndArchiveDB()
     }
     
     func cancelDeleteUserForMsg(_ model: WXDetailModel) {
         model.isUserBeingDeleted = false
-        tableView.reloadData()
-        archiveChatDB()
+        reloadTableAndArchiveDB()
     }
     
     func blockUserForMsg(_ model: WXDetailModel) {
         model.isUserBeingBlocked = true
         model.isUserBeingDeleted = false
-        tableView.reloadData()
-        archiveChatDB()
+        reloadTableAndArchiveDB()
     }
     
     func cancelBlockUserForMsg(_ model: WXDetailModel) {
         model.isUserBeingBlocked = false
-        tableView.reloadData()
-        archiveChatDB()
+        reloadTableAndArchiveDB()
     }
     
     func copyTextForMsg(_ model: WXDetailModel) {
-        
+        UIPasteboard.general.string = model.text
+        Toast.make("复制完成")
     }
     
     func editForMsg(_ model: WXDetailModel) {
-        
+        switch model.msgType {
+        case .time:
+            let editVC = SendTimeController()
+            editVC.msgModel = model
+            push(editVC, animated: true)
+            break
+        case .text:
+            let editVC = EditTextViewController()
+            editVC.msgModel = model
+            push(editVC, animated: true)
+            break
+        case .voice:
+            let editVC = SendAudioViewController()
+            editVC.msgModel = model
+            push(editVC, animated: true)
+            break
+        case .image:
+            break
+        case .video:
+            break
+        case .voip:
+            let editVC = SendVoipCpntroller()
+            editVC.msgModel = model
+            push(editVC, animated: true)
+            break
+        case .system:
+            break
+        case .red_packet:
+            break
+        case .money_transfer:
+            break
+        case .link:
+            break
+        case .file:
+            break
+        case .idCard:
+            break
+        case .location:
+            break
+        default:
+            break
+        }
     }
     
     func recallForMsg(_ model: WXDetailModel) {
-        AlertController.showTipAlert(title: "提示", message: "确认要撤回消息吗?") {
+        AlertController.showAlert(title: "🔔", message: "确认撤回吗", btnTitles: "取消", "确定", callback: { index in
+            if index != 1 { return }
+            
             let sModel = MsgSystemModel()
             sModel.content = "你撤回了一条消息"
             let recallModel = WXDetailModel(systemMsg: sModel)
@@ -259,9 +296,8 @@ extension WXDetailViewController: WXDetailCellDelegate {
             if let index = self.dataArray.firstIndex(of: model){
                 self.dataArray[index] = recallModel
             }
-            self.tableView.reloadData()
-            self.archiveChatDB()
-        }
+            self.reloadTableAndArchiveDB()
+        })
     }
     
     func changeSenderForMsg(_ model: WXDetailModel) {
@@ -272,8 +308,7 @@ extension WXDetailViewController: WXDetailCellDelegate {
         }else{
             model.from = meId
         }
-        tableView.reloadData()
-        archiveChatDB()
+        reloadTableAndArchiveDB()
     }
     
     func referenceMsg(_ model: WXDetailModel) {
@@ -338,7 +373,8 @@ extension WXDetailViewController {
 extension WXDetailViewController: ChatInputViewCallBackProtocal {
     
     func holdSpeakBtnClick() {
-        push(SendAudioViewController(senderId: currentSenderID, callback: {[weak self] voiceModel in
+        let voiceVC = SendAudioViewController()
+        voiceVC.callback = {[weak self] voiceModel in
             guard let self = self else { return }
             
             // 创建新消息对象,写入内存,绘制UI,数据持久化
@@ -359,14 +395,12 @@ extension WXDetailViewController: ChatInputViewCallBackProtocal {
             self.lsitModel.lsatMessage = "[语音]"
             self.lsitModel.updateListMemory()
             self.delegate?.lastMessageDidupdate()
-            
-        }), animated: true)
+        }
+        push(voiceVC, animated: true)
     }
     
     func sendBtnClick(text: String, referenceMsg: ChatInputViewReferenceAble?) {
-        if let referenceModel = referenceMsg as? WXDetailModel {
-            sendBtnClick(text: text, referenceMsg: referenceModel)
-        }
+        sendBtnClick(text: text, referenceMsg: referenceMsg as? WXDetailModel)
     }
     func sendBtnClick(text: String, referenceMsg: WXDetailModel?) {
         // Toast.make("发送 - \(text)")
@@ -438,9 +472,9 @@ extension WXDetailViewController {
                 self.dataArray.append(model)
             }else
             {
-                // 上一条消息本身是时间,间隔超过5分钟
+                // 上一条消息本身是时间/本身要添加的是时间, 直接添加
                 if let lastMsg = self.dataArray.last,
-                   lastMsg.msgType == .time {
+                   lastMsg.msgType == .time || model.msgType == .time {
                     self.dataArray.append(model)
                 }else{
                     // 添加一个时间戳
@@ -466,6 +500,11 @@ extension WXDetailViewController {
         // ui reload
         tableView.reloadData()
         // archive DB
+        archiveChatDB()
+    }
+    
+    func reloadTableAndArchiveDB(){
+        tableView.reloadData()
         archiveChatDB()
     }
 }

@@ -50,6 +50,11 @@ extension ChatInputViewCallBackProtocal {
 
 /*
  此类使用 autolayout, 高度根据内容自适应, 外部布局时候不要设置高度约束
+ 整体布局如下:
+ 
+ inputView -> contentView -> inputBar
+ inputView -> emotionPad
+ inputView -> functionPad
  */
 public class ChatInputView: UIView {
     private var contentView = UIView()

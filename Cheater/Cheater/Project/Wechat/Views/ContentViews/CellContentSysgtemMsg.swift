@@ -10,7 +10,7 @@ import UIKit
 import XYUIKit
 
 /// 系统消息数据模型
-class MsgSystemModel: Codable {
+class MsgSystemModel: WXDetailContentModelProtocol {
     var content: String? = "" // 消息内容
     
     /*

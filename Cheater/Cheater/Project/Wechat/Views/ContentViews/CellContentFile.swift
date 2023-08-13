@@ -13,7 +13,7 @@
 
 import UIKit
 
-class MsgModelFile: Codable {
+class MsgModelFile: WXDetailContentModelProtocol {
     /// 文件类型
     var type: String?
     /// 文件标题

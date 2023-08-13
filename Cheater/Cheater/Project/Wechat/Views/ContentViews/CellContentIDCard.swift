@@ -13,7 +13,7 @@
 
 import UIKit
 
-class MsgModelIDCard: Codable {
+class MsgModelIDCard: WXDetailContentModelProtocol {
     /// 昵称
     var name: String?
     /// 头像

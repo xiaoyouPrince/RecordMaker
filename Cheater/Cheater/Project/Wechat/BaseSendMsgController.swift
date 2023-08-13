@@ -94,14 +94,30 @@ class BaseSendMsgController: XYInfomationBaseViewController {
 extension BaseSendMsgController {
     
     var isEdit: Bool {  msgModel != nil }
+    /// 当前是否我发言 - 指代发消息时
     var isMeSpeaking: Bool {
-        let from = WXUserInfo.shared.id
-        return senderId == from
+        let mineID = WXUserInfo.shared.id
+        return mineID == senderId
+    }
+    
+    /// 消息是否是由我发出的 - 指代消息编辑时
+    var isMsgSendByMe: Bool {
+        let mineID = WXUserInfo.shared.id
+        return msgModel?.from == mineID
+    }
+    
+    /// 消息是否是我方消息
+    var isMsgBelongsToMe: Bool {
+        if isEdit {
+            return isMsgSendByMe
+        }else{
+            return isMeSpeaking
+        }
     }
     
     /// 当前发言者的 title 和 头像icon
     var speakerTitleIcon: (String, Data) {
-        if !isMeSpeaking {
+        if !isMsgBelongsToMe {
             return targetTitleIcon
         }
         

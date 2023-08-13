@@ -10,7 +10,7 @@ import UIKit
 import XYUIKit
 
 /// 时间戳数据模型
-class MsgTimeModel: Codable {
+class MsgTimeModel: WXDetailContentModelProtocol {
     var time: TimeInterval? = Date().timeIntervalSince1970
     var is24hous: Bool? = true
     

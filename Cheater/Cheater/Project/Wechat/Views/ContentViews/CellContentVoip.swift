@@ -9,7 +9,7 @@
 import UIKit
 
 /// voip数据模型
-class MsgVoipModel: Codable {
+class MsgVoipModel: WXDetailContentModelProtocol {
     /// 连接时长,用户直接输入
     var voipTime: String?
     /// 是否取消

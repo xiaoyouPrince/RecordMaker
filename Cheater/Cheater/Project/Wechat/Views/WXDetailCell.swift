@@ -124,46 +124,18 @@ extension WXDetailCell {
             delegate?.cancelBlockUserForMsg(model)
         case .copy:
             delegate?.copyTextForMsg(model)
-            //copyText()
         case .edit:
             delegate?.editForMsg(model)
-            //editMsg()
         case .recall:
             delegate?.recallForMsg(model)
         case .msgDelete:
             delegate?.deleteMsg(model)
-            //deleteMsg()
         case .changeUser:
             delegate?.changeSenderForMsg(model)
         case .refer:
             delegate?.referenceMsg(model)
         default:
             break
-        }
-        
-    }
-    
-    /// 删除消息
-    @objc func deleteMsg(){
-        guard let model = model else { return }
-        delegate?.deleteMsg(model)
-    }
-    
-    /// 拷贝文本内容
-    @objc func copyText(){
-        Toast.make("复制 -- 细节功能较多,主要架子完成后一点点细化")
-        if model?.msgType == .text, let model = self.model {
-            UIPasteboard.general.string = model.text
-            Toast.make("复制完成")
-        }
-    }
-    
-    /// 编辑消息
-    @objc func editMsg(){
-        Toast.make("复制 -- 细节功能较多,主要架子完成后一点点细化")
-        
-        if model?.msgType == .voice, let model = self.model {
-            viewController?.push(SendAudioViewController(msgModel: model), animated: true)
         }
     }
 }
@@ -327,7 +299,6 @@ extension WXDetailCell {
             }
         }
     }
-    
     
     /// 对方发送消息的布局
     func layoutForOtherSend() {
