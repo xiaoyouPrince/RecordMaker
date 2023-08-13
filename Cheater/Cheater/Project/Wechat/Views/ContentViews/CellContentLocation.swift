@@ -41,6 +41,8 @@ class MsgModelLocation: WXDetailContentModelProtocol {
     /// 存储已经加载过的图片
     var imageData: Data?
     
+    init() { }
+    
     init(dict: [String: Any]) {
         poiname = dict["poiname"] as? String
         poiaddress = dict["poiaddress"] as? String

@@ -26,6 +26,21 @@ class MsgModelLink: WXDetailContentModelProtocol {
     var appIcon: Data?
     /// 应用名字
     var appName: String?
+    
+    /// 连接图标
+    var linkIconImage: UIImage? {
+        if let linkIcon = linkIcon {
+            return UIImage(data: linkIcon)
+        }
+        return nil
+    }
+    /// 应用图标
+    var appIconImage: UIImage? {
+        if let linkIcon = appIcon {
+            return UIImage(data: linkIcon)
+        }
+        return nil
+    }
 }
 
 class CellContentLink: CellContentRedPacket {

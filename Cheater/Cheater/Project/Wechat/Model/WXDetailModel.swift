@@ -239,6 +239,13 @@ extension WXDetailModel {
     
     /// 非消息可以更新自己
     /// - Parameter text: 需要更新的文本内容
+    func updateImage(_ image: UIImage) {
+        guard msgType == .image else { return }
+        data = image.pngData()
+    }
+    
+    /// 非消息可以更新自己
+    /// - Parameter text: 需要更新的文本内容
     func updateContent(_ contentModel: WXDetailContentModelProtocol) {
         guard msgType != .text else { return }
         data = contentModel.toData

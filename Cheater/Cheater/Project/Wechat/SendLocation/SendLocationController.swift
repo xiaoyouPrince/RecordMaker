@@ -13,57 +13,61 @@
 
  */
 import UIKit
-import MapKit
 import XYUIKit
-import CoreLocation
 import XYInfomationSection
 
-//private struct MapUrls {
-//    static let yijietu: URL = URL(string: "https://1jietu.com/map.html?platform=ios&system=ios")!
-//    static let tencentApi: URL = URL(string: "https://apis.map.qq.com/ws/staticmap/v2/?center=39.904228,116.406467&zoom=15&size=600*200&maptype=roadmap&key=4UGBZ-62SWP-HJRDU-V6Q4W-HS4XQ-5EFKG&scale=2")!
-//}
-
-class SendLocationController: UIViewController {
+class SendLocationController: BaseSendMsgController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItem = .xy_item(withTarget: self, action: #selector(rightBtnClick), title: "确定")
-        setNavbarWechat()
-        navigationController?.navigationBar.isTranslucent = false
-        
-        
-        let webView = WebView()
-        view.addSubview(webView)
-        webView.snp.makeConstraints { make in
-            make.left.top.right.bottom.equalToSuperview()
-        }
-        
-        let url = URL(string: "https://1jietu.com/map.html?platform=ios&system=ios")!
-        webView.load(NSMutableURLRequest(url: url) as URLRequest)
-        
-        // header
-        let sectionView = XYInfomationSection()
-        let item1 = XYInfomationItem()
-        item1.title = "位置地址"
-        item1.titleKey = "add"
-        item1.type = .input
-        let item2 = XYInfomationItem()
-        item2.title = "详细地址"
-        item2.titleKey = "subAdd"
-        item2.type = .input
-        sectionView.dataArray = [item1, item2]
-        view.addSubview(sectionView)
-        sectionView.snp.makeConstraints { make in
-            make.top.equalTo(webView.snp.top)
-            make.left.right.equalTo(webView)
+        setContentWithData(contentData(), itemConfig: { item in
+            
+        }, sectionConfig: { section in
+            section.corner(radius: 5)
+        }, sectionDistance: 0, contentEdgeInsets: .init(top: 10, left: 10, bottom: 0, right: 10)) { index, cell in
+            
         }
     }
-}
-
-
-
-extension SendLocationController {
-    @objc func rightBtnClick(){
+    
+    var locationModel: MsgModelLocation? {
+        msgModel?.data?.toModel()
+    }
+    
+    func contentData() -> [Any] {
+        var result = [Any]()
         
+        let section: [[String: Any]] = [
+            [
+                "title": "地点名称",
+                "titleKey": "url",
+                "type": XYInfoCellType.input.rawValue,
+                "value": locationModel?.poiname ?? ""
+            ],
+            [
+                "title": "详细地址",
+                "titleKey": "title",
+                "type": XYInfoCellType.input.rawValue,
+                "value": locationModel?.poiaddress ?? ""
+            ]
+        ]
+        
+        result.append(section)
+        return result
+    }
+    
+    override func doneClick() {
+        guard let link = locationModel else {
+            super.doneClick()
+            return
+        }
+        
+        let params = totalParams
+        link.poiname = params["url"] as? String
+        link.poiaddress = params["title"] as? String
+        if isEdit {
+            msgModel?.updateContent(link)
+        }
+        
+        super.doneClick()
     }
 }

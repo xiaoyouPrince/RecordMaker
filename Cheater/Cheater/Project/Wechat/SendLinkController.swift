@@ -32,6 +32,10 @@ class SendLinkController: BaseSendMsgController {
         }
     }
     
+    var linkModel: MsgModelLink? {
+        msgModel?.data?.toModel()
+    }
+    
     func contentData() -> [Any] {
         var result = [Any]()
         
@@ -40,35 +44,39 @@ class SendLinkController: BaseSendMsgController {
                 "title": "连接地址",
                 "titleKey": "url",
                 "type": XYInfoCellType.input.rawValue,
+                "value": linkModel?.url ?? ""
             ],
             [
                 "title": "连接标题",
                 "titleKey": "title",
                 "type": XYInfoCellType.input.rawValue,
+                "value": linkModel?.title ?? ""
             ],
             [
                 "title": "连接描述",
                 "titleKey": "desc",
                 "type": XYInfoCellType.input.rawValue,
+                "value": linkModel?.desc ?? ""
             ],
             [
                 "title": "连接图标",
                 "titleKey": "linkIcon",
                 "type": XYInfoCellType.other.rawValue,
                 "customCellClass": PhotoCell.self,
-                "obj": UIImage.defaultHead as Any
+                "obj": linkModel?.linkIconImage ?? UIImage.defaultHead as Any
             ],
             [
                 "title": "应用图标",
                 "titleKey": "appIcon",
                 "type": XYInfoCellType.other.rawValue,
                 "customCellClass": PhotoCell.self,
-                "obj": UIImage.defaultHead as Any
+                "obj": linkModel?.appIconImage ?? UIImage.defaultHead as Any
             ],
             [
                 "title": "应用名字",
                 "titleKey": "appName",
                 "type": XYInfoCellType.input.rawValue,
+                "value": linkModel?.appName ?? ""
             ]
         ]
         
@@ -98,7 +106,7 @@ class SendLinkController: BaseSendMsgController {
         }
         
         if isEdit {
-            
+            msgModel?.updateContent(link)
         }
         
         callback?(link)

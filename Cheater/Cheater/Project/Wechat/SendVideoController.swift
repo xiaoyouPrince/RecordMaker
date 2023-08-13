@@ -17,49 +17,11 @@ import UIKit
 import XYUIKit
 import XYInfomationSection
 
-class SendVideoController: XYInfomationBaseViewController {
-
-    var senderId: Int = WXUserInfo.shared.id
+class SendVideoController: BaseSendMsgController {
     var callback: ((MsgVideoModel)->())?
-    var msgModel: WXDetailModel?
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-    
-    init(senderId: Int, callback: @escaping (MsgVideoModel)->()) {
-        self.senderId = senderId
-        self.callback = callback
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    init(msgModel: WXDetailModel) {
-        super.init(nibName: nil, bundle: nil)
-        self.msgModel = msgModel
-        self.senderId = msgModel.from ?? 0
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        buildUI()
-        
-    }
-    
-    /// 是否是编辑
-    var isEdit: Bool { msgModel != nil }
-    
-    func buildUI() {
-        
-        self.view.backgroundColor = WXConfig.navBarBgColor
-        
-        nav_setCustom(backImage: WXConfig.wx_backImag)
-        title = isEdit ? "编辑视频" : "添加视频"
-        navigationItem.rightBarButtonItem = .xy_item(withTarget: self, action: #selector(doneClick), title: isEdit ? "保存" : "添加")
         
         setContentWithData(contentData(), itemConfig: { item in
             item.titleWidthRate = 0.5
@@ -74,24 +36,8 @@ class SendVideoController: XYInfomationBaseViewController {
                     cell.model = model
                 }
             }
-            
         }
-        
-        let button = UIButton(type: .system)
-        button.setTitle(isEdit ? "保存" : "添加", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = WXConfig.wxGreen
-        button.corner(radius: 5)
-        button.snp.makeConstraints { make in
-            make.height.equalTo(44)
-        }
-        button.addTap { [weak self] sender in
-            guard let self = self else { return }
-            self.doneClick()
-        }
-        setFooterView(button, edgeInsets: .init(top: 20, left: 10, bottom: 0, right: 10))
     }
-    
 }
 
 extension SendVideoController {
@@ -105,22 +51,7 @@ extension SendVideoController {
     
     func contentData() -> [Any] {
         var result = [Any]()
-        
-        let from = WXUserInfo.shared.id
-        var title = WXUserInfo.shared.name
-        var imageData = WXUserInfo.shared.icon?.pngData()
-        if self.senderId != from {
-            title = DataSource_wxDetail.targetContact?.title
-            imageData = DataSource_wxDetail.targetContact?.image?.pngData()
-        }
-        
         let section: [[String: Any]] = [
-            [
-                "title": title ?? "",
-                "type": XYInfoCellType.other.rawValue,
-                "customCellClass": SenderCell.self,
-                "obj": imageData as Any
-            ],
             [
                 "title": "视频封面",
                 "titleKey": "videoPhoto",
@@ -141,27 +72,24 @@ extension SendVideoController {
         return result
     }
     
-    @objc func doneClick() {
-        let videoModel = MsgVideoModel()
-        var params: [AnyHashable: Any] = [:]
-        self.view.findSubViewRecursion { subview in
-            if let section = subview as? XYInfomationSection {
-                params = section.contentKeyValues
-                
-                let item = section.dataArray[1]
-                videoModel.imageData = item.obj as? Data
-                return true
-            }
-            return false
-        }
+    @objc override func doneClick() {
+        let params = totalParams
+        let items = totalModels
         
+        let videoModel = MsgVideoModel()
         videoModel.videoTime = params["videoTime"] as? String
+        for item in items {
+            if item.title == "视频封面" {
+                videoModel.imageData = item.obj as? Data
+            }
+        }
         
         callback?(videoModel)
         if isEdit {
-            msgModel?.data = videoModel.toData
+            msgModel?.updateContent(videoModel)
         }
-        navigationController?.popViewController(animated: true)
+        
+        super.doneClick()
     }
 }
 

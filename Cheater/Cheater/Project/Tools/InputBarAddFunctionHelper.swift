@@ -59,11 +59,12 @@ class InputBarAddFunctionHelper: UIViewController {
             }
             forVC.push(sendAudioVC, animated: true)
         case .take_photo:
-            let sendAudioVC = SendVideoController(senderId: forVC.currentSenderID, callback: { videoModel in
+            let sendAudioVC = SendVideoController()
+            sendAudioVC.callback = { videoModel in
                 let model = WXDetailModel(video: videoModel)
                 model.from = forVC.currentSenderID
                 forVC.dataArrayAppendMsg(model)
-            })
+            }
             forVC.push(sendAudioVC, animated: true)
         case .voip:
             let titles = ["添加语音/视频通话记录", "取消视频通话", "取消语音通话", "拒绝视频通话", "拒绝语音通话"]

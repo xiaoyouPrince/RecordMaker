@@ -258,8 +258,14 @@ extension WXDetailViewController: WXDetailCellDelegate {
             push(editVC, animated: true)
             break
         case .image:
+            let editVC = EditImageViewController()
+            editVC.msgModel = model
+            push(editVC, animated: true)
             break
         case .video:
+            let editVC = SendVideoController()
+            editVC.msgModel = model
+            push(editVC, animated: true)
             break
         case .voip:
             let editVC = SendVoipCpntroller()
@@ -267,18 +273,33 @@ extension WXDetailViewController: WXDetailCellDelegate {
             push(editVC, animated: true)
             break
         case .system:
+            let editVC = SendSystemMsgController()
+            editVC.msgModel = model
+            push(editVC, animated: true)
             break
         case .red_packet:
             break
         case .money_transfer:
             break
         case .link:
+            let editVC = SendLinkController()
+            editVC.msgModel = model
+            push(editVC, animated: true)
             break
         case .file:
+            let editVC = SendFileController()
+            editVC.msgModel = model
+            push(editVC, animated: true)
             break
         case .idCard:
+            let editVC = SendIDCardController()
+            editVC.msgModel = model
+            push(editVC, animated: true)
             break
         case .location:
+            let editVC = SendLocationController()
+            editVC.msgModel = model
+            push(editVC, animated: true)
             break
         default:
             break

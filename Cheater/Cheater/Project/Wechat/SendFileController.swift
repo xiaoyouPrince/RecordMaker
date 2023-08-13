@@ -66,6 +66,11 @@ class SendFileController: BaseSendMsgController {
         }
     }
     
+    var fileModel: MsgModelFile? {
+        msgModel?.data?.toModel()
+    }
+    
+    
     func contentData() -> [Any] {
         var result = [Any]()
         
@@ -74,26 +79,33 @@ class SendFileController: BaseSendMsgController {
                 "title": "文件类型",
                 "titleKey": "type",
                 "type": XYInfoCellType.choose.rawValue,
+                "value": fileModel?.type ?? "",
+                "valueCode": fileModel?.type ?? "",
             ],
             [
                 "title": "文件名称",
                 "titleKey": "title",
                 "type": XYInfoCellType.input.rawValue,
+                "value": fileModel?.title ?? "",
             ],
             [
                 "title": "文件大小",
                 "titleKey": "size",
                 "type": XYInfoCellType.input.rawValue,
+                "value": fileModel?.size ?? "",
             ],
             [
                 "title": "文件大小单位",
                 "titleKey": "sizeType",
-                "type": XYInfoCellType.choose.rawValue
+                "type": XYInfoCellType.choose.rawValue,
+                "value": fileModel?.sizeType ?? "",
+                "valueCode": fileModel?.sizeType ?? "",
             ],
             [
                 "title": "微信电脑版本",
                 "titleKey": "pcVersion",
-                "type": XYInfoCellType.switch.rawValue
+                "type": XYInfoCellType.switch.rawValue,
+                "isOn": fileModel?.pcVersion ?? false
             ]
         ]
         
@@ -105,19 +117,19 @@ class SendFileController: BaseSendMsgController {
         super.doneClick()
         let params = totalParams
         
-        let link = MsgModelFile()
-        link.type = params["type"] as? String
-        link.title = params["title"] as? String
-        link.size = params["size"] as? String
-        link.sizeType = params["sizeType"] as? String
+        let file = MsgModelFile()
+        file.type = params["type"] as? String
+        file.title = params["title"] as? String
+        file.size = params["size"] as? String
+        file.sizeType = params["sizeType"] as? String
         let pcVersion = params["pcVersion"] as? String
-        link.pcVersion = (pcVersion == "1")
+        file.pcVersion = (pcVersion == "1")
         
         if isEdit {
-            
+            msgModel?.updateContent(file)
         }
         
-        callback?(link)
+        callback?(file)
         // Toast.make(params.description)
     }
    

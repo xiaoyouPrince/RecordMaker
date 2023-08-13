@@ -36,10 +36,15 @@ class CellContentPhoto: UIView {
             make.edges.equalToSuperview()
         }
         
-        imageView.contentMode = .center
+        imageView.contentMode = .scaleToFill
         imageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    }
+    
+    func setModel(_ model: WXDetailModel) {
+        guard let image = model.image else { return } // 图片累类型,必须有图片
+        setContent(image: image, isOutGoingMsg: model.isOutGoingMsg)
     }
 }
 
@@ -52,9 +57,7 @@ extension CellContentPhoto: WXDetailContentProtocol {
     var showNamelable: Bool { false }
     var showReadLabel: Bool { false }
     
-    func setModel(_ model: WXDetailModel) {
-        guard let image = model.image else { return } // 图片累类型,必须有图片
-        
+    func setContent(image: UIImage, isOutGoingMsg: Bool) {
         let size = image.size
         let maxWH: CGFloat = 150
         var imageSize: CGSize = .init(width: maxWH, height: maxWH)
@@ -78,7 +81,7 @@ extension CellContentPhoto: WXDetailContentProtocol {
         imageView.corner(radius: 5)
         imageView.image = image
         imageView.snp.remakeConstraints { make in
-            if model.isOutGoingMsg {
+            if isOutGoingMsg {
                 make.right.equalToSuperview()
             }else{
                 make.left.equalToSuperview()

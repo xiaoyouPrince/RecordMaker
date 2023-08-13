@@ -32,6 +32,10 @@ class SendIDCardController: BaseSendMsgController {
         }
     }
     
+    var idcardModel: MsgModelIDCard? {
+        msgModel?.data?.toModel()
+    }
+    
     func contentData() -> [Any] {
         var result = [Any]()
         
@@ -40,23 +44,26 @@ class SendIDCardController: BaseSendMsgController {
                 "title": "昵称",
                 "titleKey": "name",
                 "type": XYInfoCellType.input.rawValue,
+                "value": idcardModel?.name ?? ""
             ],
             [
                 "title": "头像",
                 "titleKey": "iconData",
                 "type": XYInfoCellType.other.rawValue,
                 "customCellClass": PhotoCell.self,
-                "obj": UIImage.defaultHead as Any
+                "obj": idcardModel?.icon ?? UIImage.defaultHead as Any
             ],
             [
                 "title": "微信号",
                 "titleKey": "wechatID",
                 "type": XYInfoCellType.input.rawValue,
+                "value": idcardModel?.wechatID ?? ""
             ],
             [
                 "title": "是否是公众号名片",
                 "titleKey": "isOfficial",
-                "type": XYInfoCellType.switch.rawValue
+                "type": XYInfoCellType.switch.rawValue,
+                "isOn": idcardModel?.isOfficial ?? false
             ]
         ]
         
@@ -82,7 +89,7 @@ class SendIDCardController: BaseSendMsgController {
         }
         
         if isEdit {
-            
+            msgModel?.updateContent(idcard)
         }
         
         callback?(idcard)
