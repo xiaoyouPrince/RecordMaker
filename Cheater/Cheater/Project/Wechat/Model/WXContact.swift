@@ -17,7 +17,8 @@ class WXContact: Codable {
     
     var imageData: Data? //UIImage - 直接从相册/相机获取的照片
     var imageName: String? //直接默认生成,选择的默认照片
-    var title: String   // 联系人昵称
+    /// 联系人昵称
+    var title: String
     var realName: String? = WXContact.randomName()
     var wechatId: String?
     var isLast: Bool = false

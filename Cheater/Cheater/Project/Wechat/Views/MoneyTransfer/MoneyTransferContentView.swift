@@ -199,7 +199,7 @@ private extension MoneyTransferContentView {
         
         changeTipBtn.setTitle("添加转账说明", for: .normal)
         changeTipBtn.titleLabel?.font = tipLabel.font
-        changeTipBtn.setTitleColor(.xy_getColor(red: 80, green: 92, blue: 133), for: .normal)
+        changeTipBtn.setTitleColor(.C_wx_link_text, for: .normal)
         changeTipBtn.snp.makeConstraints { make in
             make.right.lessThanOrEqualToSuperview().offset(-25)
             make.centerY.equalTo(tipLabel)

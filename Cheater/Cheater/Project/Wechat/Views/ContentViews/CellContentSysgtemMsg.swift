@@ -26,6 +26,10 @@ class MsgSystemModel: WXDetailContentModelProtocol {
      * 隐私安全消息 -> “xxx”与群里其他人都不是微信朋友关系,请注意隐私安全
      * 拍一拍 -> 我拍了拍 “xxx”
      */
+    
+    func getCopyText() -> String? {
+        content
+    }
 }
 
 

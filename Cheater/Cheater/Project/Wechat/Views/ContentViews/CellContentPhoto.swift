@@ -10,7 +10,7 @@ import UIKit
 import XYUIKit
 
 /// 时间戳数据模型
-class MsgPhotoModel: Codable {
+class MsgPhotoModel: WXDetailContentModelProtocol {
     
 }
 

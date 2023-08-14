@@ -32,6 +32,10 @@ class MsgTimeModel: WXDetailContentModelProtocol {
         
         return TimeTool.timeString(from: time ?? Date().timeIntervalSince1970)
     }
+    
+    func getCopyText() -> String? {
+        timeString
+    }
 }
 
 

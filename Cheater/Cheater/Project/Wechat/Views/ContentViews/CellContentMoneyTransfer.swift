@@ -11,7 +11,14 @@ import UIKit
 /// 转账数据模型 - 此 UI 和 数据模型与红包高度重用
 class MsgMoneyTransferModel: MsgRedPacketModel {
     /// 转账说明
-    var transferInstructions: String?
+    var transferInstructions: String? {
+        set{
+            sayingWords = newValue
+        }
+        get{
+            sayingWords
+        }
+    }
 }
 
 class CellContentMoneyTransfer: CellContentRedPacket {

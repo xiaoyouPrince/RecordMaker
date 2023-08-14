@@ -94,6 +94,9 @@ extension UIColor {
     /// 微信提示文字的颜色 一种浅灰色
     static var C_wx_tip_text: UIColor = .xy_getColor(red: 137, green: 137, blue: 137)
     
+    /// 微信按钮/超链接文字颜色
+    static var C_wx_link_text: UIColor = .xy_getColor(red: 80, green: 92, blue: 133)
+    
     /// 微信自定义键盘的背景色
     static var C_wx_keyboard_bgcolor: UIColor = .xy_getColor(red: 241, green: 241, blue: 241)
 }

@@ -63,6 +63,7 @@ class WXDetailCell: UITableViewCell {
     private var iconImage: UIImageView = UIImageView()
     private var nameLabel: UILabel = UILabel()
     private var bubbleView = UIControl()
+    private var bottomView = UIControl()
     private var statusBtn: UIButton = UIButton(type: .system)
     private var lastContent: UIView?
     
@@ -91,6 +92,7 @@ class WXDetailCell: UITableViewCell {
         contentView.addSubview(iconImage)
         contentView.addSubview(nameLabel)
         contentView.addSubview(bubbleView)
+        contentView.addSubview(bottomView)
         contentView.addSubview(statusBtn)
         
         bubbleView.addLongPress {[weak self] sender in
@@ -151,16 +153,10 @@ extension WXDetailCell {
             iconImage.image = DataSource_wxDetail.targetContact?.image
         }
         
-        if model.isUserBeingDeleted == true {
-            backgroundColor = .black
-        }
-        
-        if model.isUserBeingBlocked == true {
-            backgroundColor = .yellow
-        }
-        
         nameLabel.text = DataSource_wxDetail.targetContact?.title
         statusBtn.setTitle("哈", for: . normal)
+        
+        setupDeleteByUserOrNot()
         
         guard let innerView = lastContent else { // not create, create and save it
             let innerView = model.contentClass.init() as! UIView
@@ -234,7 +230,7 @@ extension WXDetailCell {
                 make.right.equalTo(-Margin.leftMargin)
                 make.left.equalTo((Margin.leftMargin * 2 + Margin.iconSize)) // 右边留一个边距
                 make.top.equalTo(Margin.topMargin)
-                make.bottom.lessThanOrEqualToSuperview().offset(-Margin.topMargin)
+                //make.bottom.lessThanOrEqualToSuperview().offset(-Margin.topMargin)
             }
             
             if statusBtn.isHidden {
@@ -261,7 +257,7 @@ extension WXDetailCell {
                     make.right.equalTo(iconImage.snp.left).offset(-5)
                     make.left.equalTo((Margin.leftMargin * 2 + Margin.iconSize)) // 左边留一个边距
                     make.top.equalTo(iconImage)
-                    make.bottom.lessThanOrEqualTo(-Margin.topMargin)
+                    //make.bottom.lessThanOrEqualTo(-Margin.topMargin)
                 }
                 
                 if statusBtn.isHidden {
@@ -284,7 +280,7 @@ extension WXDetailCell {
                     make.right.equalTo(nameLabel)
                     make.left.equalTo((Margin.leftMargin * 2 + Margin.iconSize)) // 右边留一个边距
                     make.top.equalTo(nameLabel.snp.bottom).offset(5)
-                    make.bottom.lessThanOrEqualTo(-Margin.topMargin)
+                    //make.bottom.lessThanOrEqualTo(-Margin.topMargin)
                 }
 
                 if statusBtn.isHidden {
@@ -298,6 +294,8 @@ extension WXDetailCell {
                 }
             }
         }
+        
+        layoutBottomView()
     }
     
     /// 对方发送消息的布局
@@ -308,7 +306,7 @@ extension WXDetailCell {
                 make.left.equalTo(Margin.leftMargin)
                 make.right.equalTo(-(Margin.leftMargin * 2 + Margin.iconSize)) // 右边留一个边距
                 make.top.equalTo(Margin.topMargin)
-                make.bottom.lessThanOrEqualToSuperview().offset(-Margin.topMargin)
+                //make.bottom.lessThanOrEqualToSuperview().offset(-Margin.topMargin)
             }
             
             if statusBtn.isHidden {
@@ -335,7 +333,7 @@ extension WXDetailCell {
                     make.left.equalTo(iconImage.snp.right).offset(5)
                     make.right.equalTo(-(Margin.leftMargin * 2 + Margin.iconSize)) // 右边留一个边距
                     make.top.equalTo(iconImage)
-                    make.bottom.lessThanOrEqualTo(-Margin.topMargin)
+                    //make.bottom.lessThanOrEqualTo(-Margin.topMargin)
                 }
                 
                 if statusBtn.isHidden {
@@ -358,7 +356,7 @@ extension WXDetailCell {
                     make.left.equalTo(nameLabel)
                     make.right.equalTo(-(Margin.leftMargin * 2 + Margin.iconSize)) // 右边留一个边距
                     make.top.equalTo(nameLabel.snp.bottom).offset(5)
-                    make.bottom.lessThanOrEqualTo(-Margin.topMargin)
+                    //make.bottom.lessThanOrEqualTo(-Margin.topMargin)
                 }
                 
                 if statusBtn.isHidden {
@@ -372,6 +370,8 @@ extension WXDetailCell {
                 }
             }
         }
+        
+        layoutBottomView()
     }
     
     /// 完全自定义的布局
@@ -387,6 +387,43 @@ extension WXDetailCell {
         contentView.snp.removeConstraints()
         contentView.subviews.forEach { subV in
             subV.snp.removeConstraints()
+        }
+    }
+    
+    /// 对底部内容布局
+    func layoutBottomView() {
+        var topMargin = 0
+        if model?.isUserBeingDeleted == true {
+            topMargin = Margin.topMargin
+        }
+        bottomView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
+            make.top.equalTo(bubbleView.snp.bottom).offset(topMargin)
+            make.bottom.lessThanOrEqualToSuperview().offset(-Margin.topMargin)
+        }
+    }
+    
+    /// 设置是否被对方删除
+    func setupDeleteByUserOrNot() {
+        guard let model = self.model else { return }
+        
+        if model.isUserBeingDeleted == true {
+            let targetname = DataSource_wxDetail.targetContact?.title ?? "对方"
+            let str = targetname + "开启了朋友验证,你还不是他(她)朋友.请先发送朋友验证请求,对方通过后才能聊天. 发送朋友验证"
+            let label = UILabel(title: str, font: .systemFont(ofSize: 15), textColor: .C_wx_tip_text, textAlignment: .center)
+            label.numberOfLines = 0
+            label.attributedText = str.addAttributes(attrs: [.foregroundColor: UIColor.C_wx_link_text], withRegx: " 发送朋友验证")
+            bottomView.addSubview(label)
+            label.snp.makeConstraints { make in
+                make.left.equalToSuperview().offset(30)
+                make.right.equalToSuperview().offset(-30)
+                make.bottom.equalToSuperview()
+                make.top.equalTo(8)
+            }
+        }else{
+            bottomView.subviews.forEach { subV in
+                subV.removeFromSuperview()
+            }
         }
     }
 }

@@ -52,6 +52,30 @@ import XYUIKit
 
 
 extension Encodable {
+    
+    /// 此方法只能保证遵守 Encodable 协议的 类型被转换为 data, 其子类独有属性不能转换
+    /**
+     
+     class Parent: Encodable {
+         var name: String
+         init(name: String) {
+             self.name = name
+         }
+     }
+     
+     class Child: Parent {
+         var age: Int
+         init(name: String, age: Int) {
+         self.age = age
+             super.init(name: name)
+         }
+     }
+     
+     示例:
+     let child = Child(name: "Child", age: 10)
+     child.toString => { "name": ”Child“}
+     child.toString => { "name": ”Child“}
+     */
     var toData: Data? {
         do {
             let encoder = JSONEncoder()

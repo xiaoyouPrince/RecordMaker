@@ -215,12 +215,13 @@ extension WXDetailViewController: UITableViewDataSource, UITableViewDelegate {
 extension WXDetailViewController: WXDetailCellDelegate {
     func deleteUserForMsg(_ model: WXDetailModel) {
         model.isUserBeingDeleted = true
-        model.isUserBeingBlocked = false
+        model.isUserBeingBlocked = true
         reloadTableAndArchiveDB()
     }
     
     func cancelDeleteUserForMsg(_ model: WXDetailModel) {
         model.isUserBeingDeleted = false
+        model.isUserBeingBlocked = false
         reloadTableAndArchiveDB()
     }
     
@@ -236,8 +237,10 @@ extension WXDetailViewController: WXDetailCellDelegate {
     }
     
     func copyTextForMsg(_ model: WXDetailModel) {
-        UIPasteboard.general.string = model.text
-        Toast.make("复制完成")
+        if let text = model.getCopyText() {
+            UIPasteboard.general.string = text
+            Toast.make("复制完成")
+        }
     }
     
     func editForMsg(_ model: WXDetailModel) {
@@ -278,8 +281,14 @@ extension WXDetailViewController: WXDetailCellDelegate {
             push(editVC, animated: true)
             break
         case .red_packet:
+            let editVC = EditRedPacketController()
+            editVC.msgModel = model
+            push(editVC, animated: true)
             break
         case .money_transfer:
+            let editVC = EditMoneyTransferController()
+            editVC.msgModel = model
+            push(editVC, animated: true)
             break
         case .link:
             let editVC = SendLinkController()

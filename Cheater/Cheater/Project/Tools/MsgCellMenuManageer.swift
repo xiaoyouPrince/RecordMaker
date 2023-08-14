@@ -32,21 +32,13 @@ enum CellMenuAction: String, CaseIterable {
 
 struct MsgCellMenuManageer {
     
+    /// 展示菜单
+    /// - Parameters:
+    ///   - sender: 来源view, 在哪个 view 上展示菜单
+    ///   - model: 消息数据模型
+    ///   - callBack: 菜单按钮点击回调, 返回被点击 item.title
     static func showMenu(onView sender: UIView, forMsg model: WXDetailModel, callBack:@escaping(_ title: String)->()){
         let items = MsgCellMenuManageer.menusFor(msg: model)
-        
-        //            // 删除
-        //            let delete = UIMenuItem(title: "删除", action: #selector(self.deleteMsg))
-        //
-        //            // 复制
-        //            let copy = UIMenuItem(title: "复制", action: #selector(self.copyText))
-        //
-        //            // 编辑
-        //            let edit = UIMenuItem(title: "编辑", action: #selector(self.cellEdit))
-        
-        //            let mc = UIMenuController.shared
-        //            mc.menuItems = menuItems
-        //            mc.showMenu(from: sender, rect: sender.subviews.first?.frame ?? .zero)
         
         if let window = sender.window {
             for subV in window.subviews.reversed() {
@@ -96,47 +88,126 @@ struct MsgCellMenuManageer {
     /// - Parameter msg: 消息对象本身
     /// - Returns: 菜单数组
     private static func menusFor(msg: WXDetailModel) -> [CellMenuAction] {
-        
         var actionTitles: [CellMenuAction] = CellMenuAction.allCases
         
         if msg.isOutGoingMsg {
             switch msg.msgType {
+            case .time:
+                actionTitles = [.edit, .copy, .msgDelete]
+                break
             case .text:
-                if msg.isUserBeingBlocked == true {
-                    actionTitles = actionTitles.filter({ menuAction in
-                        menuAction != .userBlocked
-                    })
-                }else{
-                    actionTitles = actionTitles.filter({ menuAction in
-                        menuAction != .cancelUserBlocked
-                    })
-                }
-                if msg.isUserBeingDeleted == true {
-                    actionTitles = actionTitles.filter({ menuAction in
-                        menuAction != .userDeleted
-                    })
-                }else{
-                    actionTitles = actionTitles.filter({ menuAction in
-                        menuAction != .cancelUserDeleted
-                    })
-                }
+                break
+            case .image:
+                actionTitles = actionTitles.removeElement(.copy)
+                break
+            case .voice:
+                actionTitles = actionTitles.removeElements([.copy, .refer])
+                break
+            case .video:
+                actionTitles = actionTitles.removeElement(.copy)
+                break
+            case .voip:
+                actionTitles = actionTitles.removeElements([.copy, .recall, .refer])
+                break
+            case .system:
+                actionTitles = [.edit, .copy, .msgDelete]
+                break
+            case .red_packet:
+                break
+            case .money_transfer:
+                break
+            case .link:
+                actionTitles = actionTitles.removeElements([.copy, .recall])
+                break
+            case .file:
+                actionTitles = actionTitles.removeElements([.copy, .recall])
+                break
+            case .idCard:
+                actionTitles = actionTitles.removeElements([.copy, .recall, .refer])
+                break
+            case .location:
+                actionTitles = actionTitles.removeElements([.copy, .recall])
+                break
             default:
                 break
+            }
+            
+            // 对于删除 / 拉黑处理
+            if msg.isUserBeingBlocked == true {
+                actionTitles = actionTitles.removeElement(.userBlocked)
+            }else{
+                actionTitles = actionTitles.removeElement(.cancelUserBlocked)
+            }
+            if msg.isUserBeingDeleted == true {
+                actionTitles = actionTitles.removeElement(.userDeleted)
+            }else{
+                actionTitles = actionTitles.removeElement(.cancelUserDeleted)
             }
         }else{
             switch msg.msgType {
+            case .time:
+                actionTitles = [.edit, .copy, .msgDelete]
+                break
             case .text:
-                let todelete: [CellMenuAction] = [.userDeleted, .userBlocked, .cancelUserBlocked, .cancelUserDeleted]
-                actionTitles = actionTitles.filter({ menuAction in
-                    !todelete.contains(menuAction)
-                })
+                break
+            case .image:
+                actionTitles = actionTitles.removeElement(.copy)
+                break
+            case .voice:
+                actionTitles = actionTitles.removeElements([.copy, .refer])
+                break
+            case .video:
+                actionTitles = actionTitles.removeElement(.copy)
+                break
+            case .voip:
+                actionTitles = actionTitles.removeElements([.copy, .recall, .refer])
+                break
+            case .system:
+                actionTitles = [.edit, .copy, .msgDelete]
+                break
+            case .red_packet:
+                break
+            case .money_transfer:
+                break
+            case .link:
+                actionTitles = [.edit, .msgDelete, .changeUser, .refer]
+                break
+            case .file:
+                actionTitles = [.edit, .msgDelete, .changeUser, .refer]
+                break
+            case .idCard:
+                actionTitles = [.edit, .msgDelete, .changeUser]
+                break
+            case .location:
+                actionTitles = [.edit, .msgDelete, .changeUser, .refer]
+                break
             default:
                 break
             }
+            
+            let todelete: [CellMenuAction] = [.userDeleted, .userBlocked, .cancelUserBlocked, .cancelUserDeleted]
+            actionTitles = actionTitles.removeElements(todelete)
         }
         
         return actionTitles
     }
-    
+}
 
+extension Array {
+    /// 删除某个元素
+    /// - Parameter ele: 指定被删除的元素
+    /// - Returns: 返回一个新数组
+    func removeElement(_ ele: Element) -> [Element] where Element: Equatable {
+        removeElements([ele])
+    }
+    
+    /// 删除某些元素
+    /// - Parameter ele: 指定被删除的元素
+    /// - Returns: 返回一个新数组
+    func removeElements(_ eles: [Element]) -> [Element] where Element: Equatable {
+        let todelete: [Element] = eles
+        return self.filter { oldEle in
+            !todelete.contains(oldEle)
+        }
+    }
 }

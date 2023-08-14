@@ -163,6 +163,7 @@ private extension SendRedpacketViewController {
             if let money = self.moneyLabel?.text, money != "0.00" {
                 let model = MsgRedPacketModel()
                 model.amountOfMoney = money
+                model.sayingWords = self.greetingTF?.text
                 self.callback?(model)
                 self.cancelClick()
             }else{

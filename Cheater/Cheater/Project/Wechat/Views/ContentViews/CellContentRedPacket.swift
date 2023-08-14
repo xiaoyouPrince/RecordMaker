@@ -12,6 +12,8 @@ import UIKit
 class MsgRedPacketModel: WXDetailContentModelProtocol {
     /// 金额
     var amountOfMoney: String?
+    /// 红包祝福语
+    var sayingWords: String?
     /// 是否已经被拆开,被处理过
     var isHandled: Bool? = false
 }

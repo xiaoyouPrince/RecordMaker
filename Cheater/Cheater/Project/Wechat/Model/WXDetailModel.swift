@@ -20,7 +20,10 @@ import UIKit
 
 // MARK: - 消息内容 view 协议
 protocol WXDetailContentModelProtocol: Codable {
-    
+    func getCopyText() -> String?
+}
+extension WXDetailContentModelProtocol {
+    func getCopyText() -> String? { nil }
 }
 
 protocol WXDetailContentProtocol: NSObjectProtocol {
@@ -197,6 +200,8 @@ extension WXDetailModel {
     /// 消息内容真实类型
     var contentClass: WXDetailContentProtocol.Type {
         switch msgType {
+        case .time:
+            return CellContentTime.self
         case .text:
             return CellContentText.self
         case .voice:
@@ -271,6 +276,65 @@ extension WXDetailModel {
             }
         }
         return nil
+    }
+    
+    var contentModel: WXDetailContentModelProtocol? {
+        switch msgType {
+        case .time:
+            let contentModel: MsgTimeModel? = data?.toModel()
+            return contentModel
+        case .text:
+            return nil
+        case .voice:
+            let contentModel: MsgVoiceModel? = data?.toModel()
+            return contentModel
+        case .image:
+            let contentModel: MsgPhotoModel? = data?.toModel()
+            return contentModel
+        case .video:
+            let contentModel: MsgVideoModel? = data?.toModel()
+            return contentModel
+        case .voip:
+            let contentModel: MsgVoipModel? = data?.toModel()
+            return contentModel
+        case .red_packet:
+            let contentModel: MsgRedPacketModel? = data?.toModel()
+            return contentModel
+        case .money_transfer:
+            let contentModel: MsgMoneyTransferModel? = data?.toModel()
+            return contentModel
+        case .system:
+            let contentModel: MsgSystemModel? = data?.toModel()
+            return contentModel
+        case .link:
+            let contentModel: MsgModelLink? = data?.toModel()
+            return contentModel
+        case .file:
+            let contentModel: MsgModelFile? = data?.toModel()
+            return contentModel
+        case .idCard:
+            let contentModel: MsgModelIDCard? = data?.toModel()
+            return contentModel
+        case .location:
+            let contentModel: MsgModelLocation? = data?.toModel()
+            return contentModel
+        default:
+            break
+        }
+        
+        return nil
+    }
+}
+
+extension WXDetailModel {
+    /// 获取 cell 菜单被拷贝的时候获取拷贝的文本
+    /// - Returns: 拷贝文本
+    func getCopyText() -> String? {
+        if msgType == .text{
+            return text
+        }
+        
+        return contentModel?.getCopyText()
     }
 }
 
