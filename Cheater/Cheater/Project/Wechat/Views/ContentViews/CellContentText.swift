@@ -50,7 +50,7 @@ class CellContentText: CellContentView {
         addSubview(deletetBtn)
         bgImage.addSubview(label)
         
-        //backgroundColor = .red
+        label.font = .systemFont(ofSize: 20)
         label.numberOfLines = 0
         label.lineBreakMode = .byCharWrapping
         label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
@@ -125,7 +125,38 @@ extension CellContentText: WXDetailContentProtocol {
     }
     
     func setModel(_ data: Data) {
-        label.text = String(data: data, encoding: .utf8)
+        let text = String(data: data, encoding: .utf8) ?? ""
+        
+        // 解析对应的表情
+        let attrMStr = NSMutableAttributedString(string: text)
+        label.attributedText = attrMStr
+        
+        let regx = try? NSRegularExpression(pattern: "\\[.*?\\]", options: .caseInsensitive)
+        guard let matches = regx?.matches(in: text, range: NSRange(location: 0, length: text.count)) else { return }
+        for m in matches.reversed() {
+            // 0.find emotion
+            for emotion in EmotionManager.shared.emotions {
+                let emoName = (text as NSString).substring(with: m.range)
+                if emoName == "\(emotion.title)" {
+                    // 1.create att
+                    let attachment = EmotionAttchment()
+                    attachment.chs = emotion.title
+                    attachment.image = emotion.image //UIImage(contentsOfFile: emotion.pngPath!)
+                    let font = label.font
+                    attachment.bounds = CGRect(x: 0, y: -4, width: (font?.lineHeight)!, height: (font?.lineHeight)!)
+                    
+                    // 2.通过attachMent生成待使用属性字符串
+                    let attrImageStr = NSAttributedString(attachment: attachment)
+                    
+                    // 4.替换当前位置的属性字符串并重新赋值给textView
+                    let range = m.range
+                    attrMStr.replaceCharacters(in: range, with: attrImageStr)
+                    
+                    continue
+                }
+            }
+        }
+        
+        label.attributedText = attrMStr
     }
-    
 }

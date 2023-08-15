@@ -219,7 +219,7 @@ extension WXDetailCell {
     struct Margin {
         static let leftMargin = 12
         static let topMargin = 8
-        static let iconSize = 40
+        static let iconSize = 46
     }
     
     /// 我发送消息的布局
