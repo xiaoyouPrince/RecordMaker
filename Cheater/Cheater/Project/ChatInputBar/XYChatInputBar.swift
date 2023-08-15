@@ -108,11 +108,11 @@ private class ChatInputBar: UIView {
     // MARK: - 共有有属性，可外部使用
     
     /// 默认自适应高度最大值，当输入内容自适应高度大于此值，不再变高，输入内容变为可滚动
-    var maxHeight: CGFloat = 100
+    var maxHeight: CGFloat = 170
     /// 当前状态
     var state: BarState = .initinal
     /// 输入框草稿
-    var draft: String = ""
+    var draft: NSAttributedString = .init(string: "")
     
     var reference: ChatInputViewReferenceAble? { didSet{ setupBottomView() } }
     var deledate: ChatInputViewCallBackProtocal?
@@ -212,6 +212,7 @@ extension ChatInputBar: UITextViewDelegate {
     /// textView 内部内容改动时候适配高度
     /// - Parameter textView: 调整的 textView，即内部 textView
     func adjustSelfFrame(with textView: UITextView){
+        restoreDraft()
         
         if textView.text.isEmpty == false {
             state = .keyboard
@@ -219,25 +220,12 @@ extension ChatInputBar: UITextViewDelegate {
             state = .initinal
         }
         
-        let contentSize = textView.contentSize
-        let currentHeight = textView.bounds.size.height
-        var targetHeight = currentHeight + textView.contentOffset.y
-        
-        if currentHeight > contentSize.height { // 需要减少了
-            if (contentSize.height - 35) < 5 { // 取巧,比初始值大一点,按初始值算
-                textView.snp.updateConstraints { make in
-                    make.height.equalTo(35)
-                }
-            }else{
-                textView.snp.updateConstraints { make in
-                    make.height.equalTo(contentSize.height)
-                }
-            }
-        } else { // 增高
-            targetHeight = min(targetHeight, maxHeight)
-            textView.snp.updateConstraints { make in
-                make.height.equalTo(targetHeight)
-            }
+        /*
+         这里看起来最小是38,实际设置的是35
+         */
+        let targetHeiht = min(textView.contentSize.height, maxHeight)
+        textView.snp.updateConstraints { make in
+            make.height.equalTo(targetHeiht)
         }
     }
 }
@@ -262,30 +250,37 @@ extension ChatInputBar {
             return
         }
         
+        removeEmotionPad()
+        removeMorePad()
+        setUIforKeyboad()
+        
         let keyboardHeight = kbEndFrame.height
         ChatInputBar.keyBoardHeight = keyboardHeight
         ChatInputBar.keyBoardAnimationTimeinterval = time
         
-        if state == .initinal {
-            UIView.animate(withDuration: time) {
-                self.snp.updateConstraints { make in
-                    make.bottom.equalToSuperview().offset(-keyboardHeight)
-                }
-                self.viewController?.view.layoutIfNeeded()
+        UIView.animate(withDuration: time) {
+            self.snp.updateConstraints { make in
+                make.bottom.equalToSuperview().offset(-keyboardHeight)
             }
-        } else
-        if state == .keyboard {
-            UIView.animate(withDuration: self.keyBoardTime, delay: 0) {
-                self.snp.updateConstraints { make in
-                    make.bottom.equalToSuperview().offset(-self.keyBoardHeight)
-                }
-                self.viewController?.view.layoutIfNeeded()
-            }
-        } else { // voice / emotion / add
-            removeEmotionPad()
-            removeMorePad()
-            setUIforKeyboad()
+            self.viewController?.view.layoutIfNeeded()
         }
+        
+//        if state == .initinal {
+//            UIView.animate(withDuration: time) {
+//                self.snp.updateConstraints { make in
+//                    make.bottom.equalToSuperview().offset(-keyboardHeight)
+//                }
+//                self.viewController?.view.layoutIfNeeded()
+//            }
+//        } else
+//        if state == .keyboard {
+//            UIView.animate(withDuration: self.keyBoardTime, delay: 0) {
+//                self.snp.updateConstraints { make in
+//                    make.bottom.equalToSuperview().offset(-self.keyBoardHeight)
+//                }
+//                self.viewController?.view.layoutIfNeeded()
+//            }
+//        }
     }
     
     @objc func keyboardWillHide(_ noti: Notification){
@@ -297,6 +292,9 @@ extension ChatInputBar {
               let time = userInfo["UIKeyboardAnimationDurationUserInfoKey"] as? TimeInterval else {
             return
         }
+    
+        removeEmotionPad()
+        removeMorePad()
         
         if state == .initinal {
             UIView.animate(withDuration: time) {
@@ -307,14 +305,20 @@ extension ChatInputBar {
             }
         }else
         if state == .keyboard {
-            if let contentView = self.superview?.superview {
-                UIView.animate(withDuration: time, delay: 0) {
-                    contentView.snp.updateConstraints { make in
-                        make.height.equalTo(self.textView.bounds.height + self.bottomBoxView.bounds.height + CGFloat.safeBottom)
-                    }
-                    self.viewController?.view.layoutIfNeeded()
+            UIView.animate(withDuration: time) {
+                self.snp.updateConstraints { make in
+                    make.bottom.equalToSuperview().offset(-CGFloat.safeBottom)
                 }
+                self.viewController?.view.layoutIfNeeded()
             }
+//            if let contentView = self.superview?.superview {
+//                UIView.animate(withDuration: time, delay: 0) {
+//                    contentView.snp.updateConstraints { make in
+//                        make.height.equalTo(self.textView.bounds.height + self.bottomBoxView.bounds.height + CGFloat.safeBottom)
+//                    }
+//                    self.viewController?.view.layoutIfNeeded()
+//                }
+//            }
         }
         
     }
@@ -359,7 +363,13 @@ extension ChatInputBar {
         emotionBtn.addTap { [weak self] sender in
             guard let self = self else { return }
         
-            if self.state == .emotion { // change to keyboard
+//            if self.state == .emotion { // change to keyboard
+//                self.state = .keyboard
+//                self.removeEmotionPad()
+//                self.setUIforKeyboad()
+//                return;
+//            }
+            if self.emotionBtn.currentImage == UIImage(named: "wechat_input_keyboard")?.withRenderingMode(.alwaysOriginal) {
                 self.state = .keyboard
                 self.removeEmotionPad()
                 self.setUIforKeyboad()
@@ -374,14 +384,29 @@ extension ChatInputBar {
             self.removeMorePad()
             
             let emotionHeight: CGFloat = 600
-            let emotionPad = UIView()
+            let emotionPad = self.emotionPad ?? EmotionPadView {[weak self] item in
+                guard let self = self else { return }
+                self.textView.insertEmotionToTextView(emotion: item)
+                self.textViewDidChange(self.textView)
+            } deleteOrSend: {[weak self] idx in
+                guard let self = self else { return }
+                if idx == 0 { // delete
+                    self.textView.deleteBackward()
+                }else
+                if idx == 1 { // send
+                    self.keyBoardSendBtnClick()
+                }
+            }
             emotionPad.tag = ViewTag.emotionPad
-            emotionPad.backgroundColor = .red.withAlphaComponent(0.5)
             self.emotionPad = emotionPad
             
             if let contentView = self.superview?.superview { // inputView
                 contentView.addSubview(emotionPad)
-                emotionPad.frame = .init(origin: .init(x: 0, y: self.bounds.height), size: .init(width: .width, height: emotionHeight))
+                emotionPad.snp.makeConstraints { make in
+                    make.top.equalTo(self.snp.bottom)
+                    make.left.equalToSuperview()
+                    make.size.equalTo(CGSize.init(width: .width, height: emotionHeight))
+                }
                 
                 UIView.animate(withDuration: self.keyBoardTime, delay: 0) {
                     self.snp.updateConstraints { make in
@@ -440,7 +465,7 @@ extension ChatInputBar {
     
     /// 键盘上 return 按钮点击
     private func keyBoardSendBtnClick(){
-        let text = textView.text ?? ""
+        let text = textView.getAttributeString()
         deledate?.sendBtnClick(text: text, referenceMsg: nil)
         textView.text = ""
         textViewDidChange(textView)
@@ -472,7 +497,7 @@ extension ChatInputBar {
         textView.snp.makeConstraints { make in
             make.left.equalTo(voiceBtn.snp.right).offset(5)
             make.top.equalToSuperview().offset(7)
-            make.height.equalTo(35)
+            make.height.equalTo(38)
         }
         
         emotionBtn.snp.makeConstraints { make in
@@ -545,6 +570,7 @@ extension ChatInputBar {
         btn.titleLabel?.font = .boldSystemFont(ofSize: 15)
         btn.setTitle("按住 说话", for: .normal)
         btn.setTitleColor(.black, for: .normal)
+        btn.backgroundColor = .C_FFFFFF
         return btn
     }
     
@@ -584,13 +610,12 @@ extension ChatInputBar {
     
     /// 保存草稿
     private func restoreDraft() {
-        draft = textView.text
-        textView.text = ""
+        draft = textView.attributedText
     }
     
     /// 恢复草稿
     private func recoverDraft() {
-        textView.text = draft
+        textView.attributedText = draft
         textViewDidChange(textView)
     }
     
@@ -648,7 +673,7 @@ extension ChatInputBar {
         restoreDraft()
         
         self.textView.snp.updateConstraints { make in
-            make.height.equalTo(35)
+            make.height.equalTo(38)
         }
         
         UIView.animate(withDuration: keyBoardTime) {

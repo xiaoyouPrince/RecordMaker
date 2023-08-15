@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7DA33F46A5B4A4C28F7E5C69 /* Pods_Cheater.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0BB7D9FF695167719B58D0 /* Pods_Cheater.framework */; };
+		B41F24182A8B88FB00C47458 /* UITextView+Emotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41F24172A8B88FB00C47458 /* UITextView+Emotion.swift */; };
 		B4498DF52A570E9A00B13CFA /* WXChooseStatusController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4498DF42A570E9A00B13CFA /* WXChooseStatusController.swift */; };
 		B4498DF82A57C0FD00B13CFA /* WXListCellLeftSwiptHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4498DF72A57C0FD00B13CFA /* WXListCellLeftSwiptHelper.swift */; };
 		B4498DFA2A58055000B13CFA /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4498DF92A58055000B13CFA /* AlertController.swift */; };
@@ -60,6 +61,8 @@
 		B4AF22742A887DB500405672 /* EditTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF22732A887DB400405672 /* EditTextViewController.swift */; };
 		B4AF22762A88FDD300405672 /* EditImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF22752A88FDD300405672 /* EditImageViewController.swift */; };
 		B4AF22782A89237600405672 /* EditRedPacketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF22772A89237500405672 /* EditRedPacketController.swift */; };
+		B4AF227C2A8B2B7400405672 /* EmotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF227B2A8B2B7400405672 /* EmotionManager.swift */; };
+		B4AF227E2A8B2D8700405672 /* EmotionPadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AF227D2A8B2D8600405672 /* EmotionPadView.swift */; };
 		B4F869A42A38A011003749B8 /* WechatHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */; };
 		B4F869A72A38A346003749B8 /* WXConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A62A38A346003749B8 /* WXConfig.swift */; };
 		B4F869AA2A38A74A003749B8 /* WechatTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869A92A38A74A003749B8 /* WechatTabbar.swift */; };
@@ -95,6 +98,7 @@
 		0E0BB7D9FF695167719B58D0 /* Pods_Cheater.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cheater.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		26A6EDACAA988EFA8AA90764 /* Pods-Cheater.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cheater.release.xcconfig"; path = "Target Support Files/Pods-Cheater/Pods-Cheater.release.xcconfig"; sourceTree = "<group>"; };
 		6E7EDBFBF8ACD50437237B58 /* Pods-Cheater.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cheater.debug.xcconfig"; path = "Target Support Files/Pods-Cheater/Pods-Cheater.debug.xcconfig"; sourceTree = "<group>"; };
+		B41F24172A8B88FB00C47458 /* UITextView+Emotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Emotion.swift"; sourceTree = "<group>"; };
 		B4498DF42A570E9A00B13CFA /* WXChooseStatusController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXChooseStatusController.swift; sourceTree = "<group>"; };
 		B4498DF72A57C0FD00B13CFA /* WXListCellLeftSwiptHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXListCellLeftSwiptHelper.swift; sourceTree = "<group>"; };
 		B4498DF92A58055000B13CFA /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
@@ -149,6 +153,8 @@
 		B4AF22732A887DB400405672 /* EditTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTextViewController.swift; sourceTree = "<group>"; };
 		B4AF22752A88FDD300405672 /* EditImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageViewController.swift; sourceTree = "<group>"; };
 		B4AF22772A89237500405672 /* EditRedPacketController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditRedPacketController.swift; sourceTree = "<group>"; };
+		B4AF227B2A8B2B7400405672 /* EmotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionManager.swift; sourceTree = "<group>"; };
+		B4AF227D2A8B2D8600405672 /* EmotionPadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionPadView.swift; sourceTree = "<group>"; };
 		B4F869A32A38A011003749B8 /* WechatHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatHomeViewController.swift; sourceTree = "<group>"; };
 		B4F869A62A38A346003749B8 /* WXConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXConfig.swift; sourceTree = "<group>"; };
 		B4F869A92A38A74A003749B8 /* WechatTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatTabbar.swift; sourceTree = "<group>"; };
@@ -435,7 +441,10 @@
 			isa = PBXGroup;
 			children = (
 				B4FFBE3C2A362C18001F09AD /* XYChatInputBar.swift */,
+				B41F24172A8B88FB00C47458 /* UITextView+Emotion.swift */,
 				B480554C2A61450E00712CEF /* XYChatInputFunctionPad.swift */,
+				B4AF227B2A8B2B7400405672 /* EmotionManager.swift */,
+				B4AF227D2A8B2D8600405672 /* EmotionPadView.swift */,
 			);
 			path = ChatInputBar;
 			sourceTree = "<group>";
@@ -572,6 +581,7 @@
 				B4498DF82A57C0FD00B13CFA /* WXListCellLeftSwiptHelper.swift in Sources */,
 				B4AF22702A85E38600405672 /* CellContentLocation.swift in Sources */,
 				B48055502A61A66B00712CEF /* InputBarAddFunctionHelper.swift in Sources */,
+				B4AF227E2A8B2D8700405672 /* EmotionPadView.swift in Sources */,
 				B4F869B72A3F4801003749B8 /* WXDataSource.swift in Sources */,
 				B48055562A644B9D00712CEF /* SendVideoController.swift in Sources */,
 				B4498E062A5AD22900B13CFA /* CellContentText.swift in Sources */,
@@ -584,6 +594,7 @@
 				B4F869AA2A38A74A003749B8 /* WechatTabbar.swift in Sources */,
 				B4AF22692A84A94400405672 /* SendLocationController2.swift in Sources */,
 				B4AF22782A89237600405672 /* EditRedPacketController.swift in Sources */,
+				B41F24182A8B88FB00C47458 /* UITextView+Emotion.swift in Sources */,
 				B4AF22572A83427300405672 /* BaseSendMsgController.swift in Sources */,
 				B4AF224B2A6E784700405672 /* MoneyTransferTipView.swift in Sources */,
 				B4498DF52A570E9A00B13CFA /* WXChooseStatusController.swift in Sources */,
@@ -615,6 +626,7 @@
 				B4F869B02A3989E9003749B8 /* WXPersonInfoViewController.swift in Sources */,
 				B4AF22492A6D896B00405672 /* MoneyTransferContentView.swift in Sources */,
 				B4F869D32A540D9A003749B8 /* WXListModel.swift in Sources */,
+				B4AF227C2A8B2B7400405672 /* EmotionManager.swift in Sources */,
 				B4AF223E2A683F2900405672 /* CellContentRedPacket.swift in Sources */,
 				B4AF22592A834DA700405672 /* SendTimeController.swift in Sources */,
 				B48055582A644CD300712CEF /* CellContentVideo.swift in Sources */,
