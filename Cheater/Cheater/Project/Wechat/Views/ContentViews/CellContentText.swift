@@ -15,17 +15,7 @@
 
 import UIKit
 
-class CellContentView: UIView {
-    lazy var deletetBtn = getDeleteBtn()
-    
-    private func getDeleteBtn() -> UIButton{
-        let btn = UIButton(type: .system)
-        btn.setImage(UIImage(named: "buddle-msg-error")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        return btn
-    }
-}
-
-class CellContentText: CellContentView {
+class CellContentText: UIView {
     
     let receiveImg = UIImage(named: "ReceiverTextNodeBkg")?.resizableImage(withCapInsets: .init(top: 25, left: 30, bottom: 22, right: 30))
     let sendImg = UIImage(named: "SenderTextNodeBkg")?.resizableImage(withCapInsets: .init(top: 25, left: 30, bottom: 22, right: 30))
@@ -47,7 +37,6 @@ class CellContentText: CellContentView {
     
     func setupUI() {
         addSubview(bgImage)
-        addSubview(deletetBtn)
         bgImage.addSubview(label)
         
         label.font = .systemFont(ofSize: 20)
@@ -90,10 +79,6 @@ extension CellContentText: WXDetailContentProtocol {
                 make.bottom.equalToSuperview().offset(-12)
             }
             
-            deletetBtn.snp.remakeConstraints { make in
-                make.right.equalTo(bgImage.snp.left).offset(-5)
-                make.centerY.equalTo(bgImage)
-            }
         }else
         {
             bgImage.image = receiveImg
@@ -111,14 +96,8 @@ extension CellContentText: WXDetailContentProtocol {
                 make.right.equalToSuperview().offset(-20)
                 make.bottom.equalToSuperview().offset(-12)
             }
-            
-            deletetBtn.snp.remakeConstraints { make in
-                make.left.equalTo(bgImage.snp.right).offset(5)
-                make.centerY.equalTo(bgImage)
-            }
         }
         
-        deletetBtn.isHidden = !(model.isUserBeingBlocked ?? false)
         if let data = model.data {
             setModel(data)
         }

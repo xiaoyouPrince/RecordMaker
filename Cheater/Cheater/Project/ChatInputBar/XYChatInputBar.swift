@@ -104,6 +104,7 @@ private class ChatInputBar: UIView {
     static var keyBoardHeight: CGFloat = 0
     /// 保存一下 keyBoard 弹出收起动画时间, 内部使用, 默认值 0.25, 根据键盘弹出真实赋值
     static var keyBoardAnimationTimeinterval: CGFloat = 0.25
+    private var textViewOrignHeight: CGFloat = 40
     
     // MARK: - 共有有属性，可外部使用
     
@@ -220,9 +221,6 @@ extension ChatInputBar: UITextViewDelegate {
             state = .initinal
         }
         
-        /*
-         这里看起来最小是38,实际设置的是35
-         */
         let targetHeiht = min(textView.contentSize.height, maxHeight)
         textView.snp.updateConstraints { make in
             make.height.equalTo(targetHeiht)
@@ -264,23 +262,6 @@ extension ChatInputBar {
             }
             self.viewController?.view.layoutIfNeeded()
         }
-        
-//        if state == .initinal {
-//            UIView.animate(withDuration: time) {
-//                self.snp.updateConstraints { make in
-//                    make.bottom.equalToSuperview().offset(-keyboardHeight)
-//                }
-//                self.viewController?.view.layoutIfNeeded()
-//            }
-//        } else
-//        if state == .keyboard {
-//            UIView.animate(withDuration: self.keyBoardTime, delay: 0) {
-//                self.snp.updateConstraints { make in
-//                    make.bottom.equalToSuperview().offset(-self.keyBoardHeight)
-//                }
-//                self.viewController?.view.layoutIfNeeded()
-//            }
-//        }
     }
     
     @objc func keyboardWillHide(_ noti: Notification){
@@ -482,8 +463,8 @@ extension ChatInputBar {
 extension ChatInputBar {
     
     private func setupSubviews() {
-        addSubview(voiceBtn)
         addSubview(textView)
+        addSubview(voiceBtn)
         addSubview(emotionBtn)
         addSubview(addBtn)
         addSubview(holdSpeakBtn)
@@ -497,7 +478,7 @@ extension ChatInputBar {
         textView.snp.makeConstraints { make in
             make.left.equalTo(voiceBtn.snp.right).offset(5)
             make.top.equalToSuperview().offset(7)
-            make.height.equalTo(38)
+            make.height.equalTo(textViewOrignHeight)
         }
         
         emotionBtn.snp.makeConstraints { make in
@@ -541,14 +522,16 @@ extension ChatInputBar {
     
     private func createTextView() -> UITextView {
         let textView = UITextView()
+        let font = UIFont.systemFont(ofSize: 20, weight: .regular)
         textView.delegate = self
         textView.backgroundColor = .white//UIColor.groupTableViewBackground
         textView.tintColor = WXConfig.wxGreen
-        textView.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        textView.textContainerInset = UIEdgeInsets(top: 9, left: 16, bottom: 9, right: 16)
+        textView.font = font
+        textView.textContainerInset = UIEdgeInsets(top: 9, left: 8, bottom: 9, right: 8)
         textView.returnKeyType = .send
         textView.enablesReturnKeyAutomatically = true
         textView.corner(radius: 5)
+        textViewOrignHeight = font.lineHeight + 18
         return textView
     }
     
@@ -560,7 +543,7 @@ extension ChatInputBar {
         let btn = UIButton(type: .system)
         btn.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
         btn.snp.makeConstraints { make in
-            make.width.height.equalTo(CGSize.init(width: 35, height: 35))
+            make.width.height.equalTo(CGSize.init(width: textViewOrignHeight, height: textViewOrignHeight))
         }
         return btn
     }
@@ -626,22 +609,6 @@ extension ChatInputBar {
         emotionBtn.setImage(UIImage(named: "wechat_input_emoticon")?.withRenderingMode(.alwaysOriginal), for: .normal)
     }
     
-    private func setUIforInitinal(){
-        state = .initinal
-        textView.resignFirstResponder()
-        
-        setVoiceAndEmotionBtnInitinal()
-        
-        if let contentView = self.superview?.superview {
-            UIView.animate(withDuration: keyBoardTime, delay: 0) {
-                contentView.snp.updateConstraints { make in
-                    make.height.equalTo(CGFloat.tabBar + self.bottomBoxView.bounds.height)
-                }
-                self.viewController?.view.layoutIfNeeded()
-            }
-        }
-    }
-    
     private func setUIforKeyboad(){
         state = .keyboard
         // 应该先弹出键盘,否则动画期间恢复草稿
@@ -673,7 +640,7 @@ extension ChatInputBar {
         restoreDraft()
         
         self.textView.snp.updateConstraints { make in
-            make.height.equalTo(38)
+            make.height.equalTo(textViewOrignHeight)
         }
         
         UIView.animate(withDuration: keyBoardTime) {

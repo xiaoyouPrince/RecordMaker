@@ -62,6 +62,7 @@ class WXDetailCell: UITableViewCell {
     
     private var iconImage: UIImageView = UIImageView()
     private var nameLabel: UILabel = UILabel()
+    private lazy var deletetBtn = getDeleteBtn()
     private var bubbleView = UIControl()
     private var bottomView = UIControl()
     private var statusBtn: UIButton = UIButton(type: .system)
@@ -92,6 +93,7 @@ class WXDetailCell: UITableViewCell {
         contentView.addSubview(iconImage)
         contentView.addSubview(nameLabel)
         contentView.addSubview(bubbleView)
+        contentView.addSubview(deletetBtn)
         contentView.addSubview(bottomView)
         contentView.addSubview(statusBtn)
         
@@ -211,6 +213,8 @@ extension WXDetailCell {
             nameLabel.textAlignment = .left
             layoutForOtherSend()
         }
+        
+        layoutBottomView()
     }
 }
 
@@ -228,7 +232,7 @@ extension WXDetailCell {
         if iconImage.isHidden { // 默认 iconHidden, name 一定是 hidden
             bubbleView.snp.remakeConstraints { make in
                 make.right.equalTo(-Margin.leftMargin)
-                make.left.equalTo((Margin.leftMargin * 2 + Margin.iconSize)) // 右边留一个边距
+                make.left.greaterThanOrEqualTo((Margin.leftMargin * 2 + Margin.iconSize)) // 右边留一个边距
                 make.top.equalTo(Margin.topMargin)
                 //make.bottom.lessThanOrEqualToSuperview().offset(-Margin.topMargin)
             }
@@ -255,7 +259,7 @@ extension WXDetailCell {
             if nameLabel.isHidden {
                 bubbleView.snp.remakeConstraints { make in
                     make.right.equalTo(iconImage.snp.left).offset(-5)
-                    make.left.equalTo((Margin.leftMargin * 2 + Margin.iconSize)) // 左边留一个边距
+                    make.left.greaterThanOrEqualTo((Margin.leftMargin * 2 + Margin.iconSize)) // 左边留一个边距
                     make.top.equalTo(iconImage)
                     //make.bottom.lessThanOrEqualTo(-Margin.topMargin)
                 }
@@ -278,7 +282,7 @@ extension WXDetailCell {
                 
                 bubbleView.snp.remakeConstraints { make in
                     make.right.equalTo(nameLabel)
-                    make.left.equalTo((Margin.leftMargin * 2 + Margin.iconSize)) // 右边留一个边距
+                    make.left.greaterThanOrEqualTo((Margin.leftMargin * 2 + Margin.iconSize)) // 右边留一个边距
                     make.top.equalTo(nameLabel.snp.bottom).offset(5)
                     //make.bottom.lessThanOrEqualTo(-Margin.topMargin)
                 }
@@ -295,7 +299,12 @@ extension WXDetailCell {
             }
         }
         
-        layoutBottomView()
+        
+        deletetBtn.snp.remakeConstraints { make in
+            make.right.equalTo(bubbleView.snp.left).offset(-5)
+            make.centerY.equalTo(bubbleView)
+        }
+        
     }
     
     /// 对方发送消息的布局
@@ -304,7 +313,7 @@ extension WXDetailCell {
         if iconImage.isHidden { // 默认 iconHidden, name 一定是 hidden
             bubbleView.snp.remakeConstraints { make in
                 make.left.equalTo(Margin.leftMargin)
-                make.right.equalTo(-(Margin.leftMargin * 2 + Margin.iconSize)) // 右边留一个边距
+                make.right.lessThanOrEqualTo(-(Margin.leftMargin * 2 + Margin.iconSize)) // 右边留一个边距
                 make.top.equalTo(Margin.topMargin)
                 //make.bottom.lessThanOrEqualToSuperview().offset(-Margin.topMargin)
             }
@@ -331,7 +340,7 @@ extension WXDetailCell {
             if nameLabel.isHidden {
                 bubbleView.snp.remakeConstraints { make in
                     make.left.equalTo(iconImage.snp.right).offset(5)
-                    make.right.equalTo(-(Margin.leftMargin * 2 + Margin.iconSize)) // 右边留一个边距
+                    make.right.lessThanOrEqualTo(-(Margin.leftMargin * 2 + Margin.iconSize)) // 右边留一个边距
                     make.top.equalTo(iconImage)
                     //make.bottom.lessThanOrEqualTo(-Margin.topMargin)
                 }
@@ -354,7 +363,7 @@ extension WXDetailCell {
                 
                 bubbleView.snp.remakeConstraints { make in
                     make.left.equalTo(nameLabel)
-                    make.right.equalTo(-(Margin.leftMargin * 2 + Margin.iconSize)) // 右边留一个边距
+                    make.right.lessThanOrEqualTo(-(Margin.leftMargin * 2 + Margin.iconSize)) // 右边留一个边距
                     make.top.equalTo(nameLabel.snp.bottom).offset(5)
                     //make.bottom.lessThanOrEqualTo(-Margin.topMargin)
                 }
@@ -371,7 +380,10 @@ extension WXDetailCell {
             }
         }
         
-        layoutBottomView()
+        deletetBtn.snp.remakeConstraints { make in
+            make.left.equalTo(bubbleView.snp.right).offset(5)
+            make.centerY.equalTo(bubbleView)
+        }
     }
     
     /// 完全自定义的布局
@@ -388,6 +400,12 @@ extension WXDetailCell {
         contentView.subviews.forEach { subV in
             subV.snp.removeConstraints()
         }
+    }
+    
+    private func getDeleteBtn() -> UIButton{
+        let btn = UIButton(type: .system)
+        btn.setImage(UIImage(named: "buddle-msg-error")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        return btn
     }
     
     /// 对底部内容布局
@@ -424,6 +442,12 @@ extension WXDetailCell {
             bottomView.subviews.forEach { subV in
                 subV.removeFromSuperview()
             }
+        }
+        
+        if model.isUserBeingBlocked == true {
+            deletetBtn.isHidden = false
+        }else{
+            deletetBtn.isHidden = true
         }
     }
 }
