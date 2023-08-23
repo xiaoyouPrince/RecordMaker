@@ -103,7 +103,7 @@ class InputBarAddFunctionHelper: UIViewController {
             }
         case .red_packet:
             let vc = SendRedpacketViewController()
-            forVC.push(vc, animated: true)
+            forVC.nav_present(vc, animated: true)
             vc.callback = { msgRedPacketModel in
                 let msgModel = WXDetailModel(redPacket: msgRedPacketModel)
                 msgModel.from = forVC.currentSenderID
@@ -111,7 +111,7 @@ class InputBarAddFunctionHelper: UIViewController {
             }
         case .monery_transfer:
             let vc = SendMoneyTransfertViewController()
-            forVC.push(vc, animated: true)
+            forVC.nav_present(vc, animated: true)
             vc.callback = { msgMoneyTransferModel in
                 let msgModel = WXDetailModel(moneyTransfer: msgMoneyTransferModel)
                 msgModel.from = forVC.currentSenderID

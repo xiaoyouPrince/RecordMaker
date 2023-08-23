@@ -29,6 +29,11 @@ class SendRedpacketViewController: XYInfomationBaseViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(textFieldTextDidChange), name: UITextField.textDidChangeNotification, object: nil)
     }
+    
+    override var modalPresentationStyle: UIModalPresentationStyle {
+        set{}
+        get{.custom}
+    }
 }
 
 private extension SendRedpacketViewController {
@@ -200,5 +205,6 @@ private extension SendRedpacketViewController {
     
     @objc func cancelClick() {
         navigationController?.popViewController(animated: true)
+        dismiss(animated: true)
     }
 }

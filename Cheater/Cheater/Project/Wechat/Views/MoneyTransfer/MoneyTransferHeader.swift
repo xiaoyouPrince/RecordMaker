@@ -14,6 +14,21 @@
 import UIKit
 import XYUIKit
 
+class MoneyTransferHeaderModel {
+    /// 头像
+    var icon: UIImage?
+    /// 姓名
+    var name: String?
+    /// 真实姓名
+    var realName: String?
+    /// 微信号码
+    var wechatId: String?
+    /// 转账说明
+    var transferDesc: String?
+    /// 转账限制文字
+    var transferLimitTip: String?
+}
+
 class MoneyTransferHeader: UIView {
 
     let toLabel = UILabel()
@@ -58,6 +73,18 @@ class MoneyTransferHeader: UIView {
         toLabel.text = "转账给" + " " + userInfo.paySceneName
         wxNoLabel.text = "微信号:" + " " + (userInfo.wechatId ?? "")
         iconView.image = userInfo.icon
+    }
+    
+    func setModel(model: MTModel, callback:(()->())? = nil) {
+        toLabel.text = "转账给" + " " + model.paySceneName
+        wxNoLabel.text = "微信号:" + " " + (model.wechatId ?? "")
+        iconView.image = model.icon
+        
+        if let callback = callback {
+            self.addTap { sender in
+                callback()
+            }
+        }
     }
     
 }

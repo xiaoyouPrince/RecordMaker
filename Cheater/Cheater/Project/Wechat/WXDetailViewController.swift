@@ -525,14 +525,24 @@ extension WXDetailViewController {
     /// 删除一条消息
     /// - Parameter model: 被删除的消息对象
     func deleteMsgModel(_ model: WXDetailModel) {
+        
         // dataArray delete
-        dataArray = dataArray.filter { msgModel in model != msgModel }
-        // ui reload
-        tableView.reloadData()
-        // archive DB
-        archiveChatDB()
+        if model == dataArray.last {
+            let dataArrayWithOutLast = dataArray.dropLast(1)
+            if dataArrayWithOutLast.last?.msgType == .time {
+                dataArray = dataArray.dropLast(2)
+            }else{
+                dataArray = dataArray.dropLast(1)
+            }
+        }else{
+            dataArray = dataArray.filter { msgModel in model != msgModel }
+        }
+        
+        // ui reload & archive DB
+        reloadTableAndArchiveDB()
     }
     
+    /// ui reload & archive DB
     func reloadTableAndArchiveDB(){
         tableView.reloadData()
         archiveChatDB()

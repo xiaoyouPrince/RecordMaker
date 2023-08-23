@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		7DA33F46A5B4A4C28F7E5C69 /* Pods_Cheater.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0BB7D9FF695167719B58D0 /* Pods_Cheater.framework */; };
 		B41F24182A8B88FB00C47458 /* UITextView+Emotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41F24172A8B88FB00C47458 /* UITextView+Emotion.swift */; };
+		B41F241B2A94C8DA00C47458 /* MTSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41F241A2A94C8DA00C47458 /* MTSuccessViewController.swift */; };
+		B41F241E2A94CAE700C47458 /* PaySuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41F241D2A94CAE700C47458 /* PaySuccessView.swift */; };
+		B41F24202A94EBE000C47458 /* MoneyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41F241F2A94EBE000C47458 /* MoneyView.swift */; };
+		B41F24222A94F2D800C47458 /* MTBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41F24212A94F2D800C47458 /* MTBaseViewController.swift */; };
+		B41F24242A94FDB000C47458 /* MTWaitTargetReceiveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41F24232A94FDB000C47458 /* MTWaitTargetReceiveController.swift */; };
+		B41F24262A95B10400C47458 /* EditMoneyTransferController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41F24252A95B10400C47458 /* EditMoneyTransferController.swift */; };
+		B41F24282A964CF700C47458 /* EditBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41F24272A964CF700C47458 /* EditBaseViewController.swift */; };
 		B4498DF52A570E9A00B13CFA /* WXChooseStatusController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4498DF42A570E9A00B13CFA /* WXChooseStatusController.swift */; };
 		B4498DF82A57C0FD00B13CFA /* WXListCellLeftSwiptHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4498DF72A57C0FD00B13CFA /* WXListCellLeftSwiptHelper.swift */; };
 		B4498DFA2A58055000B13CFA /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4498DF92A58055000B13CFA /* AlertController.swift */; };
@@ -99,6 +106,13 @@
 		26A6EDACAA988EFA8AA90764 /* Pods-Cheater.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cheater.release.xcconfig"; path = "Target Support Files/Pods-Cheater/Pods-Cheater.release.xcconfig"; sourceTree = "<group>"; };
 		6E7EDBFBF8ACD50437237B58 /* Pods-Cheater.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cheater.debug.xcconfig"; path = "Target Support Files/Pods-Cheater/Pods-Cheater.debug.xcconfig"; sourceTree = "<group>"; };
 		B41F24172A8B88FB00C47458 /* UITextView+Emotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Emotion.swift"; sourceTree = "<group>"; };
+		B41F241A2A94C8DA00C47458 /* MTSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTSuccessViewController.swift; sourceTree = "<group>"; };
+		B41F241D2A94CAE700C47458 /* PaySuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaySuccessView.swift; sourceTree = "<group>"; };
+		B41F241F2A94EBE000C47458 /* MoneyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyView.swift; sourceTree = "<group>"; };
+		B41F24212A94F2D800C47458 /* MTBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTBaseViewController.swift; sourceTree = "<group>"; };
+		B41F24232A94FDB000C47458 /* MTWaitTargetReceiveController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTWaitTargetReceiveController.swift; sourceTree = "<group>"; };
+		B41F24252A95B10400C47458 /* EditMoneyTransferController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMoneyTransferController.swift; sourceTree = "<group>"; };
+		B41F24272A964CF700C47458 /* EditBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBaseViewController.swift; sourceTree = "<group>"; };
 		B4498DF42A570E9A00B13CFA /* WXChooseStatusController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXChooseStatusController.swift; sourceTree = "<group>"; };
 		B4498DF72A57C0FD00B13CFA /* WXListCellLeftSwiptHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXListCellLeftSwiptHelper.swift; sourceTree = "<group>"; };
 		B4498DF92A58055000B13CFA /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
@@ -217,6 +231,28 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B41F24192A94C89000C47458 /* MoneyTransfer */ = {
+			isa = PBXGroup;
+			children = (
+				B41F241C2A94CAC500C47458 /* Views */,
+				B41F241A2A94C8DA00C47458 /* MTSuccessViewController.swift */,
+				B41F24232A94FDB000C47458 /* MTWaitTargetReceiveController.swift */,
+				B41F24212A94F2D800C47458 /* MTBaseViewController.swift */,
+				B41F24272A964CF700C47458 /* EditBaseViewController.swift */,
+				B41F24252A95B10400C47458 /* EditMoneyTransferController.swift */,
+			);
+			path = MoneyTransfer;
+			sourceTree = "<group>";
+		};
+		B41F241C2A94CAC500C47458 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B41F241D2A94CAE700C47458 /* PaySuccessView.swift */,
+				B41F241F2A94EBE000C47458 /* MoneyView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		B4498DF62A57C0AD00B13CFA /* AuthorityManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -309,6 +345,7 @@
 				B480555D2A64BD7200712CEF /* SendVoipCpntroller.swift */,
 				B480555F2A657AB500712CEF /* SendRedpacketViewController.swift */,
 				B4AF22412A6D7BC500405672 /* SendMoneyTransferViewController.swift */,
+				B41F24192A94C89000C47458 /* MoneyTransfer */,
 				B4F869C82A4365BD003749B8 /* WXAddRuleViewController.swift */,
 				B4F869CE2A53D0B6003749B8 /* WXAddSingleChatViewController.swift */,
 				B4F869AF2A3989E9003749B8 /* WXPersonInfoViewController.swift */,
@@ -584,14 +621,17 @@
 				B4AF227E2A8B2D8700405672 /* EmotionPadView.swift in Sources */,
 				B4F869B72A3F4801003749B8 /* WXDataSource.swift in Sources */,
 				B48055562A644B9D00712CEF /* SendVideoController.swift in Sources */,
+				B41F24262A95B10400C47458 /* EditMoneyTransferController.swift in Sources */,
 				B4498E062A5AD22900B13CFA /* CellContentText.swift in Sources */,
 				B4AF225F2A83CB9B00405672 /* CellContentFile.swift in Sources */,
 				B475F2BB2A3698AA006C7351 /* XYHomeViewController.m in Sources */,
+				B41F24222A94F2D800C47458 /* MTBaseViewController.swift in Sources */,
 				B4AF22672A83FCF300405672 /* SendLocationController.swift in Sources */,
 				B4AF22422A6D7BC500405672 /* SendMoneyTransferViewController.swift in Sources */,
 				B4FFBE3D2A362C18001F09AD /* XYChatInputBar.swift in Sources */,
 				B4F869A42A38A011003749B8 /* WechatHomeViewController.swift in Sources */,
 				B4F869AA2A38A74A003749B8 /* WechatTabbar.swift in Sources */,
+				B41F24282A964CF700C47458 /* EditBaseViewController.swift in Sources */,
 				B4AF22692A84A94400405672 /* SendLocationController2.swift in Sources */,
 				B4AF22782A89237600405672 /* EditRedPacketController.swift in Sources */,
 				B41F24182A8B88FB00C47458 /* UITextView+Emotion.swift in Sources */,
@@ -608,6 +648,7 @@
 				B48055422A5F9D9A00712CEF /* SendAudioViewController.swift in Sources */,
 				B4AF22442A6D7F7E00405672 /* MoneyTransferHeader.swift in Sources */,
 				B4498E042A5AC7BB00B13CFA /* WXDetailModel.swift in Sources */,
+				B41F241B2A94C8DA00C47458 /* MTSuccessViewController.swift in Sources */,
 				B4AF225B2A8353AC00405672 /* SendLinkController.swift in Sources */,
 				B4498DFA2A58055000B13CFA /* AlertController.swift in Sources */,
 				B4F869AE2A396BD8003749B8 /* MineInfoView.swift in Sources */,
@@ -615,10 +656,12 @@
 				B48055602A657AB500712CEF /* SendRedpacketViewController.swift in Sources */,
 				B48055452A5FC21700712CEF /* CellContentVoice.swift in Sources */,
 				B4AF22652A83EDD100405672 /* SendIDCardController.swift in Sources */,
+				B41F24202A94EBE000C47458 /* MoneyView.swift in Sources */,
 				B4498E022A5AC48600B13CFA /* WXDetailCell.swift in Sources */,
 				B48055522A62615D00712CEF /* ChoosePhotoController.swift in Sources */,
 				B4F869D52A541B83003749B8 /* WXListCell.swift in Sources */,
 				B4FFBE3A2A3619C2001F09AD /* MineViewController.swift in Sources */,
+				B41F241E2A94CAE700C47458 /* PaySuccessView.swift in Sources */,
 				B4F869BC2A405475003749B8 /* WXContactCell.swift in Sources */,
 				B4AF224F2A702C2700405672 /* WXPayInputPwdView.swift in Sources */,
 				B4F869C92A4365BD003749B8 /* WXAddRuleViewController.swift in Sources */,
@@ -647,6 +690,7 @@
 				B48055542A64293100712CEF /* CellContentPhoto.swift in Sources */,
 				B4AF22552A8256A200405672 /* SendSystemMsgController.swift in Sources */,
 				B4AF22532A823A9900405672 /* CellContentSysgtemMsg.swift in Sources */,
+				B41F24242A94FDB000C47458 /* MTWaitTargetReceiveController.swift in Sources */,
 				B4498DFE2A5A571E00B13CFA /* WXDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

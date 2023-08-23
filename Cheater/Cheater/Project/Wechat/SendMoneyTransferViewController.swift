@@ -15,6 +15,9 @@ import XYUIKit
 import XYInfomationSection
 
 class SendMoneyTransfertViewController: XYInfomationBaseViewController {
+    /// 是否是从首页直接进入的
+    var isFromHome: Bool = false
+    private var mtModel: MTModel = .init()
     
     let header = MoneyTransferHeader()
     let content = MoneyTransferContentView()
@@ -25,6 +28,16 @@ class SendMoneyTransfertViewController: XYInfomationBaseViewController {
         view.backgroundColor = WXConfig.navBarBgColor
 
         buildUI()
+        
+        if isFromHome == true { // if is push from home page
+            content.transferBtnCallback = { [weak self] in
+                guard let self = self else { return }
+                self.showTransferResultMenu()
+            }
+            
+            // 本页面专属转账对象
+            setHeaderWhenIsBeingPresnted()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,6 +48,11 @@ class SendMoneyTransfertViewController: XYInfomationBaseViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         content.end()
+    }
+    
+    override var modalPresentationStyle: UIModalPresentationStyle {
+        set{}
+        get{.custom}
     }
 }
 
@@ -73,10 +91,10 @@ private extension SendMoneyTransfertViewController {
             make.bottom.equalToSuperview().offset(15)
         }
         
-        content.callback = { // 用户输入完成回调, 这里创建 转账模型
+        content.callback = { // 用户输入完成回调, 这里创建 转账模型 - this is default action
             [weak self] in
             guard let self = self else { return }
-            
+
             let model = MsgMoneyTransferModel()
             model.amountOfMoney = self.content.moneyString
             model.transferInstructions = self.content.transferInstructions
@@ -87,5 +105,109 @@ private extension SendMoneyTransfertViewController {
     
     @objc func cancelClick() {
         navigationController?.popViewController(animated: true)
+        dismiss(animated: true)
+    }
+}
+
+// MARK: - 单独 push 进入此页面的特殊操作
+
+extension SendMoneyTransfertViewController {
+    override var isBeingPresented: Bool {
+        if navigationController == nil {
+            return super.isBeingPresented
+        }else{
+            for res in responderChain {
+                if let vc = res as? UIViewController, vc != self, vc.isBeingPresented == true {
+                    return true
+                }
+            }
+            return false
+        }
+    }
+    
+    func setHeaderWhenIsBeingPresnted() {
+        if let mtModel: MTModel = XYFileManager.readFile(with: "mt_file").first {
+            self.mtModel = mtModel
+            content.updateTransferInstructions(mtModel.transferDesc ?? "")
+            header.setModel(model: mtModel) { [weak self] in
+                guard let self = self else { return }
+                //print("header - click")
+                
+                let detail = EditMoneyTransferController2()
+                self.push(detail, animated: true)
+                detail.setModel(model: mtModel) {[weak self] mtModel in
+                    guard let self = self else { return }
+                    // update UI
+                    self.header.setModel(model: mtModel)
+                    self.content.updateTransferInstructions(mtModel.transferDesc ?? "")
+                    
+                    // update data
+                    XYFileManager.writeFile(with: "mt_file", models: [mtModel])
+                }
+            }
+        }else{
+            let userInfo = WXUserInfo.shared
+            let mtModel = MTModel()
+            mtModel.name = userInfo.name
+            mtModel.iconName = userInfo.iconName
+            mtModel.realName = userInfo.realName
+            mtModel.wechatId = userInfo.wechatId
+            XYFileManager.writeFile(with: "mt_file", models: [mtModel])
+            setHeaderWhenIsBeingPresnted()
+        }
+    }
+    
+    /// 转账按钮点击后,自定义操作,展示结果页面
+    func showTransferResultMenu() {
+        let actionTitles = [
+            "转账成功(更多7个页面)",
+            "扫码转账成功(个人)",
+            "扫码转账成功(商户)",
+            "转账限额"]
+        XYAlertSheetController.showDefault(on: self, title: nil, subTitle: nil, actions: actionTitles) { index in
+            if index == 0 {
+                self.showDetailResultPage()
+            } else if index == 1 {
+                
+            } else if index == 2 {
+                
+            } else if index == 3 {
+                
+            }
+        }
+    }
+    
+    /// 展示具体的子页面
+    func showDetailResultPage() {
+        let actionTitles = [
+            "付款成功页面",
+            "待对方确认收款",
+            "对方已收款",
+            "待我确认收款",
+            "我已收款",
+            "我已退还",
+            "对方已退还"]
+        XYAlertSheetController.showDefault(on: self, title: nil, subTitle: nil, actions: actionTitles) { index in
+            if index == 0 {
+                let detail = MTSuccessViewController()
+                self.push(detail, animated: true)
+                detail.mtModel = self.getCurrentMTModel()
+            } else if index == 1 {
+                let detail = MTWaitTargetReceiveController()
+                self.push(detail, animated: true)
+                detail.mtModel = self.getCurrentMTModel()
+            } else if index == 2 {
+                
+            } else if index == 3 {
+                
+            }
+        }
+    }
+    
+    func getCurrentMTModel() -> MTModel {
+        mtModel.moneyAmount = content.moneyFloatString
+        mtModel.transferDesc = content.transferInstructions
+        mtModel.time = TimeTool.timeString(from: .since1970)
+        return mtModel
     }
 }

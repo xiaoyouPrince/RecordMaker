@@ -86,19 +86,56 @@ class HomeViewController: XYInfomationBaseViewController {
     func getWechatItems() -> [ItemInfo] {
         var result = [ItemInfo]()
         
-        let home = ItemInfo(title: "微信首页", icon: "", badge: "旧版")
-        let singleChat = ItemInfo(title: "微信(单聊)", icon: "", badge: "新版")
-        let home2 = ItemInfo(title: "微信首页2", icon: "", badge: "火热")
-        let singleChat2 = ItemInfo(title: "微信(单聊)2", icon: "", badge: "教程")
-        let home3 = ItemInfo(title: "微信首页3", icon: "", badge: "2022")
-        let singleChat3 = ItemInfo(title: "微信(单聊)3", icon: "", badge: "New")
+        let home = ItemInfo(title: "微信首页", icon: "scan_samll_wechat", badge: "")
+        let home2 = ItemInfo(title: "微信(单聊)", icon: "scan_samll_wechat", badge: "")
+        let home3 = ItemInfo(title: "微信(群聊)", icon: "scan_samll_wechat", badge: "")
+        let home4 = ItemInfo(title: "微信转账", icon: "scan_samll_wechat", badge: "")
+        let home5 = ItemInfo(title: "微信钱包", icon: "scan_samll_wechat", badge: "旧版")
+        let home6 = ItemInfo(title: "微信钱包", icon: "scan_samll_wechat", badge: "新版")
+        let home7 = ItemInfo(title: "新的朋友", icon: "scan_samll_wechat", badge: "")
+        let home8 = ItemInfo(title: "微信红包", icon: "scan_samll_wechat", badge: "")
+        let home9 = ItemInfo(title: "零钱", icon: "scan_samll_wechat", badge: "")
+        let home10 = ItemInfo(title: "零钱明细", icon: "scan_samll_wechat", badge: "旧版")
+        let home11 = ItemInfo(title: "零钱明细", icon: "scan_samll_wechat", badge: "新版")
+        let home12 = ItemInfo(title: "零钱提现", icon: "scan_samll_wechat", badge: "")
+        let home13 = ItemInfo(title: "朋友圈", icon: "scan_samll_wechat", badge: "")
+        let home14 = ItemInfo(title: "账单", icon: "scan_samll_wechat", badge: "旧版")
+        let home15 = ItemInfo(title: "账单", icon: "scan_samll_wechat", badge: "新版")
+        let home16 = ItemInfo(title: "微信支付", icon: "scan_samll_wechat", badge: "")
+        let home17 = ItemInfo(title: "微粒贷", icon: "scan_samll_wechat", badge: "")
+        let home18 = ItemInfo(title: "收款助手", icon: "scan_samll_wechat", badge: "")
+        let home19 = ItemInfo(title: "月统计", icon: "scan_samll_wechat", badge: "")
+        let home20 = ItemInfo(title: "年账单", icon: "scan_samll_wechat", badge: "火热")
+        let home21 = ItemInfo(title: "群发助手", icon: "scan_samll_wechat", badge: "")
+        let home22 = ItemInfo(title: "微信个人信息", icon: "scan_samll_wechat", badge: "")
+        let home23 = ItemInfo(title: "转账助手", icon: "scan_samll_wechat", badge: "")
+        let home24 = ItemInfo(title: "我的朋友圈", icon: "scan_samll_wechat", badge: "")
         
         result.append(home)
-        result.append(singleChat)
         result.append(home2)
-        result.append(singleChat2)
         result.append(home3)
-        result.append(singleChat3)
+        result.append(home4)
+        result.append(home5)
+        result.append(home6)
+        result.append(home7)
+        result.append(home8)
+        result.append(home9)
+        result.append(home10)
+        result.append(home11)
+        result.append(home12)
+        result.append(home13)
+        result.append(home14)
+        result.append(home15)
+        result.append(home16)
+        result.append(home17)
+        result.append(home18)
+        result.append(home19)
+        result.append(home20)
+        result.append(home21)
+        result.append(home22)
+        result.append(home23)
+        result.append(home24)
+        
         return result
     }
 }
@@ -126,7 +163,7 @@ class ItemView: UIControl {
         self.item = item
         super.init(frame: .zero)
         
-        backgroundColor = .random
+        backgroundColor = .white
         iconImage.contentMode = .center
         titleLabel.textAlignment = .center
         
@@ -135,7 +172,7 @@ class ItemView: UIControl {
         addSubview(badge)
         
         iconImage.image = UIImage(named: item.icon)
-        iconImage.backgroundColor = .random
+        iconImage.backgroundColor = .clear
         iconImage.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview().offset( -15)
@@ -143,10 +180,12 @@ class ItemView: UIControl {
         }
         
         titleLabel.text = item.title
+        titleLabel.numberOfLines = 0
+        titleLabel.font = .systemFont(ofSize: 14)
         titleLabel.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.top.equalTo(iconImage.snp.bottom).offset(10)
-            make.height.equalTo(15)
+            //.height.equalTo(15)
         }
         
         badge.font = UIFont.systemFont(ofSize: 10)
@@ -162,6 +201,7 @@ class ItemView: UIControl {
             make.width.equalTo(badge.bounds.size.width + 10)
             make.height.equalTo(badge.bounds.size.height + 5)
         }
+        badge.isHidden = item.badge.isEmpty
     }
     
     required init?(coder: NSCoder) {
@@ -257,6 +297,10 @@ class HomeCell: XYInfomationCell {
                             var detail: UIViewController!
                             if itemView.item.title == "微信首页" {
                                 detail = WechatHomeViewController()
+                            }else if itemView.item.title == "微信转账" {
+                                let mtVC = SendMoneyTransfertViewController()
+                                mtVC.isFromHome = true
+                                detail = mtVC
                             }else{
                                 detail = MineViewController()
                             }

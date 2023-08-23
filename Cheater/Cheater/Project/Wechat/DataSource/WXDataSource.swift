@@ -281,7 +281,7 @@ class DataSource_wxDetail {
     /// 当前被发言的人, 单聊中就是用户自己或者 targetContact, 群聊中就是更具体的对方
     static var currentUserBeingSpoken: WXContact? {
         if currentSpeaker == nil { // 默认没有设置的时候就是对方<当前仅为单聊,群聊后续处理>
-            return targetContact
+            return targetContact ?? WXContact.init(userInfo: WXUserInfo.shared)
         }
         
         if currentSpeaker?.userInfo.wechatId == WXUserInfo.shared.wechatId {

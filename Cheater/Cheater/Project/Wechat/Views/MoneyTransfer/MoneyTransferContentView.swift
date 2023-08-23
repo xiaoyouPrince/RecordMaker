@@ -14,17 +14,9 @@ import UIKit
 import XYUIKit
 
 class MoneyTextField: UITextField {
+    /// 禁用菜单功能
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         UIMenuController.shared.hideMenu(from: self)
-        DispatchQueue.main.async {
-            self.findSubViewRecursion { subview in
-                if subview.bounds.width == 2 {
-                    subview.backgroundColor = WXConfig.wxGreen
-                    return true
-                }
-                return false
-            }
-        }
         return false
     }
 }
@@ -38,7 +30,10 @@ class MoneyTransferContentView: UIView {
     private let moneyTipView = MoneyTransferTipView()
     private let tipLabel = UILabel()
     private let changeTipBtn = UIButton(type: .system)
+    /// 转账流程整体完成回调,如果实现 transferBtnCallback 来自定义流程则不会执行此回调
     public var callback: (()->())?
+    /// 转账按钮点击回调
+    public var transferBtnCallback: (()->())?
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -55,14 +50,31 @@ class MoneyTransferContentView: UIView {
 
 extension MoneyTransferContentView {
     
-    /// 获取转账数额
+    /// 获取转账数额 egg: "2"
     var moneyString: String {
         moneyTF.text ?? ""
+    }
+    
+    /// 获取转账数额 egg: "2.00"
+    var moneyFloatString: String {
+        let floatValue = CGFloat(self.moneyTF.text?.floatValue ?? 0.0)
+        return String(format: "%.2f", floatValue)
     }
     
     /// 转账说明
     var transferInstructions: String {
         tipLabel.text ?? ""
+    }
+    
+    /// 更新转账说明
+    /// - Parameter text: 转账说明
+    func updateTransferInstructions(_ text: String) {
+        tipLabel.text = text
+        if text.isEmpty {
+            self.changeTipBtn.setTitle("添加转账说明", for: .normal)
+        } else {
+            self.changeTipBtn.setTitle("修改", for: .normal)
+        }
     }
     
     
@@ -92,17 +104,8 @@ extension MoneyTransferContentView {
             }
         }
         
+        moneyTF.tintColor = WXConfig.wxGreen
         moneyTF.inputView = input
-        DispatchQueue.main.asyncAfter(deadline: .now() + UINavigationController.hideShowBarDuration, execute: {
-            self.moneyTF.becomeFirstResponder()
-            self.moneyTF.findSubViewRecursion { subview in
-                if subview.bounds.width == 2 {
-                    subview.backgroundColor = WXConfig.wxGreen
-                    return true
-                }
-                return false
-            }
-        })
     }
     
     func end() {
@@ -243,6 +246,11 @@ private extension MoneyTransferContentView {
     
     /// 校验完成,转账前进行微信支付,输入密码和确认的流程
     func readyToTransfer() {
+        if let transferBtnCallback = transferBtnCallback {
+            transferBtnCallback()
+            return
+        }
+        
         /*
          * - TODO -
          * 仿写微信支付流程

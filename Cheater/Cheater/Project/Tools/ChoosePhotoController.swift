@@ -26,7 +26,7 @@ class ChoosePhotoController: UIViewController {
         self.shared.callback = callback
         
         let currentVC = UIViewController.currentVisibleVC
-        XYAlertSheetController.showDefault(on: currentVC, title: "从哪里选择", subTitle: nil, actions: ["相册", "拍照"] ) { index in
+        XYAlertSheetController.showDefault(on: currentVC, title: nil, subTitle: nil, actions: ["相册", "拍照"] ) { index in
             if index == 0 {
                 self.shared.askAuthAndChooseImage(type: .album)
             }else if index == 1 {
