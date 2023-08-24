@@ -33,6 +33,8 @@ class MTModel: Codable {
     var moneyAmount: String?
     /// 转账时间
     var time: String?
+    /// 收款时间
+    var receiveTime: String?
 }
 
 extension MTModel {
@@ -77,7 +79,9 @@ class MTBaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navigationController?.setNavigationBarHidden(true, animated: false)
+        nav_setCustom(backImage: .wx_backImag)
+        nav_hideBarBottomLine()
+        
         buildUI()
     }
 }
@@ -100,8 +104,14 @@ extension MTBaseViewController {
         tipsLabel.attributedText = attrStr
     }
     
-    @objc func updateSection() {
-        
+    @objc func updateSection(with dataArray: [XYInfomationItem]) {
+        sectionView.dataArray = dataArray.map({ item in
+            item.type = .other
+            item.customCellClass = SectionCell.self
+            item.cellHeight = 30
+            item.isHideSeparateLine = true
+            return item
+        })
     }
     
     func buildUI() {
@@ -121,7 +131,7 @@ extension MTBaseViewController {
         iconView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(CGFloat.naviBar + 50)
-            make.width.height.equalTo(80)
+            make.width.height.equalTo(60)
         }
         
         statusLabel.snp.makeConstraints { make in
@@ -149,6 +159,49 @@ extension MTBaseViewController {
         sectionView.snp.makeConstraints { make in
             make.top.equalTo(line.snp.bottom).offset(5)
             make.left.right.equalTo(line)
+        }
+    }
+}
+
+class SectionCell: XYInfomationCell {
+    var titelLabel = UILabel()
+    var detailLabel = UILabel()
+    
+    override init(frame:CGRect) {
+        super.init(frame: frame)
+        
+        addSubview(titelLabel)
+        addSubview(detailLabel)
+        
+        titelLabel.font = .systemFont(ofSize: 12)
+        titelLabel.textColor = .C_wx_tip_text
+        titelLabel.numberOfLines = 0
+        detailLabel.font = .systemFont(ofSize: 12)
+        detailLabel.textColor = .C_000000
+        detailLabel.numberOfLines = 0
+        
+        titelLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        titelLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        titelLabel.snp.makeConstraints { make in
+            make.top.left.equalToSuperview().offset(5)
+        }
+        
+        detailLabel.snp.makeConstraints { make in
+            make.top.equalTo(titelLabel)
+            make.right.equalToSuperview().offset(-5)
+            make.bottom.lessThanOrEqualToSuperview().offset(-5)
+            make.left.greaterThanOrEqualTo(titelLabel.snp.right).offset(30)
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override var model: XYInfomationItem{
+        didSet{
+            titelLabel.text = model.title
+            detailLabel.text = model.value
         }
     }
 }

@@ -69,4 +69,14 @@ struct AlertController {
         
         UIViewController.currentVisibleVC.present(alert, animated: true)
     }
+    
+    /// 弹出合法性提示弹框
+    /// - Parameter callBack: 当用户点击不同意按钮回调
+    static func showLegalTips(callBack: @escaping ()->()) {
+        showAlert(title: "改功能仅限于娱乐,请勿用于违法行为,否则封号上报!", message: "", btnTitles: "同意","不同意") { index in
+            if index == 1 {
+                callBack()
+            }
+        }
+    }
 }

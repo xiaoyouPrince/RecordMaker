@@ -21,6 +21,13 @@ import Foundation
 
 struct TimeTool {
     
+    /// 展示完整的时间字符串
+    /// - Parameter timeInterval: 时间戳
+    /// - Returns: egg: 2020年9月29日 10:23:30
+    static func fullTime(from timeInterval: TimeInterval) -> String {
+        Date(timeIntervalSince1970: timeInterval).string(withFormatter: "yyyy年MM月dd日 HH:mm:ss")
+    }
+    
     static func timeString(from timeInterval: TimeInterval) -> String {
         return showDetailTime(msgTime: timeInterval)
     }

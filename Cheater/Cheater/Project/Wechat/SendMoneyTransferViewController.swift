@@ -168,11 +168,31 @@ extension SendMoneyTransfertViewController {
             if index == 0 {
                 self.showDetailResultPage()
             } else if index == 1 {
-                
+                let detail = MTSuccessViewController()
+                self.push(detail, animated: true)
+                detail.isPersonal = true
+                detail.mtModel = self.getCurrentMTModel()
             } else if index == 2 {
-                
+                let detail = MTSuccessViewController()
+                self.push(detail, animated: true)
+                detail.isMerchant = true
+                detail.mtModel = self.getCurrentMTModel()
             } else if index == 3 {
-                
+                AlertController.showAlert(title: "", message: self.mtModel.transferLimitTip ?? "", btnTitles: "确定", "查看解决办法") { index in
+                    if index == 1 {
+                        let detail = EditMoneyTransferController2()
+                        self.push(detail, animated: true)
+                        detail.setModel(model: self.mtModel) {[weak self] mtModel in
+                            guard let self = self else { return }
+                            // update UI
+                            self.header.setModel(model: mtModel)
+                            self.content.updateTransferInstructions(mtModel.transferDesc ?? "")
+                            
+                            // update data
+                            XYFileManager.writeFile(with: "mt_file", models: [mtModel])
+                        }
+                    }
+                }
             }
         }
     }
@@ -197,9 +217,26 @@ extension SendMoneyTransfertViewController {
                 self.push(detail, animated: true)
                 detail.mtModel = self.getCurrentMTModel()
             } else if index == 2 {
-                
+                let detail = MTTargetReceivedController()
+                self.push(detail, animated: true)
+                detail.mtModel = self.getCurrentMTModel()
             } else if index == 3 {
-                
+                let detail = MTWaitMeReceiveController()
+                self.push(detail, animated: true)
+                detail.mtModel = self.getCurrentMTModel()
+            } else if index == 4 {
+                let detail = MTMeReceivedController()
+                self.push(detail, animated: true)
+                detail.mtModel = self.getCurrentMTModel()
+            } else if index == 5 {
+                let detail = MTAlreadySendBackController()
+                self.push(detail, animated: true)
+                detail.mtModel = self.getCurrentMTModel()
+            } else if index == 6 {
+                let detail = MTAlreadySendBackController()
+                detail.isFromTarget = true
+                self.push(detail, animated: true)
+                detail.mtModel = self.getCurrentMTModel()
             }
         }
     }
@@ -207,7 +244,8 @@ extension SendMoneyTransfertViewController {
     func getCurrentMTModel() -> MTModel {
         mtModel.moneyAmount = content.moneyFloatString
         mtModel.transferDesc = content.transferInstructions
-        mtModel.time = TimeTool.timeString(from: .since1970)
+        mtModel.time = TimeTool.fullTime(from: .since1970)
+        mtModel.receiveTime = TimeTool.fullTime(from: .since1970 + 2)
         return mtModel
     }
 }

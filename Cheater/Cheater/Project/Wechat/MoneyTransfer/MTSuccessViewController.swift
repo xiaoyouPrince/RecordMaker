@@ -18,10 +18,15 @@ import XYUIKit
 class MTSuccessViewController: XYInfomationBaseViewController {
     
     private var icon: PaySuccessView = .shared
+    private var avatarView: UIImageView = .init(frame: CGRect.zero)
     private var titleLabel: UILabel = .init()
     private var moneyView: MoneyView = .init(with: "")
     
     var mtModel: MTModel?
+    /// 是否是个人
+    var isPersonal = false {didSet{if isPersonal { isMerchant = false}}}
+    /// 是否是商户
+    var isMerchant = false {didSet{if isMerchant { isPersonal = false}}}
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,11 +46,20 @@ class MTSuccessViewController: XYInfomationBaseViewController {
             make.centerX.equalToSuperview()
         }
         
+        // avatarView
+        view.addSubview(avatarView)
+        avatarView.corner(radius: 25)
+        avatarView.snp.makeConstraints { make in
+            make.top.equalTo(icon.snp.bottom).offset(80)
+            make.centerX.equalToSuperview()
+            make.width.height.equalTo(50)
+        }
+        
         // titleLabel
         titleLabel = UILabel(title: "XYInfomationSection", font: .systemFont(ofSize: 15), textColor: .C_000000, textAlignment: .center)
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(icon.snp.bottom).offset(100)
+            make.top.equalTo(avatarView.snp.bottom).offset(30)
             make.centerX.equalToSuperview()
         }
         
@@ -82,6 +96,29 @@ class MTSuccessViewController: XYInfomationBaseViewController {
         
         titleLabel.text = "待" + (mtModel.name ?? "") + "确认收款"
         moneyView.moneyStr = mtModel.moneyAmount ?? "0.00"
+        
+        if isPersonal {
+            avatarView.image = mtModel.icon
+            titleLabel.text = mtModel.paySceneName
+            avatarView.snp.updateConstraints { make in
+                make.width.height.equalTo(50)
+            }
+        }else{
+            avatarView.image = nil
+            avatarView.snp.updateConstraints { make in
+                make.width.height.equalTo(0)
+            }
+        }
+        
+        if isMerchant {
+            titleLabel.text = mtModel.name
+        }
+        
+        if isMerchant || isPersonal {
+            AlertController.showLegalTips {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
     }
 
 }
