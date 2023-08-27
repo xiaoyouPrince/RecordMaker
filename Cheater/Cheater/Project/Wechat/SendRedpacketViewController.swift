@@ -18,13 +18,14 @@ class SendRedpacketViewController: XYInfomationBaseViewController {
     
     weak var moneyTF: UITextField?
     weak var greetingTF: UITextField?
-    weak var moneyLabel: UILabel?
+    weak var moneyView: MoneyView?
     var callback:((MsgRedPacketModel)->())?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = WXConfig.navBarBgColor
 
+        scrollView.delegate = self
         buildUI()
         
         NotificationCenter.default.addObserver(self, selector: #selector(textFieldTextDidChange), name: UITextField.textDidChangeNotification, object: nil)
@@ -36,15 +37,20 @@ class SendRedpacketViewController: XYInfomationBaseViewController {
     }
 }
 
+extension SendRedpacketViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.moneyTF?.resignFirstResponder()
+        self.greetingTF?.resignFirstResponder()
+    }
+}
+
 private extension SendRedpacketViewController {
     
     func buildUI() {
         buildNav()
         
         setHeaderView(createTopView(), edgeInsets: .init(top: 8, left: 16, bottom: 10, right: 16))
-        
         setContentView(createContentView(), edgeInsets: .init(top: 20, left: 0, bottom: 0, right: 0))
-        
         setFooterView(createFooterView(), edgeInsets: .init(top: 10, left: 40, bottom: 0, right: 40))
         
         addTipLabel()
@@ -95,8 +101,10 @@ private extension SendRedpacketViewController {
         }
         
         tf.textAlignment = .right
-        tf.font = .systemFont(ofSize: 16)
+        tf.keyboardType = .decimalPad
+        tf.font = .systemFont(ofSize: 17)
         tf.textColor = .C_000000
+        tf.placeholder = "0.00"
         tf.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.right.equalTo(yuanLabel.snp.left).offset(-5)
@@ -131,24 +139,16 @@ private extension SendRedpacketViewController {
     
     func createContentView() -> UIView {
         let contentView = UIView()
-        let yuanLabel = UILabel(title: "¥", font: .wx_moeny_font(35), textColor: .C_000000, textAlignment: .center)
-        let moneyLabel = UILabel()
-        contentView.addSubview(yuanLabel)
-        contentView.addSubview(moneyLabel)
-        moneyLabel.snp.makeConstraints { make in
-            make.height.equalTo(60)
-            make.centerY.equalToSuperview()
-            make.centerX.equalToSuperview().offset(15)
-            make.bottom.top.equalToSuperview()
+        let moneyView = MoneyView(with: "0.00", scale: 1.1)
+        self.moneyView = moneyView
+        contentView.addSubview(moneyView)
+        moneyView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
         }
-        moneyLabel.text = "0.00"
-        moneyLabel.font = .wx_moeny_font(50)
-        yuanLabel.snp.makeConstraints { make in
-            make.right.equalTo(moneyLabel.snp.left).offset(-5)
-            make.top.equalTo(moneyLabel).offset(5)
-        }
-        self.moneyLabel = moneyLabel
         
+        contentView.snp.makeConstraints { make in
+            make.height.equalTo(80)
+        }
         return contentView
     }
     
@@ -165,12 +165,18 @@ private extension SendRedpacketViewController {
         
         footer.addTap {[weak self] sender in
             guard let self = self else { return }
-            if let money = self.moneyLabel?.text, money != "0.00" {
-                let model = MsgRedPacketModel()
-                model.amountOfMoney = money
-                model.sayingWords = self.greetingTF?.text
-                self.callback?(model)
-                self.cancelClick()
+            if let money = self.moneyView?.moneyStr, money != "0.00" {
+                if let callback = self.callback {
+                    // 从聊天发红包进入
+                    let model = MsgRedPacketModel()
+                    model.amountOfMoney = money
+                    model.sayingWords = self.greetingTF?.text
+                    callback(model)
+                    self.cancelClick()
+                }else{
+                    // 从首页进来,展示功能
+                    self.showMenuSheet()
+                }
             }else{
                 Toast.make("请输入正确金额")
             }
@@ -196,15 +202,61 @@ private extension SendRedpacketViewController {
         
         if tf == self.moneyTF {
             //Toast.make("tf.text = \(String(describing: tf.text))")
-            let doubleValue = tf.text?.doubleValue
-            
-            let str = String(format: "%.2f", doubleValue!)
-            self.moneyLabel?.text = str
+            //let doubleValue = tf.text?.doubleValue
+            //let str = String(format: "%.2f", doubleValue!)
+            self.moneyView?.moneyStr = tf.text ?? ""
         }
     }
     
     @objc func cancelClick() {
         navigationController?.popViewController(animated: true)
         dismiss(animated: true)
+    }
+}
+
+extension SendRedpacketViewController {
+    
+    func getModel() -> RedPacketBaseViewController.RedPacketModel {
+        let model = RedPacketBaseViewController.RedPacketModel.init()
+        model.moneyAmount = moneyView?.moneyStr
+        if let tipText = greetingTF?.text, tipText.isEmpty {
+            model.tipString = greetingTF?.placeholder ?? ""
+        }else{
+            model.tipString = greetingTF?.text
+        }
+        
+        let contact = WXContact.random
+        model.receiverIcon = contact.image
+        model.receiverName = contact.realName
+        
+        return model
+    }
+    
+    func showMenuSheet() {
+        let actions: [String] = [
+            "待对方领取",
+            "对方已领取",
+            "我已领取",
+            "返回上一页"
+        ]
+        AlertSheetController.showDefault(on: self, title: nil, subTitle: nil, actions: actions) { index in
+            if index == 0 {
+                let detail = RPWaitReceiveController()
+                detail.model = self.getModel()
+                self.nav_push(detail, animated: true)
+            } else if index == 1 {
+                let detail = RPTargetHasReceivedController()
+                detail.model = self.getModel()
+                detail.model?.hasReceived =  true
+                self.nav_push(detail, animated: true)
+            } else if index == 2 {
+                let detail = RPMeHasReceivedController()
+                detail.model = self.getModel()
+                detail.model?.hasReceivedByMe =  true
+                self.nav_push(detail, animated: true)
+            } else if index == 3 {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
     }
 }

@@ -301,6 +301,9 @@ class HomeCell: XYInfomationCell {
                                 let mtVC = SendMoneyTransfertViewController()
                                 mtVC.isFromHome = true
                                 detail = mtVC
+                            }else if itemView.item.title == "微信红包" {
+                                let mtVC = SendRedpacketViewController()
+                                detail = mtVC
                             }else{
                                 detail = MineViewController()
                             }

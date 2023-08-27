@@ -91,6 +91,7 @@
 		B4F869DC2A553FEB003749B8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869DB2A553FEB003749B8 /* Constants.swift */; };
 		B4F869DE2A554051003749B8 /* AuthorityManagerAlbumExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869DD2A554051003749B8 /* AuthorityManagerAlbumExtension.swift */; };
 		B4F869E42A55B51E003749B8 /* AuthorityCameraExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869E32A55B51E003749B8 /* AuthorityCameraExtension.swift */; };
+		B4FF35B72A992CDC00364391 /* RedPacketBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35B62A992CDC00364391 /* RedPacketBaseViewController.swift */; };
 		B4FFBE262A36161C001F09AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE252A36161C001F09AD /* AppDelegate.swift */; };
 		B4FFBE282A36161C001F09AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE272A36161C001F09AD /* SceneDelegate.swift */; };
 		B4FFBE2A2A36161C001F09AD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE292A36161C001F09AD /* HomeViewController.swift */; };
@@ -190,6 +191,7 @@
 		B4F869DB2A553FEB003749B8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B4F869DD2A554051003749B8 /* AuthorityManagerAlbumExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorityManagerAlbumExtension.swift; sourceTree = "<group>"; };
 		B4F869E32A55B51E003749B8 /* AuthorityCameraExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorityCameraExtension.swift; sourceTree = "<group>"; };
+		B4FF35B62A992CDC00364391 /* RedPacketBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedPacketBaseViewController.swift; sourceTree = "<group>"; };
 		B4FFBE222A36161C001F09AD /* Cheater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cheater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4FFBE252A36161C001F09AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4FFBE272A36161C001F09AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 				B480555D2A64BD7200712CEF /* SendVoipCpntroller.swift */,
 				B480555F2A657AB500712CEF /* SendRedpacketViewController.swift */,
 				B4AF22412A6D7BC500405672 /* SendMoneyTransferViewController.swift */,
+				B4FF35B52A992BB300364391 /* RedPacket */,
 				B41F24192A94C89000C47458 /* MoneyTransfer */,
 				B4F869C82A4365BD003749B8 /* WXAddRuleViewController.swift */,
 				B4F869CE2A53D0B6003749B8 /* WXAddSingleChatViewController.swift */,
@@ -435,6 +438,14 @@
 				B4AF22712A864D6800405672 /* MsgCellMenuManageer.swift */,
 			);
 			path = Tools;
+			sourceTree = "<group>";
+		};
+		B4FF35B52A992BB300364391 /* RedPacket */ = {
+			isa = PBXGroup;
+			children = (
+				B4FF35B62A992CDC00364391 /* RedPacketBaseViewController.swift */,
+			);
+			path = RedPacket;
 			sourceTree = "<group>";
 		};
 		B4FFBE192A36161C001F09AD = {
@@ -631,6 +642,7 @@
 				B4FFBE3D2A362C18001F09AD /* XYChatInputBar.swift in Sources */,
 				B4F869A42A38A011003749B8 /* WechatHomeViewController.swift in Sources */,
 				B4F869AA2A38A74A003749B8 /* WechatTabbar.swift in Sources */,
+				B4FF35B72A992CDC00364391 /* RedPacketBaseViewController.swift in Sources */,
 				B41F24282A964CF700C47458 /* EditBaseViewController.swift in Sources */,
 				B4AF22692A84A94400405672 /* SendLocationController2.swift in Sources */,
 				B4AF22782A89237600405672 /* EditRedPacketController.swift in Sources */,

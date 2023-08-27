@@ -19,7 +19,7 @@ class MoneyView: UIView {
     private var yuanLabel = UILabel()
     private var moneyLabel = UILabel()
     var moneyStr: String {
-        set{ moneyLabel.text = newValue }
+        set{ moneyLabel.text = newValue.toMoneyString }
         get{ moneyLabel.text ?? "" }
     }
     
@@ -31,7 +31,7 @@ class MoneyView: UIView {
         super.init(frame: .zero)
         
         setupContentView()
-        moneyLabel.text = moneyStr
+        self.moneyStr = moneyStr
         
         transform = CGAffineTransform(scaleX: scale, y: scale)
     }
