@@ -22,7 +22,7 @@ import XYInfomationSection
 class RedPacketBaseViewController: XYInfomationBaseViewController {
     fileprivate var senderView = RedPacketSenderView()
     var model: RedPacketModel? { didSet{setupSenderView()} }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -49,6 +49,7 @@ extension RedPacketBaseViewController {
         var senderName: String? = WXUserInfo.shared.name
         var tipString: String? = "恭喜发财,大吉大利"
         var moneyAmount: String? = "0".toMoneyString
+        var stringBelowMoney: String? = "已经存入零钱,可直接消费"
         /// 是否已经被领取
         var hasReceived: Bool = false
         /// 是否已经被我领取
@@ -145,7 +146,7 @@ private extension RedPacketBaseViewController {
                 moneyStatusLabel.removeFromSuperview()
                 bottomLine.removeFromSuperview()
                 snp.makeConstraints { make in
-                    make.height.equalTo(80)
+                    make.height.equalTo(90)
                 }
             }else{// 非我领取的红包
                 if model.hasReceived { // 看对方是否已经领取
@@ -257,12 +258,39 @@ class RPWaitReceiveController: RedPacketBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // ui
         let bottomTip = UILabel.init(title: "", font: UIFont.systemFont(ofSize: 15), textColor: .C_wx_tip_text, textAlignment: .center)
         view.addSubview(bottomTip)
         bottomTip.text = "未领取的红包，将于24小时后发起退款"
         bottomTip.snp.makeConstraints { make in
             make.bottom.equalTo(-CGFloat.safeBottom - 20)
             make.centerX.equalToSuperview()
+        }
+        
+        // edit
+        setEdit()
+    }
+    
+    func setEdit() {
+        senderView.addTap {[weak self] sender in
+            guard let self = self else {return}
+            guard let model = self.model else {return}
+            
+            let items: [EditItem] = [
+                .init(title: "昵称", key: "senderName", value: model.senderName),
+                .init(title: "头像", key: "senderIcon", image: model.senderIcon ?? .init()),
+                .init(title: "备注", key: "tipString", value: model.tipString),
+                .init(title: "金额", key: "moneyAmount", value: model.moneyAmount)
+            ]
+            self.pushEditVC(items) {[weak self] params in
+                guard let self = self else {return}
+                guard let model = self.model else {return}
+                model.senderName = params["senderName"] as? String
+                model.senderIcon = params["senderIcon"] as? UIImage
+                model.tipString = params["tipString"] as? String
+                model.moneyAmount = params["moneyAmount"] as? String
+                self.senderView.setup(with: model)
+            }
         }
     }
 }
@@ -340,6 +368,50 @@ class RPTargetHasReceivedController: RedPacketBaseViewController {
                 make.top.equalTo(senderView.snp.bottom).offset(10)
             }
         }
+        
+        setEdit()
+    }
+    
+    func setEdit() {
+        senderView.addTap {[weak self] sender in
+            guard let self = self else {return}
+            guard let model = self.model else {return}
+            
+            let items: [EditItem] = [
+                .init(title: "昵称", key: "senderName", value: model.senderName),
+                .init(title: "头像", key: "senderIcon", image: model.senderIcon ?? .init()),
+                .init(title: "备注", key: "tipString", value: model.tipString),
+                .init(title: "金额", key: "moneyAmount", value: model.moneyAmount)
+            ]
+            self.pushEditVC(items) {[weak self] params in
+                guard let self = self else {return}
+                guard let model = self.model else {return}
+                model.senderName = params["senderName"] as? String
+                model.senderIcon = params["senderIcon"] as? UIImage
+                model.tipString = params["tipString"] as? String
+                model.moneyAmount = params["moneyAmount"] as? String
+                self.senderView.setup(with: model)
+            }
+        }
+        
+        receiverView.addTap {[weak self] sender in
+            guard let self = self else {return}
+            guard let model = self.model else {return}
+            
+            let items: [EditItem] = [
+                .init(title: "昵称", key: "receiverName", value: model.receiverName),
+                .init(title: "头像", key: "receiverIcon", image: model.receiverIcon ?? .init()),
+                .init(title: "领取时间", key: "receiveTime", value: model.receiveTime),
+            ]
+            self.pushEditVC(items) {[weak self] params in
+                guard let self = self else {return}
+                guard let model = self.model else {return}
+                model.receiverName = params["receiverName"] as? String
+                model.receiverIcon = params["receiverIcon"] as? UIImage
+                model.receiveTime = params["receiveTime"] as? String
+                self.receiverView.setup(with: model)
+            }
+        }
     }
 }
 
@@ -354,6 +426,19 @@ class RPMeHasReceivedController: RedPacketBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupUI()
+        updateContentValue()
+        setEdit()
+    }
+    
+    func updateContentValue() {
+        if let model = model {
+            moneyView.moneyStr = model.moneyAmount ?? ""
+            tipLabel.text = model.stringBelowMoney
+        }
+    }
+    
+    func setupUI() {
         let goldColor = UIColor.xy_getColor(red: 179, green: 147, blue: 95)
         
         tipLabel.text = "哈哈哈哈"
@@ -365,14 +450,13 @@ class RPMeHasReceivedController: RedPacketBaseViewController {
         hStack.tintColor = goldColor
         
         
-        
         emojiView.backgroundColor = .gray.withAlphaComponent(0.10)
         emojiView.corner(radius: 5)
         emojiView.tintColor = goldColor
         emojiView.snp.makeConstraints { make in
             make.height.equalTo(50)
         }
-        let emojiIcon = UIImageView(image: UIImage(named: "wechat_input_emoticon")?.withRenderingMode(.alwaysTemplate))
+        let emojiIcon = UIImageView(image: UIImage(named: "MoreExpressionShops_22x22_")?.withRenderingMode(.alwaysTemplate))
         let emojiLabel: UILabel = UILabel()
         emojiLabel.text = "回复表情到聊天"
         emojiLabel.textColor = goldColor
@@ -386,7 +470,9 @@ class RPMeHasReceivedController: RedPacketBaseViewController {
             make.left.equalTo(15)
         }
         
-        let vstack = VStack(spacing: 15)
+        let vstack = VStack(spacing: 10)
+        moneyView.setChineseModel()
+        moneyView.tintColor = goldColor
         [moneyView, hStack].forEach { item in
             vstack.addArrangedSubview(item)
         }
@@ -401,15 +487,33 @@ class RPMeHasReceivedController: RedPacketBaseViewController {
             make.top.equalTo(senderView.snp.bottom)
         }
     }
+    
+    func setEdit() {
+        
+        let editCloser: (UIView)->() = {[weak self] sender in
+            guard let self = self else {return}
+            guard let model = self.model else {return}
+            let items: [EditItem] = [
+                .init(title: "昵称", key: "senderName", value: model.senderName),
+                .init(title: "头像", key: "senderIcon", image: model.senderIcon ?? .init()),
+                .init(title: "备注", key: "tipString", value: model.tipString),
+                .init(title: "金额", key: "moneyAmount", value: model.moneyAmount),
+                .init(title: "金额下面的文字", key: "stringBelowMoney", value: model.stringBelowMoney)
+            ]
+            self.pushEditVC(items) {[weak self] params in
+                guard let self = self else {return}
+                guard let model = self.model else {return}
+                model.senderName = params["senderName"] as? String
+                model.senderIcon = params["senderIcon"] as? UIImage
+                model.tipString = params["tipString"] as? String
+                model.moneyAmount = params["moneyAmount"] as? String
+                self.model?.stringBelowMoney = params["stringBelowMoney"] as? String
+                self.senderView.setup(with: model)
+                self.updateContentValue()
+            }
+        }
+        
+        senderView.addTap(callback: editCloser)
+        stackView.addTap(callback: editCloser)
+    }
 }
-
-/*
- * - TODO -
- * 我已经收款页面
- * moneyView 修改样式 & tintColor
- *  回复表情 icon 找一个
- *  三个控制器的编辑页面
- */
-
-
-

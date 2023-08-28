@@ -40,6 +40,32 @@ class MoneyView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override var tintColor: UIColor! {
+        didSet {
+            subviews.forEach { subV in
+                if let label = subV as? UILabel {
+                    label.textColor = tintColor
+                }
+            }
+        }
+    }
+    
+    /// 设置为 中文 样式/。 299.00 元
+    func setChineseModel() {
+        
+        moneyLabel.snp.remakeConstraints { make in
+            make.left.top.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
+        
+        yuanLabel.text = "元"
+        yuanLabel.font = .wx_moeny_font(17)
+        yuanLabel.snp.remakeConstraints { make in
+            make.bottom.equalTo(moneyLabel).offset(-8)
+            make.left.equalTo(moneyLabel.snp.right).offset(8)
+            make.right.equalToSuperview()
+        }
+    }
 }
 
 private extension MoneyView {

@@ -13,8 +13,34 @@ import XYInfomationSection
 struct EditItem {
     var title: String
     var key: String
-    var value: String
+    var value: String = ""
+    var image: UIImage? = nil
     var type: XYInfoCellType = .input
+    
+    /// 快速创建一个基本类型的编辑项目
+    /// - Parameters:
+    ///   - title: 标题
+    ///   - key: 标题Key
+    ///   - value: 值
+    ///   - type: 具体类型 input / choose / switch / textField / tip
+    init(title: String, key: String, value: String?, type: XYInfoCellType = .input) {
+        self.title = title
+        self.key = key
+        self.value = value ?? ""
+        self.type = type
+    }
+    
+    /// 快速创建一个图片类型的编辑项目
+    /// - Parameters:
+    ///   - title: 标题
+    ///   - key: 标题Key
+    ///   - image: 编辑的头像
+    init(title: String, key: String, image: UIImage){
+        self.title = title
+        self.key = key
+        self.image = image
+        self.type = .other
+    }
 }
 
 class EditBaseViewController: XYInfomationBaseViewController {
@@ -37,7 +63,7 @@ class EditBaseViewController: XYInfomationBaseViewController {
         }, sectionConfig: { section in
             section.corner(radius: 5)
         }, sectionDistance: 0, contentEdgeInsets: .init(top: 10, left: 10, bottom: 0, right: 10)) { index, cell in
-            if cell.model.titleKey == "icon" {
+            if cell.model.customCellClass == PhotoCell.self {
                 ChoosePhotoController.choosePhoto { image in
                     let model = cell.model
                     model.obj = image as Any
@@ -69,12 +95,17 @@ class EditBaseViewController: XYInfomationBaseViewController {
             var result = [
                 "title": item.title,
                 "titleKey": item.key,
-                "type": item.type.rawValue,
+                "type": item.type.rawValue as Any,
                 "value": item.value
             ]
             
             if item.type == .switch {
                 result["on"] = item.value.boolValue
+            }
+            
+            if item.type == .other {
+                result["customCellClass"] = PhotoCell.self
+                result["obj"] = item.image ?? UIImage.defaultHead as Any
             }
             
             return result
@@ -85,8 +116,14 @@ class EditBaseViewController: XYInfomationBaseViewController {
    
     @objc
     func doneClick() {
-        let params = totalParams
-        //let allItems = totalModels
+        var params = totalParams
+        let allItems = totalModels
+        for item in allItems {
+            if item.type == .other, item.customCellClass == PhotoCell.self {
+                let key = item.titleKey
+                params[key] = item.obj as? UIImage
+            }
+        }
         
         callback?(params)
         navigationController?.popViewController(animated: true)
@@ -119,3 +156,23 @@ class EditBaseViewController: XYInfomationBaseViewController {
     }
     
 }
+
+protocol EditBaseViewControllerProtocal {
+    /// 进入编辑页面
+    /// - Parameters:
+    ///   - items: 编辑条目
+    ///   - callback: 参数返回值
+    func pushEditVC(_ items: [EditItem], callback: (([AnyHashable: Any])->())?)
+}
+
+extension EditBaseViewControllerProtocal {
+    /// 进入编辑页面
+    func pushEditVC(_ items: [EditItem], callback: (([AnyHashable: Any])->())?) {
+        let editVC = EditBaseViewController()
+        editVC.setItems(items, callback: callback)
+        UIViewController.currentVisibleVC.nav_push(editVC, animated: true)
+    }
+}
+
+
+extension UIViewController: EditBaseViewControllerProtocal { }

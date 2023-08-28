@@ -11,4 +11,9 @@ target 'Cheater' do
   pod 'XYUIKit', :path => '/Users/quxiaoyou/Desktop/XYUIKit'
   pod 'XYNav', :path => '/Users/quxiaoyou/Desktop/XYNav/'
   pod 'XYAlbum', :path => '/Users/quxiaoyou/Documents/github/XYAblum'
+  
+  
+  # DEBUG
+  #pod 'LookinServer', :configurations => ['Debug']
+  pod 'LookinServer', :subspecs => ['Swift'], :configurations => ['Debug']
 end
