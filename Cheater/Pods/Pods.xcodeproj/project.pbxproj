@@ -142,6 +142,9 @@
 		B1E1FD7AC99CAB71B271908C620FD75E /* XYInfomationSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B8398261EF3A8696BB63AF5366FFEA2 /* XYInfomationSection.m */; };
 		B43017FEC99D227D4CDD81DD2C27D9D9 /* ConstraintMakerPrioritizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC1F54A392BDAFD5880E8A3728E08EC /* ConstraintMakerPrioritizable.swift */; };
 		B4BE7728D87333785F811FED48CF134E /* MASCompositeConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F8045D653C1D63EEF68E296F01A96DD /* MASCompositeConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B4FF35BC2A9DA14000364391 /* XYAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35BB2A9DA14000364391 /* XYAlert.swift */; };
+		B4FF35C22A9DAA0200364391 /* UIImageView+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35C12A9DAA0200364391 /* UIImageView+XYAdd.swift */; };
+		B4FF35C42A9E027F00364391 /* Bool+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35C32A9E027F00364391 /* Bool+XYAdd.swift */; };
 		B5851BD2252C21EBC6B5777D7D2B1563 /* XYAlbum-XYAlbum in Resources */ = {isa = PBXBuildFile; fileRef = A31058CC5946B24F27DF9DE6FA3DD0CE /* XYAlbum-XYAlbum */; };
 		B61AA5459C2B345AD6D84D8A5111C9CE /* Masonry-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EF1762F12DE358951D68EDA9595D672 /* Masonry-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B752F7C4BECB65894B1F49421049CE5F /* ConstraintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD58D5F8E2A825B6E49CC0E4EE5C244C /* ConstraintView.swift */; };
@@ -278,13 +281,13 @@
 		0D1EA06EC1E9447BFEDF40CBC0843B00 /* XYInfomationSwitchCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XYInfomationSwitchCell.m; path = SectionDemo/XYInfomationSection/XYInfomationSwitchCell.m; sourceTree = "<group>"; };
 		0EC50DCE9EECF25F7CE2F0361F495DC5 /* XYPopView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = XYPopView.swift; sourceTree = "<group>"; };
 		0F332DC26CE075A1BB8C848F092DBA61 /* Pods-Cheater-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Cheater-frameworks.sh"; sourceTree = "<group>"; };
-		10A85157C0C9E5E8A3B7F1E2F94164CC /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		10A85157C0C9E5E8A3B7F1E2F94164CC /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		12162D0725D6ABDCAD09733A9A0059E2 /* UIResponder+XYAdd.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIResponder+XYAdd.swift"; sourceTree = "<group>"; };
 		1383E9F2B023045B5A085398FAF1C5D8 /* XYNav-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "XYNav-Info.plist"; sourceTree = "<group>"; };
 		1397D99E7E61FA03C739F2333D1E4AB5 /* XYSpeedMatchView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = XYSpeedMatchView.swift; sourceTree = "<group>"; };
 		1400D67BFB21F168650DEB45162FA754 /* ConstraintConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintConfig.swift; path = Sources/ConstraintConfig.swift; sourceTree = "<group>"; };
 		140B49C383F3F064D5E72CFB0E2074BD /* MASViewConstraint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASViewConstraint.m; path = Masonry/MASViewConstraint.m; sourceTree = "<group>"; };
-		144BDD28CA170A796C3C02B2DD4429B0 /* XYNav.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = XYNav.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		144BDD28CA170A796C3C02B2DD4429B0 /* XYNav.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = XYNav.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		167664DA348BDBD28165E533CDBA0CCC /* XYInfomationSection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XYInfomationSection.h; path = SectionDemo/XYInfomationSection/XYInfomationSection.h; sourceTree = "<group>"; };
 		16B05EF5ECFAA02AF7E6E7231B635126 /* XYNav-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "XYNav-umbrella.h"; sourceTree = "<group>"; };
 		1773DD3F29D16ADF8F6A04A50B414997 /* ConstraintMakerRelatable+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ConstraintMakerRelatable+Extensions.swift"; path = "Sources/ConstraintMakerRelatable+Extensions.swift"; sourceTree = "<group>"; };
@@ -305,7 +308,7 @@
 		2884F52ACA6BD299AB2A990E50EDA41A /* XYFileManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = XYFileManager.swift; sourceTree = "<group>"; };
 		295DD61E2E6759A4436300E7EC1E1F47 /* XYInfomationTipCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XYInfomationTipCell.m; path = SectionDemo/XYInfomationSection/XYInfomationTipCell.m; sourceTree = "<group>"; };
 		295F077139A5C63D4664F50080DE9EBC /* AlbumGroupTableViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AlbumGroupTableViewCell.m; sourceTree = "<group>"; };
-		29F4B600A95F313694DE61CCAC417C41 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		29F4B600A95F313694DE61CCAC417C41 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		2C8CF79824ECD9FFBAF7248AC295890A /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
 		2CBBB4020079466E4CA38BEDA758FC05 /* XYEditViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XYEditViewController.h; path = XYAlbum/XYEditViewController.h; sourceTree = "<group>"; };
 		2ECF237E360AE00C80A462B022F87684 /* Toast+CustomView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Toast+CustomView.swift"; sourceTree = "<group>"; };
@@ -314,7 +317,7 @@
 		302BD0F25D739F6EFD62A45890C35253 /* ConstraintPriorityTarget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintPriorityTarget.swift; path = Sources/ConstraintPriorityTarget.swift; sourceTree = "<group>"; };
 		31110C152C9418223DAB5C7BC4CC914E /* Masonry-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Masonry-prefix.pch"; sourceTree = "<group>"; };
 		324BBAE3633D35AF33CB48D93418AC13 /* ConstraintDirectionalInsets.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintDirectionalInsets.swift; path = Sources/ConstraintDirectionalInsets.swift; sourceTree = "<group>"; };
-		324F6D667065F9C042242D65C1DD90F4 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		324F6D667065F9C042242D65C1DD90F4 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		33EC9F8E08DA01097E71E593B373D059 /* XYUIKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "XYUIKit-umbrella.h"; sourceTree = "<group>"; };
 		345FA3C45F365F02B668AA88121C5B8F /* XYAlbum */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = XYAlbum; path = XYAlbum.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		363C3A1B031EA6C72D01AE105F3C384A /* Typealiases.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Typealiases.swift; path = Sources/Typealiases.swift; sourceTree = "<group>"; };
@@ -343,7 +346,7 @@
 		52DD4FC7604446D5627A41DDEA71AA72 /* ConstraintLayoutSupport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintLayoutSupport.swift; path = Sources/ConstraintLayoutSupport.swift; sourceTree = "<group>"; };
 		55C0CD2D14BB161A434ACF9F7F107E9C /* ConstraintAttributes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintAttributes.swift; path = Sources/ConstraintAttributes.swift; sourceTree = "<group>"; };
 		56379CD477E40BA30E304E0F5FEBFF84 /* Debugging.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Debugging.swift; path = Sources/Debugging.swift; sourceTree = "<group>"; };
-		56B46791D2211F801B6C9A3CF7A0919F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		56B46791D2211F801B6C9A3CF7A0919F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		58F593B6EF39106EF94907EA055D8EEE /* XYNav.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = XYNav.release.xcconfig; sourceTree = "<group>"; };
 		599D61211319680D347CFDF04D6140DD /* NSArray+MASAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSArray+MASAdditions.m"; path = "Masonry/NSArray+MASAdditions.m"; sourceTree = "<group>"; };
 		5BC999CE3FFD3E32B4CF4860C9E29CAC /* XYInfomationSection.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = XYInfomationSection.modulemap; sourceTree = "<group>"; };
@@ -352,7 +355,7 @@
 		5D06103F2A0B5087EF185C530E97B040 /* XYInfomationSection-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "XYInfomationSection-umbrella.h"; sourceTree = "<group>"; };
 		5DEB1C6D408514C69E31139F298531A6 /* XYNav.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = XYNav.modulemap; sourceTree = "<group>"; };
 		5E1DABF655845DB6A8D528421230F130 /* XYAlbumContentViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XYAlbumContentViewController.h; path = XYAlbum/XYAlbumContentViewController.h; sourceTree = "<group>"; };
-		5E398DE61798DB87C86388F28FDCF091 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		5E398DE61798DB87C86388F28FDCF091 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6327D48BC60D33BF50F2CDA3A96CA992 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "ViewController+MASAdditions.m"; path = "Masonry/ViewController+MASAdditions.m"; sourceTree = "<group>"; };
 		640290A0282259841B44F3924BB5B936 /* ConstraintLayoutGuideDSL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintLayoutGuideDSL.swift; path = Sources/ConstraintLayoutGuideDSL.swift; sourceTree = "<group>"; };
 		641DE9F403A39DA3A2F62E66463195F8 /* XYUIKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = XYUIKit.debug.xcconfig; sourceTree = "<group>"; };
@@ -393,7 +396,7 @@
 		8F8045D653C1D63EEF68E296F01A96DD /* MASCompositeConstraint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASCompositeConstraint.h; path = Masonry/MASCompositeConstraint.h; sourceTree = "<group>"; };
 		8F971D04B9EFCFBFC8781CFE03D37E5A /* Pods-Cheater-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Cheater-umbrella.h"; sourceTree = "<group>"; };
 		91513973D344F2EB88BD6BDB15F2DB9A /* sr_eidt_reset_icon@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "sr_eidt_reset_icon@3x.png"; path = "XYAlbum/files/sr_eidt_reset_icon@3x.png"; sourceTree = "<group>"; };
-		9279A0C01733B9E38CE1F6779A2976C5 /* XYUIKit.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = XYUIKit.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9279A0C01733B9E38CE1F6779A2976C5 /* XYUIKit.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = XYUIKit.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		940C87AC74536A0680DE8CFA5D8CF220 /* XYPickerView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = XYPickerView.h; sourceTree = "<group>"; };
 		9552AE2AC2916CD6B980C4A1D9608902 /* XYBoxView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = XYBoxView.swift; sourceTree = "<group>"; };
 		96609CB7259F4A982299CB1CB652BDFB /* sr_eidt_reset_icon@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "sr_eidt_reset_icon@2x.png"; path = "XYAlbum/files/sr_eidt_reset_icon@2x.png"; sourceTree = "<group>"; };
@@ -401,9 +404,9 @@
 		9A36CE0FD0C745221BAE9B19B2D833F1 /* XYInfoTextView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XYInfoTextView.h; path = SectionDemo/XYInfomationSection/XYInfoTextView.h; sourceTree = "<group>"; };
 		9BF0829E5524276F55A9C8105AAC3AC8 /* sr_eidt_rotate_icon@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "sr_eidt_rotate_icon@2x.png"; path = "XYAlbum/files/sr_eidt_rotate_icon@2x.png"; sourceTree = "<group>"; };
 		9C9EE918A6BF76B461BAA11D8DFB757E /* Masonry.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Masonry.debug.xcconfig; sourceTree = "<group>"; };
-		9CA447F536CE37A0517BAE8F1E134EE8 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		9CA447F536CE37A0517BAE8F1E134EE8 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		9CEEDDDF0023A8A8607E65E44C0152F7 /* XYAlbum-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "XYAlbum-umbrella.h"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9DEA06AAE389D930A9D5D6138031F161 /* XYMacros.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = XYMacros.swift; sourceTree = "<group>"; };
 		A045C7E87C53516AC3E0D73F307C8B32 /* XYInfomationSection */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = XYInfomationSection; path = XYInfomationSection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A31058CC5946B24F27DF9DE6FA3DD0CE /* XYAlbum-XYAlbum */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "XYAlbum-XYAlbum"; path = XYAlbum.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -419,12 +422,15 @@
 		ACF5470BA89F21942A6D0A5E0D42EC2D /* sr_tailoring_icon@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "sr_tailoring_icon@3x.png"; path = "XYAlbum/files/sr_tailoring_icon@3x.png"; sourceTree = "<group>"; };
 		AE900747AA720D27B1425DB488FCDDB4 /* XYTagsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = XYTagsView.swift; sourceTree = "<group>"; };
 		B050007DADAB42527C66AF3CD1F89344 /* Masonry.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Masonry.h; path = Masonry/Masonry.h; sourceTree = "<group>"; };
-		B183990E0F9C88F8E9F5F803FBD2AB58 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		B183990E0F9C88F8E9F5F803FBD2AB58 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B20E620A400F11CEA7AF381FF8F5965D /* XYInfomationSwitchCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XYInfomationSwitchCell.h; path = SectionDemo/XYInfomationSection/XYInfomationSwitchCell.h; sourceTree = "<group>"; };
 		B29E8786D26B0D39BA2EC0028004CCC6 /* XYNav-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "XYNav-dummy.m"; sourceTree = "<group>"; };
 		B2C91ABFB41776F7D106B8B880CDEBC0 /* XYUIKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "XYUIKit-dummy.m"; sourceTree = "<group>"; };
 		B40D8B0C733F75F1EFDC9B3FFE2D6127 /* JPImageresizerConfigure.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JPImageresizerConfigure.h; sourceTree = "<group>"; };
 		B4684D82872BB59AAB3D2BD3F50DC332 /* Pods-Cheater.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Cheater.modulemap"; sourceTree = "<group>"; };
+		B4FF35BB2A9DA14000364391 /* XYAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYAlert.swift; sourceTree = "<group>"; };
+		B4FF35C12A9DAA0200364391 /* UIImageView+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+XYAdd.swift"; sourceTree = "<group>"; };
+		B4FF35C32A9E027F00364391 /* Bool+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+XYAdd.swift"; sourceTree = "<group>"; };
 		B50D3852FD32434B54732BC2912BAC2B /* XYInfomationSection.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = XYInfomationSection.release.xcconfig; sourceTree = "<group>"; };
 		B7035700455A516E68A23E9CD11B04AE /* ConstraintMaker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMaker.swift; path = Sources/ConstraintMaker.swift; sourceTree = "<group>"; };
 		BA2C6708EA82F2A8AF500741C9EE54FA /* UIImage+JPExtension.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIImage+JPExtension.h"; sourceTree = "<group>"; };
@@ -456,14 +462,14 @@
 		D0C3FB5B63A45DF03490513876B7D013 /* UIControl+XYAdd.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIControl+XYAdd.swift"; sourceTree = "<group>"; };
 		D0D3718AAC04BF8B1E8299BFD646DC65 /* ConstraintPriority.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintPriority.swift; path = Sources/ConstraintPriority.swift; sourceTree = "<group>"; };
 		D14DB7336031D12E9F8E435B347E7F1A /* UIView+XYAdd.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIView+XYAdd.swift"; sourceTree = "<group>"; };
-		D1DC19CA2668C268FE4607DE4C7C104D /* XYAlbum.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = XYAlbum.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		D1DC19CA2668C268FE4607DE4C7C104D /* XYAlbum.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = XYAlbum.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D245E0514AAC1A2B9A6D5EA2F383E90F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		D3CF59FC028A66603F797D57C19D5BFF /* Masonry.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Masonry.release.xcconfig; sourceTree = "<group>"; };
 		D42F93F8AB96AC070D540120567BBA6D /* Date+XYAdd.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Date+XYAdd.swift"; sourceTree = "<group>"; };
 		D4C2468DEC6EED5360A9A5E1FBDB9129 /* ConstraintRelatableTarget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintRelatableTarget.swift; path = Sources/ConstraintRelatableTarget.swift; sourceTree = "<group>"; };
 		D5300DB7B5C43CCBDCDE32B02A73486B /* LayoutConstraintItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LayoutConstraintItem.swift; path = Sources/LayoutConstraintItem.swift; sourceTree = "<group>"; };
 		D73F5706E3DA8ED8EE531E8855ADCFC7 /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "View+MASShorthandAdditions.h"; path = "Masonry/View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
-		D8005B6E7230A99F4ABB778358EE280F /* XYInfomationSection.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = XYInfomationSection.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		D8005B6E7230A99F4ABB778358EE280F /* XYInfomationSection.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = XYInfomationSection.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D827C10BDB4BB377A56B36D369C29EAF /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ViewController+MASAdditions.h"; path = "Masonry/ViewController+MASAdditions.h"; sourceTree = "<group>"; };
 		D83601223D9E8250E31452DB11FECE05 /* XYUIKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "XYUIKit-prefix.pch"; sourceTree = "<group>"; };
 		D8F4A88B235CF01E053494AFC5AD54AE /* Masonry-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Masonry-Info.plist"; sourceTree = "<group>"; };
@@ -633,7 +639,6 @@
 				8355038EBCC16918793883E2B821EAA5 /* UILayoutSupport+Extensions.swift */,
 				69FE0E7F7697BB2078996836E2F30047 /* Support Files */,
 			);
-			name = SnapKit;
 			path = SnapKit;
 			sourceTree = "<group>";
 		};
@@ -643,7 +648,6 @@
 				0B040D4AE7AFFCEA53E14844B232D566 /* XYSpeedMatchController.swift */,
 				1397D99E7E61FA03C739F2333D1E4AB5 /* XYSpeedMatchView.swift */,
 			);
-			name = SpeedMatch;
 			path = SpeedMatch;
 			sourceTree = "<group>";
 		};
@@ -731,7 +735,6 @@
 				6327D48BC60D33BF50F2CDA3A96CA992 /* ViewController+MASAdditions.m */,
 				658686883B76D84622FCA837A37B957E /* Support Files */,
 			);
-			name = Masonry;
 			path = Masonry;
 			sourceTree = "<group>";
 		};
@@ -750,6 +753,7 @@
 		42FF975F1C60FD5DCC25E15484634851 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				B4FF35BB2A9DA14000364391 /* XYAlert.swift */,
 				898BE41EFB38699BA8AD537B0A5B7EF6 /* XYAlertManager.swift */,
 				2884F52ACA6BD299AB2A990E50EDA41A /* XYFileManager.swift */,
 				F0C68806983500D261DDBD4ADB48FEEA /* XYNetTool.swift */,
@@ -855,7 +859,6 @@
 			children = (
 				9552AE2AC2916CD6B980C4A1D9608902 /* XYBoxView.swift */,
 			);
-			name = XYStackView;
 			path = XYStackView;
 			sourceTree = "<group>";
 		};
@@ -940,7 +943,6 @@
 				BA2C6708EA82F2A8AF500741C9EE54FA /* UIImage+JPExtension.h */,
 				F1408EC28AD3B2C38FD0F9CF0A7A61C7 /* UIImage+JPExtension.m */,
 			);
-			name = Classes;
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -950,7 +952,6 @@
 				BE7F71A0B59FC17B00732DB82800CC3A /* XYIndexBar.h */,
 				AAD1E205C0E55BD37C524D5445CAF94E /* XYIndexBar.m */,
 			);
-			name = XYIndexBar;
 			path = XYIndexBar;
 			sourceTree = "<group>";
 		};
@@ -960,7 +961,6 @@
 				940C87AC74536A0680DE8CFA5D8CF220 /* XYPickerView.h */,
 				185C7CF97D994B9BD718893D30B71C7F /* XYPickerView.m */,
 			);
-			name = XYPickerView;
 			path = XYPickerView;
 			sourceTree = "<group>";
 		};
@@ -1125,6 +1125,8 @@
 				180A7A2A25D9B1E5345A300F0213F4FA /* UIScrollView+XYAdd.swift */,
 				D14DB7336031D12E9F8E435B347E7F1A /* UIView+XYAdd.swift */,
 				38B8254C1F752A1397D62D7119D5E1DB /* UIViewController.swift */,
+				B4FF35C12A9DAA0200364391 /* UIImageView+XYAdd.swift */,
+				B4FF35C32A9E027F00364391 /* Bool+XYAdd.swift */,
 			);
 			name = Categories;
 			path = XYUIKit/XYUIKit/XYUIKit/Classes/Categories;
@@ -1554,6 +1556,7 @@
 				FB092F36AAE4A1D6E73379D19670110F /* TimeInteval+XYAdd.swift in Sources */,
 				03164A61866632D4947AEAEE1483DFB0 /* Toast.swift in Sources */,
 				0EA30534D6A0FE26775668D24D1054F6 /* Toast+CustomView.swift in Sources */,
+				B4FF35C42A9E027F00364391 /* Bool+XYAdd.swift in Sources */,
 				94F96437299A9367D90AACA700C3F278 /* Toast+UIView.swift in Sources */,
 				5E3BC14809088B448DB8F20E3559B7C5 /* UIColor+XYAdd.swift in Sources */,
 				2CC69752CE0CB4740E56BADAD0BA1143 /* UIControl+XYAdd.swift in Sources */,
@@ -1564,6 +1567,7 @@
 				C8B3326F7886D7B927C70914099E68A3 /* UIView+XYAdd.swift in Sources */,
 				AD0CD2D1BDEB8FA2E864E509E4FE9DE0 /* UIViewController.swift in Sources */,
 				41CABD27492F88DC5C4280B1CDCA8CED /* XYAlertManager.swift in Sources */,
+				B4FF35BC2A9DA14000364391 /* XYAlert.swift in Sources */,
 				F83FEDD870AF7EC4C69E960EDFE18F61 /* XYAlertSheetController.swift in Sources */,
 				07389CC926835904524FCFE854A8F088 /* XYBadgeView.swift in Sources */,
 				4DB829B2400F13EBDA5F1D2137291569 /* XYBoxView.swift in Sources */,
@@ -1578,6 +1582,7 @@
 				2824F71C51D2727889A47134F5EA6B46 /* XYSpeedMatchController.swift in Sources */,
 				AB9B2EF6B02BE48AFF09557706DA2759 /* XYSpeedMatchView.swift in Sources */,
 				C56B65A2D7D5E269CB57D600A1E54988 /* XYTagsView.swift in Sources */,
+				B4FF35C22A9DAA0200364391 /* UIImageView+XYAdd.swift in Sources */,
 				15052BBEEF5F6A70FE0A11B41D772F6F /* XYUIKit-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

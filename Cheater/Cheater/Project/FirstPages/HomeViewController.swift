@@ -304,6 +304,9 @@ class HomeCell: XYInfomationCell {
                             }else if itemView.item.title == "微信红包" {
                                 let mtVC = SendRedpacketViewController()
                                 detail = mtVC
+                            }else if itemView.item.title == "零钱" {
+                                let mtVC = WXChargesController()
+                                detail = mtVC
                             }else{
                                 detail = MineViewController()
                             }

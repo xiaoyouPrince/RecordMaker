@@ -82,6 +82,10 @@ extension UIColor {
     static var C_222222: UIColor = .xy_getColor(hex: 0x222222)
     static var C_666666: UIColor = .xy_getColor(hex: 0x666666)
     static var C_999999: UIColor = .xy_getColor(hex: 0x999999)
+    
+    /// 设置微信状态,图片的 initColor, 原图是黑色背景
+    static var C_wx_green: UIColor = WXConfig.wxGreen
+    
     /// 设置微信状态,图片的 initColor, 原图是黑色背景
     static var C_wx_status: UIColor = .xy_getColor(red: 103, green: 113, blue: 148)
     
@@ -109,10 +113,13 @@ extension UIImage {
     /// 微信右上角的三个点
     static var wx_right_3dot = UIImage(named: "wechat_sandian")?.withRenderingMode(.alwaysOriginal)
     
+    /// 微信右上角的三个点
+    static var wx_right_arraw = UIImage(named: "youjiantou")?.withRenderingMode(.alwaysOriginal)
+    
     /// 默认添加头像
     static var defaultHead = UIImage(named: "add_head")?.withRenderingMode(.alwaysOriginal)
     
-    /// 默认添加头像
+    /// 导航条 close 按钮图片  x
     static var nav_close = UIImage(named: "nav_close")?.withRenderingMode(.alwaysOriginal)
 }
 

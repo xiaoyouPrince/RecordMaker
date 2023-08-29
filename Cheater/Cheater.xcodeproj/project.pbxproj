@@ -92,6 +92,7 @@
 		B4F869DE2A554051003749B8 /* AuthorityManagerAlbumExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869DD2A554051003749B8 /* AuthorityManagerAlbumExtension.swift */; };
 		B4F869E42A55B51E003749B8 /* AuthorityCameraExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869E32A55B51E003749B8 /* AuthorityCameraExtension.swift */; };
 		B4FF35B72A992CDC00364391 /* RedPacketBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35B62A992CDC00364391 /* RedPacketBaseViewController.swift */; };
+		B4FF35C02A9DA51500364391 /* WXChargesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35BF2A9DA51500364391 /* WXChargesController.swift */; };
 		B4FFBE262A36161C001F09AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE252A36161C001F09AD /* AppDelegate.swift */; };
 		B4FFBE282A36161C001F09AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE272A36161C001F09AD /* SceneDelegate.swift */; };
 		B4FFBE2A2A36161C001F09AD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE292A36161C001F09AD /* HomeViewController.swift */; };
@@ -192,6 +193,7 @@
 		B4F869DD2A554051003749B8 /* AuthorityManagerAlbumExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorityManagerAlbumExtension.swift; sourceTree = "<group>"; };
 		B4F869E32A55B51E003749B8 /* AuthorityCameraExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorityCameraExtension.swift; sourceTree = "<group>"; };
 		B4FF35B62A992CDC00364391 /* RedPacketBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedPacketBaseViewController.swift; sourceTree = "<group>"; };
+		B4FF35BF2A9DA51500364391 /* WXChargesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXChargesController.swift; sourceTree = "<group>"; };
 		B4FFBE222A36161C001F09AD /* Cheater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cheater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4FFBE252A36161C001F09AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4FFBE272A36161C001F09AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 				B480555D2A64BD7200712CEF /* SendVoipCpntroller.swift */,
 				B480555F2A657AB500712CEF /* SendRedpacketViewController.swift */,
 				B4AF22412A6D7BC500405672 /* SendMoneyTransferViewController.swift */,
+				B4FF35BE2A9DA4E800364391 /* Charges */,
 				B4FF35B52A992BB300364391 /* RedPacket */,
 				B41F24192A94C89000C47458 /* MoneyTransfer */,
 				B4F869C82A4365BD003749B8 /* WXAddRuleViewController.swift */,
@@ -446,6 +449,14 @@
 				B4FF35B62A992CDC00364391 /* RedPacketBaseViewController.swift */,
 			);
 			path = RedPacket;
+			sourceTree = "<group>";
+		};
+		B4FF35BE2A9DA4E800364391 /* Charges */ = {
+			isa = PBXGroup;
+			children = (
+				B4FF35BF2A9DA51500364391 /* WXChargesController.swift */,
+			);
+			path = Charges;
 			sourceTree = "<group>";
 		};
 		B4FFBE192A36161C001F09AD = {
@@ -647,6 +658,7 @@
 				B4AF22692A84A94400405672 /* SendLocationController2.swift in Sources */,
 				B4AF22782A89237600405672 /* EditRedPacketController.swift in Sources */,
 				B41F24182A8B88FB00C47458 /* UITextView+Emotion.swift in Sources */,
+				B4FF35C02A9DA51500364391 /* WXChargesController.swift in Sources */,
 				B4AF22572A83427300405672 /* BaseSendMsgController.swift in Sources */,
 				B4AF224B2A6E784700405672 /* MoneyTransferTipView.swift in Sources */,
 				B4498DF52A570E9A00B13CFA /* WXChooseStatusController.swift in Sources */,
