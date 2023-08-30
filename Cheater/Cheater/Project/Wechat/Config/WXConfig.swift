@@ -25,7 +25,7 @@ struct WXConfig {
     /// 导航栏背景色
     static var navBarBgColor: UIColor {
         // 判断主题 - default is light
-        return UIColor.xy_getColor(red: 230, green: 230, blue: 230)//.withAlphaComponent(0.8)
+        return UIColor.xy_getColor(red: 233, green: 233, blue: 233)//.withAlphaComponent(0.8)
     }
     
     /// 微信tabbar背景色
@@ -96,13 +96,15 @@ extension UIColor {
     static var C_wx_red_button: UIColor = .xy_getColor(red: 227, green: 72, blue: 44)
     
     /// 微信提示文字的颜色 一种浅灰色
-    static var C_wx_tip_text: UIColor = .xy_getColor(red: 137, green: 137, blue: 137)
+    static var C_wx_tip_text: UIColor = .xy_getColor(red: 120, green: 120, blue: 120)
     
     /// 微信按钮/超链接文字颜色
     static var C_wx_link_text: UIColor = .xy_getColor(red: 80, green: 92, blue: 133)
     
     /// 微信自定义键盘的背景色
     static var C_wx_keyboard_bgcolor: UIColor = .xy_getColor(red: 241, green: 241, blue: 241)
+    /// 微信导航栏背景颜色和微信会话页面view的背景色
+    static var C_wx_navbar_viewbgColor: UIColor = .xy_getColor(red: 241, green: 241, blue: 241)
 }
 
 extension UIImage {
@@ -113,7 +115,7 @@ extension UIImage {
     /// 微信右上角的三个点
     static var wx_right_3dot = UIImage(named: "wechat_sandian")?.withRenderingMode(.alwaysOriginal)
     
-    /// 微信右上角的三个点
+    /// 微信右上角的右箭头
     static var wx_right_arraw = UIImage(named: "youjiantou")?.withRenderingMode(.alwaysOriginal)
     
     /// 默认添加头像

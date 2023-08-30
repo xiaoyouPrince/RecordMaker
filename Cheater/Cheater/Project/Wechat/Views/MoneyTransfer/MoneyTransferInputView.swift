@@ -13,6 +13,44 @@
 
 import UIKit
 
+protocol MoneyTransferInputViewProtocol {
+    /// 给当前 view 设置微信转账数字键盘的自定义 inputView
+    /// - Parameter returnKeyClickCallBack: 返回按钮点击
+    func setMoneyTransferInputView(_ returnKeyClickCallBack:@escaping()->())
+}
+
+extension UITextField: MoneyTransferInputViewProtocol {
+    func setMoneyTransferInputView(_ returnKeyClickCallBack:@escaping()->()){
+        let inputView = MoneyTransferInputView()
+        self.inputView = inputView
+        self.becomeFirstResponder()
+        
+        inputView.callback = {[weak self] newKey in
+            guard let self = self else { return }
+            let currentText = self.text ?? ""
+            
+            if newKey == "\n" {
+                returnKeyClickCallBack()
+                
+            }else
+            if newKey == "" {
+                let newText = currentText.dropLast(1)
+                self.text = String(newText)
+                NotificationCenter.default.post(Notification(name: UITextField.textDidChangeNotification,object: self))
+            }else{
+                // 只允许输入一个小数点
+                if newKey == ".", currentText.contains(".") == true {
+                    // return
+                }else{
+                    self.text = currentText + newKey
+                    NotificationCenter.default.post(Notification(name: UITextField.textDidChangeNotification,object: self))
+                }
+            }
+        }
+    }
+}
+
+
 class MoneyTransferInputView: UIView {
     
     let line = UIView.line

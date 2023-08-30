@@ -93,6 +93,14 @@
 		B4F869E42A55B51E003749B8 /* AuthorityCameraExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F869E32A55B51E003749B8 /* AuthorityCameraExtension.swift */; };
 		B4FF35B72A992CDC00364391 /* RedPacketBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35B62A992CDC00364391 /* RedPacketBaseViewController.swift */; };
 		B4FF35C02A9DA51500364391 /* WXChargesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35BF2A9DA51500364391 /* WXChargesController.swift */; };
+		B4FF35C62A9E19A900364391 /* WXChargesWithdrawController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35C52A9E19A900364391 /* WXChargesWithdrawController.swift */; };
+		B4FF35C92A9E1EDE00364391 /* WithdrawBankView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35C82A9E1EDE00364391 /* WithdrawBankView.swift */; };
+		B4FF35CB2A9E236F00364391 /* Common.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4FF35CA2A9E236F00364391 /* Common.xcassets */; };
+		B4FF35CD2A9E246900364391 /* BankTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35CC2A9E246900364391 /* BankTool.swift */; };
+		B4FF35CF2A9E307700364391 /* WithdrawContentInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35CE2A9E307700364391 /* WithdrawContentInputView.swift */; };
+		B4FF35D12A9EF60D00364391 /* WithdrawInputPwdController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35D02A9EF60D00364391 /* WithdrawInputPwdController.swift */; };
+		B4FF35D32A9EF92D00364391 /* PwdKeyBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35D22A9EF92D00364391 /* PwdKeyBoard.swift */; };
+		B4FF35D52A9EFE6500364391 /* WithdrawInputPwdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35D42A9EFE6500364391 /* WithdrawInputPwdView.swift */; };
 		B4FFBE262A36161C001F09AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE252A36161C001F09AD /* AppDelegate.swift */; };
 		B4FFBE282A36161C001F09AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE272A36161C001F09AD /* SceneDelegate.swift */; };
 		B4FFBE2A2A36161C001F09AD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE292A36161C001F09AD /* HomeViewController.swift */; };
@@ -194,6 +202,14 @@
 		B4F869E32A55B51E003749B8 /* AuthorityCameraExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorityCameraExtension.swift; sourceTree = "<group>"; };
 		B4FF35B62A992CDC00364391 /* RedPacketBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedPacketBaseViewController.swift; sourceTree = "<group>"; };
 		B4FF35BF2A9DA51500364391 /* WXChargesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXChargesController.swift; sourceTree = "<group>"; };
+		B4FF35C52A9E19A900364391 /* WXChargesWithdrawController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXChargesWithdrawController.swift; sourceTree = "<group>"; };
+		B4FF35C82A9E1EDE00364391 /* WithdrawBankView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawBankView.swift; sourceTree = "<group>"; };
+		B4FF35CA2A9E236F00364391 /* Common.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Common.xcassets; sourceTree = "<group>"; };
+		B4FF35CC2A9E246900364391 /* BankTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankTool.swift; sourceTree = "<group>"; };
+		B4FF35CE2A9E307700364391 /* WithdrawContentInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawContentInputView.swift; sourceTree = "<group>"; };
+		B4FF35D02A9EF60D00364391 /* WithdrawInputPwdController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawInputPwdController.swift; sourceTree = "<group>"; };
+		B4FF35D22A9EF92D00364391 /* PwdKeyBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdKeyBoard.swift; sourceTree = "<group>"; };
+		B4FF35D42A9EFE6500364391 /* WithdrawInputPwdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawInputPwdView.swift; sourceTree = "<group>"; };
 		B4FFBE222A36161C001F09AD /* Cheater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cheater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4FFBE252A36161C001F09AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4FFBE272A36161C001F09AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -439,6 +455,7 @@
 				B480554F2A61A66B00712CEF /* InputBarAddFunctionHelper.swift */,
 				B48055512A62615D00712CEF /* ChoosePhotoController.swift */,
 				B4AF22712A864D6800405672 /* MsgCellMenuManageer.swift */,
+				B4FF35CC2A9E246900364391 /* BankTool.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -454,9 +471,23 @@
 		B4FF35BE2A9DA4E800364391 /* Charges */ = {
 			isa = PBXGroup;
 			children = (
+				B4FF35C72A9E1EA900364391 /* views */,
 				B4FF35BF2A9DA51500364391 /* WXChargesController.swift */,
+				B4FF35C52A9E19A900364391 /* WXChargesWithdrawController.swift */,
+				B4FF35D02A9EF60D00364391 /* WithdrawInputPwdController.swift */,
 			);
 			path = Charges;
+			sourceTree = "<group>";
+		};
+		B4FF35C72A9E1EA900364391 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				B4FF35C82A9E1EDE00364391 /* WithdrawBankView.swift */,
+				B4FF35CE2A9E307700364391 /* WithdrawContentInputView.swift */,
+				B4FF35D22A9EF92D00364391 /* PwdKeyBoard.swift */,
+				B4FF35D42A9EFE6500364391 /* WithdrawInputPwdView.swift */,
+			);
+			path = views;
 			sourceTree = "<group>";
 		};
 		B4FFBE192A36161C001F09AD = {
@@ -486,6 +517,7 @@
 				B4FFBE2B2A36161C001F09AD /* Main.storyboard */,
 				B4FFBE2E2A36161D001F09AD /* Assets.xcassets */,
 				B4F869AB2A38C41D003749B8 /* WXResources.xcassets */,
+				B4FF35CA2A9E236F00364391 /* Common.xcassets */,
 				B4FFBE302A36161D001F09AD /* LaunchScreen.storyboard */,
 				B4AF223B2A65A27300405672 /* WeChatSansStd-Medium.ttf */,
 				B4FFBE332A36161D001F09AD /* Info.plist */,
@@ -575,6 +607,7 @@
 				B4FFBE322A36161D001F09AD /* LaunchScreen.storyboard in Resources */,
 				B4F869AC2A38C41D003749B8 /* WXResources.xcassets in Resources */,
 				B4FFBE2F2A36161D001F09AD /* Assets.xcassets in Resources */,
+				B4FF35CB2A9E236F00364391 /* Common.xcassets in Resources */,
 				B4AF226C2A85CA2D00405672 /* jQuery.js in Resources */,
 				B4FFBE2D2A36161C001F09AD /* Main.storyboard in Resources */,
 				B4AF226E2A85CC7D00405672 /* locationPicker.html in Resources */,
@@ -651,8 +684,10 @@
 				B4AF22672A83FCF300405672 /* SendLocationController.swift in Sources */,
 				B4AF22422A6D7BC500405672 /* SendMoneyTransferViewController.swift in Sources */,
 				B4FFBE3D2A362C18001F09AD /* XYChatInputBar.swift in Sources */,
+				B4FF35CF2A9E307700364391 /* WithdrawContentInputView.swift in Sources */,
 				B4F869A42A38A011003749B8 /* WechatHomeViewController.swift in Sources */,
 				B4F869AA2A38A74A003749B8 /* WechatTabbar.swift in Sources */,
+				B4FF35D32A9EF92D00364391 /* PwdKeyBoard.swift in Sources */,
 				B4FF35B72A992CDC00364391 /* RedPacketBaseViewController.swift in Sources */,
 				B41F24282A964CF700C47458 /* EditBaseViewController.swift in Sources */,
 				B4AF22692A84A94400405672 /* SendLocationController2.swift in Sources */,
@@ -665,6 +700,7 @@
 				B4AF22722A864D6800405672 /* MsgCellMenuManageer.swift in Sources */,
 				B4AF22742A887DB500405672 /* EditTextViewController.swift in Sources */,
 				B4F869CF2A53D0B6003749B8 /* WXAddSingleChatViewController.swift in Sources */,
+				B4FF35D12A9EF60D00364391 /* WithdrawInputPwdController.swift in Sources */,
 				B4AF224D2A7013FB00405672 /* WXPayHUD.swift in Sources */,
 				B4FFBE2A2A36161C001F09AD /* HomeViewController.swift in Sources */,
 				B480555C2A64940800712CEF /* CellContentVoip.swift in Sources */,
@@ -687,9 +723,13 @@
 				B4FFBE3A2A3619C2001F09AD /* MineViewController.swift in Sources */,
 				B41F241E2A94CAE700C47458 /* PaySuccessView.swift in Sources */,
 				B4F869BC2A405475003749B8 /* WXContactCell.swift in Sources */,
+				B4FF35D52A9EFE6500364391 /* WithdrawInputPwdView.swift in Sources */,
 				B4AF224F2A702C2700405672 /* WXPayInputPwdView.swift in Sources */,
+				B4FF35CD2A9E246900364391 /* BankTool.swift in Sources */,
+				B4FF35C92A9E1EDE00364391 /* WithdrawBankView.swift in Sources */,
 				B4F869C92A4365BD003749B8 /* WXAddRuleViewController.swift in Sources */,
 				B4AF22632A83ED3B00405672 /* CellContentIDCard.swift in Sources */,
+				B4FF35C62A9E19A900364391 /* WXChargesWithdrawController.swift in Sources */,
 				B4F869B02A3989E9003749B8 /* WXPersonInfoViewController.swift in Sources */,
 				B4AF22492A6D896B00405672 /* MoneyTransferContentView.swift in Sources */,
 				B4F869D32A540D9A003749B8 /* WXListModel.swift in Sources */,

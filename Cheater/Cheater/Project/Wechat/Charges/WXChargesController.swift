@@ -159,7 +159,7 @@ extension WXChargesController {
     
     /// 进入提现页面
     func gotoWithdrawVC() {
-        
+        nav_present(WXChargesWithdrawController(), animated: true)
     }
     
     func loadData() {
