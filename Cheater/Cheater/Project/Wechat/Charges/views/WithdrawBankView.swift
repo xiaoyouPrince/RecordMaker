@@ -23,14 +23,34 @@ class WithdrawBankView: UIView {
     private let titleLabel = UILabel(title: "建设银行", font: .boldSystemFont(ofSize: 16), textColor: .black, textAlignment: .left)
     private let tipLabel = UILabel(title: "2小时内到帐", font: .systemFont(ofSize: 16), textColor: .C_wx_tip_text, textAlignment: .left)
     
+    /// 获取和设置当前的银行
+    var currentBankCard: BankTool.BankCard? {
+        didSet{
+            guard let card = currentBankCard else { return }
+            setup(bankIcon: card.bank.image, bankTitle: card.bank.title, cardNum: card.cardNumber)
+        }
+    }
+    var doneTime: String? {
+        didSet{
+            guard let doneTime = doneTime else { return }
+            tipLabel.text = doneTime
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupContent()
         
         if let bank = BankTool.bankWithName("建设银行") {
-            let bankCard = BankTool.BankCard(bank: bank, cardNumber: "8899")
-            setup(bankIcon: bank.image, bankTitle: bank.title, cardNum: bankCard.cardNumber)
+            let card = BankTool.BankCard(bank: bank, cardNumber: "8899")
+            currentBankCard = card // init 中初始化不会走内部 didset
+            setup(bankIcon: card.bank.image, bankTitle: card.bank.title, cardNum: card.cardNumber)
         }
+        doneTime = "2小时内到帐"
+    }
+    
+    override func layoutSubviews() {
+        
     }
     
     required init?(coder: NSCoder) {

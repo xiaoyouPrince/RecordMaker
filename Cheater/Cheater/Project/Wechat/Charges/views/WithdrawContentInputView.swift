@@ -15,8 +15,28 @@ class WithdrawContentInputView: UIView {
     private let totalMoneyLabel = UILabel(title: "当前零钱余额100.00元,", font: .systemFont(ofSize: 16), textColor: .C_wx_tip_text, textAlignment: .left)
     private let actionBtn = UILabel(title: "全部提现", font: .systemFont(ofSize: 16), textColor: .C_wx_link_text, textAlignment: .left)
     
+    private var bankCard: BankTool.BankCard?
     /// 零钱数量
-    var chaegesAmmount: String = "0.00"
+    var chaegesAmmount: String = "0.00" {
+        didSet{
+            totalMoneyLabel.text = "当前零钱余额\(chaegesAmmount.toMoneyString)元,"
+        }
+    }
+    var rate: String = "0.1%"
+    /// 更新零钱余额和费率
+    /// - Parameters:
+    ///   - moneyAmmount: 零钱数量
+    ///   - rate: 费率
+    func update(moneyAmmount: String, rate: String, bankCard: BankTool.BankCard?) {
+        chaegesAmmount = moneyAmmount
+        textField.text = chaegesAmmount.toMoneyString
+        self.rate = rate
+        self.bankCard = bankCard
+    }
+    
+    func update(bankCard: BankTool.BankCard?) {
+        self.bankCard = bankCard
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,7 +56,18 @@ class WithdrawContentInputView: UIView {
     func textViewDidClickReturn() {
         if let text = textField.text, text.doubleValue > 0 {
             WXPayHUD.show {
-                UIViewController.currentVisibleVC.nav_present(WithdrawInputPwdController(), animated: false)
+                let inputPwdPage = WithdrawInputPwdController(moneyAmmount: self.textField.text ?? "", rate: self.rate)
+                UIViewController.currentVisibleVC.nav_present(inputPwdPage, animated: false)
+                inputPwdPage.callback = { [weak self] in
+                    guard let self = self, let bankCard = self.bankCard else { return }
+                    
+                    let withdrawAmmount = self.textField.text ?? ""
+                    let fee = withdrawAmmount.toMoneyString.floatValue * self.rate.replacingOccurrences(of: "%", with: "").floatValue * 0.01
+                    let pageInfo = WithdrawInprogressViewController.PageInfo(bankCard: bankCard, withdrawAmmount: withdrawAmmount, fee: String(fee), doneTime: Date().string(withFormatter: "MM-dd HH:mm"))
+                    let detail = WithdrawInprogressViewController(pageInfo: pageInfo)
+                    detail.modalPresentationStyle = .custom
+                    UIViewController.currentVisibleVC.nav_present(detail, animated: true)
+                }
             }
         }else{
             Toast.make("请输入金额")

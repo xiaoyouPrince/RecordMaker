@@ -55,7 +55,7 @@ struct WXConfig {
     
     /// 微信主题绿色
     static var wxGreen: UIColor {
-        return UIColor.xy_getColor(red: 25, green: 184, blue: 78)
+        return UIColor.xy_getColor(red: 24, green: 186, blue: 77)
     }
     
     /// 输入框背景色

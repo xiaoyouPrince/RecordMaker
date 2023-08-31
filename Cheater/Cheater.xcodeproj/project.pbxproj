@@ -101,6 +101,8 @@
 		B4FF35D12A9EF60D00364391 /* WithdrawInputPwdController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35D02A9EF60D00364391 /* WithdrawInputPwdController.swift */; };
 		B4FF35D32A9EF92D00364391 /* PwdKeyBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35D22A9EF92D00364391 /* PwdKeyBoard.swift */; };
 		B4FF35D52A9EFE6500364391 /* WithdrawInputPwdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35D42A9EFE6500364391 /* WithdrawInputPwdView.swift */; };
+		B4FF35D72A9F84C000364391 /* WithdrawEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35D62A9F84C000364391 /* WithdrawEditViewController.swift */; };
+		B4FF35D92AA056FA00364391 /* WithdrawInprogressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35D82AA056FA00364391 /* WithdrawInprogressViewController.swift */; };
 		B4FFBE262A36161C001F09AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE252A36161C001F09AD /* AppDelegate.swift */; };
 		B4FFBE282A36161C001F09AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE272A36161C001F09AD /* SceneDelegate.swift */; };
 		B4FFBE2A2A36161C001F09AD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE292A36161C001F09AD /* HomeViewController.swift */; };
@@ -210,6 +212,8 @@
 		B4FF35D02A9EF60D00364391 /* WithdrawInputPwdController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawInputPwdController.swift; sourceTree = "<group>"; };
 		B4FF35D22A9EF92D00364391 /* PwdKeyBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdKeyBoard.swift; sourceTree = "<group>"; };
 		B4FF35D42A9EFE6500364391 /* WithdrawInputPwdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawInputPwdView.swift; sourceTree = "<group>"; };
+		B4FF35D62A9F84C000364391 /* WithdrawEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawEditViewController.swift; sourceTree = "<group>"; };
+		B4FF35D82AA056FA00364391 /* WithdrawInprogressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawInprogressViewController.swift; sourceTree = "<group>"; };
 		B4FFBE222A36161C001F09AD /* Cheater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cheater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4FFBE252A36161C001F09AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4FFBE272A36161C001F09AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -474,6 +478,8 @@
 				B4FF35C72A9E1EA900364391 /* views */,
 				B4FF35BF2A9DA51500364391 /* WXChargesController.swift */,
 				B4FF35C52A9E19A900364391 /* WXChargesWithdrawController.swift */,
+				B4FF35D82AA056FA00364391 /* WithdrawInprogressViewController.swift */,
+				B4FF35D62A9F84C000364391 /* WithdrawEditViewController.swift */,
 				B4FF35D02A9EF60D00364391 /* WithdrawInputPwdController.swift */,
 			);
 			path = Charges;
@@ -685,6 +691,7 @@
 				B4AF22422A6D7BC500405672 /* SendMoneyTransferViewController.swift in Sources */,
 				B4FFBE3D2A362C18001F09AD /* XYChatInputBar.swift in Sources */,
 				B4FF35CF2A9E307700364391 /* WithdrawContentInputView.swift in Sources */,
+				B4FF35D72A9F84C000364391 /* WithdrawEditViewController.swift in Sources */,
 				B4F869A42A38A011003749B8 /* WechatHomeViewController.swift in Sources */,
 				B4F869AA2A38A74A003749B8 /* WechatTabbar.swift in Sources */,
 				B4FF35D32A9EF92D00364391 /* PwdKeyBoard.swift in Sources */,
@@ -756,6 +763,7 @@
 				B4AF22532A823A9900405672 /* CellContentSysgtemMsg.swift in Sources */,
 				B41F24242A94FDB000C47458 /* MTWaitTargetReceiveController.swift in Sources */,
 				B4498DFE2A5A571E00B13CFA /* WXDetailViewController.swift in Sources */,
+				B4FF35D92AA056FA00364391 /* WithdrawInprogressViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

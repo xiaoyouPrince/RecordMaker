@@ -20,6 +20,21 @@ import XYInfomationSection
 class WithdrawInputPwdController: UIViewController {
     var infoBox: WithdrawInputPwdView?
     var keyBoard: UIView? //PwdKeyBoard?
+    private var moneyAmmount: String
+    private var rate: String
+    var callback:(()->())?
+    
+    init(infoBox: WithdrawInputPwdView? = nil, keyBoard: UIView? = nil, moneyAmmount: String, rate: String) {
+        self.infoBox = infoBox
+        self.keyBoard = keyBoard
+        self.moneyAmmount = moneyAmmount
+        self.rate = rate
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,9 +53,6 @@ class WithdrawInputPwdController: UIViewController {
         UIView.animate(withDuration: 0.25) {
             self.view.backgroundColor = .black.withAlphaComponent(0.25)
         }
-        
-        
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -64,7 +76,7 @@ extension WithdrawInputPwdController {
     }
     
     func setupContent() {
-        infoBox = .init(moneyAmmount: "901", doneCallBack: {[weak self] in
+        infoBox = .init(moneyAmmount: moneyAmmount, rate: rate, doneCallBack: {[weak self] in
             guard let self = self else { return }
             self.gotoWithdrawSuccessPage()
         })
@@ -93,13 +105,12 @@ extension WithdrawInputPwdController {
         
         WXPayHUD.show(1) {
             // dismiss pwd input view
-            self.dismiss(animated: false)
-            
-            // new page
-            Toast.make("成功页面")
+            self.dismiss(animated: false) {
+                // new page
+                self.callback?()
+            }
         }
     }
-    
 }
 
 extension WithdrawInputPwdController {

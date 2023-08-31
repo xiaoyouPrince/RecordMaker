@@ -20,6 +20,7 @@ import XYUIKit
 
 class WithdrawInputPwdView: UIView {
     private var moneyAmmount: String
+    private var rate: String
     /// 输入框
     private var boxs = [UITextField]()
     /// 当前输入的密码
@@ -30,8 +31,11 @@ class WithdrawInputPwdView: UIView {
     
     /// 初始化一个 inputPwdView
     /// - Parameter moneyAmmount: 金额数量
-    init(moneyAmmount: String, doneCallBack: (()->())?) {
+    /// - Parameter rate: 费率 0~1
+    /// - Parameter doneCallBack: 完成回调
+    init(moneyAmmount: String, rate: String, doneCallBack: (()->())?) {
         self.moneyAmmount = moneyAmmount.toMoneyString
+        self.rate = rate.replacingOccurrences(of: "%", with: "")
         self.callback = doneCallBack
         super.init(frame: .zero)
         setupContent()
@@ -119,13 +123,14 @@ class WithdrawInputPwdView: UIView {
         }
         
         addSubview(feeLabel)
-        feeLabel.text = "¥" + String(format: "%.2f", moneyAmmount.toMoneyString.floatValue * 0.01)
+        let realFee = moneyAmmount.toMoneyString.floatValue * rate.floatValue * 0.01
+        feeLabel.text = "¥" + String(format: "%.2f", max(realFee, 0.1))
         feeLabel.snp.makeConstraints { make in
             make.right.equalTo(line)
             make.centerY.equalTo(feeTipLabel)
         }
         
-        let feeRateDetailLabel = UILabel(title: "0.10%（最低¥0.10）", font: .systemFont(ofSize: 12), textColor: .black, textAlignment: .center)
+        let feeRateDetailLabel = UILabel(title: "\(rate)%（最低¥0.10）", font: .systemFont(ofSize: 12), textColor: .black, textAlignment: .center)
         addSubview(feeRateDetailLabel)
         feeRateDetailLabel.snp.makeConstraints { make in
             make.right.equalTo(line)
