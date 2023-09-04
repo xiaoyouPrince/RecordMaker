@@ -145,6 +145,7 @@
 		B4FF35BC2A9DA14000364391 /* XYAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35BB2A9DA14000364391 /* XYAlert.swift */; };
 		B4FF35C22A9DAA0200364391 /* UIImageView+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35C12A9DAA0200364391 /* UIImageView+XYAdd.swift */; };
 		B4FF35C42A9E027F00364391 /* Bool+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35C32A9E027F00364391 /* Bool+XYAdd.swift */; };
+		B4FF35DB2AA3760500364391 /* NSAttributeString+XYAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35DA2AA3760500364391 /* NSAttributeString+XYAdd.swift */; };
 		B5851BD2252C21EBC6B5777D7D2B1563 /* XYAlbum-XYAlbum in Resources */ = {isa = PBXBuildFile; fileRef = A31058CC5946B24F27DF9DE6FA3DD0CE /* XYAlbum-XYAlbum */; };
 		B61AA5459C2B345AD6D84D8A5111C9CE /* Masonry-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EF1762F12DE358951D68EDA9595D672 /* Masonry-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B752F7C4BECB65894B1F49421049CE5F /* ConstraintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD58D5F8E2A825B6E49CC0E4EE5C244C /* ConstraintView.swift */; };
@@ -431,6 +432,7 @@
 		B4FF35BB2A9DA14000364391 /* XYAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYAlert.swift; sourceTree = "<group>"; };
 		B4FF35C12A9DAA0200364391 /* UIImageView+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+XYAdd.swift"; sourceTree = "<group>"; };
 		B4FF35C32A9E027F00364391 /* Bool+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+XYAdd.swift"; sourceTree = "<group>"; };
+		B4FF35DA2AA3760500364391 /* NSAttributeString+XYAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributeString+XYAdd.swift"; sourceTree = "<group>"; };
 		B50D3852FD32434B54732BC2912BAC2B /* XYInfomationSection.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = XYInfomationSection.release.xcconfig; sourceTree = "<group>"; };
 		B7035700455A516E68A23E9CD11B04AE /* ConstraintMaker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMaker.swift; path = Sources/ConstraintMaker.swift; sourceTree = "<group>"; };
 		BA2C6708EA82F2A8AF500741C9EE54FA /* UIImage+JPExtension.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIImage+JPExtension.h"; sourceTree = "<group>"; };
@@ -1127,6 +1129,7 @@
 				38B8254C1F752A1397D62D7119D5E1DB /* UIViewController.swift */,
 				B4FF35C12A9DAA0200364391 /* UIImageView+XYAdd.swift */,
 				B4FF35C32A9E027F00364391 /* Bool+XYAdd.swift */,
+				B4FF35DA2AA3760500364391 /* NSAttributeString+XYAdd.swift */,
 			);
 			name = Categories;
 			path = XYUIKit/XYUIKit/XYUIKit/Classes/Categories;
@@ -1577,6 +1580,7 @@
 				22E8F722653BAC14BA9C21560B7B6548 /* XYMacros.swift in Sources */,
 				C58B236272268A117DE8E0728B4CE715 /* XYNetTool.swift in Sources */,
 				9B49002F73CA8928551DBFC92089E35F /* XYPickerView.m in Sources */,
+				B4FF35DB2AA3760500364391 /* NSAttributeString+XYAdd.swift in Sources */,
 				4B3D3AC166C721BF7E1AD5069A3E1993 /* XYPopView.swift in Sources */,
 				DCB18C49D3889F45FDE8CD0E68485AE1 /* XYRefreshTableViewController.swift in Sources */,
 				2824F71C51D2727889A47134F5EA6B46 /* XYSpeedMatchController.swift in Sources */,

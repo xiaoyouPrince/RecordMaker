@@ -103,6 +103,11 @@
 		B4FF35D52A9EFE6500364391 /* WithdrawInputPwdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35D42A9EFE6500364391 /* WithdrawInputPwdView.swift */; };
 		B4FF35D72A9F84C000364391 /* WithdrawEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35D62A9F84C000364391 /* WithdrawEditViewController.swift */; };
 		B4FF35D92AA056FA00364391 /* WithdrawInprogressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35D82AA056FA00364391 /* WithdrawInprogressViewController.swift */; };
+		B4FF35DE2AA37CB900364391 /* PYQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35DD2AA37CB900364391 /* PYQViewController.swift */; };
+		B4FF35E12AA58A0100364391 /* TimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35E02AA58A0100364391 /* TimelineCell.swift */; };
+		B4FF35E32AA5963F00364391 /* TimelineNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35E22AA5963F00364391 /* TimelineNavBar.swift */; };
+		B4FF35E52AA59CFA00364391 /* TimelineTableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35E42AA59CFA00364391 /* TimelineTableHeader.swift */; };
+		B4FF35E72AA59D9200364391 /* PYQPageInfoProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FF35E62AA59D9200364391 /* PYQPageInfoProtocol.swift */; };
 		B4FFBE262A36161C001F09AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE252A36161C001F09AD /* AppDelegate.swift */; };
 		B4FFBE282A36161C001F09AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE272A36161C001F09AD /* SceneDelegate.swift */; };
 		B4FFBE2A2A36161C001F09AD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFBE292A36161C001F09AD /* HomeViewController.swift */; };
@@ -214,6 +219,11 @@
 		B4FF35D42A9EFE6500364391 /* WithdrawInputPwdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawInputPwdView.swift; sourceTree = "<group>"; };
 		B4FF35D62A9F84C000364391 /* WithdrawEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawEditViewController.swift; sourceTree = "<group>"; };
 		B4FF35D82AA056FA00364391 /* WithdrawInprogressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawInprogressViewController.swift; sourceTree = "<group>"; };
+		B4FF35DD2AA37CB900364391 /* PYQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PYQViewController.swift; sourceTree = "<group>"; };
+		B4FF35E02AA58A0100364391 /* TimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCell.swift; sourceTree = "<group>"; };
+		B4FF35E22AA5963F00364391 /* TimelineNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineNavBar.swift; sourceTree = "<group>"; };
+		B4FF35E42AA59CFA00364391 /* TimelineTableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineTableHeader.swift; sourceTree = "<group>"; };
+		B4FF35E62AA59D9200364391 /* PYQPageInfoProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PYQPageInfoProtocol.swift; sourceTree = "<group>"; };
 		B4FFBE222A36161C001F09AD /* Cheater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cheater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4FFBE252A36161C001F09AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4FFBE272A36161C001F09AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -372,6 +382,7 @@
 				B4FF35BE2A9DA4E800364391 /* Charges */,
 				B4FF35B52A992BB300364391 /* RedPacket */,
 				B41F24192A94C89000C47458 /* MoneyTransfer */,
+				B4FF35DC2AA37C7D00364391 /* PYQ */,
 				B4F869C82A4365BD003749B8 /* WXAddRuleViewController.swift */,
 				B4F869CE2A53D0B6003749B8 /* WXAddSingleChatViewController.swift */,
 				B4F869AF2A3989E9003749B8 /* WXPersonInfoViewController.swift */,
@@ -494,6 +505,26 @@
 				B4FF35D42A9EFE6500364391 /* WithdrawInputPwdView.swift */,
 			);
 			path = views;
+			sourceTree = "<group>";
+		};
+		B4FF35DC2AA37C7D00364391 /* PYQ */ = {
+			isa = PBXGroup;
+			children = (
+				B4FF35DF2AA589DF00364391 /* View */,
+				B4FF35DD2AA37CB900364391 /* PYQViewController.swift */,
+				B4FF35E62AA59D9200364391 /* PYQPageInfoProtocol.swift */,
+			);
+			path = PYQ;
+			sourceTree = "<group>";
+		};
+		B4FF35DF2AA589DF00364391 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B4FF35E02AA58A0100364391 /* TimelineCell.swift */,
+				B4FF35E22AA5963F00364391 /* TimelineNavBar.swift */,
+				B4FF35E42AA59CFA00364391 /* TimelineTableHeader.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		B4FFBE192A36161C001F09AD = {
@@ -676,10 +707,12 @@
 				B4AF22612A83CBFE00405672 /* SendFileController.swift in Sources */,
 				B480555E2A64BD7200712CEF /* SendVoipCpntroller.swift in Sources */,
 				B4498DFC2A586EAE00B13CFA /* DatePickerController.swift in Sources */,
+				B4FF35E12AA58A0100364391 /* TimelineCell.swift in Sources */,
 				B4498DF82A57C0FD00B13CFA /* WXListCellLeftSwiptHelper.swift in Sources */,
 				B4AF22702A85E38600405672 /* CellContentLocation.swift in Sources */,
 				B48055502A61A66B00712CEF /* InputBarAddFunctionHelper.swift in Sources */,
 				B4AF227E2A8B2D8700405672 /* EmotionPadView.swift in Sources */,
+				B4FF35DE2AA37CB900364391 /* PYQViewController.swift in Sources */,
 				B4F869B72A3F4801003749B8 /* WXDataSource.swift in Sources */,
 				B48055562A644B9D00712CEF /* SendVideoController.swift in Sources */,
 				B41F24262A95B10400C47458 /* EditMoneyTransferController.swift in Sources */,
@@ -701,6 +734,7 @@
 				B4AF22782A89237600405672 /* EditRedPacketController.swift in Sources */,
 				B41F24182A8B88FB00C47458 /* UITextView+Emotion.swift in Sources */,
 				B4FF35C02A9DA51500364391 /* WXChargesController.swift in Sources */,
+				B4FF35E52AA59CFA00364391 /* TimelineTableHeader.swift in Sources */,
 				B4AF22572A83427300405672 /* BaseSendMsgController.swift in Sources */,
 				B4AF224B2A6E784700405672 /* MoneyTransferTipView.swift in Sources */,
 				B4498DF52A570E9A00B13CFA /* WXChooseStatusController.swift in Sources */,
@@ -711,6 +745,7 @@
 				B4AF224D2A7013FB00405672 /* WXPayHUD.swift in Sources */,
 				B4FFBE2A2A36161C001F09AD /* HomeViewController.swift in Sources */,
 				B480555C2A64940800712CEF /* CellContentVoip.swift in Sources */,
+				B4FF35E72AA59D9200364391 /* PYQPageInfoProtocol.swift in Sources */,
 				B480554D2A61450E00712CEF /* XYChatInputFunctionPad.swift in Sources */,
 				B48055422A5F9D9A00712CEF /* SendAudioViewController.swift in Sources */,
 				B4AF22442A6D7F7E00405672 /* MoneyTransferHeader.swift in Sources */,
@@ -725,6 +760,7 @@
 				B4AF22652A83EDD100405672 /* SendIDCardController.swift in Sources */,
 				B41F24202A94EBE000C47458 /* MoneyView.swift in Sources */,
 				B4498E022A5AC48600B13CFA /* WXDetailCell.swift in Sources */,
+				B4FF35E32AA5963F00364391 /* TimelineNavBar.swift in Sources */,
 				B48055522A62615D00712CEF /* ChoosePhotoController.swift in Sources */,
 				B4F869D52A541B83003749B8 /* WXListCell.swift in Sources */,
 				B4FFBE3A2A3619C2001F09AD /* MineViewController.swift in Sources */,

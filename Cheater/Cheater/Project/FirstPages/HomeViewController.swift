@@ -310,6 +310,8 @@ class HomeCell: XYInfomationCell {
                             }else if itemView.item.title == "零钱提现" {
                                 let mtVC = WXChargesWithdrawController()
                                 detail = mtVC
+                            }else if itemView.item.title == "朋友圈" {
+                                detail = PYQViewController()
                             }else{
                                 detail = MineViewController()
                             }

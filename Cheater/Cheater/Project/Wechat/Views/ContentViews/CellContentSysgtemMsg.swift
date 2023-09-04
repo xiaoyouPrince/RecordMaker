@@ -72,18 +72,16 @@ extension CellContentSystemMsg: WXDetailContentProtocol {
         let contentString = data.content ?? ""
         //label.text = contentString
         
-        label.attributedText = contentString.addAttributes(attrs: [.foregroundColor: UIColor.red], withRegx: "#[^#]*#")
+        label.attributedText = contentString.addAttributes(attrs: [.foregroundColor: UIColor.red], withRegx: "#[^#]*#").setLineSpacing(lineSpacing: 5, textAlignment: .center)
         
         let leftMargin: CGFloat = 60
         let topMargin: CGFloat = 8
         
-        let stringHeight = contentString.heightOf(font: label.font, size: .init(width: .width - 2*leftMargin, height: .height))
         label.snp.remakeConstraints { make in
             make.left.equalTo(leftMargin)
             make.right.equalTo(-leftMargin)
             make.top.equalTo(topMargin)
             make.bottom.equalTo(-topMargin)
-            make.height.equalTo(stringHeight)
         }
     }
 }
